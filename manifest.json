@@ -1,0 +1,10 @@
+{
+  "id": "react-starter",
+  "name": "React Starter",
+  "description": "Obsidian + ReactJS",
+  "version": "0.0.0",
+  "author": "Liam Cain",
+  "authorUrl": "https://github.com/liamcain/",
+  "isDesktopOnly": true,
+  "minAppVersion": "0.10.8"
+}
