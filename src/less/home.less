@@ -1,10 +1,10 @@
 @import "./mixin.less";
 
-#root {
+div[data-type="memos_view"] #root {
   background-color: #f6f5f4;
 }
 
-#page-wrapper {
+div[data-type="memos_view"] #page-wrapper {
   .flex(row, flex-start, flex-start);
   width: 848px;
   max-width: 100%;
@@ -15,13 +15,15 @@
   > .content-wrapper {
     .flex(column, flex-start, flex-start);
     position: relative;
+    margin-top: 15px;
+    padding-left: 10px;
     width: 600px;
     height: 100%;
   }
 }
 
 @media only screen and (max-width: 875px) {
-  body.mobile-show-sidebar {
+  div[data-type="memos_view"] body.mobile-show-sidebar {
     #page-wrapper {
       > .content-wrapper {
         transform: translateX(320px);
@@ -29,7 +31,7 @@
     }
   }
 
-  #page-wrapper {
+  div[data-type="memos_view"] #page-wrapper {
     .flex(column, flex-start, flex-start);
     width: 100%;
     height: 100%;

@@ -1,6 +1,6 @@
 @import "./mixin.less";
 
-.queries-wrapper {
+div[data-type="memos_view"] .queries-wrapper {
   .flex(column, flex-start, flex-start);
   width: 100%;
   padding: 0 8px;
@@ -12,6 +12,7 @@
     .flex(row, space-between, center);
     width: 100%;
     padding: 4px 16px;
+    margin-bottom: 4px;
 
     > * {
       font-size: 12px;
@@ -181,7 +182,7 @@
 }
 
 @media only screen and (max-width: 875px) {
-  .queries-container {
+  div[data-type="memos_view"] .queries-container {
     height: auto;
 
     &:last-child {
@@ -190,6 +191,7 @@
 
     > .title-text {
       font-size: 13px;
+      margin-bottom: 4px;
     }
 
     > .query-item-container {

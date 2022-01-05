@@ -18,13 +18,14 @@ export async function changeMemo(memoid: string, originalContent: string, conten
     const dailyNote = getDailyNote(changeDate, dailyNotes);
     const fileContent = await vault.cachedRead(dailyNote);
     const fileLines = getAllLinesFromFile(fileContent);
+    const removeEnter = content.replace(/\n/g, "<br>");
     const originalLine = fileLines[idString];
-    const newLine = fileLines[idString].replace(originalContent , content);
+    const newLine = fileLines[idString].replace(originalContent , removeEnter);
     const newFileContent = fileContent.replace(originalLine , newLine);
     await vault.modify(dailyNote, newFileContent);
     return {
         id: memoid,
-        content: content,
+        content: removeEnter,
         deletedAt: "",
         createdAt: changeDate.format('YYYY/MM/DD HH:mm:SS'),
         updatedAt: changeDate.format('YYYY/MM/DD HH:mm:SS'),

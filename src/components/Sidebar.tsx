@@ -64,7 +64,7 @@ const Sidebar: React.FC<Props> = () => {
   }, [isMobileView, showSiderbarInMobileView]);
 
   return (
-    <aside className="sidebar-wrapper" ref={wrapperElRef}>
+    <aside className="memos-sidebar-wrapper" ref={wrapperElRef}>
       <UserBanner />
       <UsageHeatMap />
       <QueryList />

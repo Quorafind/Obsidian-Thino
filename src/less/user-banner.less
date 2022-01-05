@@ -1,9 +1,9 @@
 @import "./mixin.less";
 
-.user-banner-container {
+div[data-type="memos_view"] .user-banner-container {
   .flex(column, flex-start, flex-start);
   width: 100%;
-  height: 128px;
+  height: 160px;
 
   > .userinfo-header-container {
     .flex(row, space-between, center);
@@ -73,8 +73,8 @@
 }
 
 @media only screen and (max-width: 875px) {
-  .user-banner-container {
-    height: 154px;
+  div[data-type="memos_view"] .user-banner-container {
+    height: 170px;
     z-index: 1;
     padding-top: 16px !important;
 
