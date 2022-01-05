@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
 import { getDailyNote, getDailyNoteSettings } from "obsidian-daily-notes-interface";
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';

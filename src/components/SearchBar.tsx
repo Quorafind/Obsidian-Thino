@@ -7,13 +7,15 @@ import React from "react";
 
 interface Props {}
 
+export let searchBoxInput: HTMLInputElement;
+
 const SearchBar: React.FC<Props> = () => {
   const {
     locationState: {
       query: { type: memoType },
     },
   } = useContext(appContext);
-
+  
   const handleMemoTypeItemClick = (type: MemoSpecType | "") => {
     const { type: prevType } = locationService.getState().query;
     if (type === prevType) {

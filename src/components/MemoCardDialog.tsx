@@ -39,23 +39,33 @@ const detectWikiInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[1]
   const internalAltName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[5]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  const imagePath = getPathOfImage(vault, file);
-  const filePath = file.path;
-  if(internalAltName){
+  if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: imagePath,
-      filepath: filePath,
+      path: "",
+      filepath: "",
     }
-  }else {
-    return {
-      linkText: internalFileName,
-      altText: "",
-      path: imagePath,
-      filepath: filePath,
+  }else{
+    const imagePath = getPathOfImage(vault, file);
+    const filePath = file.path;
+    if(internalAltName){
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: imagePath,
+        filepath: filePath,
+      }
+    }else {
+      return {
+        linkText: internalFileName,
+        altText: "",
+        path: imagePath,
+        filepath: filePath,
+      }
     }
   }
+  
 }
 
 const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
@@ -64,21 +74,30 @@ const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  MARKDOWN_URL_REG.exec(lineText)?.[5]
   const internalAltName =  MARKDOWN_URL_REG.exec(lineText)?.[2]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  const imagePath = getPathOfImage(vault, file);
-  const filePath = file.path;
-  if(internalAltName){
+  if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: imagePath,
-      filepath: filePath,
+      path: "",
+      filepath: "",
     }
   }else {
-    return {
-      linkText: internalFileName,
-      altText: "",
-      path: imagePath,
-      filepath: filePath,
+    const imagePath = getPathOfImage(vault, file);
+    const filePath = file.path;
+    if(internalAltName){
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: imagePath,
+        filepath: filePath,
+      }
+    }else {
+      return {
+        linkText: internalFileName,
+        altText: "",
+        path: imagePath,
+        filepath: filePath,
+      }
     }
   }
 }

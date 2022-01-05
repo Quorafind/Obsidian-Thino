@@ -34,18 +34,26 @@ const detectWikiInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[1]
   const internalAltName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[5]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  const imagePath = getPathOfImage(vault, file);
-  if(internalAltName){
+  if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: imagePath,
+      path: "",
     }
-  }else {
-    return {
-      linkText: internalFileName,
-      altText: "",
-      path: imagePath,
+  }else{
+    const imagePath = getPathOfImage(vault, file);
+    if(internalAltName){
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: imagePath,
+      }
+    }else {
+      return {
+        linkText: internalFileName,
+        altText: "",
+        path: imagePath,
+      }
     }
   }
 }
@@ -56,18 +64,26 @@ const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  MARKDOWN_URL_REG.exec(lineText)?.[5]
   const internalAltName =  MARKDOWN_URL_REG.exec(lineText)?.[2]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  const imagePath = getPathOfImage(vault, file);
-  if(internalAltName){
+  if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: imagePath,
+      path: "",
     }
-  }else {
-    return {
-      linkText: internalFileName,
-      altText: "",
-      path: imagePath,
+  }else{
+    const imagePath = getPathOfImage(vault, file);
+    if(internalAltName){
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: imagePath,
+      }
+    }else {
+      return {
+        linkText: internalFileName,
+        altText: "",
+        path: imagePath,
+      }
     }
   }
 }

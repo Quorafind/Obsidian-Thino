@@ -29,6 +29,8 @@ export interface EditorProps {
   onContentChange: (content: string) => void;
 }
 
+export let editorInput: HTMLTextAreaElement;
+
 // eslint-disable-next-line react/display-name
 const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRefActions>) => {
   const {
@@ -50,6 +52,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const tinyUndoRef = useRef<TinyUndo | null>(null);
   const refresh = useRefresh();
+  editorInput = editorRef.current;
 
   useEffect(() => {
     if (!editorRef.current) {
@@ -138,7 +141,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
 
   const handleEditorKeyDown = useCallback((event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     event.stopPropagation();
-
+    
     if (event.code === "Enter") {
       if (event.metaKey || event.ctrlKey) {
         handleCommonConfirmBtnClick();
@@ -165,7 +168,8 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
 
   return (
     <div className={"common-editor-wrapper " + className}>
-      <textarea
+      <textarea 
+        autoFocus
         className="common-editor-inputer"
         rows={1}
         placeholder={placeholder}
