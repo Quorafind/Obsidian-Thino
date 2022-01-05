@@ -49,7 +49,8 @@ const UsageHeatMap: React.FC<Props> = () => {
     const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestemp);
     for (const m of memos) {
       const index = (utils.getDateStampByDate(m.createdAt) - beginDayTimestemp) / (1000 * 3600 * 24) - 1;
-      if (index >= 0) {
+      // if(index != newStat.length) { }
+      if (index >= 0 && index< newStat.length) {
         newStat[index].count += 1;
       }
     }

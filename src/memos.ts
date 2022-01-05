@@ -32,6 +32,8 @@ export class Memos extends ItemView {
 
 	async onOpen(): Promise<void> {
 
+		
+
 		await this.plugin.loadSettings();
 		dailyNotesService.getApp(this.app);
 		InsertAfter = this.plugin.settings.InsertAfter;

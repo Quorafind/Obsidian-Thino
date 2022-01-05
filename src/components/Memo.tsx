@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { FIRST_TAG_REG, IMAGE_URL_REG, LINK_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, MEMO_LINK_REG, TAG_REG, WIKI_IMAGE_URL_REG } from "../helpers/consts";
 import { encodeHtml, parseMarkedToHtml, parseRawTextToHtml } from "../helpers/marked";
 import utils from "../helpers/utils";
@@ -13,6 +13,7 @@ import "../less/memo.less";
 import React from "react";
 import { TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
+import { showMemoInDailyNotes } from "../obComponents/obShowMemo";
 
 interface Props {
   memo: Model.Memo;
@@ -35,23 +36,32 @@ const detectWikiInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[1]
   const internalAltName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[5]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  const imagePath = getPathOfImage(vault, file);
-  const filePath = file.path;
-  if(internalAltName){
+  if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: imagePath,
-      filepath: filePath,
+      path: "",
+      filepath: "",
     }
   }else {
-    return {
-      linkText: internalFileName,
-      altText: "",
-      path: imagePath,
-      filepath: filePath,
+    const imagePath = getPathOfImage(vault, file);
+    const filePath = file.path;
+    if(internalAltName){
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: imagePath,
+        filepath: filePath,
+      }
+    }else {
+      return {
+        linkText: internalFileName,
+        altText: "",
+        path: imagePath,
+        filepath: filePath,
+      }
     }
-  }
+  } 
 }
 
 const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
@@ -60,21 +70,30 @@ const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  MARKDOWN_URL_REG.exec(lineText)?.[5]
   const internalAltName =  MARKDOWN_URL_REG.exec(lineText)?.[2]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  const imagePath = getPathOfImage(vault, file);
-  const filePath = file.path;
-  if(internalAltName){
+  if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: imagePath,
-      filepath: filePath,
+      path: "",
+      filepath: "",
     }
   }else {
-    return {
-      linkText: internalFileName,
-      altText: "",
-      path: imagePath,
-      filepath: filePath,
+    const imagePath = getPathOfImage(vault, file);
+    const filePath = file.path;
+    if(internalAltName){
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: imagePath,
+        filepath: filePath,
+      }
+    }else {
+      return {
+        linkText: internalFileName,
+        altText: "",
+        path: imagePath,
+        filepath: filePath,
+      }
     }
   }
 }
@@ -137,6 +156,10 @@ const Memo: React.FC<Props> = (props: Props) => {
     globalStateService.setEditMemoId(memo.id);
   };
 
+  const handleSourceMemoClick = () => {
+    showMemoInDailyNotes(memo.id);
+  };
+
   const handleDeleteMemoClick = async () => {
     if (showConfirmDeleteBtn) {
       try {
@@ -163,6 +186,20 @@ const Memo: React.FC<Props> = (props: Props) => {
     showShareMemoImageDialog(memo);
   };
 
+  const handleMemoKeyDown = useCallback((event: React.MouseEvent) => {
+    
+    if (event.ctrlKey) {
+      handleSourceMemoClick();
+    }
+  }, []);
+
+  const handleMemoDoubleKeyDown = useCallback((event: React.MouseEvent) => {
+    
+    if (event) {
+      handleEditMemoClick();
+    }
+  }, []);
+
   const handleMemoContentClick = async (e: React.MouseEvent) => {
     const targetEl = e.target as HTMLElement;
 
@@ -183,7 +220,7 @@ const Memo: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className={`memo-wrapper ${"memos-" + memo.id}`} onMouseLeave={handleMouseLeaveMemoWrapper}>
+    <div className={`memo-wrapper ${"memos-" + memo.id}`} onMouseLeave={handleMouseLeaveMemoWrapper} onMouseDown={handleMemoKeyDown} onDoubleClick={handleMemoDoubleKeyDown}>
       <div className="memo-top-wrapper">
         <span className="time-text" onClick={handleShowMemoStoryDialog}>
           {memo.createdAtStr}
@@ -205,6 +242,9 @@ const Memo: React.FC<Props> = (props: Props) => {
               </span>
               <span className="btn" onClick={handleEditMemoClick}>
                 EDIT
+              </span>
+              <span className="btn" onClick={handleSourceMemoClick}>
+                SOURCE
               </span>
               <span className={`btn delete-btn ${showConfirmDeleteBtn ? "final-confirm" : ""}`} onClick={handleDeleteMemoClick}>
                 {showConfirmDeleteBtn ? "CONFIRM！" : "DELETE"}
@@ -259,7 +299,7 @@ export function formatMemoContent(content: string, memoid?: string) {
   }
 
   if (shouldHideImageUrl) {
-    content = content.replace(WIKI_IMAGE_URL_REG, "").replace(IMAGE_URL_REG, "");
+    content = content.replace(WIKI_IMAGE_URL_REG, "").replace(MARKDOWN_URL_REG, "").replace(IMAGE_URL_REG,"");
   }
 
   // 中英文之间加空格

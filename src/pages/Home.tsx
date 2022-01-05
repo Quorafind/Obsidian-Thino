@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 // import { locationService, userService } from "../services";
 import { homeRouterSwitch } from "../routers";
 import appContext from "../stores/appContext";
@@ -6,12 +6,14 @@ import Sidebar from "../components/Sidebar";
 import useLoading from "../hooks/useLoading";
 import "../less/home.less";
 import React from "react";
+import useRefresh from "../hooks/useRefresh";
 
 function Home() {
   const {
     locationState: { pathname },
   } = useContext(appContext);
   const loadingState = useLoading();
+  const refresh = useRefresh();
 
   useEffect(() => {
     // const { user } = userService.getState();
@@ -32,6 +34,7 @@ function Home() {
       loadingState.setFinish();
     // }
   }, []);
+
 
   return (
     <>

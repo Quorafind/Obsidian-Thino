@@ -2,7 +2,7 @@ import api from "../helpers/api";
 import { NOP_FIRST_TAG_REG, TAG_REG } from "../helpers/consts";
 import utils from "../helpers/utils";
 import appStore from "../stores/appStore";
-import { waitForInsert } from "../obComponents/createMemoInDailyNote";
+import { waitForInsert } from "../obComponents/obCreateMemo";
 import { changeMemo } from "../obComponents/obUpdateMemo";
 // import userService from "./userService";
 

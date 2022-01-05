@@ -1,6 +1,6 @@
 import { getDailyNotePath } from "./obUpdateMemo";
 import { TFile, normalizePath, Notice } from 'obsidian';
-import moment from "moment";
+import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
 import appStore from "../stores/appStore";
 
 export const createObsidianQuery = async (title: string, querystring: string): Promise<any> =>{

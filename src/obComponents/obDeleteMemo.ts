@@ -1,9 +1,9 @@
 import { getDailyNotePath } from "./obUpdateMemo";
 import { TFile, normalizePath, Notice } from 'obsidian';
-import moment from "moment";
+import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
 import appStore from "../stores/appStore";
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
-import { insertAfterHandler } from "./createMemoInDailyNote";
+import { insertAfterHandler } from "./obCreateMemo";
 import { InsertAfter } from "../memos";
 
 export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> {
