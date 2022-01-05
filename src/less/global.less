@@ -22,7 +22,7 @@
   font-style: normal;
 }
 
-* {
+div[data-type="memos_view"] {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -32,22 +32,22 @@
     "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-body,
-html {
+div[data-type="memos_view"] body,
+div[data-type="memos_view"] html {
   width: 100%;
   height: 100%;
   overflow: hidden;
   font-size: 15px;
 }
 
-code {
+div[data-type="memos_view"] code {
   .mono-font-family();
   background-color: pink;
   padding: 2px 4px;
   border-radius: 4px;
 }
 
-pre {
+div[data-type="memos_view"] pre {
   .mono-font-family();
 
   * {
@@ -55,10 +55,10 @@ pre {
   }
 }
 
-label,
-input,
-button,
-textarea,
+div[data-type="memos_view"] label,
+div[data-type="memos_view"] input,
+div[data-type="memos_view"] button,
+div[data-type="memos_view"] textarea,
 img {
   background-color: transparent;
   user-select: none;
@@ -67,14 +67,14 @@ img {
   outline: none;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+div[data-type="memos_view"] input:-webkit-autofill,
+div[data-type="memos_view"] input:-webkit-autofill:hover,
+div[data-type="memos_view"] input:-webkit-autofill:focus,
+div[data-type="memos_view"] input:-webkit-autofill:active {
   box-shadow: 0 0 0 30px white inset !important;
 }
 
-li {
+div[data-type="memos_view"] li {
   list-style-type: none;
 
   &::before {
@@ -84,7 +84,7 @@ li {
   }
 }
 
-a {
+div[data-type="memos_view"] a {
   cursor: pointer;
   color: @text-blue;
   text-underline-offset: 2px;
@@ -94,7 +94,7 @@ a {
   }
 }
 
-.btn {
+div[data-type="memos_view"] .btn {
   border: unset;
   background-color: unset;
   text-align: unset;
@@ -109,8 +109,8 @@ a {
 }
 
 @media only screen and (max-width: 875px) {
-  body,
-  html {
+  div[data-type="memos_view"] body,
+  div[data-type="memos_view"] html {
     -webkit-overflow-scrolling: touch;
   }
 }

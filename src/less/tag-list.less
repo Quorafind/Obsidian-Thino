@@ -1,6 +1,6 @@
 @import "./mixin.less";
 
-.tags-wrapper {
+div[data-type="memos_view"] .tags-wrapper {
   .flex(column, flex-start, flex-start);
   width: 100%;
   padding: 0 8px;
@@ -17,6 +17,7 @@
     line-height: 24px;
     color: @text-black;
     opacity: 0.5;
+    margin-bottom: 4px;
   }
 
   > .tags-container {
@@ -185,7 +186,7 @@
 }
 
 @media only screen and (max-width: 875px) {
-  .tags-wrapper {
+  div[data-type="memos_view"] .tags-wrapper {
     background-color: white;
 
     > .tags-container {

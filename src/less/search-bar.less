@@ -1,6 +1,6 @@
 @import "./mixin.less";
 
-.search-bar-container {
+div[data-type="memos_view"] .search-bar-container {
   width: 160px;
 
   > .search-bar-inputer {
@@ -104,7 +104,7 @@
 }
 
 @media only screen and (max-width: 875px) {
-  .search-bar-container > .quickly-action-wrapper {
+  div[data-type="memos_view"] .search-bar-container > .quickly-action-wrapper {
     right: 4px;
   }
 }

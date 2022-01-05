@@ -1,5 +1,5 @@
 import { getDailyNotePath } from "./obUpdateMemo";
-import { TFile, normalizePath, Notice } from 'obsidian';
+import { TFile, Notice } from 'obsidian';
 import moment from "moment";
 import appStore from "../stores/appStore";
 
