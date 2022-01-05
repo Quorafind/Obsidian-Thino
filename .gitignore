@@ -1,6 +1,7 @@
-node_modules/
-dist/
-data.json
-main.js
-.vscode/
-*.code-workspace
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+
+.yarn/*

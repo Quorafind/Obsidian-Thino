@@ -3,7 +3,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import replace from "@rollup/plugin-replace";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
-import { env } from "process";
+
+const isProd = env.BUILD === "production";
 
 export default {
   input: "src/index.ts",
@@ -11,9 +12,13 @@ export default {
     format: "cjs",
     file: "main.js",
     exports: "default",
+    sourcemap: "inline",
+    sourcemapExcludeSources: isProd,
   },
   external: ["obsidian", "fs", "os", "path"],
+  sourceMap: true,
   plugins: [
+    less({options}),
     typescript(),
     resolve({
       browser: true,
