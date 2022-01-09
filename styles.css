@@ -511,8 +511,8 @@ div[data-type="memos_view"] .search-bar-container > .quickly-action-wrapper:hove
     width: 100%;
     padding: 8px 16px;
     border-radius: 8px;
-    width: 150%;
-    margin-left: -80px;
+    width: 120%;
+    margin-left: -35px;
   }
   div[data-type="memos_view"] .search-bar-container > .quickly-action-wrapper {
     display: none;
