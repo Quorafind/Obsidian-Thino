@@ -41,4 +41,25 @@ div[data-type="memos_view"] .memo-trash-wrapper {
   div[data-type="memos_view"] .deleted-memos-container {
     padding: 0 12px;
   }
+
+  div[data-type="memos_view"] .memo-trash-wrapper {
+    .flex(column, flex-start, flex-start);
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    overflow-y: scroll;
+    .hide-scroll-bar();
+  
+    > .section-header-container {
+      width: 100%;
+      height: 58px;
+      margin-bottom: 0;
+  
+      > .title-text {
+        font-weight: bold;
+        font-size: 18px;
+        color: @text-black;
+      }
+    }
+  }
 }

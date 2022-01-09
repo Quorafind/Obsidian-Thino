@@ -1,9 +1,10 @@
 import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import reactSvgPlugin from 'vite-plugin-react-svg'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), reactSvgPlugin()],
   build: {
     sourcemap: 'inline',
     minify: false,

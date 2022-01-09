@@ -2,6 +2,8 @@ import React from "react";
 import { memo, useEffect, useRef } from "react";
 import useToggle from "../../hooks/useToggle";
 import "../../less/common/selector.less";
+// import arrowLeft from '../../icons/arrow-left.svg';
+import arrowRight from '../../icons/arrow-right.svg';
 
 interface TVObject {
   text: string;
@@ -65,7 +67,7 @@ const Selector: React.FC<Props> = (props: Props) => {
       <div className={`current-value-container ${showSelector ? "active" : ""}`} onClick={handleCurrentValueClick}>
         <span className="value-text">{currentItem.text}</span>
         <span className="arrow-text">
-          <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/arrow-right.svg" />
+          <img className="icon-img" src={arrowRight} />
         </span>
       </div>
 

@@ -12,6 +12,8 @@ import "../less/memo-card-dialog.less";
 import React from "react";
 import { TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
+import close from '../icons/close.svg';
+import edit from '../icons/edit.svg';
 
 interface LinkedMemo extends FormattedMemo {
   dateStr: string;
@@ -136,7 +138,7 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
     if(allMarkdownLink.length){
       for(let i = 0; i < allMarkdownLink.length; i++){
         let two = allMarkdownLink[i];
-        if(MARKDOWN_WEB_URL_REG.test(two)){
+        if(/(.*)http[s]?(.*)/.test(two)){
           anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
         }else{
           internalImageUrls.push(detectMDInternalLink(two));
@@ -225,10 +227,10 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
           <p className="time-text">{memo.createdAtStr}</p>
           <div className="btns-container">
             <button className="btn edit-btn" onClick={handleEditMemoBtnClick}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/edit.svg" />
+              <img className="icon-img" src={edit} />
             </button>
             <button className="btn close-btn" onClick={props.destroy}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/close.svg" />
+              <img className="icon-img" src={close} />
             </button>
           </div>
         </div>

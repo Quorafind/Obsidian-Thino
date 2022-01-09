@@ -6,6 +6,7 @@ import Only from "./common/OnlyWhen";
 import utils from "../helpers/utils";
 import "../less/tag-list.less";
 import React from "react";
+import arrowRight from "../icons/arrow-right.svg"
 
 interface Tag {
   key: string;
@@ -124,7 +125,7 @@ const TagItemContainer: React.FC<TagItemContainerProps> = (props: TagItemContain
         <div className="btns-container">
           {hasSubTags ? (
             <span className={`action-btn toggle-btn ${showSubTags ? "shown" : ""}`} onClick={handleToggleBtnClick}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/arrow-right.svg" />
+              <img className="icon-img" src={arrowRight} />
             </span>
           ) : null}
         </div>

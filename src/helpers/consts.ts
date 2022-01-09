@@ -14,14 +14,23 @@ export const DAILY_TIMESTAMP = 3600 * 24 * 1000;
 //eslint-disable-next-line
 export const TAG_REG = /\s#([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/gu;
 //eslint-disable-next-line
-export const FIRST_TAG_REG = /(?<=(p>))#([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/gu;
+export const FIRST_TAG_REG = /(<p>)#([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/gu;
 //eslint-disable-next-line
 export const NOP_FIRST_TAG_REG = /^#([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/gu;
 //eslint-disable-next-line
 export const ALL_TAG_REG = /([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/u
 
 // URL 正则
-export const LINK_REG = /(https?:\/\/[^\s<\\*>']+)/g;
+//eslint-disable-next-line
+export const LINK_REG = /(\s|：|>)((http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-]))/g;
+
+// export const CHECK_LINK_REG = /(\((\s*))(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/g;
+// export const LINK_REG = /(https?:\/\/[^\s<\\*>']+)/g;
+
+
+// MARKDOWN URL 正则
+//eslint-disable-next-line
+export const MD_LINK_REG = /\[([\s\S]*?)\]\(([\s\S]*?)\)/gu;
 
 // 图片 正则
 export const IMAGE_URL_REG = /([^\s<\\*>']+\.(jpeg|jpg|gif|png|svg))(\]\])?(\))?/g;
@@ -33,9 +42,8 @@ export const MARKDOWN_URL_REG = /(!\[([^\]]*)(\|)?(.*?)\]\((.*?)("(?:.*[^"])")?\
 
 // 检测是否为外部图片
 //eslint-disable-next-line
-export const MARKDOWN_WEB_URL_REG = /(http[s]?:\/\/)([^\/\s]+\/)(.*?)(jpeg|jpg|gif|png|svg|bmp|wepg)(?!\))/g;
+export const MARKDOWN_WEB_URL_REG = /(\s|：|^)(http[s]?:\/\/)([^\/\s]+\/)(.*?)(jpeg|jpg|gif|png|svg|bmp|wepg)(?!\))/g;
 
-///(?<=\[)((.*?)\|(.*?))(?=\])/g
 
 // Wiki 图片正则
 // Group 1 为图片

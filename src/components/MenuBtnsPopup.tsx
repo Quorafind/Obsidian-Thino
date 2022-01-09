@@ -3,6 +3,7 @@ import { locationService } from "../services";
 import showAboutSiteDialog from "./AboutSiteDialog";
 import "../less/menu-btns-popup.less";
 import React from "react";
+import dailyNotesService from '../services/dailyNotesService';
 
 interface Props {
   shownStatus: boolean;
@@ -11,6 +12,7 @@ interface Props {
 
 const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
   const { shownStatus, setShownStatus } = props;
+  const { app } = dailyNotesService.getState();
 
   const popupElRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +32,8 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
   }, [shownStatus]);
 
   const handleMyAccountBtnClick = () => {
-    locationService.pushHistory("/setting");
+    app.setting.open();
+    app.setting.openTabById("obsidian-memos");
   };
 
   const handleMemosTrashBtnClick = () => {
@@ -47,9 +50,9 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={`menu-btns-popup ${shownStatus ? "" : "hidden"}`} ref={popupElRef}>
-      {/* <button className="btn action-btn" onClick={handleMyAccountBtnClick}>
-        <span className="icon">👤</span> 账号与设置
-      </button> */}
+      <button className="btn action-btn" onClick={handleMyAccountBtnClick}>
+        <span className="icon">👤</span> Settings
+      </button>
       <button className="btn action-btn" onClick={handleMemosTrashBtnClick}>
         <span className="icon">🗑️</span> Recycle bin
       </button>

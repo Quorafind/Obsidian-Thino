@@ -5,6 +5,7 @@ import { globalStateService, memoService, queryService } from "../services";
 import Only from "./common/OnlyWhen";
 import "../less/memos-header.less";
 import React from "react";
+import menuSvg from "../icons/menu.svg";
 
 let prevRequestTimestamp = Date.now();
 
@@ -49,7 +50,7 @@ const MemosHeader: React.FC<Props> = () => {
       <div className="title-text" onClick={handleMemoTextClick}>
         <Only when={isMobileView}>
           <button className="action-btn" onClick={handleShowSidebarBtnClick}>
-            <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/menu.svg" alt="menu" />
+            <img className="icon-img" src={menuSvg} alt="menu" />
           </button>
         </Only>
         <span className="normal-text">{titleText}</span>

@@ -4,6 +4,7 @@ import { locationService } from "../services";
 import { memoSpecialTypes } from "../helpers/filter";
 import "../less/search-bar.less";
 import React from "react";
+import search from "../icons/search.svg";
 
 interface Props {}
 
@@ -32,7 +33,7 @@ const SearchBar: React.FC<Props> = () => {
   return (
     <div className="search-bar-container">
       <div className="search-bar-inputer">
-        <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/search.svg" />
+        <img className="icon-img" src={search} />
         <input className="text-input" type="text" placeholder="" onChange={handleTextQueryInput} />
       </div>
       <div className="quickly-action-wrapper">

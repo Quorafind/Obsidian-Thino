@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { FIRST_TAG_REG, IMAGE_URL_REG, LINK_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, MEMO_LINK_REG, TAG_REG, WIKI_IMAGE_URL_REG } from "../helpers/consts";
+import { FIRST_TAG_REG, IMAGE_URL_REG, LINK_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, MD_LINK_REG, MEMO_LINK_REG, TAG_REG, WIKI_IMAGE_URL_REG } from "../helpers/consts";
 import { encodeHtml, parseMarkedToHtml, parseRawTextToHtml } from "../helpers/marked";
 import utils from "../helpers/utils";
 import useToggle from "../hooks/useToggle";
@@ -14,6 +14,7 @@ import React from "react";
 import { TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
 import { showMemoInDailyNotes } from "../obComponents/obShowMemo";
+import more from "../icons/more.svg"
 
 interface Props {
   memo: Model.Memo;
@@ -133,7 +134,7 @@ const Memo: React.FC<Props> = (props: Props) => {
     if(allMarkdownLink.length){
       for(let i = 0; i < allMarkdownLink.length; i++){
         let two = allMarkdownLink[i];
-        if(MARKDOWN_WEB_URL_REG.test(two)){
+        if(/(.*)http[s]?(.*)/.test(two)){
           anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
         }else{
           internalImageUrls.push(detectMDInternalLink(two));
@@ -188,7 +189,7 @@ const Memo: React.FC<Props> = (props: Props) => {
 
   const handleMemoKeyDown = useCallback((event: React.MouseEvent) => {
     
-    if (event.ctrlKey) {
+    if (event.ctrlKey || event.metaKey) {
       handleSourceMemoClick();
     }
   }, []);
@@ -206,7 +207,6 @@ const Memo: React.FC<Props> = (props: Props) => {
     if (targetEl.className === "memo-link-text") {
       const memoId = targetEl.dataset?.value;
       const memoTemp = memoService.getMemoById(memoId ?? "");
-      console.log(memoTemp);
 
       if (memoTemp) {
         showMemoCardDialog(memoTemp);
@@ -227,7 +227,7 @@ const Memo: React.FC<Props> = (props: Props) => {
         </span>
         <div className="btns-container">
           <span className="btn more-action-btn">
-            <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/more.svg" />
+            <img className="icon-img" src={more} />
           </span>
           <div className="more-action-btns-wrapper">
             <div className="more-action-btns-container">
@@ -302,6 +302,8 @@ export function formatMemoContent(content: string, memoid?: string) {
     content = content.replace(WIKI_IMAGE_URL_REG, "").replace(MARKDOWN_URL_REG, "").replace(IMAGE_URL_REG,"");
   }
 
+  // console.log(content);
+
   // 中英文之间加空格
   // if (shouldSplitMemoWord) {
   //   content = content
@@ -311,9 +313,21 @@ export function formatMemoContent(content: string, memoid?: string) {
 
   content = content
     .replace(TAG_REG, "<span class='tag-span'>#$1</span>")
-    .replace(FIRST_TAG_REG, "<span class='tag-span'>#$2</span>")
-    .replace(LINK_REG, "<a class='link' target='_blank' rel='noreferrer' href='$1'>$1</a>")
+    .replace(FIRST_TAG_REG, "<p><span class='tag-span'>#$2</span>")
+    .replace(LINK_REG, "$1<a class='link' target='_blank' rel='noreferrer' href='$2'>$2</a>")
+    .replace(MD_LINK_REG, "<a class='link' target='_blank' rel='noreferrer' href='$2'>$1</a>")
     .replace(MEMO_LINK_REG, "<span class='memo-link-text' data-value='$2'>$1</span>");
+
+  // const contentMark = content.split('');
+
+  // if(/(.*)<a(.*)/g.test(content)){
+
+  // }
+  //   for(let i=0; i<content.length;i++){
+  //     let mark = false;
+  //     let aMark = false;
+  //     if(contentMark[i])
+  //   }
 
   const tempDivContainer = document.createElement("div");
   tempDivContainer.innerHTML = content;

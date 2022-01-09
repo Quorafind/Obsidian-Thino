@@ -4,6 +4,7 @@ import { showDialog } from "./Dialog";
 import "../less/preview-image-dialog.less";
 import React from "react";
 import appStore from "../stores/appStore";
+import close from '../icons/close.svg';
 
 interface Props extends DialogProps {
   imgUrl: string;
@@ -52,7 +53,7 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Prop
   return (
     <>
       <button className="btn close-btn" onClick={handleCloseBtnClick}>
-        <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/close.svg" />
+        <img className="icon-img" src={close} />
       </button>
 
       <div className="img-container internal-embed image-embed is-loaded">

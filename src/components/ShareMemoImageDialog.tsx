@@ -12,6 +12,7 @@ import React from "react";
 import { TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
 import { UserName } from '../memos';
+import close from '../icons/close.svg';
 
 interface Props extends DialogProps {
   memo: Model.Memo;
@@ -125,7 +126,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     if(allMarkdownLink.length){
       for(let i = 0; i < allMarkdownLink.length; i++){
         let two = allMarkdownLink[i];
-        if(MARKDOWN_WEB_URL_REG.test(two)){
+        if(/(.*)http[s]?(.*)/.test(two)){
           anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
         }else{
           internalImageUrls.push(detectMDInternalLink(two));
@@ -183,7 +184,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
           <span className="icon-text">🥰</span>分享 Memo 图片
         </p>
         <button className="btn close-btn" onClick={handleCloseBtnClick}>
-          <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/close.svg" />
+          <img className="icon-img" src={close} />
         </button>
       </div>
       <div className="dialog-content-container">

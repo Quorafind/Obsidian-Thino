@@ -9,6 +9,8 @@ import { locationService, queryService } from "../services";
 import showCreateQueryDialog from "./CreateQueryDialog";
 import "../less/query-list.less";
 import React from "react";
+import more from '../icons/more.svg';
+import moreWhite from '../icons/more-white.svg';
 
 interface Props {}
 
@@ -144,7 +146,7 @@ const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemC
         </div>
         <div className="btns-container">
           <span className="action-btn toggle-btn" onClick={handleShowActionBtnClick}>
-            <img className="icon-img" src={`https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/more${isActive ? "-white" : ""}.svg`} />
+            <img className="icon-img" src={isActive ? moreWhite : more} />
           </span>
           <div className={`action-btns-wrapper ${showActionBtns ? "" : "hidden"}`} onMouseLeave={handleActionBtnContainerMouseLeave}>
             <div className="action-btns-container">

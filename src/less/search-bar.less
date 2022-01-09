@@ -104,7 +104,29 @@ div[data-type="memos_view"] .search-bar-container {
 }
 
 @media only screen and (max-width: 875px) {
-  div[data-type="memos_view"] .search-bar-container > .quickly-action-wrapper {
-    right: 4px;
+  div[data-type="memos_view"] .search-bar-container {
+    > .quickly-action-wrapper {
+      right: 4px;
+    }
+
+    > .search-bar-inputer {
+      .flex(row, flex-start, center);
+      background-color: @bg-lightgray;
+      width: 100%;
+      padding: 8px 16px;
+      border-radius: 8px;
+      width: 150%;
+      margin-left: -80px;
+    }
+
+    > .quickly-action-wrapper {
+      display: none;
+      position: absolute;
+      top: 32px;
+      right: 4px;
+      z-index: 2;
+      padding: 8px;
+      width: 320px;
+    }
   }
 }
