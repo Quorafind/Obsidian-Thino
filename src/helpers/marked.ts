@@ -31,7 +31,8 @@ const parseMarkedToHtml = (markedStr: string, memoid?: string): string => {
     .replace(DONE_BLOCK_REG, "<span class='todo-block' data-type='done'>✅</span>")
     .replace(BOLD_TEXT_REG, "<strong>$1</strong>")
     .replace(EM_TEXT_REG, "<em>$1</em>")
-    .replace(/&lt;br&gt;/g, "</p><p>");
+    .replace(/&lt;br&gt;/g, "</p><p>")
+    .replace(/&amp;/g, "&");
   
   let newHtmlText = htmlText;
 

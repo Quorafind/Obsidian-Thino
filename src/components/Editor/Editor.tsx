@@ -253,12 +253,11 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           }}
           onInput={handleEditorInput}
           onKeyDown={handleEditorKeyDown}
-          // containerStyle={{
-          //   marginTop: 20,
-          //   width: 400,
-          //   height: 100,
-          //   margin: "20px auto"
-          // }}
+          dropdownStyle={{
+            minWidth: 180,
+            maxHeight: 250,
+            overflowY: "auto",
+          }}
           minChar={0}
           onItemSelected={handleInsertTrigger}
           scrollToItem={true}
@@ -268,7 +267,6 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
               dataProvider: token => {
                 actualToken = token;
                 return usedTags(token)
-                  .slice(0, 10)
                   .map(({ name, char }) => ({ name, char }));
               },
               //eslint-disable-next-line
