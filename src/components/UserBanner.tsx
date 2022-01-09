@@ -7,6 +7,7 @@ import showDailyMemoDiaryDialog from "./DailyMemoDiaryDialog";
 import "../less/user-banner.less";
 import React from "react";
 import { UserName } from '../memos';
+import more from "../icons/more.svg"
 
 interface Props {}
 
@@ -35,7 +36,7 @@ const UserBanner: React.FC<Props> = () => {
   const handlePopupBtnClick = () => {
     const sidebarEl = document.querySelector(".memos-sidebar-wrapper") as HTMLElement;
     const popupEl = document.querySelector(".menu-btns-popup") as HTMLElement;
-    popupEl.style.top = 54 - sidebarEl.scrollTop + "px";
+    popupEl.style.top = 70 - sidebarEl.scrollTop + "px";
     setShouldShowPopupBtns(true);
   };
 
@@ -46,7 +47,7 @@ const UserBanner: React.FC<Props> = () => {
           {username}
         </p>
         <span className="action-btn menu-popup-btn" onClick={handlePopupBtnClick}>
-          <img src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/more.svg" className="icon-img" />
+          <img src={more} className="icon-img" />
         </span>
         <MenuBtnsPopup shownStatus={shouldShowPopupBtns} setShownStatus={setShouldShowPopupBtns} />
       </div>

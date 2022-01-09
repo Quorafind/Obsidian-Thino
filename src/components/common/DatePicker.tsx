@@ -1,6 +1,9 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { DAILY_TIMESTAMP } from "../../helpers/consts";
 import "../../less/common/date-picker.less";
+import arrowLeft from '../../icons/arrow-left.svg';
+import arrowRight from '../../icons/arrow-right.svg';
 
 interface DatePickerProps {
   className?: string;
@@ -55,13 +58,13 @@ const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
     <div className={`date-picker-wrapper ${className}`}>
       <div className="date-picker-header">
         <span className="btn-text" onClick={() => handleChangeMonthBtnClick(-1)}>
-          <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/arrow-left.svg" />
+          <img className="icon-img" src={arrowLeft} />
         </span>
         <span className="normal-text">
           {firstDate.getFullYear()} 年 {firstDate.getMonth() + 1} 月
         </span>
         <span className="btn-text" onClick={() => handleChangeMonthBtnClick(1)}>
-          <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/arrow-right.svg" />
+          <img className="icon-img" src={arrowRight} />
         </span>
       </div>
       <div className="date-picker-day-container">

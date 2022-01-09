@@ -13,11 +13,13 @@ import "../less/daily-memo-diary-dialog.less";
 import React from "react";
 import MemosPlugin from '../index';
 import { App } from "obsidian";
+import close from '../icons/close.svg';
+import arrowLeft from '../icons/arrow-left.svg';
+import arrowRight from '../icons/arrow-right.svg';
+import share from '../icons/share.svg';
 
 interface Props extends DialogProps {
   currentDateStamp: DateStamp;
-  app: App;
-  plugin: MemosPlugin;
 }
 
 const monthChineseStrArray = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
@@ -82,16 +84,16 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
           <p className="title-text">Daily Memos</p>
           <div className="btns-container">
             <span className="btn-text" onClick={() => setCurrentDateStamp(currentDateStamp - DAILY_TIMESTAMP)}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/arrow-left.svg" />
+              <img className="icon-img" src={arrowLeft} />
             </span>
             <span className="btn-text" onClick={() => setCurrentDateStamp(currentDateStamp + DAILY_TIMESTAMP)}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/arrow-right.svg" />
+              <img className="icon-img" src={arrowRight} />
             </span>
             <span className="btn-text share-btn" onClick={handleShareBtnClick}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/share.svg" />
+              <img className="icon-img" src={share} />
             </span>
             <span className="btn-text" onClick={() => props.destroy()}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/close.svg" />
+              <img className="icon-img" src={close} />
             </span>
           </div>
         </div>

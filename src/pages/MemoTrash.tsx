@@ -11,6 +11,7 @@ import DeletedMemo from "../components/DeletedMemo";
 import MemoFilter from "../components/MemoFilter";
 import "../less/memo-trash.less";
 import React from "react";
+import menuSvg from "../icons/menu.svg";
 
 interface Props {}
 
@@ -99,7 +100,7 @@ const MemoTrash: React.FC<Props> = () => {
         <div className="title-text">
           <Only when={isMobileView}>
             <button className="action-btn" onClick={handleShowSidebarBtnClick}>
-              <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/menu.svg" alt="menu" />
+              <img className="icon-img" src={menuSvg} alt="menu" />
             </button>
           </Only>
           <span className="normal-text">Recycle bin</span>

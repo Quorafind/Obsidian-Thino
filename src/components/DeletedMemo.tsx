@@ -10,6 +10,7 @@ import "../less/memo.less";
 import React from "react";
 import { TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
+import more from '../icons/more.svg';
 
 interface Props {
   memo: Model.Memo;
@@ -133,7 +134,7 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
     if(allMarkdownLink.length){
       for(let i = 0; i < allMarkdownLink.length; i++){
         let two = allMarkdownLink[i];
-        if(MARKDOWN_WEB_URL_REG.test(two)){
+        if(/(.*)http[s]?(.*)/.test(two)){
           anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
         }else{
           internalImageUrls.push(detectMDInternalLink(two));
@@ -179,7 +180,7 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
         <span className="time-text">DELETE AT {memo.deletedAtStr}</span>
         <div className="btns-container">
           <span className="btn more-action-btn">
-            <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/more.svg" />
+            <img className="icon-img" src={more} />
           </span>
           <div className="more-action-btns-wrapper">
             <div className="more-action-btns-container">

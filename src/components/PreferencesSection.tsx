@@ -5,6 +5,8 @@ import { parseHtmlToRawText } from "../helpers/marked";
 import { formatMemoContent } from "./Memo";
 import "../less/preferences-section.less";
 import React from "react";
+import checkboxActive from "../icons/checkbox-active.svg";
+import checkbox from "../icons/checkbox.svg";
 
 interface Props {}
 
@@ -72,15 +74,15 @@ const PreferencesSection: React.FC<Props> = () => {
         ></div>
         <label className="form-label checkbox-form-label" onClick={handleSplitWordsValueChanged}>
           <span className="normal-text">中英文内容自动间隔</span>
-          <img className="icon-img" src={shouldSplitMemoWord ? "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox-active.svg" : "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox.svg"} />
+          <img className="icon-img" src={shouldSplitMemoWord ? checkboxActive : checkbox} />
         </label>
         <label className="form-label checkbox-form-label" onClick={handleUseMarkdownParserChanged}>
           <span className="normal-text">部分 markdown 格式解析</span>
-          <img className="icon-img" src={shouldUseMarkdownParser ? "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox-active.svg" : "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox.svg"} />
+          <img className="icon-img" src={shouldUseMarkdownParser ? checkboxActive : checkbox} />
         </label>
         <label className="form-label checkbox-form-label" onClick={handleHideImageUrlValueChanged}>
           <span className="normal-text">隐藏图片链接地址</span>
-          <img className="icon-img" src={shouldHideImageUrl ? "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox-active.svg" : "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox.svg"} />
+          <img className="icon-img" src={shouldHideImageUrl ? checkboxActive : checkbox} />
         </label>
       </div>
       <div className="section-container preferences-section-container">
@@ -92,7 +94,7 @@ const PreferencesSection: React.FC<Props> = () => {
               tiny-undo
             </a>
           </span>
-          <img className="icon-img" src={useTinyUndoHistoryCache ? "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox-active.svg" : "https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/checkbox.svg"} />
+          <img className="icon-img" src={useTinyUndoHistoryCache ? checkboxActive : checkbox} />
         </label>
       </div>
       <div className="section-container hidden">

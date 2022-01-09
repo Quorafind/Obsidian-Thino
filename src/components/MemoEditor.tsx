@@ -7,6 +7,8 @@ import toastHelper from "./Toast";
 import Editor, { EditorProps, EditorRefActions } from "./Editor/Editor";
 import "../less/memo-editor.less";
 import React from "react";
+// import dailyNotesService from '../services/dailyNotesService';
+// import { TagsSuggest } from "../obComponents/obTagSuggester";
 
 interface Props {}
 
@@ -14,6 +16,8 @@ const MemoEditor: React.FC<Props> = () => {
   const { globalState } = useContext(appContext);
   const editorRef = useRef<EditorRefActions>(null);
   const prevGlobalStateRef = useRef(globalState);
+  // const { app } = dailyNotesService.getState();
+  
 
   useEffect(() => {
     if (globalState.markMemoId) {
@@ -38,6 +42,8 @@ const MemoEditor: React.FC<Props> = () => {
     if (!editorRef.current) {
       return;
     }
+
+    // new TagsSuggest(app, editorRef.current.element);
 
     const handlePasteEvent = async (event: ClipboardEvent) => {
       if (event.clipboardData && event.clipboardData.files.length > 0) {
@@ -124,6 +130,7 @@ const MemoEditor: React.FC<Props> = () => {
     editorRef.current?.setContent("");
     setEditorContentCache("");
   }, []);
+
 
   const handleContentChange = useCallback((content: string) => {
     const tempDiv = document.createElement("div");

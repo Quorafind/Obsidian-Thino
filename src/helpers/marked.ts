@@ -19,7 +19,7 @@ const NUM_LI_REG = /(\d+)\. /g;
 // const BR_REG = /\<br\>/g;
 
 const INTERNAL_MD_REG = /\[\[([^\]]+)\]\]/g;
-const EXRERNAL_MD_REG = /(?<!!)\[([^\]]+)\]\((([^\]]+).md)\)/g;
+const EXRERNAL_MD_REG = /\[([^\]]+)\]\((([^\]]+).md)\)/g;
 
 const parseMarkedToHtml = (markedStr: string, memoid?: string): string => {
 
@@ -92,9 +92,9 @@ const replaceMd = (internalLink: string, label: string): string =>{
       return `<a data-href="${internalLink}" data-type="link" data-filepath="${internalLink}" class="internal-link">${internalLink}</a>`;
     }
   }else if(label){
-    return `<a data-href="${internalLink}" data-type="link" data-filepath="${internalLink}" class="internal-link">${label}</a>`;
+    return `<a data-href="${internalLink}" data-type="link" data-filepath="${internalLink}" class="internal-link is-unresolved">${label}</a>`;
   }else{
-    return `<a data-href="${internalLink}" data-type="link" data-filepath="${internalLink}" class="internal-link">${internalLink}</a>`;
+    return `<a data-href="${internalLink}" data-type="link" data-filepath="${internalLink}" class="internal-link is-unresolved">${internalLink}</a>`;
   }
 }
 

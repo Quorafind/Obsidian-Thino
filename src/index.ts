@@ -1,4 +1,4 @@
-import { Plugin, Notice, FileView } from "obsidian";
+import { Plugin, Notice, FileView, Platform } from "obsidian";
 import { Memos } from "./memos";
 import { MEMOS_VIEW_TYPE } from "./constants";
 import addIcons from "./obComponents/customIcons";
@@ -16,13 +16,48 @@ import showDailyMemoDiaryDialog from "./components/DailyMemoDiaryDialog";
 //   }
 // }
 
+// declare module "obsidian" {
+//   interface App {
+//       isMobile: boolean;
+//   }
+// }
+
+// const monkeyPatchConsole = (plugin: Plugin) => {
+
+//   if (!Platform.isMobile) {
+//       return;
+//   }
+
+//   const logFile = `${plugin.manifest.dir}/logs.txt`;
+//   const logs: string[] = [];
+//   const logMessages = (prefix: string) => (...messages: unknown[]) => {
+//       logs.push(`\n[${prefix}]`);
+//       for (const message of messages) {
+//           logs.push(String(message));
+//       }
+//       plugin.app.vault.adapter.write(logFile, logs.join(" "));
+//   };
+
+//   console.debug = logMessages("debug");
+//   console.error = logMessages("error");
+//   console.info = logMessages("info");
+//   console.log = logMessages("log");
+//   console.warn = logMessages("warn");
+// };
+
 export default class MemosPlugin extends Plugin {
   public settings: MemosSettings;
   async onload(): Promise<void> {
 
+    console.log("nice job");
+
+    // monkeyPatchConsole(this);
+
     this.registerView(
       MEMOS_VIEW_TYPE,(leaf) => new Memos(leaf, this),
     );
+
+    
 
     this.addSettingTab(new MemosSettingTab(this.app, this));
     await this.loadSettings();
@@ -97,10 +132,14 @@ export default class MemosPlugin extends Plugin {
     const { view } = this.app.workspace.activeLeaf;
     const workspace = this.app.workspace;
     workspace.detachLeavesOfType(MEMOS_VIEW_TYPE);
-    if (!(view instanceof FileView)) {
-      await workspace.getLeaf(false).setViewState({type: MEMOS_VIEW_TYPE});
+    if (!Platform.isMobile) {
+      if (!(view instanceof FileView)) {
+        await workspace.getLeaf(false).setViewState({type: MEMOS_VIEW_TYPE});
+      }else{
+        await workspace.getLeaf(true).setViewState({type: MEMOS_VIEW_TYPE});
+      }
     }else{
-      await workspace.getLeaf(true).setViewState({type: MEMOS_VIEW_TYPE});
+      await workspace.getLeaf(false).setViewState({type: MEMOS_VIEW_TYPE});
     }
     workspace.revealLeaf(workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0]);
     // const viewType = view.getViewType();

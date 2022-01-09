@@ -37,7 +37,7 @@ div[data-type="memos_view"] .memo-wrapper {
         .flex(column, flex-start, center);
         position: absolute;
         flex-wrap: nowrap;
-        top: calc(100% - 8px);
+        top: calc(100% - 14px);
         right: -16px;
         width: auto;
         height: auto;
@@ -52,6 +52,7 @@ div[data-type="memos_view"] .memo-wrapper {
         > .more-action-btns-container {
           width: 112px;
           height: auto;
+          line-height: 18px;
           padding: 4px;
           white-space: nowrap;
           border-radius: 8px;
@@ -147,6 +148,22 @@ div[data-type="memos_view"] .memo-wrapper {
         width: auto;
         max-height: 128px;
         border-radius: 8px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 875px) {
+  div[data-type="memos_view"] .memo-wrapper {
+    > .btns-container {
+      > .more-action-btns-wrapper {
+        > .more-action-btns-container {
+          line-height: 0px;
+
+          // > .btn {
+          //   // line-height: 10px;
+          // }
+        }
       }
     }
   }

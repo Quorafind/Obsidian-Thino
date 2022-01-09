@@ -8,6 +8,7 @@ import Selector from "./common/Selector";
 import "../less/create-query-dialog.less";
 import React from "react";
 import { Notice } from 'obsidian';
+import close from '../icons/close.svg';
 
 interface Props extends DialogProps {
   queryId?: string;
@@ -100,7 +101,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
           {queryId ? "EDIT QUERY" : "CREATE QUERY"}
         </p>
         <button className="btn close-btn" onClick={destroy}>
-          <img className="icon-img" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/close.svg" />
+          <img className="icon-img" src={close} />
         </button>
       </div>
       <div className="dialog-content-container">
@@ -298,7 +299,7 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
       />
 
       {inputElements}
-      <img className="remove-btn" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/close.svg" onClick={handleRemoveBtnClick} />
+      <img className="remove-btn" src={close} onClick={handleRemoveBtnClick} />
     </div>
   );
 };

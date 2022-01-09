@@ -123,7 +123,7 @@ const DailyMemo: React.FC<Props> = (props: Props) => {
     if(allMarkdownLink.length){
       for(let i = 0; i < allMarkdownLink.length; i++){
         let two = allMarkdownLink[i];
-        if(MARKDOWN_WEB_URL_REG.test(two)){
+        if(/(.*)http[s]?(.*)/.test(two)){
           anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
         }else{
           internalImageUrls.push(detectMDInternalLink(two,app));

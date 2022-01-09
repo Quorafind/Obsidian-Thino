@@ -74,7 +74,7 @@ div[data-type="memos_view"] input:-webkit-autofill:active {
   box-shadow: 0 0 0 30px white inset !important;
 }
 
-div[data-type="memos_view"] li {
+div[data-type="memos_view"] li:not(.rta__item) {
   list-style-type: none;
 
   &::before {
@@ -87,6 +87,16 @@ div[data-type="memos_view"] li {
 div[data-type="memos_view"] a {
   cursor: pointer;
   color: @text-blue;
+  text-underline-offset: 2px;
+
+  &:hover {
+    background-color: @bg-gray;
+  }
+}
+
+div[data-type="memos_view"] a.is-unresolved{
+  cursor: pointer;
+  color: @text-unresolved-blue;
   text-underline-offset: 2px;
 
   &:hover {

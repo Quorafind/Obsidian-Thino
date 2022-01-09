@@ -17,7 +17,7 @@ div[data-type="memos_view"] .common-editor-wrapper {
     line-height: 24px;
     resize: none;
     overflow-x: hidden;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     background-color: transparent;
     z-index: 1;
     margin-bottom: 4px;
@@ -66,6 +66,7 @@ div[data-type="memos_view"] .common-editor-wrapper {
         color: gray;
         background-color: transparent;
         margin-right: 8px;
+        line-height: 18px;
       }
 
       > .confirm-btn {
@@ -73,6 +74,7 @@ div[data-type="memos_view"] .common-editor-wrapper {
         padding: 0 12px;
         background-color: @text-green;
         color: white;
+        
 
         &:disabled {
           cursor: not-allowed;
@@ -86,3 +88,25 @@ div[data-type="memos_view"] .common-editor-wrapper {
     }
   }
 }
+
+div[data-type="memos_view"] .scroll::-webkit-scrollbar {
+  display: none;
+}
+
+// @media only screen and (max-width: 875px) {
+//   .is-mobile div[data-type="memos_view"] .cancel-btn {
+//     background-color: white;
+
+//     > .tags-container {
+//       height: auto;
+
+//       &:last-child {
+//         flex-grow: 1;
+//       }
+//     }
+//   }
+
+//   .rename-tag-dialog {
+//     padding-top: 64px;
+//   }
+// }

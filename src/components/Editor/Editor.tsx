@@ -1,11 +1,30 @@
-import { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useRef, useState } from "react";
 import TinyUndo from "tiny-undo";
 import appContext from "../../stores/appContext";
-import { storage } from "../../helpers/storage";
+import { storage, remove } from '../../helpers/storage';
 import useRefresh from "../../hooks/useRefresh";
 import Only from "../common/OnlyWhen";
 import "../../less/editor.less";
 import React from "react";
+import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
+// import emoji from "@jukben/emoji-search";
+// import "@webscopeio/react-textarea-autocomplete/style.css";
+import { usedTags } from '../../obComponents/obTagSuggester';
+import "../../less/suggest.less";
+import tag from "../../icons/tag.svg";
+import imageSvg from "../../icons/image.svg"
+
+
+type ItemProps = {
+  entity: {
+    char: string,
+    name: string
+  }
+};
+
+type LoadingProps = {
+  data: Array<{ name: string, char: string }>
+};
 
 export interface EditorRefActions {
   element: HTMLTextAreaElement;
@@ -28,6 +47,18 @@ export interface EditorProps {
   onUploadFileBtnClick: () => void;
   onContentChange: (content: string) => void;
 }
+
+//eslint-disable-next-line
+const Item = ({ entity: { name, char } }: ItemProps) => { return <div>{`${char}`}</div>};
+//eslint-disable-next-line
+const Loading = ({ data }: LoadingProps) => { return <div>Loading</div> };
+
+// type ItemProps = {
+//   entity: {
+//     char: string,
+//     name: string
+//   }
+// };
 
 export let editorInput: HTMLTextAreaElement;
 
@@ -52,7 +83,12 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const tinyUndoRef = useRef<TinyUndo | null>(null);
   const refresh = useRefresh();
+  // const [value, setValue] = useState("")
   editorInput = editorRef.current;
+  let actualToken: string;
+  
+
+  
 
   useEffect(() => {
     if (!editorRef.current) {
@@ -134,6 +170,32 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     []
   );
 
+  const handleInsertTrigger = (event: { currentTrigger: string; item: string}) => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    const prevValue = editorRef.current.value;
+    let removeCharNum;
+    if(actualToken !== null){
+      removeCharNum = actualToken.length;
+    }else{
+      removeCharNum = 0;
+    }
+    let behindCharNum = editorRef.current.selectionStart;
+    for(let i = 0; i < prevValue.length;i++){
+      if(prevValue[behindCharNum] !== " " ){
+        behindCharNum++;
+      }
+    }
+
+    editorRef.current.value =
+    //eslint-disable-next-line
+      prevValue.slice(0, editorRef.current.selectionStart - removeCharNum) + event.item.char + prevValue.slice(behindCharNum);
+    handleContentChangeCallback(editorRef.current.value);
+    refresh();
+  }
+
   const handleEditorInput = useCallback(() => {
     handleContentChangeCallback(editorRef.current?.value ?? "");
     refresh();
@@ -147,6 +209,10 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
         handleCommonConfirmBtnClick();
       }
     }
+    // if (event.key === "#") {
+    //   console.log("yes")
+    //   new TagsSuggest(app, editorRef.current);
+    // }
     refresh();
   }, []);
 
@@ -157,6 +223,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
 
     handleConfirmBtnClickCallback(editorRef.current.value);
     editorRef.current.value = "";
+
     refresh();
     // After confirm btn clicked, tiny-undo should reset state(clear actions and index)
     tinyUndoRef.current?.resetState();
@@ -168,7 +235,63 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
 
   return (
     <div className={"common-editor-wrapper " + className}>
-      <textarea 
+      <ReactTextareaAutocomplete
+          autoFocus
+          className="common-editor-inputer scroll"
+          loadingComponent={Loading}
+          placeholder={placeholder}
+          movePopupAsYouType={true}
+          // style={{
+          //   overflow:hidden
+          // }}
+          ref={rta => {
+            rta = rta;
+          }}
+          value={editorRef.current?.value}
+          innerRef={textarea => {
+            editorRef.current = textarea;
+          }}
+          onInput={handleEditorInput}
+          onKeyDown={handleEditorKeyDown}
+          // containerStyle={{
+          //   marginTop: 20,
+          //   width: 400,
+          //   height: 100,
+          //   margin: "20px auto"
+          // }}
+          minChar={0}
+          onItemSelected={handleInsertTrigger}
+          scrollToItem={true}
+          
+          trigger={{
+            "#": {
+              dataProvider: token => {
+                actualToken = token;
+                return usedTags(token)
+                  .slice(0, 10)
+                  .map(({ name, char }) => ({ name, char }));
+              },
+              //eslint-disable-next-line
+              component: Item,
+              afterWhitespace: true,
+              output: (item, trigger) => item.char,
+            },
+            // "[[": {
+            //   dataProvider: token => {
+            //     actualToken = token;
+            //     return usedTags(token)
+            //       .slice(0, 10)
+            //       .map(({ name, char }) => ({ name, char }));
+            //   },
+            //   //eslint-disable-next-line
+            //   component: Item,
+            //   afterWhitespace: true,
+            //   output: (item, trigger) => item.char,
+            // }
+          }
+        }
+        />
+      {/* <textarea 
         autoFocus
         className="common-editor-inputer"
         rows={1}
@@ -176,13 +299,13 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
         ref={editorRef}
         onInput={handleEditorInput}
         onKeyDown={handleEditorKeyDown}
-      ></textarea>
+      ></textarea> */}
       <div className="common-tools-wrapper">
         <div className="common-tools-container">
           <Only when={showTools}>
             <>
-              <img className="action-btn file-upload" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/tag.svg" onClick={handleTagTextBtnClickCallback} />
-              <img className="action-btn file-upload" src="https://raw.githubusercontent.com/Quorafind/memos/main/web/public/icons/image.svg" onClick={handleUploadFileBtnClickCallback} />
+              <img className="action-btn file-upload" src={tag} onClick={handleTagTextBtnClickCallback} />
+              <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClickCallback} />
             </>
           </Only>
         </div>

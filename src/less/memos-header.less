@@ -46,9 +46,25 @@ div[data-type="memos_view"] .memos-header-container {
   div[data-type="memos_view"] .section-header-container,
   div[data-type="memos_view"] .memos-header-container {
     height: auto;
-    margin-top: 16px;
+    margin-top: -14px;
     margin-bottom: 0;
     padding: 0 12px;
     padding-bottom: 8px;
+    > .title-text {
+      > .action-btn {
+        .flex(row, center, center);
+        width: 60px;
+        height: 24px;
+        margin-right: -8px;
+        margin-left: -20px;
+        flex-shrink: 0;
+        background-color: unset;
+  
+        > .icon-img {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
   }
 }
