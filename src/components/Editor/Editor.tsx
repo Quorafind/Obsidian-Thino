@@ -241,6 +241,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           loadingComponent={Loading}
           placeholder={placeholder}
           movePopupAsYouType={true}
+          renderToBody={true}
           // style={{
           //   overflow:hidden
           // }}
@@ -301,10 +302,10 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
       <div className="common-tools-wrapper">
         <div className="common-tools-container">
           <Only when={showTools}>
-            <>
+            <div className="action-btn-icons">
               <img className="action-btn file-upload" src={tag} onClick={handleTagTextBtnClickCallback} />
               <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClickCallback} />
-            </>
+            </div>
           </Only>
         </div>
         <div className="btns-container">

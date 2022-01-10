@@ -61,6 +61,7 @@
           opacity: 0.8;
         }
       }
+      
 
       > .cancel-btn {
         color: gray;
@@ -132,11 +133,15 @@
     .flex(row, space-between, center);
     width: 100%;
 
+    
+
     > .common-tools-container {
       .flex(row, flex-start, center);
 
-      > img {
-        filter: invert(0.8);
+      > .action-btn-icons {
+        > img {
+          filter: invert(0.5);
+        }
       }
     }
 
@@ -145,6 +150,7 @@
       flex-grow: 0;
       flex-shrink: 0;
 
+      
       > .action-btn {
         border: none;
         user-select: none;
@@ -158,6 +164,7 @@
           opacity: 0.8;
         }
       }
+      
 
       > .cancel-btn {
         color: gray;
