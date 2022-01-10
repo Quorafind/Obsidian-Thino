@@ -1,6 +1,6 @@
 @import "./mixin.less";
 
-.share-memo-image-dialog {
+.theme-light .share-memo-image-dialog {
   > .dialog-container {
     width: 380px;
     padding: 0;
@@ -136,7 +136,165 @@
 }
 
 @media only screen and (max-width: 875px) {
-  .dialog-wrapper.share-memo-image-dialog {
+  .theme-light .dialog-wrapper.share-memo-image-dialog {
+    padding: 24px 16px;
+    padding-top: 64px;
+    justify-content: unset;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.theme-dark .share-memo-image-dialog {
+  > .dialog-container {
+    width: 380px;
+    padding: 0;
+    background-color: @bg-dark-lightgray;
+
+    > .dialog-header-container {
+      padding: 8px 16px;
+      padding-left: 24px;
+      margin-bottom: 0;
+      background-color: rgb(0, 0, 0);
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      > .close-btn{
+        background-color: rgb(0, 0, 0);
+
+        > .icon-img {
+          filter: invert(0.8);
+        }
+      }
+    }
+
+    > .dialog-content-container {
+      .flex(column, flex-start, flex-start);
+      position: relative;
+      width: 100%;
+      min-height: 128px;
+
+      > .tip-words-container {
+        .flex(column, center, flex-start);
+        width: 100%;
+        border-bottom: 1px solid rgb(58, 58, 58);
+        background-color: rgb(0, 0, 0);
+        padding: 0 24px;
+        padding-bottom: 8px;
+
+        > .tip-text {
+          color: rgb(189, 189, 189);
+          font-size: 13px;
+          line-height: 24px;
+        }
+
+        &.loading {
+          > .tip-text {
+            animation: 1s linear 1s infinite alternate breathing;
+          }
+        }
+
+        @keyframes breathing {
+          from {
+            opacity: 1;
+          }
+
+          to {
+            opacity: 0.4;
+          }
+        }
+      }
+
+      > .memo-container {
+        .flex(column, flex-start, flex-start);
+        width: 380px;
+        max-width: 100%;
+        height: auto;
+        user-select: none;
+        position: relative;
+
+        > .memo-shortcut-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 100%;
+          height: auto;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+
+        > .time-text {
+          width: 100%;
+          padding: 0 24px;
+          padding-top: 20px;
+          font-size: 12px;
+          color: rgb(185, 185, 185);
+          background-color: rgb(31, 31, 31);
+        }
+
+        > .memo-content-text {
+          padding: 12px 24px;
+          width: 100%;
+          font-size: 15px;
+          background-color: rgb(31, 31, 31);
+        }
+
+        > .images-container {
+          .flex(column, flex-start, flex-start);
+          width: 100%;
+          height: auto;
+          padding: 0 24px;
+          padding-bottom: 8px;
+          background-color: rgb(31, 31, 31);
+          .hide-scroll-bar();
+
+          > img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 8px;
+            border-radius: 4px;
+          }
+        }
+
+        > .watermark-container {
+          .flex(row, flex-start, center);
+          flex-wrap: nowrap;
+          width: 100%;
+          padding: 16px 26px;
+          background-color: rgb(31, 31, 31);
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+
+          > .normal-text {
+            .flex(row, flex-start, center);
+            width: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            color: rgb(161, 161, 161);
+
+            > .name-text {
+              font-size: 13px;
+              color: @text-dark-black;
+              margin-left: 4px;
+              line-height: 20px;
+            }
+
+            > .icon-text {
+              font-size: 15px;
+              margin-right: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 875px) {
+  .theme-dark .dialog-wrapper.share-memo-image-dialog {
     padding: 24px 16px;
     padding-top: 64px;
     justify-content: unset;

@@ -1,6 +1,6 @@
 @import "./mixin.less";
 
-div[data-type="memos_view"] .common-editor-wrapper {
+.theme-light div[data-type="memos_view"] .common-editor-wrapper {
   .flex(column, flex-start, flex-start);
   position: relative;
   width: 100%;
@@ -89,7 +89,104 @@ div[data-type="memos_view"] .common-editor-wrapper {
   }
 }
 
-div[data-type="memos_view"] .scroll::-webkit-scrollbar {
+.theme-light div[data-type="memos_view"] .scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.theme-dark div[data-type="memos_view"] .common-editor-wrapper {
+  .flex(column, flex-start, flex-start);
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: rgb(0, 0, 0);
+  
+
+  > .common-editor-inputer {
+    display: inline-block;
+    width: 100%;
+    min-height: 24px;
+    max-height: 300px;
+    font-size: 15px;
+    line-height: 24px;
+    resize: none;
+    overflow-x: hidden;
+    // overflow-y: scroll;
+    background-color: transparent;
+    z-index: 1;
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+    .hide-scroll-bar();
+
+    &::placeholder {
+      padding-left: 2px;
+    }
+
+    &:focus {
+      &::placeholder {
+        color: rgb(54, 54, 54);
+      }
+    }
+  }
+
+  > .common-tools-wrapper {
+    .flex(row, space-between, center);
+    width: 100%;
+
+    > .common-tools-container {
+      .flex(row, flex-start, center);
+
+      > img {
+        filter: invert(0.8);
+      }
+    }
+
+    > .btns-container {
+      .flex(row, flex-end, center);
+      flex-grow: 0;
+      flex-shrink: 0;
+
+      > .action-btn {
+        border: none;
+        user-select: none;
+        cursor: pointer;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        line-height: 32px;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      > .cancel-btn {
+        color: gray;
+        background-color: transparent;
+        margin-right: 8px;
+        line-height: 18px;
+      }
+
+      > .confirm-btn {
+        cursor: pointer;
+        padding: 0 12px;
+        background-color: @text-dark-red;
+        color: white;
+        
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+
+        > .icon-text {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+}
+
+.theme-dark div[data-type="memos_view"] .scroll::-webkit-scrollbar {
   display: none;
 }
 

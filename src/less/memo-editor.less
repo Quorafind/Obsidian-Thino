@@ -1,6 +1,6 @@
 @import "./mixin.less";
 
-div[data-type="memos_view"] .memo-editor-wrapper {
+.theme-light div[data-type="memos_view"] .memo-editor-wrapper {
   .flex(column, flex-start, flex-start);
   position: relative;
   width: 100%;
@@ -30,7 +30,43 @@ div[data-type="memos_view"] .memo-editor-wrapper {
 }
 
 @media only screen and (max-width: 875px) {
-  div[data-type="memos_view"] .memo-editor-wrapper {
+  .theme-light div[data-type="memos_view"] .memo-editor-wrapper {
+    width: calc(100% - 24px);
+    margin: auto;
+  }
+}
+
+.theme-dark div[data-type="memos_view"] .memo-editor-wrapper {
+  .flex(column, flex-start, flex-start);
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: rgb(59, 59, 59);
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid @bg-dark-gray;
+
+  &.edit-ing {
+    border-color: rgb(60, 60, 60);
+  }
+
+  > .tip-text {
+    font-size: 12px;
+    line-height: 20px;
+    color: @text-dark-lightgray;
+  }
+
+  > .memo-editor {
+    .flex(column, flex-start, flex-start);
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: rgb(56, 56, 56);
+  }
+}
+
+@media only screen and (max-width: 875px) {
+  .theme-dark div[data-type="memos_view"] .memo-editor-wrapper {
     width: calc(100% - 24px);
     margin: auto;
   }
