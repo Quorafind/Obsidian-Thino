@@ -712,7 +712,7 @@
   background-color: #000000;
   padding: 12px 16px;
   border-radius: 8px;
-  box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.2);
+  margin-top: -8px;
 }
 .theme-dark div[data-type="memos_view"] .search-bar-container > .quickly-action-wrapper > .quickly-action-container > .title-text {
   color: #cccccc;
