@@ -1,6 +1,6 @@
 @import "./mixin.less";
 
-div[data-type="memos_view"] .memolist-wrapper {
+.theme-light div[data-type="memos_view"] .memolist-wrapper {
   .flex(column, flex-start, flex-start);
   flex-grow: 1;
   width: 100%;
@@ -35,5 +35,46 @@ div[data-type="memos_view"] .memolist-wrapper {
 @media only screen and (max-width: 875px) {
   div[data-type="memos_view"] .memolist-wrapper {
     padding: 0 12px;
+  }
+}
+
+
+.theme-dark div[data-type="memos_view"] .memolist-wrapper {
+  .flex(column, flex-start, flex-start);
+  flex-grow: 1;
+  width: 100%;
+  overflow-y: scroll;
+  .hide-scroll-bar();
+
+  > .status-text-container {
+    .flex(column, flex-start, center);
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    &.completed {
+      margin-bottom: 64px;
+    }
+
+    &.invisible {
+      visibility: hidden;
+    }
+
+    > .status-text {
+      font-size: 13px;
+      color: rgb(255, 255, 255);
+    }
+  }
+
+  &.completed {
+    padding-bottom: 80px;
+  }
+}
+
+@media only screen and (max-width: 875px) {
+  .theme-dark {
+    div[data-type="memos_view"] .memolist-wrapper {
+      padding: 0 12px;
+    }
   }
 }
