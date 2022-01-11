@@ -96,21 +96,28 @@ export async function insertAfterHandler(targetString: string, formatted: string
   
             if (!endOfSectionIndex) endOfSectionIndex = targetPosition;
   
-            return await insertTextAfterPositionInBody(formatted, fileContent, endOfSectionIndex);
+            return await insertTextAfterPositionInBody(formatted, fileContent, endOfSectionIndex, foundNextHeader);
         } else {
-            return await insertTextAfterPositionInBody(formatted, fileContent, fileContentLines.length - 1);
+            return await insertTextAfterPositionInBody(formatted, fileContent, fileContentLines.length - 1, foundNextHeader);
         }
     // return insertTextAfterPositionInBody(formatted, fileContent, targetPosition);
   }
   
-export async function insertTextAfterPositionInBody(text: string, body: string, pos: number): Promise<string> {
+export async function insertTextAfterPositionInBody(text: string, body: string, pos: number, found?: boolean): Promise<string> {
     if (pos === -1) {
         return `${body}\n${text}`;
     }
   
     const splitContent = body.split("\n");
-    const pre = splitContent.slice(0, pos + 1).join("\n");
-    const post = splitContent.slice(pos + 1).join("\n");
   
-    return `${pre}\n${text}\n${post}`;
+    if(found){
+        const pre = splitContent.slice(0, pos + 1).join("\n");
+        const post = splitContent.slice(pos + 1).join("\n");
+        return `${pre}\n${text}\n${post}`;
+    }
+    else{
+        const pre = splitContent.slice(0, pos+1).join("\n");
+        const post = splitContent.slice(pos+1).join("\n");
+        return `${pre}${text}\n${post}`;
+    }
 }

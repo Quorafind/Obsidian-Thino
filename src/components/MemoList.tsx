@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import appContext from "../stores/appContext";
 import { locationService, memoService, queryService } from "../services";
-import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, TAG_REG } from "../helpers/consts";
+import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } from "../helpers/consts";
 import utils from "../helpers/utils";
 import { checkShouldShowMemoWithFilters } from "../helpers/filter";
 import Memo from "./Memo";
@@ -48,7 +48,7 @@ const MemoList: React.FC<Props> = () => {
             shouldShow = false;
           }
           if (memoType) {
-            if (memoType === "NOT_TAGGED" && memo.content.match(TAG_REG) !== null) {
+            if (memoType === "NOT_TAGGED" && ( memo.content.match(TAG_REG) !== null || memo.content.match(NOP_FIRST_TAG_REG) !== null)) {
               shouldShow = false;
             } else if (memoType === "LINKED" && memo.content.match(LINK_REG) === null) {
               shouldShow = false;

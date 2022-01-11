@@ -242,9 +242,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           placeholder={placeholder}
           movePopupAsYouType={true}
           renderToBody={true}
-          // style={{
-          //   overflow:hidden
-          // }}
+          
           ref={rta => {
             rta = rta;
           }}
@@ -254,6 +252,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           }}
           onInput={handleEditorInput}
           onKeyDown={handleEditorKeyDown}
+          style={{
+            minHeight: 48,
+          }}
           dropdownStyle={{
             minWidth: 180,
             maxHeight: 250,

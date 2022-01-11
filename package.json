@@ -1,7 +1,7 @@
 {
   "name": "obsidian-memos",
-  "version": "1.1.8",
-  "description": "A Flomo Like Plugin For Obsidian Daily Notes",
+  "version": "1.1.10",
+  "description": "A Quick Capture Plugin For Obsidian Daily Notes",
   "author": "boninall",
   "main": "main.js",
   "scripts": {
