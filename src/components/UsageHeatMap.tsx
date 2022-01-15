@@ -6,6 +6,7 @@ import utils from "../helpers/utils";
 import "../less/usage-heat-map.less";
 import React from "react";
 import moment from "moment";
+import i18next from "i18next";
 
 const tableConfig = {
   width: 12,
@@ -97,13 +98,13 @@ const UsageHeatMap: React.FC<Props> = () => {
   return (
     <div className="usage-heat-map-wrapper" ref={containerElRef}>
       <div className="day-tip-text-container">
-        <span className="tip-text">Mon</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[0]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">Wed</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[2]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">Fri</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[4]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">Sun</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[6]}</span>
       </div>
 
       {/* popup */}
