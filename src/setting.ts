@@ -7,6 +7,7 @@ export interface MemosSettings {
   UserName: string;
   ProcessEntriesBelow: string;
   Language: string;
+  SaveMemoButtonLabel: string;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -15,6 +16,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   UserName: "MEMO 😉",
   ProcessEntriesBelow: "# Journal",
   Language: "en",
+  SaveMemoButtonLabel: "NOTEIT",
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -81,6 +83,19 @@ export class MemosSettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.ProcessEntriesBelow)
           .onChange(async (value) => {
             this.plugin.settings.ProcessEntriesBelow = value;
+            this.applySettingsUpdate();
+          })
+      );
+
+    new Setting(containerEl)
+      .setName("Save Memo Button Label")
+      .setDesc("The text shown on the save Memo button in the UI. 'NOTEIT' by default.")
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.SaveMemoButtonLabel)
+          .setValue(this.plugin.settings.SaveMemoButtonLabel)
+          .onChange(async (value) => {
+            this.plugin.settings.SaveMemoButtonLabel = value;
             this.applySettingsUpdate();
           })
       );
