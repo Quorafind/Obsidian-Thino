@@ -4,10 +4,13 @@ import { MEMOS_VIEW_TYPE } from "./constants";
 import addIcons from "./obComponents/customIcons";
 import "./helpers/polyfill";
 import "./less/global.less";
-import { MemosSettingTab,DEFAULT_SETTINGS,MemosSettings } from "./setting";
+import { MemosSettingTab, DEFAULT_SETTINGS, MemosSettings } from "./setting";
 import { appHasDailyNotesPluginLoaded } from "obsidian-daily-notes-interface";
 import { editorInput } from "./components/Editor/Editor";
 import showDailyMemoDiaryDialog from "./components/DailyMemoDiaryDialog";
+import i18next from "i18next";
+import { TRANSLATIONS_ZH } from "./translations/zh/translations";
+import { TRANSLATIONS_EN } from "./translations/en/translations";
 
 // declare global {
 //   interface Window {
@@ -48,28 +51,25 @@ import showDailyMemoDiaryDialog from "./components/DailyMemoDiaryDialog";
 export default class MemosPlugin extends Plugin {
   public settings: MemosSettings;
   async onload(): Promise<void> {
+    console.log("obsidian-memos loading...");
 
-    console.log("nice job");
+    await this.loadSettings();
+    await this.initLocalization();
 
     // monkeyPatchConsole(this);
 
-    this.registerView(
-      MEMOS_VIEW_TYPE,(leaf) => new Memos(leaf, this),
-    );
-
-    
+    this.registerView(MEMOS_VIEW_TYPE, (leaf) => new Memos(leaf, this));
 
     this.addSettingTab(new MemosSettingTab(this.app, this));
-    await this.loadSettings();
 
     addIcons();
-    this.addRibbonIcon('Memos', 'Memos', () => {
-			new Notice('Open Memos Successfully');
+    this.addRibbonIcon("Memos", i18next.t("ribbonIconTitle"), () => {
+      new Notice("Open Memos Successfully");
       this.openMemos();
-		});
+    });
 
-    if(appHasDailyNotesPluginLoaded()){
-      new Notice("Check if you opened Daily Notes Plugin")
+    if (appHasDailyNotesPluginLoaded()) {
+      new Notice("Check if you opened Daily Notes Plugin");
     }
 
     this.addCommand({
@@ -94,6 +94,8 @@ export default class MemosPlugin extends Plugin {
     });
 
     // this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
+    console.log(i18next.t("welcome"));
+    console.log("obsidian-memos loaded");
   }
 
   public async loadSettings() {
@@ -106,7 +108,7 @@ export default class MemosPlugin extends Plugin {
 
   onunload() {
     this.app.workspace.detachLeavesOfType(MEMOS_VIEW_TYPE);
-    new Notice('Close Memos Successfully');
+    new Notice("Close Memos Successfully");
   }
 
   // onLayoutReady(): void {
@@ -120,10 +122,10 @@ export default class MemosPlugin extends Plugin {
   // }
   async openDailyMemo() {
     const workspaceLeaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
-    if(workspaceLeaves.length === 0){
+    if (workspaceLeaves.length === 0) {
       this.openMemos();
       showDailyMemoDiaryDialog();
-    }else{
+    } else {
       showDailyMemoDiaryDialog();
     }
   }
@@ -134,12 +136,12 @@ export default class MemosPlugin extends Plugin {
     workspace.detachLeavesOfType(MEMOS_VIEW_TYPE);
     if (!Platform.isMobile) {
       if (!(view instanceof FileView)) {
-        await workspace.getLeaf(false).setViewState({type: MEMOS_VIEW_TYPE});
-      }else{
-        await workspace.getLeaf(true).setViewState({type: MEMOS_VIEW_TYPE});
+        await workspace.getLeaf(false).setViewState({ type: MEMOS_VIEW_TYPE });
+      } else {
+        await workspace.getLeaf(true).setViewState({ type: MEMOS_VIEW_TYPE });
       }
-    }else{
-      await workspace.getLeaf(false).setViewState({type: MEMOS_VIEW_TYPE});
+    } else {
+      await workspace.getLeaf(false).setViewState({ type: MEMOS_VIEW_TYPE });
     }
     workspace.revealLeaf(workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0]);
     // const viewType = view.getViewType();
@@ -153,5 +155,20 @@ export default class MemosPlugin extends Plugin {
     // }
     // const neovisView = new Memos(leaf, this);
     // await leaf.open(neovisView);
+  }
+
+  async initLocalization() {
+    i18next.init({
+      resources: {
+        en: {
+          translation: TRANSLATIONS_EN,
+        },
+        zh: {
+          translation: TRANSLATIONS_ZH,
+        },
+      },
+    });
+
+    i18next.changeLanguage(this.settings.Language);
   }
 }

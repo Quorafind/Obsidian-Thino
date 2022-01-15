@@ -2,7 +2,7 @@
 
 [中文文档](./document/chinese.md)
 
-A new way for you to quick capture idea in Obsidian. Which is highly based on awesome open project: [memos](https://github.com/justmemos/memos)and awesome service: [flomo](https://flomoapp.com/).
+A new way for you to quick capture idea in Obsidian. Which is highly based on awesome open project: [memos](https://github.com/justmemos/memos) and awesome service: [flomo](https://flomoapp.com/).
 
 ![memo-light](./document/Memos-in-light.png)
 ![memo-dark](./document/Memos-in-dark.png)
@@ -62,7 +62,7 @@ You can see all your memos here, just scroll down to see every day and so on.
 
 In each memo, you can used MARK to make it link to another memo. And you can delete it, share it and so on.
 
-What's more, 
+What's more,
 
 1. you can double click on the memo to edit the memo.
 2. Ctrl+click to jump to the source of the memo.
@@ -71,7 +71,7 @@ Of course, internal link or image link in memo should be renderred as usual.
 
 ### Search and filter
 
-Every time, you search in memos will filter the memos that matched (which are showed in one page), and in memos, there are already four build-in filters to help you for using memos easily. 
+Every time, you search in memos will filter the memos that matched (which are showed in one page), and in memos, there are already four build-in filters to help you for using memos easily.
 
 ## Problems NOW
 

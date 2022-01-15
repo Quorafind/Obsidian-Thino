@@ -17,16 +17,14 @@ import close from '../icons/close.svg';
 import arrowLeft from '../icons/arrow-left.svg';
 import arrowRight from '../icons/arrow-right.svg';
 import share from '../icons/share.svg';
+import i18next from "i18next";
 
 interface Props extends DialogProps {
   currentDateStamp: DateStamp;
 }
 
-const monthChineseStrArray = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
-const weekdayChineseStrArray = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-
 const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
-  
+
   const loadingState = useLoading();
   const [memos, setMemos] = useState<Model.Memo[]>([]);
   const [currentDateStamp, setCurrentDateStamp] = useState(utils.getDateStampByDate(utils.getDateString(props.currentDateStamp)));
@@ -102,9 +100,9 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
         <div className="date-card-container" onClick={() => toggleShowDatePicker()}>
           <div className="year-text">{currentDate.getFullYear()}</div>
           <div className="date-container">
-            <div className="month-text">{monthChineseStrArray[currentDate.getMonth()]}</div>
+            <div className="month-text">{i18next.t('months', { returnObjects: true })[currentDate.getMonth()]}</div>
             <div className="date-text">{currentDate.getDate()}</div>
-            <div className="day-text">{weekdayChineseStrArray[currentDate.getDay()]}</div>
+            <div className="day-text">{i18next.t('weekDays', { returnObjects: true })[currentDate.getDay()]}</div>
           </div>
         </div>
         <DatePicker

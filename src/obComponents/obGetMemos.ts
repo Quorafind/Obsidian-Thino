@@ -1,10 +1,9 @@
-
-import { normalizePath, TFolder, TFile} from "obsidian";
-import { getAllDailyNotes,getDailyNoteSettings,getDateFromFile } from "obsidian-daily-notes-interface";
+import { normalizePath, TFolder, TFile } from "obsidian";
+import { getAllDailyNotes, getDailyNoteSettings, getDateFromFile } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
+import { ProcessEntriesBelow } from "../memos";
 
 export class DailyNotesFolderMissingError extends Error {}
-
 
 export async function getRemainingTasks(note: TFile): Promise<number> {
   if (!note) {
@@ -14,44 +13,53 @@ export async function getRemainingTasks(note: TFile): Promise<number> {
   let fileContents = await vault.cachedRead(note);
   //eslint-disable-next-line
   const matchLength = (fileContents.match(/(-|\*) (\[ \]\s)?((\<time\>)?\d{1,2}\:\d{2})?/g) || []).length;
+  const re = new RegExp(ProcessEntriesBelow, "g");
+  const processEntriesHeader = (fileContents.match(re) || []).length;
   fileContents = null;
-  return matchLength;
+  if (processEntriesHeader) {
+    return matchLength;
+  }
+  return 0;
 }
 
-export async function getTasksForDailyNote(
-  dailyNote: TFile | null, dailyEvents: any[]
-): Promise<any[]> {
+export async function getTasksForDailyNote(dailyNote: TFile | null, dailyEvents: any[]): Promise<any[]> {
   if (!dailyNote) {
     return [];
   }
   const { vault } = appStore.getState().dailyNotesState.app;
   const Tasks = await getRemainingTasks(dailyNote);
+
   if (Tasks) {
     let fileContents = await vault.cachedRead(dailyNote);
     let fileLines = getAllLinesFromFile(fileContents);
     const startDate = getDateFromFile(dailyNote, "day");
     const endDate = getDateFromFile(dailyNote, "day");
+    let processHeaderFound = false;
     for (let i = 0; i < fileLines.length; i++) {
       const line = fileLines[i];
-      const rawText = extractTextFromTodoLine(line);
-      if (line.length === 0) continue
-      if (lineContainsTime(line)) {
-          startDate.hours(parseInt(extractHourFromBulletLine(line)));
-          startDate.minutes(parseInt(extractMinFromBulletLine(line)));
-          endDate.hours(parseInt(extractHourFromBulletLine(line)));
-          if(parseInt(extractHourFromBulletLine(line)) > 22){
-            endDate.minutes(parseInt(extractMinFromBulletLine(line)));
-          }else{
-            endDate.minutes(parseInt(extractMinFromBulletLine(line)));
-          }
-          dailyEvents.push({
-            id: startDate.format('YYYYMMDDHHmmSS') + i,
-            content: rawText,
-            user_id: 1,
-            createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
-            updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
-          });
+      if (line.length === 0) continue;
+      if (lineContainsParseBelowToken(line)) {
+        processHeaderFound = true;
+      }
+
+      if (lineContainsTime(line) && processHeaderFound) {
+        startDate.hours(parseInt(extractHourFromBulletLine(line)));
+        startDate.minutes(parseInt(extractMinFromBulletLine(line)));
+        endDate.hours(parseInt(extractHourFromBulletLine(line)));
+        if (parseInt(extractHourFromBulletLine(line)) > 22) {
+          endDate.minutes(parseInt(extractMinFromBulletLine(line)));
+        } else {
+          endDate.minutes(parseInt(extractMinFromBulletLine(line)));
         }
+        const rawText = extractTextFromTodoLine(line);
+        dailyEvents.push({
+          id: startDate.format("YYYYMMDDHHmmSS") + i,
+          content: rawText,
+          user_id: 1,
+          createdAt: startDate.format("YYYY/MM/DD HH:mm:SS"),
+          updatedAt: endDate.format("YYYY/MM/DD HH:mm:SS"),
+        });
+      }
     }
     fileLines = null;
     fileContents = null;
@@ -59,14 +67,11 @@ export async function getTasksForDailyNote(
 }
 
 export async function getMemos(): Promise<any[]> {
-
   const events: any[] | PromiseLike<any[]> = [];
   const { vault } = appStore.getState().dailyNotesState.app;
   const { folder } = getDailyNoteSettings();
 
-  const dailyNotesFolder = vault.getAbstractFileByPath(
-    normalizePath(folder)
-  ) as TFolder;
+  const dailyNotesFolder = vault.getAbstractFileByPath(normalizePath(folder)) as TFolder;
 
   if (!dailyNotesFolder) {
     throw new DailyNotesFolderMissingError("Failed to find daily notes folder");
@@ -74,8 +79,8 @@ export async function getMemos(): Promise<any[]> {
 
   const dailyNotes = getAllDailyNotes();
 
-  for( const string in dailyNotes ){
-    if(dailyNotes[string] instanceof TFile){
+  for (const string in dailyNotes) {
+    if (dailyNotes[string] instanceof TFile) {
       await getTasksForDailyNote(dailyNotes[string], events);
     }
   }
@@ -83,18 +88,29 @@ export async function getMemos(): Promise<any[]> {
   return events;
 }
 
-const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/)
+const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
 // const lineIsValidTodo = (line: string) => {
 // //eslint-disable-next-line
 //   return /^\s*[\-\*]\s\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?\s*\S/.test(line)
 // }
 const lineContainsTime = (line: string) => {
   //eslint-disable-next-line
-    return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}(.*)$/.test(line)
-  }
-//eslint-disable-next-line
-const extractTextFromTodoLine = (line: string) => /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8]
-//eslint-disable-next-line
-const extractHourFromBulletLine = (line: string) => /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[4]
-//eslint-disable-next-line
-const extractMinFromBulletLine = (line: string) => /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5]
+  return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);
+};
+
+const lineContainsParseBelowToken = (line: string) => {
+  const re = new RegExp(ProcessEntriesBelow, "");
+  return re.test(line);
+};
+
+const extractTextFromTodoLine = (line: string) =>
+  //eslint-disable-next-line
+  /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
+
+const extractHourFromBulletLine = (line: string) =>
+  //eslint-disable-next-line
+  /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[4];
+
+const extractMinFromBulletLine = (line: string) =>
+  //eslint-disable-next-line
+  /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5];

@@ -1,4 +1,4 @@
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import { getDailyNote } from "obsidian-daily-notes-interface";
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
@@ -10,7 +10,7 @@ import { sendMemoToDelete } from "./obDeleteMemo";
 export async function obHideMemo(memoid: string): Promise<Model.Memo> {
 
     const {
-        dailyNotes 
+        dailyNotes
       } = dailyNotesService.getState();
     if(/\d{14,}/.test(memoid)){
         const { vault } = appStore.getState().dailyNotesState.app;

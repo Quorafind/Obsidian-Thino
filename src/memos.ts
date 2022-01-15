@@ -16,7 +16,7 @@ export class Memos extends ItemView {
 		super(leaf);
 		this.plugin = plugin;
 	}
-  
+
 	getDisplayText(): string {
 		// TODO: Make this interactive: Either the active workspace or the local graph
 		return 'Memos';
@@ -25,19 +25,20 @@ export class Memos extends ItemView {
 	getIcon(): string {
 		return "Calendar";
 	}
-  
+
 	getViewType(): string {
 		return MEMOS_VIEW_TYPE;
 	}
 
 	async onOpen(): Promise<void> {
 
-		
+
 
 		await this.plugin.loadSettings();
 		dailyNotesService.getApp(this.app);
 		InsertAfter = this.plugin.settings.InsertAfter;
 		UserName = this.plugin.settings.UserName;
+		ProcessEntriesBelow = this.plugin.settings.ProcessEntriesBelow;
 
 		this.reactComponent = React.createElement(App);
 
@@ -48,8 +49,9 @@ export class Memos extends ItemView {
 	async onClose() {
 		// Nothing to clean up.
 	}
-  
+
 }
 
 export let InsertAfter: string;
 export let UserName: string;
+export let ProcessEntriesBelow: string;
