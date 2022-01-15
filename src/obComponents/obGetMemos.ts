@@ -95,7 +95,10 @@ const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
 // }
 const lineContainsTime = (line: string) => {
   //eslint-disable-next-line
-  return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);
+  return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}(.*)$/.test(line);
+  // The below line excludes entries with a ':' after the time as I was having issues with my calendar
+  // being pulled in. Once made configurable will be simpler to manage.
+  // return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);
 };
 
 const lineContainsParseBelowToken = (line: string) => {
