@@ -38,7 +38,7 @@ export async function getTasksForDailyNote(dailyNote: TFile | null, dailyEvents:
     for (let i = 0; i < fileLines.length; i++) {
       const line = fileLines[i];
       if (line.length === 0) continue;
-      if (lineContainsParseBelowToken(line)) {
+      if (processHeaderFound == false && lineContainsParseBelowToken(line)) {
         processHeaderFound = true;
       }
 
@@ -102,6 +102,9 @@ const lineContainsTime = (line: string) => {
 };
 
 const lineContainsParseBelowToken = (line: string) => {
+  if (ProcessEntriesBelow === "") {
+    return true;
+  }
   const re = new RegExp(ProcessEntriesBelow, "");
   return re.test(line);
 };
