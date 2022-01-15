@@ -49,7 +49,6 @@ const UsageHeatMap: React.FC<Props> = () => {
 
   useEffect(() => {
     const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestamp);
-    console.log(newStat);
     for (const m of memos) {
       const creationDate = moment(m.createdAt);
       const index = creationDate.diff(startDate, 'days');
