@@ -47,7 +47,6 @@ You have a github heatmap like view to see your memos everyday, like dots in cal
 You can click on the day and then see all your memos today, yesterday, and so on(it based on `day` not week or month)
 ### User banner
 You can set your name in setting ,so don't forget to do it. And you can find the setting and trash box for memos when you click on the three dots near the user name.
-	@@ -62,16 +69,16 @@
 
 In each memo, you can used MARK to make it link to another memo. And you can delete it, share it and so on.
 
@@ -64,7 +63,9 @@ Every time, you search in memos will filter the memos that matched (which are sh
 
 ## Problems NOW
 
-	@@ -91,8 +98,8 @@ Add `Quorafind/Obsidian-Memos` to BRAT.
+## How To Install
+
+Add `Quorafind/Obsidian-Memos` to BRAT.
 
 Download the latest release. Extract and put the three files (main.js, manifest.json, styles.css) to folder `{{obsidian_vault}}/.obsidian/plugins/Obsidian-Memos`.
 
