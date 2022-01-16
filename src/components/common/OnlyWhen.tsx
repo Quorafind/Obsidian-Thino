@@ -1,5 +1,8 @@
+import React from "react";
+import { ReactNode } from "react";
+
 interface OnlyWhenProps {
-  children: React.ReactElement;
+  children: ReactNode;
   when: boolean;
 }
 

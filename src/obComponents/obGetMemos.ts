@@ -120,3 +120,4 @@ const extractHourFromBulletLine = (line: string) =>
 const extractMinFromBulletLine = (line: string) =>
   //eslint-disable-next-line
   /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5];
+

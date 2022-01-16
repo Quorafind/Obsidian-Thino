@@ -55,6 +55,7 @@ class ResourceService {
 
 
 
+    // const filePath = await vault.getAvailablePathForAttachments(fileName, "png", "");
 
     // const  reader = new FileReader();
     // reader.readAsArrayBuffer(file.arrayBuffer);
@@ -63,7 +64,6 @@ class ResourceService {
     //   fileArrary = reader.result;
     //   console.log(fileArrary);
     // }
-
 
 
     // if (size > 5 << 20) {

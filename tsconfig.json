@@ -25,4 +25,30 @@
     "**/*.ts",
     "**/*.tsx"
   ]
+<<<<<<< HEAD
 }
+=======
+}
+
+
+// {
+//   "compilerOptions": {
+//     "target": "ESNext",
+//     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+//     "types": ["vite/client"],
+//     "allowJs": false,
+//     "skipLibCheck": false,
+//     "esModuleInterop": false,
+//     "allowSyntheticDefaultImports": true,
+//     "strict": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "module": "ESNext",
+//     "moduleResolution": "Node",
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "noEmit": true,
+//     "jsx": "react-jsx"
+//   },
+//   "include": ["./src", "./public"]
+// }
+>>>>>>> 1ee0305acdd4b7d27427d77bbf9c3d4e195b96fc

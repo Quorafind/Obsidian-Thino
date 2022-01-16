@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, ReactNode, useCallback, useContext, useEffect, useImperativeHandle, useRef, useState } from "react";
 import TinyUndo from "tiny-undo";
 import appContext from "../../stores/appContext";
 import { storage, remove } from '../../helpers/storage';
@@ -7,14 +7,11 @@ import Only from "../common/OnlyWhen";
 import "../../less/editor.less";
 import React from "react";
 import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
-// import emoji from "@jukben/emoji-search";
-// import "@webscopeio/react-textarea-autocomplete/style.css";
 import { usedTags } from '../../obComponents/obTagSuggester';
 import "../../less/suggest.less";
 import tag from "../../icons/tag.svg";
 import imageSvg from "../../icons/image.svg"
 import { SaveMemoButtonLabel } from "../../memos";
-
 
 type ItemProps = {
   entity: {
@@ -35,17 +32,15 @@ export interface EditorRefActions {
   getContent: () => string;
 }
 
-export interface EditorProps {
+interface EditorProps {
   className: string;
   initialContent: string;
   placeholder: string;
   showConfirmBtn: boolean;
   showCancelBtn: boolean;
-  showTools: boolean;
+  tools?: ReactNode;
   onConfirmBtnClick: (content: string) => void;
   onCancelBtnClick: () => void;
-  onTagTextBtnClick: () => void;
-  onUploadFileBtnClick: () => void;
   onContentChange: (content: string) => void;
 }
 
@@ -53,13 +48,6 @@ export interface EditorProps {
 const Item = ({ entity: { name, char } }: ItemProps) => { return <div>{`${char}`}</div>};
 //eslint-disable-next-line
 const Loading = ({ data }: LoadingProps) => { return <div>Loading</div> };
-
-// type ItemProps = {
-//   entity: {
-//     char: string,
-//     name: string
-//   }
-// };
 
 export let editorInput: HTMLTextAreaElement;
 
@@ -74,23 +62,26 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     placeholder,
     showConfirmBtn,
     showCancelBtn,
-    showTools,
     onConfirmBtnClick: handleConfirmBtnClickCallback,
     onCancelBtnClick: handleCancelBtnClickCallback,
-    onTagTextBtnClick: handleTagTextBtnClickCallback,
-    onUploadFileBtnClick: handleUploadFileBtnClickCallback,
     onContentChange: handleContentChangeCallback,
   } = props;
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const tinyUndoRef = useRef<TinyUndo | null>(null);
   const refresh = useRefresh();
   // const [value, setValue] = useState("")
+<<<<<<< HEAD
   editorInput = editorRef.current;
   let actualToken: string;
 
 
 
 
+=======
+  
+  let actualToken: string;
+  
+>>>>>>> 1ee0305acdd4b7d27427d77bbf9c3d4e195b96fc
   useEffect(() => {
     if (!editorRef.current) {
       return;
@@ -161,6 +152,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
       setContent: (text: string) => {
         if (editorRef.current) {
           editorRef.current.value = text;
+          handleContentChangeCallback(editorRef.current.value);
           refresh();
         }
       },
@@ -210,10 +202,6 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
         handleCommonConfirmBtnClick();
       }
     }
-    // if (event.key === "#") {
-    //   console.log("yes")
-    //   new TagsSuggest(app, editorRef.current);
-    // }
     refresh();
   }, []);
 
@@ -221,6 +209,8 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     if (!editorRef.current) {
       return;
     }
+
+    editorRef.current.value = getEditorContentCache();
 
     handleConfirmBtnClickCallback(editorRef.current.value);
     editorRef.current.value = "";
@@ -234,6 +224,20 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     handleCancelBtnClickCallback();
   }, []);
 
+  const getEditorContentCache = (): string => {
+    return storage.get(["editorContentCache"]).editorContentCache ?? "";
+  }
+
+  const getEditorContent = (): string => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    editorRef.current.value = getEditorContentCache();
+    
+    return editorRef.current.value;
+  }
+
   return (
     <div className={"common-editor-wrapper " + className}>
       <ReactTextareaAutocomplete
@@ -242,12 +246,16 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           loadingComponent={Loading}
           placeholder={placeholder}
           movePopupAsYouType={true}
+<<<<<<< HEAD
           renderToBody={true}
+=======
+          // renderToBody={true}
+>>>>>>> 1ee0305acdd4b7d27427d77bbf9c3d4e195b96fc
 
           ref={rta => {
             rta = rta;
           }}
-          value={editorRef.current?.value}
+          value={getEditorContent()}
           innerRef={textarea => {
             editorRef.current = textarea;
           }}
@@ -275,7 +283,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
               //eslint-disable-next-line
               component: Item,
               afterWhitespace: true,
-              output: (item, trigger) => item.char,
+              output: (item) => item.char,
             },
             // "[[": {
             //   dataProvider: token => {
@@ -292,23 +300,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           }
         }
         />
-      {/* <textarea
-        autoFocus
-        className="common-editor-inputer"
-        rows={1}
-        placeholder={placeholder}
-        ref={editorRef}
-        onInput={handleEditorInput}
-        onKeyDown={handleEditorKeyDown}
-      ></textarea> */}
       <div className="common-tools-wrapper">
         <div className="common-tools-container">
-          <Only when={showTools}>
-            <div className="action-btn-icons">
-              <img className="action-btn file-upload" src={tag} onClick={handleTagTextBtnClickCallback} />
-              <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClickCallback} />
-            </div>
-          </Only>
+          <Only when={props.tools !== undefined}>{props.tools}</Only>
         </div>
         <div className="btns-container">
           <Only when={showCancelBtn}>
@@ -326,5 +320,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     </div>
   );
 });
+
+
 
 export default Editor;

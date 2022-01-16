@@ -11,8 +11,6 @@ import DailyMemo from "./DailyMemo";
 import DatePicker from "./common/DatePicker";
 import "../less/daily-memo-diary-dialog.less";
 import React from "react";
-import MemosPlugin from '../index';
-import { App } from "obsidian";
 import close from '../icons/close.svg';
 import arrowLeft from '../icons/arrow-left.svg';
 import arrowRight from '../icons/arrow-right.svg';
