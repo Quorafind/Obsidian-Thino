@@ -38,14 +38,23 @@ It uses the following formats when parsing to add memos to the list:
 ## Features
 
 ### Tag list
+
 Build in tag list for JUST memos. The build in tag list will show the tags in your memos.
+
 ### Query
-You can set a query that contains more than one variable to query memos. You can add it\pin it\Delete it
+
+You can set a query that contains more than one variable to query memos. You can add it\pin it\Delete it.
+
 ### Heatmap
+
 You have a github heatmap like view to see your memos everyday, like dots in calendar. But all of them is clickable to filter that day's memos.
+
 ### Clickable day
-You can click on the day and then see all your memos today, yesterday, and so on(it based on `day` not week or month)
+
+You can click on the day and then see all your memos today, yesterday, and so on(it based on `day` not week or month).
+
 ### User banner
+
 You can set your name in setting ,so don't forget to do it. And you can find the setting and trash box for memos when you click on the three dots near the user name.
 
 In each memo, you can used MARK to make it link to another memo. And you can delete it, share it and so on.
@@ -63,7 +72,9 @@ Every time, you search in memos will filter the memos that matched (which are sh
 
 ## Problems NOW
 
-## How To Install
+
+
+## How to Install
 
 Add `Quorafind/Obsidian-Memos` to BRAT.
 

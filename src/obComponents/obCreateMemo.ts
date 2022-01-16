@@ -7,7 +7,7 @@ import { InsertAfter } from "../memos";
 export async function escapeRegExp(text : any) {
     return await text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
-
+  
 //credit to chhoumann, original code from: https://github.com/chhoumann/quickadd/blob/7536a120701a626ef010db567cea7cf3018e6c82/src/utility.ts#L130
 export function getLinesInString(input: string) {
     const lines: string[] = [];
@@ -18,7 +18,7 @@ export function getLinesInString(input: string) {
         lines.push(tempString.slice(0, lineEndIndex));
         tempString = tempString.slice(lineEndIndex + 1);
     }
-
+  
     lines.push(tempString);
 
     return lines;
@@ -60,7 +60,7 @@ export async function waitForInsert(MemoContent: string) : Promise<Model.Memo>{
       }
     }
   }
-
+  
   //credit to chhoumann, original code from: https://github.com/chhoumann/quickadd
 export async function insertAfterHandler(targetString: string, formatted: string, fileContent: string) {
     // const targetString: string = plugin.settings.InsertAfter;
@@ -85,7 +85,7 @@ export async function insertAfterHandler(targetString: string, formatted: string
 
         if (foundNextHeader) {
             let endOfSectionIndex: number;
-
+  
             for (let i = nextHeaderPositionAfterTargetPosition + targetPosition; i > targetPosition; i--) {
                 const lineIsNewline: boolean = (/^[\s\n ]*$/).test(fileContentLines[i]);
                 if (!lineIsNewline) {
@@ -102,14 +102,14 @@ export async function insertAfterHandler(targetString: string, formatted: string
         }
     // return insertTextAfterPositionInBody(formatted, fileContent, targetPosition);
   }
-
+  
 export async function insertTextAfterPositionInBody(text: string, body: string, pos: number, found?: boolean): Promise<string> {
     if (pos === -1) {
         return `${body}\n${text}`;
     }
-
+  
     const splitContent = body.split("\n");
-
+  
     if(found){
         const pre = splitContent.slice(0, pos + 1).join("\n");
         const post = splitContent.slice(pos + 1).join("\n");

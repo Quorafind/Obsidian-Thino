@@ -169,6 +169,8 @@ export default class MemosPlugin extends Plugin {
       },
     });
 
+    
+
     i18next.changeLanguage(this.settings.Language);
   }
 }

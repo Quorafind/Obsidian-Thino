@@ -25,8 +25,4 @@ export default defineConfig({
     emptyOutDir: false,
     outDir: ".",
   },
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 1ee0305acdd4b7d27427d77bbf9c3d4e195b96fc

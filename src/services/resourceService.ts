@@ -50,11 +50,6 @@ class ResourceService {
 
     return newFilePath;
 
-
-    // const filePath = await vault.getAvailablePathForAttachments(fileName, "png", "");
-
-
-
     // const filePath = await vault.getAvailablePathForAttachments(fileName, "png", "");
 
     // const  reader = new FileReader();
@@ -64,7 +59,6 @@ class ResourceService {
     //   fileArrary = reader.result;
     //   console.log(fileArrary);
     // }
-
 
     // if (size > 5 << 20) {
     //   return Promise.reject("超过最大文件大小 5Mb");

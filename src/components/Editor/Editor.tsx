@@ -9,8 +9,6 @@ import React from "react";
 import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
 import { usedTags } from '../../obComponents/obTagSuggester';
 import "../../less/suggest.less";
-import tag from "../../icons/tag.svg";
-import imageSvg from "../../icons/image.svg"
 import { SaveMemoButtonLabel } from "../../memos";
 
 type ItemProps = {
@@ -70,18 +68,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   const tinyUndoRef = useRef<TinyUndo | null>(null);
   const refresh = useRefresh();
   // const [value, setValue] = useState("")
-<<<<<<< HEAD
-  editorInput = editorRef.current;
-  let actualToken: string;
-
-
-
-
-=======
   
   let actualToken: string;
   
->>>>>>> 1ee0305acdd4b7d27427d77bbf9c3d4e195b96fc
   useEffect(() => {
     if (!editorRef.current) {
       return;
@@ -246,11 +235,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           loadingComponent={Loading}
           placeholder={placeholder}
           movePopupAsYouType={true}
-<<<<<<< HEAD
-          renderToBody={true}
-=======
           // renderToBody={true}
->>>>>>> 1ee0305acdd4b7d27427d77bbf9c3d4e195b96fc
 
           ref={rta => {
             rta = rta;
