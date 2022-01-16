@@ -5,17 +5,19 @@ import { DAILY_TIMESTAMP } from "../helpers/consts";
 import utils from "../helpers/utils";
 import "../less/usage-heat-map.less";
 import React from "react";
+import moment from "moment";
+import i18next from "i18next";
 
 const tableConfig = {
   width: 12,
   height: 7,
 };
 
-const getInitialUsageStat = (usedDaysAmount: number, beginDayTimestemp: number): DailyUsageStat[] => {
+const getInitialUsageStat = (usedDaysAmount: number, beginDayTimestamp: number): DailyUsageStat[] => {
   const initialUsageStat: DailyUsageStat[] = [];
   for (let i = 1; i <= usedDaysAmount; i++) {
     initialUsageStat.push({
-      timestamp: beginDayTimestemp + DAILY_TIMESTAMP * i,
+      timestamp: beginDayTimestamp + DAILY_TIMESTAMP * i,
       count: 0,
     });
   }
@@ -34,21 +36,23 @@ const UsageHeatMap: React.FC<Props> = () => {
   const todayDay = new Date(todayTimeStamp).getDay() || 7;
   const nullCell = new Array(7 - todayDay).fill(0);
   const usedDaysAmount = (tableConfig.width - 1) * tableConfig.height + todayDay;
-  const beginDayTimestemp = todayTimeStamp - usedDaysAmount * DAILY_TIMESTAMP;
+  const beginDayTimestamp = utils.getDateStampByDate(todayTimeStamp - usedDaysAmount * DAILY_TIMESTAMP);
+  const startDate = moment().subtract(usedDaysAmount, 'days');
 
   const {
     memoState: { memos },
   } = useContext(appContext);
-  const [allStat, setAllStat] = useState<DailyUsageStat[]>(getInitialUsageStat(usedDaysAmount, beginDayTimestemp));
+  const [allStat, setAllStat] = useState<DailyUsageStat[]>(getInitialUsageStat(usedDaysAmount, beginDayTimestamp));
   const [popupStat, setPopupStat] = useState<DailyUsageStat | null>(null);
   const [currentStat, setCurrentStat] = useState<DailyUsageStat | null>(null);
   const containerElRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestemp);
+    const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestamp);
     for (const m of memos) {
-      const index = (utils.getDateStampByDate(m.createdAt) - beginDayTimestemp) / (1000 * 3600 * 24) - 1;
+      const creationDate = moment(m.createdAt);
+      const index = creationDate.diff(startDate, 'days');
       // if(index != newStat.length) { }
       if (index >= 0 && index< newStat.length) {
         newStat[index].count += 1;
@@ -94,13 +98,13 @@ const UsageHeatMap: React.FC<Props> = () => {
   return (
     <div className="usage-heat-map-wrapper" ref={containerElRef}>
       <div className="day-tip-text-container">
-        <span className="tip-text">Mon</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[0]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">Wed</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[2]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">Fri</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[4]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">Sun</span>
+        <span className="tip-text">{i18next.t('weekDaysShort', { returnObjects: true })[6]}</span>
       </div>
 
       {/* popup */}

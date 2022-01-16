@@ -4758,7 +4758,7 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
   padding: 4px;
   width: 180px;
   border-radius: 8px;
-  z-index: 2;
+  z-index: 20;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
   background-color: white;
 }
@@ -4803,7 +4803,7 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
   padding: 4px;
   width: 180px;
   border-radius: 8px;
-  z-index: 2;
+  z-index: 20;
   background-color: #000000;
 }
 .theme-dark div[data-type="memos_view"] .menu-btns-popup:hover {

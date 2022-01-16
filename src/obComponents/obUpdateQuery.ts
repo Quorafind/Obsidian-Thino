@@ -1,4 +1,4 @@
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import { TFile  } from "obsidian";
 import appStore from "../stores/appStore";
 import { getDailyNotePath } from "./obUpdateMemo";
@@ -22,13 +22,13 @@ export const updateObsidianQuery = async (queryId: string, title: string, queryS
         }else{
             lineID = getIDFromLine(queryId);
         }
-        
+
         const lineNum = parseInt(lineID) - 1;
 
         if(fileLines && fileLines.length != 0){
 
             const oldContent = fileLines[lineNum];
-            
+
             const date = moment();
             const updatedDateString = date.format("YYYYMMDDHHmmss");
             const updatedDate = date.format("YYYY/MM/DD HH:mm:ss");

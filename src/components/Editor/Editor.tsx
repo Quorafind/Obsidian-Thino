@@ -7,11 +7,9 @@ import Only from "../common/OnlyWhen";
 import "../../less/editor.less";
 import React from "react";
 import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
-// import emoji from "@jukben/emoji-search";
-// import "@webscopeio/react-textarea-autocomplete/style.css";
 import { usedTags } from '../../obComponents/obTagSuggester';
 import "../../less/suggest.less";
-
+import { SaveMemoButtonLabel } from "../../memos";
 
 type ItemProps = {
   entity: {
@@ -187,7 +185,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
 
   const handleEditorKeyDown = useCallback((event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     event.stopPropagation();
-    
+
     if (event.code === "Enter") {
       if (event.metaKey || event.ctrlKey) {
         handleCommonConfirmBtnClick();
@@ -238,7 +236,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           placeholder={placeholder}
           movePopupAsYouType={true}
           // renderToBody={true}
-          
+
           ref={rta => {
             rta = rta;
           }}
@@ -259,7 +257,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           minChar={0}
           onItemSelected={handleInsertTrigger}
           scrollToItem={true}
-          
+
           trigger={{
             "#": {
               dataProvider: token => {
@@ -299,7 +297,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
           </Only>
           <Only when={showConfirmBtn}>
             <button className="action-btn confirm-btn" disabled={!editorRef.current?.value} onClick={handleCommonConfirmBtnClick}>
-              NOTEIT<span className="icon-text">✍️</span>
+              {SaveMemoButtonLabel}<span className="icon-text">✍️</span>
             </button>
           </Only>
         </div>
