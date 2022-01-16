@@ -11,7 +11,7 @@ import showShareMemoImageDialog from "./ShareMemoImageDialog";
 import toastHelper from "./Toast";
 import "../less/memo.less";
 import React from "react";
-import { TFile, Vault } from "obsidian";
+import { Notice, TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
 import { showMemoInDailyNotes } from "../obComponents/obShowMemo";
 import more from "../icons/more.svg"
@@ -166,7 +166,7 @@ const Memo: React.FC<Props> = (props: Props) => {
       try {
         await memoService.hideMemoById(memo.id);
       } catch (error: any) {
-        toastHelper.error(error.message);
+        new Notice(error.message);
       }
 
       if (globalStateService.getState().editMemoId === memo.id) {

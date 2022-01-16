@@ -57,12 +57,12 @@ const PreferencesSection: React.FC<Props> = () => {
     document.body.removeChild(element);
   };
 
-  const handleFormatMemosBtnClick = async () => {
-    const memos = memoService.getState().memos;
-    for (const m of memos) {
-      memoService.updateMemo(m.id, parseHtmlToRawText(m.content));
-    }
-  };
+  // const handleFormatMemosBtnClick = async () => {
+  //   const memos = memoService.getState().memos;
+  //   for (const m of memos) {
+  //     memoService.updateMemo(m.id, parseHtmlToRawText(m.content));
+  //   }
+  // };
 
   return (
     <>
@@ -103,9 +103,9 @@ const PreferencesSection: React.FC<Props> = () => {
           <button className="btn export-btn" onClick={handleExportBtnClick}>
             导出数据(JSON)
           </button>
-          <button className="btn format-btn" onClick={handleFormatMemosBtnClick}>
+          {/* <button className="btn format-btn" onClick={handleFormatMemosBtnClick}>
             格式化数据
-          </button>
+          </button> */}
         </div>
       </div>
     </>
