@@ -1,4 +1,4 @@
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import { getDailyNote, getDailyNoteSettings } from "obsidian-daily-notes-interface";
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
@@ -9,7 +9,7 @@ import appStore from "../stores/appStore";
 export async function changeMemo(memoid: string, originalContent: string, content: string): Promise<Model.Memo> {
 
     const {
-        dailyNotes 
+        dailyNotes
       } = dailyNotesService.getState();
     const { vault } = appStore.getState().dailyNotesState.app;
     const timeString = memoid.slice(0,13);
@@ -35,7 +35,7 @@ export async function changeMemo(memoid: string, originalContent: string, conten
 export function getFile(memoid: string): TFile {
 
   const {
-      dailyNotes 
+      dailyNotes
     } = dailyNotesService.getState();
   const timeString = memoid.slice(0,13);
   const changeDate = moment(timeString, "YYYYMMDDHHmmSS");

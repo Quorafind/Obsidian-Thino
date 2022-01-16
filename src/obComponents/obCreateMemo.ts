@@ -1,4 +1,4 @@
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
 import { InsertAfter } from "../memos";
@@ -12,7 +12,7 @@ export async function escapeRegExp(text : any) {
 export function getLinesInString(input: string) {
     const lines: string[] = [];
     let tempString = input;
-  
+
     while (tempString.contains("\n")) {
         const lineEndIndex = tempString.indexOf("\n");
         lines.push(tempString.slice(0, lineEndIndex));
@@ -20,7 +20,7 @@ export function getLinesInString(input: string) {
     }
   
     lines.push(tempString);
-  
+
     return lines;
 }
 
@@ -31,7 +31,7 @@ export async function waitForInsert(MemoContent: string) : Promise<Model.Memo>{
     const date = moment();
     const timeHour = date.format('HH');
     const timeMinute = date.format('mm');
-  
+
     const newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
     const dailyNotes = await getAllDailyNotes();
     const existingFile = getDailyNote(date, dailyNotes);
@@ -67,14 +67,14 @@ export async function insertAfterHandler(targetString: string, formatted: string
     //eslint-disable-next-line
     const targetRegex = new RegExp(`\s*${await escapeRegExp(targetString)}\s*`);
     const fileContentLines: string[] = getLinesInString(fileContent);
-  
+
     const targetPosition = fileContentLines.findIndex(line => targetRegex.test(line));
     const targetNotFound = targetPosition === -1;
     if (targetNotFound) {
         // if (this.choice.insertAfter?.createIfNotFound) {
         //     return await createInsertAfterIfNotFound(formatted);
         // }
-  
+
         console.log("unable to find insert after line in file.")
     }
 
@@ -82,7 +82,7 @@ export async function insertAfterHandler(targetString: string, formatted: string
             .slice(targetPosition + 1)
             .findIndex(line => (/^#+ |---/).test(line))
         const foundNextHeader = nextHeaderPositionAfterTargetPosition !== -1;
-  
+
         if (foundNextHeader) {
             let endOfSectionIndex: number;
   
@@ -93,9 +93,9 @@ export async function insertAfterHandler(targetString: string, formatted: string
                     break;
                 }
             }
-  
+
             if (!endOfSectionIndex) endOfSectionIndex = targetPosition;
-  
+
             return await insertTextAfterPositionInBody(formatted, fileContent, endOfSectionIndex, foundNextHeader);
         } else {
             return await insertTextAfterPositionInBody(formatted, fileContent, fileContentLines.length - 1, foundNextHeader);
