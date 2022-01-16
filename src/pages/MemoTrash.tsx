@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import appContext from "../stores/appContext";
 import useLoading from "../hooks/useLoading";
 import { globalStateService, locationService, memoService, queryService } from "../services";
-import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, TAG_REG } from "../helpers/consts";
+import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } from "../helpers/consts";
 import utils from "../helpers/utils";
 import { checkShouldShowMemoWithFilters } from "../helpers/filter";
 import Only from "../components/common/OnlyWhen";
@@ -39,8 +39,31 @@ const MemoTrash: React.FC<Props> = () => {
             }
           }
 
-          if (tagQuery && !memo.content.includes(`# ${tagQuery}`)) {
-            shouldShow = false;
+          if (tagQuery) {
+            const tagsSet = new Set<string>();
+            for (const t of Array.from(memo.content.match(TAG_REG) ?? [])) {
+              const tag = t.replace(TAG_REG, "$1").trim();
+              const items = tag.split("/");
+              let temp = "";
+              for (const i of items) {
+                temp += i;
+                tagsSet.add(temp);
+                temp += "/";
+              }
+            }
+            for (const t of Array.from(memo.content.match(NOP_FIRST_TAG_REG) ?? [])) {
+              const tag = t.replace(NOP_FIRST_TAG_REG, "$1").trim();
+              const items = tag.split("/");
+              let temp = "";
+              for (const i of items) {
+                temp += i;
+                tagsSet.add(temp);
+                temp += "/";
+              }
+            }
+            if (!tagsSet.has(tagQuery)) {
+              shouldShow = false;
+            }
           }
           if (
             duration &&

@@ -1,24 +1,93 @@
-import { useCallback, useContext, useEffect, useMemo, useRef } from "react";
+import React, { ChangeEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import appContext from "../stores/appContext";
 import { globalStateService, locationService, memoService, resourceService } from "../services";
 import utils from "../helpers/utils";
 import { storage } from "../helpers/storage";
 import toastHelper from "./Toast";
-import Editor, { EditorProps, EditorRefActions } from "./Editor/Editor";
+import Editor, { EditorRefActions } from "./Editor/Editor";
 import "../less/memo-editor.less";
-import React from "react";
+import "../less/select-date-picker.less";
+import tag from "../icons/tag.svg";
+import imageSvg from "../icons/image.svg";
+import { DayPicker } from 'react-day-picker';
+import { usePopper } from 'react-popper';
+// import { createPopper } from '@popperjs/core'
+import { format, isValid, parse } from 'date-fns';
+import FocusTrap from 'focus-trap-react';
+import moment from "moment";
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
+
+const getCursorPostion = (input: HTMLTextAreaElement) => {
+  const { offsetLeft: inputX, offsetTop: inputY, offsetHeight: inputH, offsetWidth: inputW, selectionEnd: selectionPoint } = input;
+  const div = document.createElement("div");
+
+  const copyStyle = window.getComputedStyle(input);
+  for (const item of copyStyle) {
+    div.style.setProperty(item, copyStyle.getPropertyValue(item));
+  }
+  div.style.position = "fixed";
+  div.style.visibility = "hidden";
+  div.style.whiteSpace = "pre-wrap";
+
+  // we need a character that will replace whitespace when filling our dummy element if it's a single line <input/>
+  const swap = ".";
+  const inputValue = input.tagName === "INPUT" ? input.value.replace(/ /g, swap) : input.value;
+  const textContent = inputValue.substring(0, selectionPoint || 0);
+  div.textContent = textContent;
+  if (input.tagName === "TEXTAREA") {
+    div.style.height = "auto";
+  }
+
+  const span = document.createElement("span");
+  span.textContent = inputValue.substring(selectionPoint || 0) || ".";
+  div.appendChild(span);
+  document.body.appendChild(div);
+  const { offsetLeft: spanX, offsetTop: spanY, offsetHeight: spanH, offsetWidth: spanW } = span;
+  document.body.removeChild(div);
+  return {
+    x: inputX + spanX,
+    y: inputY + spanY,
+    h: inputH + spanH,
+    w: inputW + spanW,
+  };
+};
 
 interface Props {}
 
 const MemoEditor: React.FC<Props> = () => {
   const { globalState } = useContext(appContext);
+  // const [isDateSeletorShown, toggleDateSeletor] = useToggle(false);
   const editorRef = useRef<EditorRefActions>(null);
   const prevGlobalStateRef = useRef(globalState);
-  // const { app } = dailyNotesService.getState();
-  
+  // const dateSeletorRef = useRef<HTMLDivElement>(null);
+  const [selected, setSelected] = useState<Date>();
+  // const [inputValue, setInputValue] = useState<string>('');
+  const [isPopperOpen, setIsPopperOpen] = useState(false);
 
+  const popperRef = useRef<HTMLDivElement>(null);
+  // const buttonRef = useRef<HTMLButtonElement>(null);
+  const [popperElement, setPopperElement] = useState(null);
+  // const customBoundary = document.querySelector('#memos_view');
+
+  const popper = usePopper(popperRef.current, popperElement, {
+    placement: 'right-end',
+    modifiers: [
+      {
+        name: 'flip',
+        options: {
+          allowedAutoPlacements: ['bottom'],
+          rootBoundary: 'document', // by default, all the placements are allowed
+        },
+      },
+    ],
+  });
+
+  const closePopper = () => {
+    setIsPopperOpen(false);
+    // buttonRef?.current?.focus();
+  };
+  
   useEffect(() => {
     if (globalState.markMemoId) {
       const editorCurrentValue = editorRef.current?.getContent();
@@ -67,8 +136,20 @@ const MemoEditor: React.FC<Props> = () => {
       }
     };
 
+    const handleClickEvent = () => {
+      handleContentChange(editorRef.current?.element.value ?? "");
+    };
+
+    const handleKeyDownEvent = () => {
+      setTimeout(() => {
+        handleContentChange(editorRef.current?.element.value ?? "");
+      });
+    };
+
     editorRef.current.element.addEventListener("paste", handlePasteEvent);
     editorRef.current.element.addEventListener("drop", handleDropEvent);
+    editorRef.current.element.addEventListener("click", handleClickEvent);
+    editorRef.current.element.addEventListener("keydown", handleKeyDownEvent);
 
     return () => {
       editorRef.current?.element.removeEventListener("paste", handlePasteEvent);
@@ -139,7 +220,67 @@ const MemoEditor: React.FC<Props> = () => {
       content = "";
     }
     setEditorContentCache(content);
+
+    if (editorRef.current) {
+      const currentValue = editorRef.current.getContent();
+      const selectionStart = editorRef.current.element.selectionStart;
+      const prevString = currentValue.slice(0, selectionStart);
+      const nextString = currentValue.slice(selectionStart);
+
+      if ((prevString.endsWith("@") || prevString.endsWith("📆")) && nextString.startsWith(" ")) {
+        updateDateSelectorPopupPosition();
+        setIsPopperOpen(true);
+      } else if ((prevString.endsWith("@") || prevString.endsWith("📆")) && nextString === "") {
+        updateDateSelectorPopupPosition();
+        setIsPopperOpen(true);
+      } else {
+        setIsPopperOpen(false);
+      }
+
+      setTimeout(() => {
+        editorRef.current?.focus();
+      });
+    }
   }, []);
+
+  const handleDateInsertTrigger = (date: Date) => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    if (date) {
+      closePopper();
+    } else {
+
+    }
+
+    const currentValue = editorRef.current.getContent();
+    const selectionStart = editorRef.current.element.selectionStart;
+    const prevString = currentValue.slice(0, selectionStart);
+    const nextString = currentValue.slice(selectionStart);
+    const todayMoment = moment(date);
+
+  
+    if (!editorRef.current) {
+      return;
+    }
+
+    if (prevString.endsWith("@")) {
+      editorRef.current.element.value =
+      //eslint-disable-next-line
+        currentValue.slice(0, editorRef.current.element.selectionStart-1) + "📆" + todayMoment.format("YYYY-MM-DD") + nextString;
+      editorRef.current.element.setSelectionRange(selectionStart+9, selectionStart+9);
+      editorRef.current.focus();
+      handleContentChange(editorRef.current.element.value);
+    } else {
+      editorRef.current.element.value =
+      //eslint-disable-next-line
+        prevString + todayMoment.format("YYYY-MM-DD") + nextString;
+      editorRef.current.element.setSelectionRange(selectionStart+10, selectionStart+10);
+      editorRef.current.focus();
+      handleContentChange(editorRef.current.element.value);
+    }
+  }
 
   const handleTagTextBtnClick = useCallback(() => {
     if (!editorRef.current) {
@@ -150,20 +291,37 @@ const MemoEditor: React.FC<Props> = () => {
     const selectionStart = editorRef.current.element.selectionStart;
     const prevString = currentValue.slice(0, selectionStart);
     const nextString = currentValue.slice(selectionStart);
-    let cursorIndex = prevString.length;
+
+    let nextValue = prevString + "# " + nextString;
+    let cursorIndex = prevString.length + 1;
 
     if (prevString.endsWith("#") && nextString.startsWith(" ")) {
-      editorRef.current.setContent(prevString.slice(0, prevString.length - 2) + nextString.slice(1));
-      cursorIndex = prevString.length - 2;
-    } else {
-      editorRef.current.element.value = prevString + "#" + nextString;
-      cursorIndex = prevString.length + 2;
+      nextValue = prevString.slice(0, prevString.length - 1) + nextString.slice(1);
+      cursorIndex = prevString.length - 1;
     }
 
-    setTimeout(() => {
-      editorRef.current?.element.setSelectionRange(cursorIndex, cursorIndex);
-      editorRef.current?.focus();
-    });
+    editorRef.current.element.value = nextValue;
+    editorRef.current.element.setSelectionRange(cursorIndex, cursorIndex);
+    editorRef.current.focus();
+    handleContentChange(editorRef.current.element.value);
+
+  }, []);
+
+  const updateDateSelectorPopupPosition = useCallback(() => {
+    if (!editorRef.current || !popperRef.current) {
+      return;
+    }
+
+    const seletorPopupWidth = 280;
+    const editorWidth = editorRef.current.element.clientWidth;
+    const { x, y } = getCursorPostion(editorRef.current.element);
+    // const left = x + seletorPopupWidth + 16 > editorWidth ? editorWidth + 20 - seletorPopupWidth : x + 2;
+    const left = x + seletorPopupWidth + 16 > editorWidth ? x + 2 : x + 2;
+    const top = y + 20;
+
+
+    popperRef.current.style.left = `${left}px`;
+    popperRef.current.style.top = `${top}px`;
   }, []);
 
   const handleUploadFileBtnClick = useCallback(() => {
@@ -187,7 +345,7 @@ const MemoEditor: React.FC<Props> = () => {
 
   const showEditStatus = Boolean(globalState.editMemoId);
 
-  const editorConfig: EditorProps = useMemo(
+  const editorConfig = useMemo(
     () => ({
       className: "memo-editor",
       initialContent: getEditorContentCache(),
@@ -197,8 +355,6 @@ const MemoEditor: React.FC<Props> = () => {
       showTools: true,
       onConfirmBtnClick: handleSaveBtnClick,
       onCancelBtnClick: handleCancelBtnClick,
-      onTagTextBtnClick: handleTagTextBtnClick,
-      onUploadFileBtnClick: handleUploadFileBtnClick,
       onContentChange: handleContentChange,
     }),
     [showEditStatus]
@@ -207,7 +363,46 @@ const MemoEditor: React.FC<Props> = () => {
   return (
     <div className={"memo-editor-wrapper " + (showEditStatus ? "edit-ing" : "")}>
       <p className={"tip-text " + (showEditStatus ? "" : "hidden")}>Modifying...</p>
-      <Editor ref={editorRef} {...editorConfig} />
+      <Editor
+        ref={editorRef}
+        {...editorConfig}
+        tools={
+          <>
+            <img className="action-btn file-upload" src={tag} onClick={handleTagTextBtnClick} />
+            <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />
+          </>
+        }
+      />
+      {/* <div ref={popperRef} className={`date-picker ${isDateSeletorShown ? "" : "hidden"}`}> */}
+      <div ref={popperRef} className="date-picker">
+          {isPopperOpen && (
+            <FocusTrap
+              active
+              focusTrapOptions={{
+                initialFocus: false,
+                allowOutsideClick: true,
+                clickOutsideDeactivates: true,
+                onDeactivate: closePopper
+              }}
+            >
+              <div
+                tabIndex={-1}
+                style={popper.styles.popper}
+                {...popper.attributes.popper}
+                ref={setPopperElement}
+                role="dialog"
+                >
+                <DayPicker
+                  initialFocus={isPopperOpen}
+                  mode="single"
+                  defaultMonth={selected}
+                  selected={selected}
+                  onSelect={handleDateInsertTrigger}
+                />
+              </div>
+            </FocusTrap>
+          )}
+      </div>
     </div>
   );
 };

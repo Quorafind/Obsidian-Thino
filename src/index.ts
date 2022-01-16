@@ -109,15 +109,6 @@ export default class MemosPlugin extends Plugin {
     new Notice('Close Memos Successfully');
   }
 
-  // onLayoutReady(): void {
-  //   if (this.app.workspace.getLeavesOfType(VIEW_TYPE).length) {
-  //     return;
-  //   }
-  //   this.app.workspace.getRightLeaf(false).setViewState({
-  //     type: VIEW_TYPE,
-  //     active: true,
-  //   });
-  // }
   async openDailyMemo() {
     const workspaceLeaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
     if(workspaceLeaves.length === 0){
