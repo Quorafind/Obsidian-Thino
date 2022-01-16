@@ -1,6 +1,6 @@
 import { getDailyNotePath } from "./obUpdateMemo";
 import { TFile, Notice } from 'obsidian';
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import appStore from "../stores/appStore";
 
 export const pinQueryInFile = async (queryID: string): Promise<any> =>{
@@ -66,7 +66,7 @@ export const createDeleteMemoInFile = async (file: TFile, fileContent: string, m
     }else{
         newContent = fileContent + "\n" + memoContent + " pinnedAt: " + pinnedAtDateID;
     }
-    
+
     await vault.modify(file, newContent);
 
     return true;

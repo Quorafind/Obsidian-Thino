@@ -1,4 +1,4 @@
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
 import { InsertAfter } from "../memos";
@@ -7,20 +7,20 @@ import { InsertAfter } from "../memos";
 export async function escapeRegExp(text : any) {
     return await text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
-  
+
 //credit to chhoumann, original code from: https://github.com/chhoumann/quickadd/blob/7536a120701a626ef010db567cea7cf3018e6c82/src/utility.ts#L130
 export function getLinesInString(input: string) {
     const lines: string[] = [];
     let tempString = input;
-  
+
     while (tempString.contains("\n")) {
         const lineEndIndex = tempString.indexOf("\n");
         lines.push(tempString.slice(0, lineEndIndex));
         tempString = tempString.slice(lineEndIndex + 1);
     }
-  
+
     lines.push(tempString);
-  
+
     return lines;
 }
 
@@ -31,7 +31,7 @@ export async function waitForInsert(MemoContent: string) : Promise<Model.Memo>{
     const date = moment();
     const timeHour = date.format('HH');
     const timeMinute = date.format('mm');
-  
+
     const newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
     const dailyNotes = await getAllDailyNotes();
     const existingFile = getDailyNote(date, dailyNotes);
@@ -60,21 +60,21 @@ export async function waitForInsert(MemoContent: string) : Promise<Model.Memo>{
       }
     }
   }
-  
+
   //credit to chhoumann, original code from: https://github.com/chhoumann/quickadd
 export async function insertAfterHandler(targetString: string, formatted: string, fileContent: string) {
     // const targetString: string = plugin.settings.InsertAfter;
     //eslint-disable-next-line
     const targetRegex = new RegExp(`\s*${await escapeRegExp(targetString)}\s*`);
     const fileContentLines: string[] = getLinesInString(fileContent);
-  
+
     const targetPosition = fileContentLines.findIndex(line => targetRegex.test(line));
     const targetNotFound = targetPosition === -1;
     if (targetNotFound) {
         // if (this.choice.insertAfter?.createIfNotFound) {
         //     return await createInsertAfterIfNotFound(formatted);
         // }
-  
+
         console.log("unable to find insert after line in file.")
     }
 
@@ -82,10 +82,10 @@ export async function insertAfterHandler(targetString: string, formatted: string
             .slice(targetPosition + 1)
             .findIndex(line => (/^#+ |---/).test(line))
         const foundNextHeader = nextHeaderPositionAfterTargetPosition !== -1;
-  
+
         if (foundNextHeader) {
             let endOfSectionIndex: number;
-  
+
             for (let i = nextHeaderPositionAfterTargetPosition + targetPosition; i > targetPosition; i--) {
                 const lineIsNewline: boolean = (/^[\s\n ]*$/).test(fileContentLines[i]);
                 if (!lineIsNewline) {
@@ -93,23 +93,23 @@ export async function insertAfterHandler(targetString: string, formatted: string
                     break;
                 }
             }
-  
+
             if (!endOfSectionIndex) endOfSectionIndex = targetPosition;
-  
+
             return await insertTextAfterPositionInBody(formatted, fileContent, endOfSectionIndex, foundNextHeader);
         } else {
             return await insertTextAfterPositionInBody(formatted, fileContent, fileContentLines.length - 1, foundNextHeader);
         }
     // return insertTextAfterPositionInBody(formatted, fileContent, targetPosition);
   }
-  
+
 export async function insertTextAfterPositionInBody(text: string, body: string, pos: number, found?: boolean): Promise<string> {
     if (pos === -1) {
         return `${body}\n${text}`;
     }
-  
+
     const splitContent = body.split("\n");
-  
+
     if(found){
         const pre = splitContent.slice(0, pos + 1).join("\n");
         const post = splitContent.slice(pos + 1).join("\n");

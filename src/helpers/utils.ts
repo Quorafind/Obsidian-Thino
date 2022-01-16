@@ -22,16 +22,15 @@ namespace utils {
     if (typeof t === "string") {
       t = t.replaceAll("-", "/");
     }
-    const d = new Date(t);
-
-    return d.getTime();
+    return new Date(t).getTime();
   }
 
   export function getDateStampByDate(t: Date | number | string): number {
     const d = new Date(getTimeStampByDate(t));
-
     return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
   }
+
+
 
   export function getDateString(t: Date | number | string): string {
     const d = new Date(getTimeStampByDate(t));

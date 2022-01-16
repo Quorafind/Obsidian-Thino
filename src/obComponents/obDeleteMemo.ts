@@ -1,6 +1,6 @@
 import { getDailyNotePath } from "./obUpdateMemo";
 import { TFile, normalizePath, Notice } from 'obsidian';
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import appStore from "../stores/appStore";
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import { insertAfterHandler } from "./obCreateMemo";
@@ -49,12 +49,12 @@ export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> 
                         return [{
                             deletedAt: "",
                         }]
-                    }    
+                    }
                 }
                 fileLines = null;
                 fileContents = null;
             }
-        }   
+        }
     }
 }
 
@@ -85,7 +85,7 @@ export async function deleteForever(deletedMemoid: string): Promise<void> {
         fileLines = null;
         fileContents = null;
         }
-    }   
+    }
     // return deletedMemos;
 }
 
@@ -126,7 +126,7 @@ export async function getDeletedMemos(): Promise<any[]> {
               }
          }
       }
-      
+
       fileLines = null;
       fileContents = null;
     }
@@ -168,7 +168,7 @@ export const sendMemoToDelete = async (memoContent: string): Promise<any> =>{
         const deleteDate = date.format("YYYY/MM/DD HH:mm:ss");
         const lineNum = 1;
         const deleteDateID = date.format("YYYYMMDDHHmmss") + lineNum;
-        
+
         await createDeleteMemoInFile(file, "" , memoContent , deleteDateID);
 
         return deleteDate
@@ -185,7 +185,7 @@ export const createDeleteMemoInFile = async (file: TFile, fileContent: string, m
     }else{
         newContent = fileContent + "\n" + memoContent + " deletedAt: " + deleteDate;
     }
-    
+
     await vault.modify(file, newContent);
 
     return true;

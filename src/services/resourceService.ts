@@ -1,6 +1,6 @@
 // import api from "../helpers/api";
 
-import moment from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import moment from 'moment';
 import { TFile } from "obsidian";
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
@@ -50,11 +50,11 @@ class ResourceService {
 
     return newFilePath;
 
-    
+
     // const filePath = await vault.getAvailablePathForAttachments(fileName, "png", "");
-    
-    
-    
+
+
+
 
     // const  reader = new FileReader();
     // reader.readAsArrayBuffer(file.arrayBuffer);
@@ -63,8 +63,8 @@ class ResourceService {
     //   fileArrary = reader.result;
     //   console.log(fileArrary);
     // }
-    
-    
+
+
 
     // if (size > 5 << 20) {
     //   return Promise.reject("超过最大文件大小 5Mb");
