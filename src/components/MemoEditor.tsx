@@ -17,7 +17,7 @@ import { usePopper } from 'react-popper';
 // import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
 import moment from "moment";
-import { DefaultPrefix } from "../memos";
+import { DefaultPrefix, InsertDateFormat } from "../memos";
 import useToggle from "../hooks/useToggle";
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
@@ -282,12 +282,21 @@ const MemoEditor: React.FC<Props> = () => {
     }
 
     if (prevString.endsWith("@")) {
-      editorRef.current.element.value =
-      //eslint-disable-next-line
-        currentValue.slice(0, editorRef.current.element.selectionStart-1) + "📆" + todayMoment.format("YYYY-MM-DD") + nextString;
-      editorRef.current.element.setSelectionRange(selectionStart+11, selectionStart+11);
-      editorRef.current.focus();
-      handleContentChange(editorRef.current.element.value);
+      if( InsertDateFormat === "Dataview") {
+        editorRef.current.element.value =
+        //eslint-disable-next-line
+          currentValue.slice(0, editorRef.current.element.selectionStart-1) + "[due::" + todayMoment.format("YYYY-MM-DD") + "]"+ nextString;
+        editorRef.current.element.setSelectionRange(selectionStart+17, selectionStart+17);
+        editorRef.current.focus();
+        handleContentChange(editorRef.current.element.value);
+      }else if( InsertDateFormat === "Tasks" ) {
+        editorRef.current.element.value =
+        //eslint-disable-next-line
+          currentValue.slice(0, editorRef.current.element.selectionStart-1) + "📆" + todayMoment.format("YYYY-MM-DD") + nextString;
+        editorRef.current.element.setSelectionRange(selectionStart+11, selectionStart+11);
+        editorRef.current.focus();
+        handleContentChange(editorRef.current.element.value);
+      }
     } else {
       editorRef.current.element.value =
       //eslint-disable-next-line
@@ -398,9 +407,9 @@ const MemoEditor: React.FC<Props> = () => {
         {...editorConfig}
         tools={
           <>
-            <img className="action-btn file-upload" src={tag} onClick={handleTagTextBtnClick} />
+            <img className="action-btn add-tag" src={tag} onClick={handleTagTextBtnClick} />
             <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />
-            <img className={`action-btn`} src={`${!isListShown ? journalSvg : taskSvg}`} onClick={handleChangeStatus} />
+            <img className="action-btn list-or-task" src={`${!isListShown ? journalSvg : taskSvg}`} onClick={handleChangeStatus} />
             {/* <img className={`action-btn ${isListShown ? "" : "hidden"}`} src={taskSvg} onClick={handleChangeStatus} /> */}
           </>
         }

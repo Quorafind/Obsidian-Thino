@@ -51,19 +51,6 @@ export class MemosSettingTab extends PluginSettingTab {
     this.containerEl.empty();
 
     new Setting(containerEl)
-      .setName("Insert After")
-      .setDesc("INSERT_AFTER")
-      .addText((text) =>
-        text
-          .setPlaceholder(DEFAULT_SETTINGS.InsertAfter)
-          .setValue(this.plugin.settings.InsertAfter)
-          .onChange(async (value) => {
-            this.plugin.settings.InsertAfter = value;
-            this.applySettingsUpdate();
-          })
-      );
-
-    new Setting(containerEl)
       .setName("USER_NAME")
       .setDesc("USER_NAME")
       .addText((text) =>
@@ -72,6 +59,19 @@ export class MemosSettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.UserName)
           .onChange(async (value) => {
             this.plugin.settings.UserName = value;
+            this.applySettingsUpdate();
+          })
+      );
+
+    new Setting(containerEl)
+      .setName("Insert After")
+      .setDesc("INSERT_AFTER")
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.InsertAfter)
+          .setValue(this.plugin.settings.InsertAfter)
+          .onChange(async (value) => {
+            this.plugin.settings.InsertAfter = value;
             this.applySettingsUpdate();
           })
       );
@@ -103,21 +103,23 @@ export class MemosSettingTab extends PluginSettingTab {
             this.applySettingsUpdate();
           })
       );
+    
+    let dropdown: DropdownComponent;
 
     new Setting(containerEl)
       .setName("UI Language")
       .setDesc("Translates the UI language. Only 'en' and 'zh' are available.")
-      .addText((text) =>
-        text
-          .setPlaceholder(DEFAULT_SETTINGS.Language)
+      .addDropdown(async (d: DropdownComponent) => {
+        dropdown = d;
+        dropdown.addOption("zh", "中文");
+        dropdown.addOption("en", "English");
+        dropdown
           .setValue(this.plugin.settings.Language)
           .onChange(async (value) => {
             this.plugin.settings.Language = value;
             this.applySettingsUpdate();
-          })
-      );
-
-    let dropdown: DropdownComponent;
+          });
+      });
 
     new Setting(containerEl)
       .setName("Default Prefix Style")
@@ -144,7 +146,7 @@ export class MemosSettingTab extends PluginSettingTab {
       dropdown
         .setValue(this.plugin.settings.InsertDateFormat)
         .onChange(async (value) => {
-          this.plugin.settings.DefaultDateFormat = value;
+          this.plugin.settings.InsertDateFormat = value;
           this.applySettingsUpdate();
         });
     });

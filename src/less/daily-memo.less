@@ -117,9 +117,23 @@
     padding: 0;
     font-size: 16px;
     margin-top: -3px;
+    display: -webkit-box;
+    
+    
 
     > .memo-content-text {
       margin-top: -14px;
+      text-overflow:clip;
+      overflow: hidden;
+      -webkit-line-clamp: 2;  /*限制在一个块元素显示的文本的行数*/
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      width: 80%;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      -webkit-text-overflow: ellipsis;
+      -moz-text-overflow: ellipsis;
+      white-space: nowrap;  /*规定段落中的文本不进行换行*/**
 
       .tag-span {
         cursor: unset;

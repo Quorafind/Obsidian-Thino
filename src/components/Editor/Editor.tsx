@@ -10,11 +10,15 @@ import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
 import { usedTags } from '../../obComponents/obTagSuggester';
 import "../../less/suggest.less";
 import { SaveMemoButtonLabel } from "../../memos";
+import { getSuggestions } from "../../obComponents/obFileSuggester";
+import { TFile } from "obsidian";
+import appStore from "../../stores/appStore";
 
 type ItemProps = {
   entity: {
     char: string,
-    name: string
+    name: string,
+    file?: TFile
   }
 };
 
@@ -43,7 +47,7 @@ interface EditorProps {
 }
 
 //eslint-disable-next-line
-const Item = ({ entity: { name, char } }: ItemProps) => { return <div>{`${char}`}</div>};
+const TItem = ({ entity: { name, char, file } }: ItemProps) => { return <div>{`${char}`}</div>};
 //eslint-disable-next-line
 const Loading = ({ data }: LoadingProps) => { return <div>Loading</div> };
 
@@ -152,30 +156,62 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     []
   );
 
-  const handleInsertTrigger = (event: { currentTrigger: string; item: string}) => {
+  const handleInsertTrigger = (event: { currentTrigger: string; item: any}) => {
     if (!editorRef.current) {
       return;
     }
 
-    const prevValue = editorRef.current.value;
-    let removeCharNum;
-    if(actualToken !== null){
-      removeCharNum = actualToken.length;
-    }else{
-      removeCharNum = 0;
-    }
-    let behindCharNum = editorRef.current.selectionStart;
-    for(let i = 0; i < prevValue.length;i++){
-      if(prevValue[behindCharNum] !== " " ){
-        behindCharNum++;
-      }
-    }
+    const { fileManager } = appStore.getState().dailyNotesState.app;
 
-    editorRef.current.value =
-    //eslint-disable-next-line
-      prevValue.slice(0, editorRef.current.selectionStart - removeCharNum) + event.item.char + prevValue.slice(behindCharNum);
-    handleContentChangeCallback(editorRef.current.value);
-    refresh();
+    if(event.currentTrigger === "#") {
+      const prevValue = editorRef.current.value;
+      let removeCharNum;
+      if(actualToken !== null && actualToken !== undefined){
+        removeCharNum = actualToken.length;
+      }else{
+        removeCharNum = 0;
+      }
+      let behindCharNum = editorRef.current.selectionStart;
+      for(let i = 0; i < prevValue.length;i++){
+        if(prevValue[behindCharNum] !== " " ){
+          behindCharNum++;
+        }
+      }
+
+      editorRef.current.value =
+      //eslint-disable-next-line
+        prevValue.slice(0, editorRef.current.selectionStart - removeCharNum) + event.item.char + prevValue.slice(behindCharNum);
+      handleContentChangeCallback(editorRef.current.value);
+      refresh();
+    }else if(event.currentTrigger === "[["){
+      const filePath = fileManager.generateMarkdownLink(event.item.file, event.item.file.path, "","");
+
+      const prevValue = editorRef.current.value;
+      let removeCharNum;
+      if(actualToken !== null && actualToken !== undefined){
+        if(filePath.contains("[[")){
+          removeCharNum = actualToken.length + 1;
+        }else if(event.item.file.extension !== "md"){
+          removeCharNum = actualToken.length + 1;
+        }else {
+          removeCharNum = actualToken.length + 2;
+        }
+      }else{
+        removeCharNum = 2;
+      }
+      let behindCharNum = editorRef.current.selectionStart;
+      for(let i = 0; i < prevValue.length;i++){
+        if(prevValue[behindCharNum] !== " " ){
+          behindCharNum++;
+        }
+      }
+
+      editorRef.current.value =
+      //eslint-disable-next-line
+        prevValue.slice(0, editorRef.current.selectionStart - removeCharNum) + filePath + prevValue.slice(behindCharNum);
+      handleContentChangeCallback(editorRef.current.value);
+      refresh();
+    }
   }
 
   const handleEditorInput = useCallback(() => {
@@ -266,7 +302,19 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
                   .map(({ name, char }) => ({ name, char }));
               },
               //eslint-disable-next-line
-              component: Item,
+              component: TItem,
+              afterWhitespace: true,
+              output: (item) => item.char,
+            },
+            "[[": {
+              dataProvider: token => {
+                actualToken = token;
+                return getSuggestions(token)
+                  .slice(0,10)
+                  .map(({ name, char, file }) => ({ name, char, file }));
+              },
+              //eslint-disable-next-line
+              component: TItem,
               afterWhitespace: true,
               output: (item) => item.char,
             },
