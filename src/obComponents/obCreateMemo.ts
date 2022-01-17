@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
-import { InsertAfter, DefaultPrefix } from "../memos";
+import { InsertAfter } from "../memos";
 
 // https://stackoverflow.com/questions/3115150/how-to-escape-regular-expression-special-characters-using-javascript
 export async function escapeRegExp(text : any) {
