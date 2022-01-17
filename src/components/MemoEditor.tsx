@@ -267,6 +267,8 @@ const MemoEditor: React.FC<Props> = () => {
 
     if (date) {
       closePopper();
+      isList = true;
+      toggleList(true);
     } else {
 
     }
