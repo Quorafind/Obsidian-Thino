@@ -21,6 +21,7 @@ import { DefaultPrefix, InsertDateFormat } from "../memos";
 import useToggle from "../hooks/useToggle";
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
+import { Platform } from 'obsidian';
 
 const getCursorPostion = (input: HTMLTextAreaElement) => {
   const { offsetLeft: inputX, offsetTop: inputY, offsetHeight: inputH, offsetWidth: inputW, selectionEnd: selectionPoint } = input;
@@ -71,6 +72,7 @@ const MemoEditor: React.FC<Props> = () => {
 
   const popperRef = useRef<HTMLDivElement>(null);
   const [popperElement, setPopperElement] = useState(null);
+  let popper;
 
 
   useEffect(() => {
@@ -87,18 +89,39 @@ const MemoEditor: React.FC<Props> = () => {
     }
   }, []);
 
-  const popper = usePopper(popperRef.current, popperElement, {
-    placement: 'right-end',
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          allowedAutoPlacements: ['bottom'],
-          rootBoundary: 'document', // by default, all the placements are allowed
+  if(!Platform.isMobile){
+    popper = usePopper(popperRef.current, popperElement, {
+      placement: 'right-end',
+      modifiers: [
+        {
+          name: 'flip',
+          options: {
+            allowedAutoPlacements: ['bottom'],
+            rootBoundary: 'document', // by default, all the placements are allowed
+          },
         },
-      },
-    ],
-  });
+      ],
+    });
+  }else {
+    popper = usePopper(popperRef.current, popperElement, {
+      placement: 'bottom',
+      modifiers: [
+        {
+          name: 'flip',
+          options: {
+            allowedAutoPlacements: ['bottom'],
+            rootBoundary: 'document', // by default, all the placements are allowed
+          },
+        },
+        {
+          name: 'preventOverflow',
+          options: {
+            rootBoundary: 'document',
+          },
+        },
+      ],
+    });
+  }
 
   const closePopper = () => {
     setIsPopperOpen(false);
