@@ -1,11 +1,11 @@
-interface Duration {
+interface TDuration {
   from: number;
   to: number;
 }
 
 interface Query {
   tag: string;
-  duration: Duration | null;
+  duration: TDuration | null;
   type: MemoSpecType | "";
   text: string;
   filter: string;

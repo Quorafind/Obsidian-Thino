@@ -130,8 +130,8 @@ class MemoService {
     return memos.filter((m) => m.content.includes(memoId));
   }
 
-  public async createMemo(text: string): Promise<Model.Memo> {
-    const memo = await waitForInsert(text);
+  public async createMemo(text: string, isList: boolean): Promise<Model.Memo> {
+    const memo = await waitForInsert(text, isList);
     return memo;
   }
 

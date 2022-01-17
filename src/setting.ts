@@ -1,4 +1,4 @@
-import { App, PluginSettingTab, Setting } from "obsidian";
+import { App, DropdownComponent, PluginSettingTab, Setting } from "obsidian";
 import type MemosPlugin from "./index";
 
 export interface MemosSettings {
@@ -8,6 +8,7 @@ export interface MemosSettings {
   ProcessEntriesBelow: string;
   Language: string;
   SaveMemoButtonLabel: string;
+  DefaultPrefix: string;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -17,6 +18,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ProcessEntriesBelow: "# Journal",
   Language: "en",
   SaveMemoButtonLabel: "NOTEIT",
+  DefaultPrefix: "List"
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -112,5 +114,22 @@ export class MemosSettingTab extends PluginSettingTab {
             this.applySettingsUpdate();
           })
       );
+
+      let dropdown: DropdownComponent;
+
+      new Setting(containerEl)
+        .setName("Default Prefix Style")
+        .setDesc("Set the default prefix style when create memo, 'List' by default.")
+        .addDropdown(async (d: DropdownComponent) => {
+          dropdown = d;
+          dropdown.addOption("List", "List");
+          dropdown.addOption("Task", "Task");
+          dropdown
+            .setValue(this.plugin.settings.DefaultPrefix)
+            .onChange(async (value) => {
+              this.plugin.settings.DefaultPrefix = value;
+              this.applySettingsUpdate();
+            });
+        });
   }
 }
