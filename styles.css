@@ -260,8 +260,9 @@
   justify-content: flex-start;
   align-items: center;
 }
-.theme-dark div[data-type="memos_view"] .common-editor-wrapper > .common-tools-wrapper > .common-tools-container > .action-btn-icons > img {
-  filter: invert(0.5);
+.theme-dark div[data-type="memos_view"] .common-editor-wrapper > .common-tools-wrapper > .common-tools-container > img {
+  filter: invert(0.8);
+  color: yellowgreen;
 }
 .theme-dark div[data-type="memos_view"] .common-editor-wrapper > .common-tools-wrapper > .btns-container {
   display: flex;
@@ -279,6 +280,9 @@
   border-radius: 6px;
   font-size: 13px;
   line-height: 32px;
+}
+.theme-dark div[data-type="memos_view"] .common-editor-wrapper > .common-tools-wrapper > .btns-container > .action-btn > img {
+  filter: invert(0.8);
 }
 .theme-dark div[data-type="memos_view"] .common-editor-wrapper > .common-tools-wrapper > .btns-container > .action-btn:hover {
   opacity: 0.8;
@@ -4983,14 +4987,27 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
   padding: 0;
   font-size: 16px;
   margin-top: -3px;
+  display: -webkit-box;
 }
 .theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text {
   margin-top: -14px;
+  text-overflow: clip;
+  -webkit-line-clamp: 2;
+  /*限制在一个块元素显示的文本的行数*/
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 80%;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+  -moz-text-overflow: ellipsis;
+  white-space: nowrap;
+  /*规定段落中的文本不进行换行*/
 }
-.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span {
+.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text ** .tag-span {
   cursor: unset;
 }
-.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span:hover {
+.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text ** .tag-span:hover {
   color: #bbbec7;
   background-color: #616161;
 }
@@ -7859,6 +7876,10 @@ div[data-type="memos_view"] #root {
   src: "";
   font-style: normal;
 }
+div[data-type="memos_view"] .view-content:not(.images-wrapper) img {
+  max-width: 100%;
+  cursor: default;
+}
 .theme-light div[data-type="memos_view"] {
   margin: 0;
   padding: 0;
@@ -7890,7 +7911,7 @@ div[data-type="memos_view"] #root {
 .theme-light div[data-type="memos_view"] input,
 .theme-light div[data-type="memos_view"] button:not(.rdp-day_selected),
 .theme-light div[data-type="memos_view"] textarea,
-.theme-light img {
+.theme-light div[data-type="memos_view"] img {
   background-color: transparent;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -7979,7 +8000,7 @@ div[data-type="memos_view"] #root {
 .theme-dark div[data-type="memos_view"] input,
 .theme-dark div[data-type="memos_view"] button,
 .theme-dark div[data-type="memos_view"] textarea,
-.theme-dark img {
+.theme-dark div[data-type="memos_view"] img {
   background-color: transparent;
   user-select: none;
   -webkit-tap-highlight-color: transparent;

@@ -31,7 +31,7 @@ class ResourceService {
     const dailyNotes = getAllDailyNotes();
     const date = moment();
     const existingFile = getDailyNote(date, dailyNotes);
-    let newFile
+    let newFile;
     if(!existingFile){
       const dailyFile = await createDailyNote(date);
       newFile = await vault.createBinary(

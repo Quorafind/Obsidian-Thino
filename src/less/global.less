@@ -22,6 +22,11 @@
   font-style: normal;
 }
 
+div[data-type="memos_view"] .view-content:not(.images-wrapper) img {
+  max-width: 100%;
+  cursor: default;
+}
+
 .theme-light div[data-type="memos_view"] {
   margin: 0;
   padding: 0;
@@ -59,7 +64,7 @@
 .theme-light div[data-type="memos_view"] input,
 .theme-light div[data-type="memos_view"] button:not(.rdp-day_selected),
 .theme-light div[data-type="memos_view"] textarea,
-.theme-light img {
+.theme-light div[data-type="memos_view"] img {
   background-color: transparent;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -166,7 +171,7 @@
 .theme-dark div[data-type="memos_view"] input,
 .theme-dark div[data-type="memos_view"] button,
 .theme-dark div[data-type="memos_view"] textarea,
-.theme-dark img {
+.theme-dark div[data-type="memos_view"] img {
   background-color: transparent;
   user-select: none;
   -webkit-tap-highlight-color: transparent;

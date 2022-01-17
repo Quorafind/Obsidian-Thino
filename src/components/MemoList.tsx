@@ -10,6 +10,7 @@ import "../less/memolist.less";
 import React from "react";
 import dailyNotesService from '../services/dailyNotesService';
 import appStore from "../stores/appStore";
+import { Platform } from 'obsidian';
 
 interface Props {}
 
@@ -127,7 +128,11 @@ const MemoList: React.FC<Props> = () => {
       }
     }else if( targetEl.tagName === "A" && targetEl.className === "internal-link" ){
       const sourcePath = targetEl.getAttribute("data-filepath");
-      workspace.openLinkText(sourcePath,sourcePath,true);
+      if(Platform.isMobile) {
+        workspace.openLinkText(sourcePath,sourcePath,false);
+      }else{
+        workspace.openLinkText(sourcePath,sourcePath,true);
+      }
     }
   }, []);
 
