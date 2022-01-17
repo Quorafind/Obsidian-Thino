@@ -367,6 +367,7 @@ const MemoEditor: React.FC<Props> = () => {
 
   const handleUploadFileBtnClick = useCallback(() => {
     const inputEl = document.createElement("input");
+    document.body.appendChild(inputEl);
     inputEl.type = "file";
     inputEl.multiple = false;
     inputEl.accept = "image/png, image/gif, image/jpeg";
