@@ -38,6 +38,7 @@ export class Memos extends ItemView {
 		ProcessEntriesBelow = this.plugin.settings.ProcessEntriesBelow;
 		SaveMemoButtonLabel = this.plugin.settings.SaveMemoButtonLabel;
 		DefaultPrefix = this.plugin.settings.DefaultPrefix;
+		InsertDateFormat = this.plugin.settings.InsertDateFormat;
   
 		this.reactComponent = React.createElement(App);
   
@@ -55,3 +56,4 @@ export class Memos extends ItemView {
   export let ProcessEntriesBelow: string;
   export let SaveMemoButtonLabel: string;
   export let DefaultPrefix: string;
+  export let InsertDateFormat: string;

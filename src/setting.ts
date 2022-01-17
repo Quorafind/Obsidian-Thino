@@ -9,6 +9,7 @@ export interface MemosSettings {
   Language: string;
   SaveMemoButtonLabel: string;
   DefaultPrefix: string;
+  InsertDateFormat: string;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -18,7 +19,8 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ProcessEntriesBelow: "# Journal",
   Language: "en",
   SaveMemoButtonLabel: "NOTEIT",
-  DefaultPrefix: "List"
+  DefaultPrefix: "List",
+  InsertDateFormat: "Tasks"
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -115,21 +117,36 @@ export class MemosSettingTab extends PluginSettingTab {
           })
       );
 
-      let dropdown: DropdownComponent;
+    let dropdown: DropdownComponent;
 
-      new Setting(containerEl)
-        .setName("Default Prefix Style")
-        .setDesc("Set the default prefix style when create memo, 'List' by default.")
-        .addDropdown(async (d: DropdownComponent) => {
-          dropdown = d;
-          dropdown.addOption("List", "List");
-          dropdown.addOption("Task", "Task");
-          dropdown
-            .setValue(this.plugin.settings.DefaultPrefix)
-            .onChange(async (value) => {
-              this.plugin.settings.DefaultPrefix = value;
-              this.applySettingsUpdate();
-            });
+    new Setting(containerEl)
+      .setName("Default Prefix Style")
+      .setDesc("Set the default prefix style when create memo, 'List' by default.")
+      .addDropdown(async (d: DropdownComponent) => {
+        dropdown = d;
+        dropdown.addOption("List", "List");
+        dropdown.addOption("Task", "Task");
+        dropdown
+          .setValue(this.plugin.settings.DefaultPrefix)
+          .onChange(async (value) => {
+            this.plugin.settings.DefaultPrefix = value;
+            this.applySettingsUpdate();
+          });
+      });
+
+    new Setting(containerEl)
+    .setName("Default Insert Date Format")
+    .setDesc("Set the default date format when insert date by @, 'Tasks' by default.")
+    .addDropdown(async (d: DropdownComponent) => {
+      dropdown = d;
+      dropdown.addOption("Tasks", "Tasks");
+      dropdown.addOption("Dataview", "Dataview");
+      dropdown
+        .setValue(this.plugin.settings.InsertDateFormat)
+        .onChange(async (value) => {
+          this.plugin.settings.DefaultDateFormat = value;
+          this.applySettingsUpdate();
         });
+    });
   }
 }
