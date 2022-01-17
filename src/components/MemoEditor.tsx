@@ -9,12 +9,16 @@ import "../less/memo-editor.less";
 import "../less/select-date-picker.less";
 import tag from "../icons/tag.svg";
 import imageSvg from "../icons/image.svg";
-import { DayPicker } from 'react-day-picker';
+import taskSvg from "../icons/task.svg";
+import journalSvg from "../icons/journal.svg";
+import { DayPicker }  from "react-day-picker";
 import { usePopper } from 'react-popper';
 // import { createPopper } from '@popperjs/core'
-import { format, isValid, parse } from 'date-fns';
+// import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
 import moment from "moment";
+import { DefaultPrefix } from "../memos";
+import useToggle from "../hooks/useToggle";
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
 
@@ -55,20 +59,33 @@ const getCursorPostion = (input: HTMLTextAreaElement) => {
 
 interface Props {}
 
+let isList: boolean;
+
 const MemoEditor: React.FC<Props> = () => {
   const { globalState } = useContext(appContext);
-  // const [isDateSeletorShown, toggleDateSeletor] = useToggle(false);
+  const [isListShown, toggleList] = useToggle(false);
   const editorRef = useRef<EditorRefActions>(null);
   const prevGlobalStateRef = useRef(globalState);
-  // const dateSeletorRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<Date>();
-  // const [inputValue, setInputValue] = useState<string>('');
   const [isPopperOpen, setIsPopperOpen] = useState(false);
 
   const popperRef = useRef<HTMLDivElement>(null);
-  // const buttonRef = useRef<HTMLButtonElement>(null);
   const [popperElement, setPopperElement] = useState(null);
-  // const customBoundary = document.querySelector('#memos_view');
+
+
+  useEffect(() => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    if (DefaultPrefix === "List") {
+      isList = false;
+      toggleList(false);
+    }else {
+      isList = true;
+      toggleList(true);
+    }
+  }, []);
 
   const popper = usePopper(popperRef.current, popperElement, {
     placement: 'right-end',
@@ -194,7 +211,7 @@ const MemoEditor: React.FC<Props> = () => {
         }
         globalStateService.setEditMemoId("");
       } else {
-        await memoService.createMemo(content);
+        await memoService.createMemo(content, isList);
         memoService.clearMemos();
         memoService.fetchAllMemos();
         locationService.clearQuery();
@@ -260,7 +277,6 @@ const MemoEditor: React.FC<Props> = () => {
     const nextString = currentValue.slice(selectionStart);
     const todayMoment = moment(date);
 
-  
     if (!editorRef.current) {
       return;
     }
@@ -269,7 +285,7 @@ const MemoEditor: React.FC<Props> = () => {
       editorRef.current.element.value =
       //eslint-disable-next-line
         currentValue.slice(0, editorRef.current.element.selectionStart-1) + "📆" + todayMoment.format("YYYY-MM-DD") + nextString;
-      editorRef.current.element.setSelectionRange(selectionStart+9, selectionStart+9);
+      editorRef.current.element.setSelectionRange(selectionStart+11, selectionStart+11);
       editorRef.current.focus();
       handleContentChange(editorRef.current.element.value);
     } else {
@@ -279,6 +295,20 @@ const MemoEditor: React.FC<Props> = () => {
       editorRef.current.element.setSelectionRange(selectionStart+10, selectionStart+10);
       editorRef.current.focus();
       handleContentChange(editorRef.current.element.value);
+    }
+  }
+
+  const handleChangeStatus = () => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    if(isList){
+      isList = false;
+      toggleList(false);
+    }else{
+      isList = true;
+      toggleList(true);
     }
   }
 
@@ -370,6 +400,8 @@ const MemoEditor: React.FC<Props> = () => {
           <>
             <img className="action-btn file-upload" src={tag} onClick={handleTagTextBtnClick} />
             <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />
+            <img className={`action-btn`} src={`${!isListShown ? journalSvg : taskSvg}`} onClick={handleChangeStatus} />
+            {/* <img className={`action-btn ${isListShown ? "" : "hidden"}`} src={taskSvg} onClick={handleChangeStatus} /> */}
           </>
         }
       />

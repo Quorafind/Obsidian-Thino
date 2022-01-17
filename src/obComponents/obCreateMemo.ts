@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
-import { InsertAfter } from "../memos";
+import { InsertAfter, DefaultPrefix } from "../memos";
 
 // https://stackoverflow.com/questions/3115150/how-to-escape-regular-expression-special-characters-using-javascript
 export async function escapeRegExp(text : any) {
@@ -24,15 +24,21 @@ export function getLinesInString(input: string) {
     return lines;
 }
 
-export async function waitForInsert(MemoContent: string) : Promise<Model.Memo>{
+export async function waitForInsert(MemoContent: string, isList: boolean) : Promise<Model.Memo>{
     // const plugin = window.plugin;
     const { vault } = appStore.getState().dailyNotesState.app;
     const removeEnter = MemoContent.replace(/\n/g, "<br>")
     const date = moment();
     const timeHour = date.format('HH');
     const timeMinute = date.format('mm');
+    let newEvent;
 
-    const newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
+    if ( isList ){
+        newEvent = `- [ ] ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
+    }else{
+        newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
+    }
+    
     const dailyNotes = await getAllDailyNotes();
     const existingFile = getDailyNote(date, dailyNotes);
     if(!existingFile){

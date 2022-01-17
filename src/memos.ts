@@ -37,6 +37,7 @@ export class Memos extends ItemView {
 		UserName = this.plugin.settings.UserName;
 		ProcessEntriesBelow = this.plugin.settings.ProcessEntriesBelow;
 		SaveMemoButtonLabel = this.plugin.settings.SaveMemoButtonLabel;
+		DefaultPrefix = this.plugin.settings.DefaultPrefix;
   
 		this.reactComponent = React.createElement(App);
   
@@ -53,3 +54,4 @@ export class Memos extends ItemView {
   export let UserName: string;
   export let ProcessEntriesBelow: string;
   export let SaveMemoButtonLabel: string;
+  export let DefaultPrefix: string;
