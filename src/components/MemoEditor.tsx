@@ -378,10 +378,19 @@ const MemoEditor: React.FC<Props> = () => {
 
     const seletorPopupWidth = 280;
     const editorWidth = editorRef.current.element.clientWidth;
+    
     const { x, y } = getCursorPostion(editorRef.current.element);
     // const left = x + seletorPopupWidth + 16 > editorWidth ? editorWidth + 20 - seletorPopupWidth : x + 2;
-    const left = x + seletorPopupWidth + 16 > editorWidth ? x + 2 : x + 2;
-    const top = y + 20;
+    let left: number;
+    let top: number;
+    if(!Platform.isMobile){
+      left = x + seletorPopupWidth + 16 > editorWidth ? x + 2 : x + 2;
+      top = y + 20;
+    }else{
+      left = editorRef.current.element.clientWidth/2 + 20;
+      top = y + 20;
+    }
+    
 
 
     popperRef.current.style.left = `${left}px`;
