@@ -21,7 +21,7 @@ import { DefaultPrefix, InsertDateFormat } from "../memos";
 import useToggle from "../hooks/useToggle";
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
-import { Platform } from 'obsidian';
+import { Notice, Platform } from 'obsidian';
 
 const getCursorPostion = (input: HTMLTextAreaElement) => {
   const { offsetLeft: inputX, offsetTop: inputY, offsetHeight: inputH, offsetWidth: inputW, selectionEnd: selectionPoint } = input;
@@ -221,9 +221,9 @@ const MemoEditor: React.FC<Props> = () => {
     }
 
     const { editMemoId } = globalStateService.getState();
-
     content = content.replaceAll("&nbsp;", " ");
 
+    setEditorContentCache("");
     try {
       if (editMemoId) {
         const prevMemo = memoService.getMemoById(editMemoId);
@@ -233,14 +233,16 @@ const MemoEditor: React.FC<Props> = () => {
           memoService.editMemo(editedMemo);
         }
         globalStateService.setEditMemoId("");
+        
       } else {
-        await memoService.createMemo(content, isList);
-        memoService.clearMemos();
-        memoService.fetchAllMemos();
+        const newMemo = await memoService.createMemo(content, isList);
+        memoService.pushMemo(newMemo);
+        // memoService.fetchAllMemos();
         locationService.clearQuery();
+        
       }
     } catch (error: any) {
-      toastHelper.error(error.message);
+      new Notice(error.message);
     }
 
     setEditorContentCache("");

@@ -3,6 +3,11 @@ import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-
 import appStore from "../stores/appStore";
 import { InsertAfter } from "../memos";
 
+interface MContent {
+    content: string;
+    posNum?: number;
+}
+
 // https://stackoverflow.com/questions/3115150/how-to-escape-regular-expression-special-characters-using-javascript
 export async function escapeRegExp(text : any) {
     return await text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -32,6 +37,7 @@ export async function waitForInsert(MemoContent: string, isList: boolean) : Prom
     const timeHour = date.format('HH');
     const timeMinute = date.format('mm');
     let newEvent;
+    let lineNum;
 
     if ( isList ){
         newEvent = `- [ ] ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
@@ -45,24 +51,36 @@ export async function waitForInsert(MemoContent: string, isList: boolean) : Prom
       const file = await createDailyNote(date);
       const fileContents = await vault.cachedRead(file);
       const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
-      await vault.modify(file, newFileContent);
+      await vault.modify(file, newFileContent.content);
+      if(newFileContent.posNum === -1){
+        const allLines = getAllLinesFromFile(newFileContent.content);
+        lineNum = allLines.length + 1;
+      }else{
+        lineNum = newFileContent.posNum + 1;
+      }
       return {
-        id: date.format('YYYYMMDDHHmmSS'),
+        id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
         content: MemoContent,
         deletedAt: "",
-        createdAt: date.format('YYYY/MM/DD HH:mm:SS'),
-        updatedAt: date.format('YYYY/MM/DD HH:mm:SS'),
+        createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
+        updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
       }
     }else{
       const fileContents = await vault.cachedRead(existingFile);
       const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
-      await vault.modify(existingFile, newFileContent);
+      await vault.modify(existingFile, newFileContent.content);
+      if(newFileContent.posNum === -1){
+        const allLines = getAllLinesFromFile(newFileContent.content);
+        lineNum = allLines.length + 1;
+      }else{
+        lineNum = newFileContent.posNum + 1;
+      }
       return {
-        id: date.format('YYYYMMDDHHmmSS'),
+        id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
         content: MemoContent,
         deletedAt: "",
-        createdAt: date.format('YYYY/MM/DD HH:mm:SS'),
-        updatedAt: date.format('YYYY/MM/DD HH:mm:SS'),
+        createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
+        updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
       }
     }
   }
@@ -109,9 +127,12 @@ export async function insertAfterHandler(targetString: string, formatted: string
     // return insertTextAfterPositionInBody(formatted, fileContent, targetPosition);
   }
   
-export async function insertTextAfterPositionInBody(text: string, body: string, pos: number, found?: boolean): Promise<string> {
+export async function insertTextAfterPositionInBody(text: string, body: string, pos: number, found?: boolean): Promise<MContent> {
     if (pos === -1) {
-        return `${body}\n${text}`;
+        return {
+            content: `${body}\n${text}`,
+            posNum: -1,
+        };
     }
   
     const splitContent = body.split("\n");
@@ -119,11 +140,21 @@ export async function insertTextAfterPositionInBody(text: string, body: string, 
     if(found){
         const pre = splitContent.slice(0, pos + 1).join("\n");
         const post = splitContent.slice(pos + 1).join("\n");
-        return `${pre}\n${text}\n${post}`;
+        // return `${pre}\n${text}\n${post}`;
+        return {
+            content: `${pre}\n${text}\n${post}`,
+            posNum: pos,
+        };
     }
     else{
         const pre = splitContent.slice(0, pos+1).join("\n");
         const post = splitContent.slice(pos+1).join("\n");
-        return `${pre}${text}\n${post}`;
+        // return `${pre}${text}\n${post}`;
+        return {
+            content: `${pre}${text}\n${post}`,
+            posNum: pos,
+        };
     }
 }
+
+const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/)
