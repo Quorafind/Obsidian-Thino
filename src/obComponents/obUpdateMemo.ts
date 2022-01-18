@@ -12,7 +12,7 @@ export async function changeMemo(memoid: string, originalContent: string, conten
         dailyNotes
       } = dailyNotesService.getState();
     const { vault } = appStore.getState().dailyNotesState.app;
-    const timeString = memoid.slice(0,13);
+    const timeString = memoid.slice(0,11) + "00";
     const idString = parseInt(memoid.slice(14));
     const changeDate = moment(timeString, "YYYYMMDDHHmmSS");
     const dailyNote = getDailyNote(changeDate, dailyNotes);
