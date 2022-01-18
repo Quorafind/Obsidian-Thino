@@ -1,6 +1,7 @@
 import moment from 'moment';
 import dailyNotesService from '../services/dailyNotesService';
 import { getDailyNote } from 'obsidian-daily-notes-interface';
+import { Platform } from 'obsidian';
 
 
 export const showMemoInDailyNotes = async ( memoId: string): Promise<any> => {
@@ -11,7 +12,15 @@ export const showMemoInDailyNotes = async ( memoId: string): Promise<any> => {
     const memoDateString = memoId.slice(0,13);
     const date = moment(memoDateString, "YYYYMMDDHHmmss");
     const file = getDailyNote(date, dailyNotes);
-    const leaf = app.workspace.splitActiveLeaf();
-    leaf.openFile(file, {eState: {line: lineNum}});
+    if(!Platform.isMobile){
+        const leaf = app.workspace.splitActiveLeaf();
+        leaf.openFile(file, {eState: {line: lineNum}});
+    }else{
+        let leaf = app.workspace.activeLeaf;
+        if(leaf === null) {
+            leaf = app.workspace.getLeaf(true);
+        }
+        leaf.openFile(file, {eState: {line: lineNum}});
+    }
     return ;
 }
