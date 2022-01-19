@@ -10,6 +10,7 @@ import "../less/select-date-picker.less";
 import tag from "../icons/tag.svg";
 import imageSvg from "../icons/image.svg";
 import taskSvg from "../icons/task.svg";
+import showEditorSvg from "../icons/show-editor.svg"
 import journalSvg from "../icons/journal.svg";
 import { DayPicker }  from "react-day-picker";
 import { usePopper } from 'react-popper';
@@ -17,7 +18,7 @@ import { usePopper } from 'react-popper';
 // import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
 import moment from "moment";
-import { DefaultPrefix, InsertDateFormat } from "../memos";
+import { DefaultEditorLocation, DefaultPrefix, InsertDateFormat, UseButtonToShowEditor } from "../memos";
 import useToggle from "../hooks/useToggle";
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
@@ -61,10 +62,14 @@ const getCursorPostion = (input: HTMLTextAreaElement) => {
 interface Props {}
 
 let isList: boolean;
+let isEditor = false as boolean;
+let isEditorGo = true as boolean;
+let positionX: number;
 
 const MemoEditor: React.FC<Props> = () => {
   const { globalState } = useContext(appContext);
   const [isListShown, toggleList] = useToggle(false);
+  const [isEditorShown, toggleEditor] = useToggle(false);
   const editorRef = useRef<EditorRefActions>(null);
   const prevGlobalStateRef = useRef(globalState);
   const [selected, setSelected] = useState<Date>();
@@ -73,7 +78,7 @@ const MemoEditor: React.FC<Props> = () => {
   const popperRef = useRef<HTMLDivElement>(null);
   const [popperElement, setPopperElement] = useState(null);
   let popper;
-
+  
 
   useEffect(() => {
     if (!editorRef.current) {
@@ -86,6 +91,100 @@ const MemoEditor: React.FC<Props> = () => {
     }else {
       isList = true;
       toggleList(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    if (Platform.isMobile !== true || window.innerWidth > 875) {
+      handleShowEditor();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    if(UseButtonToShowEditor === true && DefaultEditorLocation === "Bottom" && Platform.isMobile === true && window.innerWidth < 875){
+      const divThis = document.createElement('img');
+      const memoEditorDiv = document.querySelector("div[data-type='memos_view'] .view-content .memo-editor-wrapper") as HTMLElement;
+      divThis.src = `${showEditorSvg}`;
+      if(isEditorShown){
+        divThis.className="memo-show-editor-button hidden";
+      }else{
+        divThis.className="memo-show-editor-button";
+      }
+      const buttonTop = window.innerHeight - 200;
+      const buttonLeft = window.innerWidth/2 - 25;
+      divThis.style.top = buttonTop + "px";
+      divThis.style.left = buttonLeft + "px";
+      
+      divThis.onclick = function(){
+        let scaleElementAni = divThis.animate([
+          // keyframes
+          { transform: 'rotate(0deg) scale(1)' },
+          { transform: 'rotate(60deg) scale(1.5)' }
+        ], {
+          // timing options
+          duration: 300,
+          iterations: Infinity
+        });
+        
+        setTimeout(() => {
+          divThis.className="memo-show-editor-button hidden";
+          handleShowEditor(true);
+          editorRef.current?.focus();
+          scaleElementAni.reverse();
+          // rotateElementAni.pause();
+        }, 300);
+      }
+      document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper").prepend(divThis);
+
+      const memolistScroll = document.querySelector("div[data-type='memos_view'] .view-content .memolist-wrapper") as HTMLElement;
+      memolistScroll.onscroll = function(){ 
+        if(isEditor && isEditorGo){
+          isEditorGo = false;
+          let scaleEditorElementAni = memoEditorDiv.animate([
+            // keyframes
+            { transform: 'scale(1)', opacity: 1},
+            { transform: 'scale(0.4)', opacity: 0 }
+          ], {
+            // timing options
+            duration: 300,
+            iterations: 1
+          });
+          let scaleOneElementAni: Animation;
+          setTimeout(() => {
+            scaleOneElementAni = divThis.animate([
+              // keyframes
+              { transform: 'rotate(20deg) scale(1.5)' },
+              { transform: 'rotate(0deg) scale(1)' }
+            ], {
+              // timing options
+              duration: 100,
+              iterations: 1
+            });
+          }, 300);
+          setTimeout(() => {
+            handleShowEditor(false);
+            divThis.className="memo-show-editor-button";
+          }, 300);
+          setTimeout(() => {
+            scaleOneElementAni.cancel();
+            scaleEditorElementAni.reverse();
+          }, 700);
+        }
+      }
+    }else if(UseButtonToShowEditor === false && DefaultEditorLocation === "Bottom" && Platform.isMobile === true && window.innerWidth < 875){
+        handleShowEditor(true);
+        editorRef.current?.focus();
+    }else{
+        handleShowEditor(true);
+        editorRef.current?.focus();
     }
   }, []);
 
@@ -102,25 +201,144 @@ const MemoEditor: React.FC<Props> = () => {
         },
       ],
     });
-  }else {
-    popper = usePopper(popperRef.current, popperElement, {
-      placement: 'bottom',
-      modifiers: [
-        {
-          name: 'flip',
-          options: {
-            allowedAutoPlacements: ['bottom'],
-            rootBoundary: 'document', // by default, all the placements are allowed
+  }else if(Platform.isMobile && DefaultEditorLocation !== "Bottom"){
+    const seletorPopupWidth = 280;
+    if( window.innerWidth - positionX > seletorPopupWidth*1.2 ){
+      popper = usePopper(popperRef.current, popperElement, {
+        placement: 'right-end',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              allowedAutoPlacements: ['left-end'],
+              rootBoundary: 'document', // by default, all the placements are allowed
+            },
           },
-        },
-        {
-          name: 'preventOverflow',
-          options: {
-            rootBoundary: 'document',
+          {
+            name: 'preventOverflow',
+            options: {
+              rootBoundary: 'document',
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    }else if( window.innerWidth - positionX < seletorPopupWidth){
+      popper = usePopper(popperRef.current, popperElement, {
+        placement: 'left-end',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              allowedAutoPlacements: ['right-end'],
+              rootBoundary: 'document', // by default, all the placements are allowed
+            },
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              rootBoundary: 'document',
+            },
+          },
+        ],
+      });
+    }else {
+      popper = usePopper(popperRef.current, popperElement, {
+        placement: 'bottom',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              allowedAutoPlacements: ['bottom'],
+              rootBoundary: 'document', // by default, all the placements are allowed
+            },
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              rootBoundary: 'document',
+            },
+          },
+        ],
+      });
+    }
+  }else if(Platform.isMobile && DefaultEditorLocation === "Bottom"){
+    const seletorPopupWidth = 280;
+    if( window.innerWidth - positionX > seletorPopupWidth*1.2 ){
+      popper = usePopper(popperRef.current, popperElement, {
+        placement: 'top-end',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              allowedAutoPlacements: ['top-start'],
+              rootBoundary: 'document', // by default, all the placements are allowed
+            },
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              rootBoundary: 'document',
+            },
+          },
+        ],
+      });
+    }else if( window.innerWidth - positionX < seletorPopupWidth && positionX > seletorPopupWidth){
+      popper = usePopper(popperRef.current, popperElement, {
+        placement: 'top-start',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              allowedAutoPlacements: ['top-end'],
+              rootBoundary: 'document', // by default, all the placements are allowed
+            },
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              rootBoundary: 'document',
+            },
+          },
+        ],
+      });
+    }else {
+      popper = usePopper(popperRef.current, popperElement, {
+        placement: 'top',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              allowedAutoPlacements: ['top'],
+              rootBoundary: 'document', // by default, all the placements are allowed
+            },
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              rootBoundary: 'document',
+            },
+          },
+        ],
+      });
+    }
+    // popper = usePopper(popperRef.current, popperElement, {
+    //   placement: 'top',
+    //   modifiers: [
+    //     {
+    //       name: 'flip',
+    //       options: {
+    //         allowedAutoPlacements: ['top'],
+    //         rootBoundary: 'document', // by default, all the placements are allowed
+    //       },
+    //     },
+    //     {
+    //       name: 'preventOverflow',
+    //       options: {
+    //         rootBoundary: 'document',
+    //       },
+    //     },
+    //   ],
+    // });
   }
 
   const closePopper = () => {
@@ -348,6 +566,21 @@ const MemoEditor: React.FC<Props> = () => {
     }
   }
 
+  const handleShowEditor = (flag?: boolean) => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    if(!isEditor || flag === true){
+      isEditor = true;
+      toggleEditor(true);
+    }else{
+      isEditor = false;
+      isEditorGo = true;
+      toggleEditor(false);
+    }
+  }
+
   const handleTagTextBtnClick = useCallback(() => {
     if (!editorRef.current) {
       return;
@@ -380,6 +613,8 @@ const MemoEditor: React.FC<Props> = () => {
 
     const seletorPopupWidth = 280;
     const editorWidth = editorRef.current.element.clientWidth;
+
+    // positionX = editorWidth;
     
     const { x, y } = getCursorPostion(editorRef.current.element);
     // const left = x + seletorPopupWidth + 16 > editorWidth ? editorWidth + 20 - seletorPopupWidth : x + 2;
@@ -389,11 +624,21 @@ const MemoEditor: React.FC<Props> = () => {
       left = x + seletorPopupWidth + 16 > editorWidth ? x + 2 : x + 2;
       top = y + 20;
     }else{
-      left = editorRef.current.element.clientWidth/2 + 20;
-      top = y + 20;
+      if(window.innerWidth - x > seletorPopupWidth ){
+        left = x + seletorPopupWidth + 16 > editorWidth ? x + 2 : x + 2;
+      }else if(window.innerWidth - x < seletorPopupWidth){
+        left = x + seletorPopupWidth + 16 > editorWidth ? x + 18 : x + 18;
+      }else {
+        left = editorRef.current.element.clientWidth/2;
+      }
+      if(DefaultEditorLocation === "Bottom" && window.innerWidth > 875){
+        top = y + 20;
+      }else if(DefaultEditorLocation === "Bottom" && window.innerWidth <= 875){
+        top = y + 35;
+      }
     }
-    
 
+    positionX = x;
 
     popperRef.current.style.left = `${left}px`;
     popperRef.current.style.top = `${top}px`;
@@ -436,52 +681,61 @@ const MemoEditor: React.FC<Props> = () => {
     [showEditStatus]
   );
 
-  return (
-    <div className={"memo-editor-wrapper " + (showEditStatus ? "edit-ing" : "")}>
-      <p className={"tip-text " + (showEditStatus ? "" : "hidden")}>Modifying...</p>
-      <Editor
-        ref={editorRef}
-        {...editorConfig}
-        tools={
-          <>
-            <img className="action-btn add-tag" src={tag} onClick={handleTagTextBtnClick} />
-            <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />
-            <img className="action-btn list-or-task" src={`${!isListShown ? journalSvg : taskSvg}`} onClick={handleChangeStatus} />
-            {/* <img className={`action-btn ${isListShown ? "" : "hidden"}`} src={taskSvg} onClick={handleChangeStatus} /> */}
-          </>
-        }
-      />
-      {/* <div ref={popperRef} className={`date-picker ${isDateSeletorShown ? "" : "hidden"}`}> */}
-      <div ref={popperRef} className="date-picker">
-          {isPopperOpen && (
-            <FocusTrap
-              active
-              focusTrapOptions={{
-                initialFocus: false,
-                allowOutsideClick: true,
-                clickOutsideDeactivates: true,
-                onDeactivate: closePopper
-              }}
-            >
-              <div
-                tabIndex={-1}
-                style={popper.styles.popper}
-                {...popper.attributes.popper}
-                ref={setPopperElement}
-                role="dialog"
-                >
-                <DayPicker
-                  initialFocus={isPopperOpen}
-                  mode="single"
-                  defaultMonth={selected}
-                  selected={selected}
-                  onSelect={handleDateInsertTrigger}
-                />
-              </div>
-            </FocusTrap>
-          )}
+  return ( 
+    <div className={`memo-editor-wrapper ${showEditStatus ? "edit-ing" : ""} ${isEditorShown ? "" : "hidden"}`}>
+      {/* {isEditorShown && (<FocusTrap
+        active
+        focusTrapOptions={{
+          initialFocus: false,
+          allowOutsideClick: true,
+          clickOutsideDeactivates: true,
+          onDeactivate: toggleEditor
+        }}
+        > */}
+        <p className={`tip-text ${showEditStatus ? "" : "hidden"}`}>Modifying...</p>
+        <Editor
+          ref={editorRef}
+          {...editorConfig}
+          tools={
+            <>
+              <img className="action-btn add-tag" src={tag} onClick={handleTagTextBtnClick} />
+              <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />
+              <img className="action-btn list-or-task" src={`${!isListShown ? journalSvg : taskSvg}`} onClick={handleChangeStatus} />
+              {/* <img className={`action-btn ${isListShown ? "" : "hidden"}`} src={taskSvg} onClick={handleChangeStatus} /> */}
+            </>
+          }
+        />
+        {/* </FocusTrap>)} */}
+        <div ref={popperRef} className="date-picker">
+            {isPopperOpen && (
+              <FocusTrap
+                active
+                focusTrapOptions={{
+                  initialFocus: false,
+                  allowOutsideClick: true,
+                  clickOutsideDeactivates: true,
+                  onDeactivate: closePopper
+                }}
+              >
+                <div
+                  tabIndex={-1}
+                  style={popper.styles.popper}
+                  {...popper.attributes.popper}
+                  ref={setPopperElement}
+                  role="dialog"
+                  >
+                  <DayPicker
+                    initialFocus={isPopperOpen}
+                    mode="single"
+                    defaultMonth={selected}
+                    selected={selected}
+                    onSelect={handleDateInsertTrigger}
+                  />
+                </div>
+              </FocusTrap>
+            )}
+        </div>
       </div>
-    </div>
   );
 };
 

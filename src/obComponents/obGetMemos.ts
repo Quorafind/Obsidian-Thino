@@ -13,7 +13,7 @@ export async function getRemainingTasks(note: TFile): Promise<number> {
   let fileContents = await vault.cachedRead(note);
   //eslint-disable-next-line
   const matchLength = (fileContents.match(/(-|\*) (\[ \]\s)?((\<time\>)?\d{1,2}\:\d{2})?/g) || []).length;
-  const re = new RegExp(ProcessEntriesBelow, "g");
+  const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "g");
   const processEntriesHeader = (fileContents.match(re) || []).length;
   fileContents = null;
   if (processEntriesHeader) {
@@ -22,7 +22,7 @@ export async function getRemainingTasks(note: TFile): Promise<number> {
   return 0;
 }
 
-export async function getTasksForDailyNote(dailyNote: TFile | null, dailyEvents: any[]): Promise<any[]> {
+export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents: any[]): Promise<any[]> {
   if (!dailyNote) {
     return [];
   }
@@ -40,6 +40,9 @@ export async function getTasksForDailyNote(dailyNote: TFile | null, dailyEvents:
       if (line.length === 0) continue;
       if (processHeaderFound == false && lineContainsParseBelowToken(line)) {
         processHeaderFound = true;
+      }
+      if (processHeaderFound == true && !lineContainsParseBelowToken(line) && /^#{0,} /g.test(line)) {
+        processHeaderFound = false;
       }
 
       if (lineContainsTime(line) && processHeaderFound) {
@@ -81,7 +84,7 @@ export async function getMemos(): Promise<any[]> {
 
   for (const string in dailyNotes) {
     if (dailyNotes[string] instanceof TFile) {
-      await getTasksForDailyNote(dailyNotes[string], events);
+      await getTasksFromDailyNote(dailyNotes[string], events);
     }
   }
 
@@ -105,7 +108,8 @@ const lineContainsParseBelowToken = (line: string) => {
   if (ProcessEntriesBelow === "") {
     return true;
   }
-  const re = new RegExp(ProcessEntriesBelow, "");
+  const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "");
+  console.log(re);
   return re.test(line);
 };
 

@@ -2,6 +2,7 @@ import moment from 'moment';
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
 import { InsertAfter } from "../memos";
+import { dailyNotesService } from '../services';
 
 interface MContent {
     content: string;
@@ -49,6 +50,7 @@ export async function waitForInsert(MemoContent: string, isList: boolean) : Prom
     const existingFile = getDailyNote(date, dailyNotes);
     if(!existingFile){
       const file = await createDailyNote(date);
+      await dailyNotesService.getMyAllDailyNotes();
       const fileContents = await vault.cachedRead(file);
       const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
       await vault.modify(file, newFileContent.content);

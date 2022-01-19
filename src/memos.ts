@@ -39,6 +39,8 @@ export class Memos extends ItemView {
 		SaveMemoButtonLabel = this.plugin.settings.SaveMemoButtonLabel;
 		DefaultPrefix = this.plugin.settings.DefaultPrefix;
 		InsertDateFormat = this.plugin.settings.InsertDateFormat;
+		DefaultEditorLocation = this.plugin.settings.DefaultEditorLocation;
+		UseButtonToShowEditor = this.plugin.settings.UseButtonToShowEditor;
   
 		this.reactComponent = React.createElement(App);
   
@@ -57,3 +59,5 @@ export class Memos extends ItemView {
   export let SaveMemoButtonLabel: string;
   export let DefaultPrefix: string;
   export let InsertDateFormat: string;
+  export let DefaultEditorLocation: string;
+  export let UseButtonToShowEditor: boolean;

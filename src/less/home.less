@@ -4,6 +4,10 @@ div[data-type="memos_view"] #root {
   background-color: #f6f5f4;
 }
 
+div[data-type="memos_view"] .view-content {
+  overflow-y: hidden;
+}
+
 div[data-type="memos_view"] #page-wrapper {
   .flex(row, flex-start, flex-start);
   width: 848px;
@@ -11,6 +15,7 @@ div[data-type="memos_view"] #page-wrapper {
   height: 100%;
   margin: auto;
   transform: translateX(-16px);
+  margin-top: -15px;
 
   > .content-wrapper {
     .flex(column, flex-start, flex-start);
@@ -19,6 +24,7 @@ div[data-type="memos_view"] #page-wrapper {
     padding-left: 10px;
     width: 600px;
     height: 100%;
+    overflow-y: hidden;
   }
 }
 
@@ -31,12 +37,13 @@ div[data-type="memos_view"] #page-wrapper {
     }
   }
 
-  div[data-type="memos_view"] #page-wrapper {
+  div[data-type="memos_view"] #page-wrapper:not(.editor-show-button) {
     .flex(column, flex-start, flex-start);
     width: 100%;
     height: 100%;
     padding: 0;
     transform: translateX(0);
+    margin-top: -10px;
 
     > .content-wrapper {
       width: 100%;
@@ -45,6 +52,7 @@ div[data-type="memos_view"] #page-wrapper {
       padding-top: 0;
       transition: all 0.4s ease;
       transform: translateX(0);
+      overflow-y: hidden;
     }
   }
 }

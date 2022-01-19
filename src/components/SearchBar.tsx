@@ -5,10 +5,12 @@ import { memoSpecialTypes } from "../helpers/filter";
 import "../less/search-bar.less";
 import React from "react";
 import search from "../icons/search.svg";
+// import useToggle from "../hooks/useToggle";
 
 interface Props {}
 
 export let searchBoxInput: HTMLInputElement;
+// let isSearchBar = false as boolean;
 
 const SearchBar: React.FC<Props> = () => {
   const {
@@ -16,6 +18,7 @@ const SearchBar: React.FC<Props> = () => {
       query: { type: memoType },
     },
   } = useContext(appContext);
+  // const [isSearchBarShown, toggleSearchbar] = useToggle(false);
   
   const handleMemoTypeItemClick = (type: MemoSpecType | "") => {
     const { type: prevType } = locationService.getState().query;
@@ -30,7 +33,19 @@ const SearchBar: React.FC<Props> = () => {
     locationService.setTextQuery(text);
   };
 
+  // const handleSearchBarStatus = () => {
+  //   if(isSearchBar){
+  //     isSearchBar = false;
+  //     toggleSearchbar(false);
+  //   }else{
+  //     isSearchBar = true;
+  //     toggleSearchbar(true);
+  //   }
+  // }
+
   return (
+    // <div className={`${isSearchBarShown ? "search-bar-container-long" : "search-bar-container-short"}`}>
+    //   <div className={`${isSearchBarShown ? "search-bar-inputer-long" : "search-bar-inputer-short"}`}>
     <div className="search-bar-container">
       <div className="search-bar-inputer">
         <img className="icon-img" src={search} />
