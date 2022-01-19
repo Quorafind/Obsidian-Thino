@@ -13,7 +13,7 @@ export async function getRemainingTasks(note: TFile): Promise<number> {
   let fileContents = await vault.cachedRead(note);
   //eslint-disable-next-line
   const matchLength = (fileContents.match(/(-|\*) (\[ \]\s)?((\<time\>)?\d{1,2}\:\d{2})?/g) || []).length;
-  const re = new RegExp(ProcessEntriesBelow, "g");
+  const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "g");
   const processEntriesHeader = (fileContents.match(re) || []).length;
   fileContents = null;
   if (processEntriesHeader) {
@@ -108,7 +108,8 @@ const lineContainsParseBelowToken = (line: string) => {
   if (ProcessEntriesBelow === "") {
     return true;
   }
-  const re = new RegExp(ProcessEntriesBelow, "");
+  const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "");
+  console.log(re);
   return re.test(line);
 };
 
