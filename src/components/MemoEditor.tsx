@@ -142,7 +142,7 @@ const MemoEditor: React.FC<Props> = () => {
           // rotateElementAni.pause();
         }, 300);
       }
-      document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper").prepend(divThis);
+      document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper").appendChild(divThis);
 
       const memolistScroll = document.querySelector("div[data-type='memos_view'] .view-content .memolist-wrapper") as HTMLElement;
       memolistScroll.onscroll = function(){ 
@@ -682,15 +682,6 @@ const MemoEditor: React.FC<Props> = () => {
 
   return ( 
     <div className={`memo-editor-wrapper ${showEditStatus ? "edit-ing" : ""} ${isEditorShown ? "" : "hidden"}`}>
-      {/* {isEditorShown && (<FocusTrap
-        active
-        focusTrapOptions={{
-          initialFocus: false,
-          allowOutsideClick: true,
-          clickOutsideDeactivates: true,
-          onDeactivate: toggleEditor
-        }}
-        > */}
         <p className={`tip-text ${showEditStatus ? "" : "hidden"}`}>Modifying...</p>
         <Editor
           ref={editorRef}
@@ -704,7 +695,6 @@ const MemoEditor: React.FC<Props> = () => {
             </>
           }
         />
-        {/* </FocusTrap>)} */}
         <div ref={popperRef} className="date-picker">
             {isPopperOpen && (
               <FocusTrap

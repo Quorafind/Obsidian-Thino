@@ -106,6 +106,7 @@ const Memo: React.FC<Props> = (props: Props) => {
     createdAtStr: utils.getDateTimeString(propsMemo.createdAt),
   };
   const [showConfirmDeleteBtn, toggleConfirmDeleteBtn] = useToggle(false);
+  let elem = document.querySelector("div[data-type='memos_view'] .view-content .memo-show-editor-button") as HTMLElement;
   // const imageUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
   
   let externalImageUrls = [] as string[];
@@ -150,10 +151,20 @@ const Memo: React.FC<Props> = (props: Props) => {
   };
 
   const handleMarkMemoClick = () => {
+
+    if (typeof elem.onclick == "function") {
+      elem.onclick.apply(elem);
+    }
+
     globalStateService.setMarkMemoId(memo.id);
   };
 
   const handleEditMemoClick = () => {
+
+    if (typeof elem.onclick == "function") {
+      elem.onclick.apply(elem);
+    }
+    
     globalStateService.setEditMemoId(memo.id);
   };
 
