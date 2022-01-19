@@ -38,14 +38,14 @@ export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> 
                         const file = await createDailyNote(date);
                         const fileContents = await vault.cachedRead(file);
                         const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
-                        await vault.modify(file, newFileContent);
+                        await vault.modify(file, newFileContent.content);
                         return [{
                             deletedAt: "",
                         }]
                     }else{
                         const fileContents = await vault.cachedRead(existingFile);
                         const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
-                        await vault.modify(existingFile, newFileContent);
+                        await vault.modify(existingFile, newFileContent.content);
                         return [{
                             deletedAt: "",
                         }]

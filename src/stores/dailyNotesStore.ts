@@ -20,7 +20,14 @@ interface SetObsidianAppAction {
   };
 }
 
-export type Actions = SetDailyNotesAction | SetObsidianAppAction;
+// interface InsertDailyNoteAction {
+//   type: "INSERT_DAILYNOTE";
+//   payload: {
+//     dailyNote: TFile;
+//   };
+// }
+
+export type Actions = SetDailyNotesAction | SetObsidianAppAction ;
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {

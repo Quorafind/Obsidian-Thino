@@ -10,7 +10,8 @@ import "../less/memolist.less";
 import React from "react";
 import dailyNotesService from '../services/dailyNotesService';
 import appStore from "../stores/appStore";
-import { Platform } from 'obsidian';
+import { Notice, Platform } from 'obsidian';
+// import { DefaultEditorLocation } from '../memos';
 
 interface Props {}
 
@@ -19,6 +20,10 @@ const MemoList: React.FC<Props> = () => {
     locationState: { query },
     memoState: { memos },
   } = useContext(appContext);
+  let reverseMemos: Model.Memo[];
+  // if(DefaultEditorLocation === "Bottom" && window.innerWidth < 875 && Platform.isMobile){
+  //   reverseMemos = memos.reverse();
+  // }
   const [isFetching, setFetchStatus] = useState(true);
   const wrapperElement = useRef<HTMLDivElement>(null);
   const { tag: tagQuery, duration, type: memoType, text: textQuery, filter: queryId } = query;
@@ -37,7 +42,6 @@ const MemoList: React.FC<Props> = () => {
               shouldShow = checkShouldShowMemoWithFilters(memo, filters);
             }
           }
-
 
           if (tagQuery) {
             const tagsSet = new Set<string>();
@@ -98,14 +102,14 @@ const MemoList: React.FC<Props> = () => {
         setFetchStatus(false);
       })
       .catch(() => {
-        toastHelper.error("😭 Fetch Error");
+        new Notice("😭 Fetch Error");
       });
     dailyNotesService.getMyAllDailyNotes()
       .then(() => {
         setFetchStatus(false);
       })
       .catch(() => {
-        toastHelper.error("😭 Fetch DailyNotes Error");
+        new Notice("😭 Fetch DailyNotes Error");
       });
     dailyNotesService.getState();
   }, []);

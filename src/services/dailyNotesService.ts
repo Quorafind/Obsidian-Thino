@@ -33,6 +33,17 @@ class DailyNotesService {
     return dailyNotes;
   }
 
+  // public pushDailyNote(dailyNote: TFile) {
+  //   appStore.dispatch({
+  //     type: "INSERT_DAILYNOTE",
+  //     payload: {
+  //       memo: {
+  //         ...memo,
+  //       },
+  //     },
+  //   });
+  // }
+
   public async getDailyNoteByMemo(date: Moment): Promise<TFile> {
     const { dailyNotes } = this.getState();
     const dailyNote = getDailyNote(date, dailyNotes);

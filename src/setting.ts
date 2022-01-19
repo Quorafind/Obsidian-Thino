@@ -10,6 +10,8 @@ export interface MemosSettings {
   SaveMemoButtonLabel: string;
   DefaultPrefix: string;
   InsertDateFormat: string;
+  DefaultEditorLocation: string;
+  UseButtonToShowEditor: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -20,7 +22,9 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   Language: "en",
   SaveMemoButtonLabel: "NOTEIT",
   DefaultPrefix: "List",
-  InsertDateFormat: "Tasks"
+  InsertDateFormat: "Tasks",
+  DefaultEditorLocation: "Top",
+  UseButtonToShowEditor: false
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -150,5 +154,32 @@ export class MemosSettingTab extends PluginSettingTab {
           this.applySettingsUpdate();
         });
     });
+
+    new Setting(containerEl)
+    .setName("Default Editor Position on Mobile")
+    .setDesc("Set the default editor position on Mobile, 'Top' by default.")
+    .addDropdown(async (d: DropdownComponent) => {
+      dropdown = d;
+      dropdown.addOption("Top", "Top");
+      dropdown.addOption("Bottom", "Bottom");
+      dropdown
+        .setValue(this.plugin.settings.DefaultEditorLocation)
+        .onChange(async (value) => {
+          this.plugin.settings.DefaultEditorLocation = value;
+          this.applySettingsUpdate();
+        });
+    });
+
+    new Setting(containerEl)
+    .setName("Use Button to Show Editor On Mobile")
+    .setDesc("Set a float button to call editor on mobile. Only when editor at the bottom works.")
+    .addToggle((toggle) =>
+      toggle
+        .setValue(this.plugin.settings.UseButtonToShowEditor)
+        .onChange(async (value) => {
+          this.plugin.settings.UseButtonToShowEditor = value;
+          this.applySettingsUpdate();
+        }),
+    );
   }
 }

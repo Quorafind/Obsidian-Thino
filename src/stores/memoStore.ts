@@ -48,8 +48,6 @@ export function reducer(state: State, action: Actions): State {
         action.payload.memos.sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt))
       );
 
-      
-
       // const memos = action.payload.memos.sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt));
 
       return {
