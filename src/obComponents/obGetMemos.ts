@@ -109,7 +109,6 @@ const lineContainsParseBelowToken = (line: string) => {
     return true;
   }
   const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "");
-  console.log(re);
   return re.test(line);
 };
 
