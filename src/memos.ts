@@ -1,20 +1,72 @@
-import { WorkspaceLeaf, ItemView, HoverPopover } from "obsidian";
+import { WorkspaceLeaf, ItemView, HoverPopover, TFile } from "obsidian";
 import { MEMOS_VIEW_TYPE } from "./constants";
 import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
 import type MemosPlugin from "./index";
-import { dailyNotesService } from "./services";
+import { dailyNotesService, memoService } from "./services";
+import { getDateFromFile } from "obsidian-daily-notes-interface";
 
 export class Memos extends ItemView {
 	plugin: MemosPlugin;
 	hoverPopover: HoverPopover | null;
-	private reactComponent: React.ReactElement;
+	private memosComponent: React.ReactElement;
 
 	constructor(leaf: WorkspaceLeaf, plugin: MemosPlugin) {
 		super(leaf);
 		this.plugin = plugin;
+		
+		this.onMemosSettingsUpdate = this.onMemosSettingsUpdate.bind(this);
+		this.onFileCreated = this.onFileCreated.bind(this);
+		this.onFileDeleted = this.onFileDeleted.bind(this);
+		this.onFileModified = this.onFileModified.bind(this);
+
+		this.registerEvent(
+            this.plugin.app.workspace.on("layout-change", () => {
+                if (!this.memosComponent) return;
+                if (!this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length) {
+					return;
+				  }
+				  const side = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0].getRoot().side;
+				  const sidebar = document.querySelector("div[data-type='memos_view'] .view-content .memos-sidebar-wrapper") as HTMLElement;
+				  const page = document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper") as HTMLElement;
+				  	if( side !== undefined && (side === "left" || side === "right")){
+						if(!sidebar?.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
+							sidebar.addClass("memos-sidebar-wrapper-display");
+							page.className = "content-wrapper-padding-fix";
+						}
+					}else {
+						if(sidebar?.classList.contains("memos-sidebar-wrapper-display") && page !== undefined){
+							sidebar.removeClass("memos-sidebar-wrapper-display");
+							page.className = "content-wrapper";
+					}	
+				}
+            })
+        );
+
+		this.registerEvent(
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(<any>this.app.workspace).on(
+			  "obsidian-memos:settings-updated",
+			  this.onMemosSettingsUpdate
+			)
+		);
+
+		this.registerEvent(this.app.vault.on("create", this.onFileCreated));
+		this.registerEvent(this.app.vault.on("delete", this.onFileDeleted));
+		this.registerEvent(this.app.vault.on("modify", this.onFileModified));
+
+
+		// this.plugin.settings = null;
+		// 	plugin.settings.subscribe((val:any) => {
+		// 	this.plugin.settings = val;
+
+		// 	// Refresh the calendar if settings change
+		// 	if (this.memosComponent) {
+		// 		useRefresh();
+		// 	}
+		// 	});
 	}
   
 	getDisplayText(): string {
@@ -23,11 +75,42 @@ export class Memos extends ItemView {
 	}
   
 	getIcon(): string {
-		return "Calendar";
+		return "Memos";
 	}
   
 	getViewType(): string {
 		return MEMOS_VIEW_TYPE;
+	}
+
+	private onMemosSettingsUpdate(): void {
+		memoService.clearMemos();
+    	memoService.fetchAllMemos();
+	}
+
+	private async onFileDeleted(file: TFile): Promise<void> {
+		if (getDateFromFile(file, "day")) {
+			await dailyNotesService.getMyAllDailyNotes();
+			memoService.clearMemos();
+			memoService.fetchAllMemos();
+		}
+	}
+	
+	private async onFileModified(file: TFile): Promise<void> {
+		const date = getDateFromFile(file, "day");
+		if (date && this.memosComponent) {
+			memoService.clearMemos();
+			memoService.fetchAllMemos();
+		}
+	}
+
+	private onFileCreated(file: TFile): void {
+	if (this.app.workspace.layoutReady && this.memosComponent) {
+		if (getDateFromFile(file, "day")) {
+			dailyNotesService.getMyAllDailyNotes();
+			memoService.clearMemos();
+			memoService.fetchAllMemos();
+			}
+		}	
 	}
   
 	async onOpen(): Promise<void> {
@@ -45,10 +128,10 @@ export class Memos extends ItemView {
 		OpenDailyMemosWithMemos = this.plugin.settings.OpenDailyMemosWithMemos;
 		HideDoneTasks = this.plugin.settings.HideDoneTasks;
   
-		this.reactComponent = React.createElement(App);
+		this.memosComponent = React.createElement(App);
   
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		ReactDOM.render(this.reactComponent, (this as any).contentEl);
+		ReactDOM.render(this.memosComponent, (this as any).contentEl);
 	}
   
 	async onClose() {

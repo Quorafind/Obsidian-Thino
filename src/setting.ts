@@ -1,5 +1,6 @@
 import { App, DropdownComponent, PluginSettingTab, Setting } from "obsidian";
 import type MemosPlugin from "./index";
+import memoService from './services/memoService';
 
 export interface MemosSettings {
   StartDate: string;
@@ -49,6 +50,7 @@ export class MemosSettingTab extends PluginSettingTab {
     this.applyDebounceTimer = window.setTimeout(() => {
       plugin.saveSettings();
     }, 100);
+    memoService.updateTagsState();
   }
 
   //eslint-disable-next-line

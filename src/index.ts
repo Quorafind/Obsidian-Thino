@@ -1,4 +1,4 @@
-import { Plugin, Notice, FileView, Platform } from "obsidian";
+import { Plugin, Notice, FileView, Platform, WorkspaceLeaf } from "obsidian";
 import { Memos, FocusOnEditor, OpenDailyMemosWithMemos } from './memos';
 import { MEMOS_VIEW_TYPE } from "./constants";
 import addIcons from "./obComponents/customIcons";
@@ -11,6 +11,7 @@ import showDailyMemoDiaryDialog from "./components/DailyMemoDiaryDialog";
 import i18next from "i18next";
 import { TRANSLATIONS_ZH } from "./translations/zh/translations";
 import { TRANSLATIONS_EN } from "./translations/en/translations";
+import { globalStateService } from "./services";
 
 // declare global {
 //   interface Window {
@@ -50,6 +51,7 @@ import { TRANSLATIONS_EN } from "./translations/en/translations";
 
 export default class MemosPlugin extends Plugin {
   public settings: MemosSettings;
+  private view: Memos;
   async onload(): Promise<void> {
     console.log("obsidian-memos loading...");
 
@@ -59,6 +61,11 @@ export default class MemosPlugin extends Plugin {
     // monkeyPatchConsole(this);
 
     this.registerView(MEMOS_VIEW_TYPE, (leaf) => new Memos(leaf, this));
+
+    // this.registerView(
+    //   MEMOS_VIEW_TYPE,
+    //   (leaf: WorkspaceLeaf) => (this.view = new Memos(leaf, this.app.plugin))
+    // );
 
     this.addSettingTab(new MemosSettingTab(this.app, this));
 
@@ -96,6 +103,7 @@ export default class MemosPlugin extends Plugin {
     // this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
     console.log(i18next.t("welcome"));
     console.log("obsidian-memos loaded");
+    
   }
 
   public async loadSettings() {
@@ -112,18 +120,29 @@ export default class MemosPlugin extends Plugin {
   }
 
   // onLayoutReady(): void {
-  //   if (this.app.workspace.getLeavesOfType(VIEW_TYPE).length) {
-  //     return;
+  //     if (!this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length) {
+  //       return;
+  //     }
+  //     const side = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0].getRoot().side;
+  //     let sidebar = document.querySelector("div[data-type='memos_view'] .view-content .memos-sidebar-wrapper") as HTMLElement;
+  //     let page = document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper") as HTMLElement;
+  //       if( side !== undefined && (side === "left" || side === "right")){
+  //         if(!sidebar.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
+  //           sidebar.addClass("memos-sidebar-wrapper-display");
+  //           page.addClass("page-wrapper-padding-fix");
+  //         }
+  //     }else {
+  //       if(sidebar.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
+  //         sidebar.removeClass("memos-sidebar-wrapper-display");
+  //         page.removeClass("page-wrapper-padding-fix");
+  //     }	
   //   }
-  //   this.app.workspace.getRightLeaf(false).setViewState({
-  //     type: VIEW_TYPE,
-  //     active: true,
-  //   });
   // }
+
   async openDailyMemo() {
     const workspaceLeaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
-    if(OpenDailyMemosWithMemos){
-      if (workspaceLeaves.length === 0) {
+    if(OpenDailyMemosWithMemos ){
+      if (workspaceLeaves !== undefined && workspaceLeaves.length === 0) {
         this.openMemos();
         showDailyMemoDiaryDialog();
       } else {
