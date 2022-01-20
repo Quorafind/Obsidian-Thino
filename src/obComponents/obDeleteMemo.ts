@@ -212,3 +212,6 @@ const extractIDfromText = (line: string) => /^- (\d{14})(\d+)\s(.+)\s(deletedAt:
 const extractContentfromText = (line: string) => /^- (\d+)\s(.+)\s(deletedAt: )(.+)$/.exec(line)?.[2]
 //eslint-disable-next-line
 const extractDeleteDatefromText = (line: string) => /^- (\d+)\s(.+)\s(deletedAt: )(.+)$/.exec(line)?.[4]
+// const extractMemoTaskTypeFromLine = (line: string) =>
+//   //eslint-disable-next-line
+//   /^\s*[\-\*]\s(\[(.{1})\])\s(.*)$/.exec(line)?.[2];

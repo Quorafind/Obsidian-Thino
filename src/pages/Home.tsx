@@ -7,13 +7,16 @@ import useLoading from "../hooks/useLoading";
 import "../less/home.less";
 import React from "react";
 import useRefresh from "../hooks/useRefresh";
+import { MEMOS_VIEW_TYPE } from "../constants";
+import { dailyNotesService } from '../services';
 
 function Home() {
   const {
     locationState: { pathname },
   } = useContext(appContext);
+  // const { app } = dailyNotesService.getState();
   const loadingState = useLoading();
-  const refresh = useRefresh();
+  // const refresh = useRefresh();
 
   useEffect(() => {
     // const { user } = userService.getState();
@@ -32,18 +35,19 @@ function Home() {
     //     });
     // } else {
       loadingState.setFinish();
+      
     // }
   }, []);
 
 
   return (
     <>
-      {loadingState.isLoading ? null : (
-        <section id="page-wrapper">
-          <Sidebar />
-          <main className="content-wrapper">{homeRouterSwitch(pathname)}</main>
-        </section>
-      )}
+      {/* {loadingState.isLoading ? null : ( */}
+      <section id="page-wrapper">
+        <Sidebar />
+        <main className="content-wrapper">{homeRouterSwitch(pathname)}</main>
+      </section>
+      {/* )} */}
     </>
   );
 }

@@ -35,6 +35,7 @@ export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents
     const startDate = getDateFromFile(dailyNote, "day");
     const endDate = getDateFromFile(dailyNote, "day");
     let processHeaderFound = false;
+    let memoType: string;
     for (let i = 0; i < fileLines.length; i++) {
       const line = fileLines[i];
       if (line.length === 0) continue;
@@ -54,6 +55,18 @@ export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents
         } else {
           endDate.minutes(parseInt(extractMinFromBulletLine(line)));
         }
+        if(/^\s*[-*]\s(\[(.{1})\])\s/g.test(line)){
+          const memoTaskType = extractMemoTaskTypeFromLine(line);
+          if( memoTaskType === " "){
+            memoType = "TASK-TODO"
+          }else if( memoTaskType === "x" || memoTaskType === "X"){
+            memoType = "TASK-DONE";
+          }else{
+            memoType = "TASK-" + memoTaskType;
+          }
+        }else{
+          memoType = "JOURNAL";
+        }
         const rawText = extractTextFromTodoLine(line);
         dailyEvents.push({
           id: startDate.format("YYYYMMDDHHmmSS") + i,
@@ -61,6 +74,7 @@ export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents
           user_id: 1,
           createdAt: startDate.format("YYYY/MM/DD HH:mm:SS"),
           updatedAt: endDate.format("YYYY/MM/DD HH:mm:SS"),
+          memoType: memoType,
         });
       }
     }
@@ -98,7 +112,7 @@ const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
 // }
 const lineContainsTime = (line: string) => {
   //eslint-disable-next-line
-  return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}(.*)$/.test(line);
+  return /^\s*[\-\*]\s(\[(.{1})\]\s)?(\<time\>)?\d{1,2}\:\d{2}(.*)$/.test(line);
   // The below line excludes entries with a ':' after the time as I was having issues with my calendar
   // being pulled in. Once made configurable will be simpler to manage.
   // return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);
@@ -114,12 +128,19 @@ const lineContainsParseBelowToken = (line: string) => {
 
 const extractTextFromTodoLine = (line: string) =>
   //eslint-disable-next-line
-  /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
+  /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
 
 const extractHourFromBulletLine = (line: string) =>
   //eslint-disable-next-line
-  /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[4];
+  /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[4];
 
 const extractMinFromBulletLine = (line: string) =>
   //eslint-disable-next-line
-  /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5];
+  /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5];
+
+const extractMemoTaskTypeFromLine = (line: string) =>
+  //eslint-disable-next-line
+  /^\s*[\-\*]\s(\[(.{1})\])\s(.*)$/.exec(line)?.[2];
+  // The below line excludes entries with a ':' after the time as I was having issues with my calendar
+  // being pulled in. Once made configurable will be simpler to manage.
+  // return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);

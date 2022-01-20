@@ -26,7 +26,19 @@ div[data-type="memos_view"] #page-wrapper {
     height: 100%;
     overflow-y: hidden;
   }
+
+  > .content-wrapper-padding-fix {
+    .flex(column, flex-start, flex-start);
+    position: relative;
+    margin-top: 0px;
+    width: 600px;
+    height: 100%;
+    overflow-y: hidden;
+    padding-left: 34px;
+  }
 }
+
+ 
 
 @media only screen and (max-width: 875px) {
   div[data-type="memos_view"] body.mobile-show-sidebar {

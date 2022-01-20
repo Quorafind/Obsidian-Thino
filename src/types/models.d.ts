@@ -13,6 +13,7 @@ declare namespace Model {
   interface Memo extends BaseModel {
     content: string;
     deletedAt: string;
+    memoType?: string;
   }
 
   interface Query extends BaseModel {

@@ -5,12 +5,13 @@ import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } fr
 import utils from "../helpers/utils";
 import { checkShouldShowMemoWithFilters } from "../helpers/filter";
 import Memo from "./Memo";
-import toastHelper from "./Toast";
+// import toastHelper from "./Toast";
 import "../less/memolist.less";
 import React from "react";
 import dailyNotesService from '../services/dailyNotesService';
 import appStore from "../stores/appStore";
 import { Notice, Platform } from 'obsidian';
+import { HideDoneTasks } from "../memos";
 // import { DefaultEditorLocation } from '../memos';
 
 interface Props {}
@@ -32,9 +33,15 @@ const MemoList: React.FC<Props> = () => {
   const showMemoFilter = Boolean(tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter);
 
   const shownMemos =
-    showMemoFilter || queryFilter
+    showMemoFilter || queryFilter || HideDoneTasks
       ? memos.filter((memo) => {
           let shouldShow = true;
+
+          if(memo.memoType !== undefined){
+            if(HideDoneTasks && memo.memoType === "TASK-DONE"){
+              shouldShow = false;
+            }
+          }
 
           if (queryFilter) {
             const filters = JSON.parse(queryFilter.querystring) as Filter[];
