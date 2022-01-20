@@ -102,6 +102,7 @@ const MemoEditor: React.FC<Props> = () => {
     if (Platform.isMobile !== true || window.innerWidth > 875) {
       handleShowEditor();
     }
+    editorRef.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -142,7 +143,7 @@ const MemoEditor: React.FC<Props> = () => {
           // rotateElementAni.pause();
         }, 300);
       }
-      document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper").appendChild(divThis);
+      document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper").prepend(divThis);
 
       const memolistScroll = document.querySelector("div[data-type='memos_view'] .view-content .memolist-wrapper") as HTMLElement;
       memolistScroll.onscroll = function(){ 

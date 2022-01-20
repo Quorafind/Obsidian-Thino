@@ -9,7 +9,7 @@ import React from "react";
 import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
 import { usedTags } from '../../obComponents/obTagSuggester';
 import "../../less/suggest.less";
-import { SaveMemoButtonLabel } from "../../memos";
+import { FocusOnEditor, SaveMemoButtonLabel } from "../../memos";
 import { getSuggestions } from "../../obComponents/obFileSuggester";
 import { TFile } from "obsidian";
 import appStore from "../../stores/appStore";
@@ -259,6 +259,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     }
 
     editorRef.current.value = getEditorContentCache();
+    if( FocusOnEditor ){
+      editorRef.current?.focus();
+    }
     
     return editorRef.current.value;
   }

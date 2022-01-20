@@ -1,5 +1,5 @@
 import { Plugin, Notice, FileView, Platform } from "obsidian";
-import { Memos } from "./memos";
+import { Memos, FocusOnEditor, OpenDailyMemosWithMemos } from './memos';
 import { MEMOS_VIEW_TYPE } from "./constants";
 import addIcons from "./obComponents/customIcons";
 import "./helpers/polyfill";
@@ -82,7 +82,7 @@ export default class MemosPlugin extends Plugin {
     this.addCommand({
       id: "focus-on-memos-editor",
       name: "Focus On Memos Editor",
-      callback: () => editorInput.focus(),
+      callback: () => this.focusOnEditor(),
       hotkeys: [],
     });
 
@@ -122,10 +122,14 @@ export default class MemosPlugin extends Plugin {
   // }
   async openDailyMemo() {
     const workspaceLeaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
-    if (workspaceLeaves.length === 0) {
-      this.openMemos();
-      showDailyMemoDiaryDialog();
-    } else {
+    if(OpenDailyMemosWithMemos){
+      if (workspaceLeaves.length === 0) {
+        this.openMemos();
+        showDailyMemoDiaryDialog();
+      } else {
+        showDailyMemoDiaryDialog();
+      }
+    }else{
       showDailyMemoDiaryDialog();
     }
   }
@@ -144,17 +148,21 @@ export default class MemosPlugin extends Plugin {
       await workspace.getLeaf(false).setViewState({ type: MEMOS_VIEW_TYPE });
     }
     workspace.revealLeaf(workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0]);
-    // const viewType = view.getViewType();
-    // let leaf;
-    // if (!(view instanceof FileView)) {
-    //   leaf = this.app.workspace.getLeaf(false);
-    //   this.app.workspace.setActiveLeaf(leaf,true,true);
-    // }else{
-    //   leaf = this.app.workspace.getLeaf(true);
-    //   this.app.workspace.setActiveLeaf(leaf,true,true);
-    // }
-    // const neovisView = new Memos(leaf, this);
-    // await leaf.open(neovisView);
+  }
+
+  async focusOnEditor() {
+    const workspace = this.app.workspace;
+    if( workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0] !== null &&  workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length !== 0){
+      workspace.setActiveLeaf(workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0]);
+      document.querySelector("textarea").focus();
+    }else{
+      this.openMemos();
+      setTimeout(() => {
+        if( FocusOnEditor !== true && workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length !== 0){
+          document.querySelector("div[data-type='memos_view'] .view-content textarea").focus();
+        }
+      }, 100);
+    }
   }
 
   async initLocalization() {
