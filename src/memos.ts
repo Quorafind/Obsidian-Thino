@@ -41,6 +41,8 @@ export class Memos extends ItemView {
 		InsertDateFormat = this.plugin.settings.InsertDateFormat;
 		DefaultEditorLocation = this.plugin.settings.DefaultEditorLocation;
 		UseButtonToShowEditor = this.plugin.settings.UseButtonToShowEditor;
+		FocusOnEditor = this.plugin.settings.FocusOnEditor;
+		OpenDailyMemosWithMemos = this.plugin.settings.OpenDailyMemosWithMemos;
   
 		this.reactComponent = React.createElement(App);
   
@@ -61,3 +63,5 @@ export class Memos extends ItemView {
   export let InsertDateFormat: string;
   export let DefaultEditorLocation: string;
   export let UseButtonToShowEditor: boolean;
+  export let FocusOnEditor: boolean;
+  export let OpenDailyMemosWithMemos: boolean;

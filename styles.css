@@ -2387,6 +2387,9 @@ div[data-type="memos_view"] .image-container > img {
   font-size: 14px;
   color: #5783f7;
   background-color: unset;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-left: 4px;
   cursor: unset;
 }
 .theme-light .dialog-wrapper.memo-card-dialog > .dialog-container > .memo-card-container > .memo-container > .images-wrapper {
@@ -3134,7 +3137,9 @@ div[data-type="memos_view"] .image-container > img {
 .theme-light div[data-type="memos_view"] .daily-memo-wrapper .memo-content-text .tag-span {
   display: inline-block;
   width: auto;
-  padding: 0 6px;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-left: 4px;
   line-height: 24px;
   font-size: 13px;
   border: none;
@@ -3200,7 +3205,9 @@ div[data-type="memos_view"] .image-container > img {
 .theme-light [data-type="memos_view"] .memolist-wrapper .memo-content-text .tag-span {
   display: inline-block;
   width: auto;
-  padding: 0 6px;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-left: 4px;
   line-height: 24px;
   font-size: 13px;
   border: none;
@@ -3279,7 +3286,9 @@ div[data-type="memos_view"] .image-container > img {
 .theme-dark div[data-type="memos_view"] .daily-memo-wrapper .memo-content-text .tag-span {
   display: inline-block;
   width: auto;
-  padding: 0 6px;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-left: 4px;
   line-height: 24px;
   font-size: 13px;
   border: none;
@@ -3347,7 +3356,9 @@ div[data-type="memos_view"] .image-container > img {
 .theme-dark div[data-type="memos_view"] .memolist-wrapper .memo-content-text .tag-span {
   display: inline-block;
   width: auto;
-  padding: 0 6px;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-left: 4px;
   line-height: 24px;
   font-size: 13px;
   border: none;
@@ -4945,6 +4956,9 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
 }
 .theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span {
   cursor: unset;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-left: 4px;
 }
 .theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span:hover {
   color: #5783f7;
@@ -5034,6 +5048,9 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
 }
 .theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text ** .tag-span {
   cursor: unset;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-left: 4px;
 }
 .theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text ** .tag-span:hover {
   color: #bbbec7;

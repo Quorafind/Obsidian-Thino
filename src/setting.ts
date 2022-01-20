@@ -12,6 +12,8 @@ export interface MemosSettings {
   InsertDateFormat: string;
   DefaultEditorLocation: string;
   UseButtonToShowEditor: boolean;
+  FocusOnEditor: boolean;
+  OpenDailyMemosWithMemos: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -24,7 +26,9 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   DefaultPrefix: "List",
   InsertDateFormat: "Tasks",
   DefaultEditorLocation: "Top",
-  UseButtonToShowEditor: false
+  UseButtonToShowEditor: false,
+  FocusOnEditor: true,
+  OpenDailyMemosWithMemos: true
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -93,6 +97,30 @@ export class MemosSettingTab extends PluginSettingTab {
             this.plugin.settings.ProcessEntriesBelow = value;
             this.applySettingsUpdate();
           })
+      );
+
+    new Setting(containerEl)
+      .setName("Focus on editor when open memos")
+      .setDesc("Focus on editor when open memos. Focus by default.")
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.FocusOnEditor)
+          .onChange(async (value) => {
+            this.plugin.settings.FocusOnEditor = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName("Open daily memos without open memos")
+      .setDesc("Open daily memos without open memos. Open by default.")
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.OpenDailyMemosWithMemos)
+          .onChange(async (value) => {
+            this.plugin.settings.OpenDailyMemosWithMemos = value;
+            this.applySettingsUpdate();
+          }),
       );
 
     new Setting(containerEl)
