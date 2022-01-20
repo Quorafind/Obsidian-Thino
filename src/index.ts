@@ -1,4 +1,4 @@
-import { Plugin, Notice, FileView, Platform, WorkspaceLeaf } from "obsidian";
+import { Plugin, Notice, FileView, Platform } from "obsidian";
 import { Memos, FocusOnEditor, OpenDailyMemosWithMemos } from './memos';
 import { MEMOS_VIEW_TYPE } from "./constants";
 import addIcons from "./obComponents/customIcons";
@@ -11,7 +11,7 @@ import showDailyMemoDiaryDialog from "./components/DailyMemoDiaryDialog";
 import i18next from "i18next";
 import { TRANSLATIONS_ZH } from "./translations/zh/translations";
 import { TRANSLATIONS_EN } from "./translations/en/translations";
-import { globalStateService } from "./services";
+// import { globalStateService } from "./services";
 
 // declare global {
 //   interface Window {

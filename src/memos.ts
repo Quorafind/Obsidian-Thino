@@ -27,11 +27,11 @@ export class Memos extends ItemView {
                 if (!this.memosComponent) return;
                 if (!this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length) {
 					return;
-				  }
-				  const side = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0].getRoot().side;
-				  const sidebar = document.querySelector("div[data-type='memos_view'] .view-content .memos-sidebar-wrapper") as HTMLElement;
-				  const page = document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper") as HTMLElement;
-				  	if( side !== undefined && (side === "left" || side === "right")){
+				}
+					const side = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0].getRoot().side;
+					const sidebar = document.querySelector("div[data-type='memos_view'] .view-content .memos-sidebar-wrapper") as HTMLElement;
+					const page = document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper") as HTMLElement;
+					if( side !== undefined && (side === "left" || side === "right")){
 						if(!sidebar?.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
 							sidebar.addClass("memos-sidebar-wrapper-display");
 							page.className = "content-wrapper-padding-fix";
@@ -48,8 +48,8 @@ export class Memos extends ItemView {
 		this.registerEvent(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(<any>this.app.workspace).on(
-			  "obsidian-memos:settings-updated",
-			  this.onMemosSettingsUpdate
+				"obsidian-memos:settings-updated",
+				this.onMemosSettingsUpdate
 			)
 		);
 
@@ -84,7 +84,7 @@ export class Memos extends ItemView {
 
 	private onMemosSettingsUpdate(): void {
 		memoService.clearMemos();
-    	memoService.fetchAllMemos();
+		memoService.fetchAllMemos();
 	}
 
 	private async onFileDeleted(file: TFile): Promise<void> {
@@ -97,20 +97,22 @@ export class Memos extends ItemView {
 	
 	private async onFileModified(file: TFile): Promise<void> {
 		const date = getDateFromFile(file, "day");
+		
 		if (date && this.memosComponent) {
+			console.log("yes");
 			memoService.clearMemos();
 			memoService.fetchAllMemos();
 		}
 	}
 
 	private onFileCreated(file: TFile): void {
-	if (this.app.workspace.layoutReady && this.memosComponent) {
-		if (getDateFromFile(file, "day")) {
-			dailyNotesService.getMyAllDailyNotes();
-			memoService.clearMemos();
-			memoService.fetchAllMemos();
-			}
-		}	
+		if (this.app.workspace.layoutReady && this.memosComponent) {
+			if (getDateFromFile(file, "day")) {
+				dailyNotesService.getMyAllDailyNotes();
+				memoService.clearMemos();
+				memoService.fetchAllMemos();
+				}
+			}	
 	}
   
 	async onOpen(): Promise<void> {
