@@ -6,7 +6,7 @@ import { TFile } from "obsidian";
 import appStore from "../stores/appStore";
 
 
-export async function changeMemo(memoid: string, originalContent: string, content: string): Promise<Model.Memo> {
+export async function changeMemo(memoid: string, originalContent: string, content: string, memoType: string): Promise<Model.Memo> {
 
     const {
         dailyNotes
@@ -29,6 +29,7 @@ export async function changeMemo(memoid: string, originalContent: string, conten
         deletedAt: "",
         createdAt: changeDate.format('YYYY/MM/DD HH:mm:SS'),
         updatedAt: changeDate.format('YYYY/MM/DD HH:mm:SS'),
+        memoType: memoType,
       }
 }
 
@@ -50,6 +51,4 @@ export function getDailyNotePath(): string {
 }
 
 const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/)
-
-
 

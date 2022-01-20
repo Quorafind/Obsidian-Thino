@@ -259,9 +259,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     }
 
     editorRef.current.value = getEditorContentCache();
-    if( FocusOnEditor ){
-      editorRef.current?.focus();
-    }
+    // if( FocusOnEditor ){
+    //   editorRef.current?.focus();
+    // }
     
     return editorRef.current.value;
   }

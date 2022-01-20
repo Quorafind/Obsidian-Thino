@@ -60,30 +60,55 @@ export async function waitForInsert(MemoContent: string, isList: boolean) : Prom
       }else{
         lineNum = newFileContent.posNum + 1;
       }
-      return {
-        id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
-        content: MemoContent,
-        deletedAt: "",
-        createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
-        updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
-      }
+      if ( isList ){
+            return {
+                id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
+                content: MemoContent,
+                deletedAt: "",
+                createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                memoType: "TASK-TODO",
+              }
+        }else{
+            return {
+                id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
+                content: MemoContent,
+                deletedAt: "",
+                createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                memoType: "JOURNAL",
+              }
+        }
+      
     }else{
-      const fileContents = await vault.cachedRead(existingFile);
-      const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
-      await vault.modify(existingFile, newFileContent.content);
-      if(newFileContent.posNum === -1){
-        const allLines = getAllLinesFromFile(newFileContent.content);
-        lineNum = allLines.length + 1;
-      }else{
-        lineNum = newFileContent.posNum + 1;
-      }
-      return {
-        id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
-        content: MemoContent,
-        deletedAt: "",
-        createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
-        updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
-      }
+        const fileContents = await vault.cachedRead(existingFile);
+        const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
+        await vault.modify(existingFile, newFileContent.content);
+        if(newFileContent.posNum === -1){
+            const allLines = getAllLinesFromFile(newFileContent.content);
+            lineNum = allLines.length + 1;
+        }else{
+            lineNum = newFileContent.posNum + 1;
+        }
+        if ( isList ){
+            return {
+                id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
+                content: MemoContent,
+                deletedAt: "",
+                createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                memoType: "TODO-Blank",
+            }
+        }else{
+            return {
+                id: date.format('YYYYMMDDHHmm') + "00" + lineNum,
+                content: MemoContent,
+                deletedAt: "",
+                createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
+                memoType: "JOURNAL",
+            }
+        }
     }
   }
   

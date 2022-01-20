@@ -92,6 +92,8 @@ const MemoEditor: React.FC<Props> = () => {
       isList = true;
       toggleList(true);
     }
+
+    // editorRef.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -447,7 +449,7 @@ const MemoEditor: React.FC<Props> = () => {
       if (editMemoId) {
         const prevMemo = memoService.getMemoById(editMemoId);
         if (prevMemo && prevMemo.content !== content) {
-          const editedMemo = await memoService.updateMemo(prevMemo.id, prevMemo.content, content);
+          const editedMemo = await memoService.updateMemo(prevMemo.id, prevMemo.content, content, prevMemo.memoType);
           editedMemo.updatedAt = utils.getDateTimeString(Date.now());
           memoService.editMemo(editedMemo);
         }

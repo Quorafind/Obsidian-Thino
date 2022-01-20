@@ -237,7 +237,7 @@ const Memo: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className={`memo-wrapper ${"memos-" + memo.id}`} onMouseLeave={handleMouseLeaveMemoWrapper} onMouseDown={handleMemoKeyDown} onDoubleClick={handleMemoDoubleKeyDown}>
+    <div className={`memo-wrapper ${"memos-" + memo.id} ${memo.memoType}`} onMouseLeave={handleMouseLeaveMemoWrapper} onMouseDown={handleMemoKeyDown} onDoubleClick={handleMemoDoubleKeyDown}>
       <div className="memo-top-wrapper">
         <span className="time-text" onClick={handleShowMemoStoryDialog}>
           {memo.createdAtStr}

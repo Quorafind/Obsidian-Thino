@@ -135,8 +135,8 @@ class MemoService {
     return memo;
   }
 
-  public async updateMemo(memoId: string, originalText: string, text: string): Promise<Model.Memo> {
-    const memo = await changeMemo(memoId, originalText, text);
+  public async updateMemo(memoId: string, originalText: string, text: string, type: string): Promise<Model.Memo> {
+    const memo = await changeMemo(memoId, originalText, text, type);
     return memo;
   }
 }

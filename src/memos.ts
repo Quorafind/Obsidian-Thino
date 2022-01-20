@@ -43,6 +43,7 @@ export class Memos extends ItemView {
 		UseButtonToShowEditor = this.plugin.settings.UseButtonToShowEditor;
 		FocusOnEditor = this.plugin.settings.FocusOnEditor;
 		OpenDailyMemosWithMemos = this.plugin.settings.OpenDailyMemosWithMemos;
+		HideDoneTasks = this.plugin.settings.HideDoneTasks;
   
 		this.reactComponent = React.createElement(App);
   
@@ -65,3 +66,4 @@ export class Memos extends ItemView {
   export let UseButtonToShowEditor: boolean;
   export let FocusOnEditor: boolean;
   export let OpenDailyMemosWithMemos: boolean;
+  export let HideDoneTasks: boolean;

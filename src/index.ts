@@ -6,7 +6,7 @@ import "./helpers/polyfill";
 import "./less/global.less";
 import { MemosSettingTab, DEFAULT_SETTINGS, MemosSettings } from "./setting";
 import { appHasDailyNotesPluginLoaded } from "obsidian-daily-notes-interface";
-import { editorInput } from "./components/Editor/Editor";
+// import { editorInput } from "./components/Editor/Editor";
 import showDailyMemoDiaryDialog from "./components/DailyMemoDiaryDialog";
 import i18next from "i18next";
 import { TRANSLATIONS_ZH } from "./translations/zh/translations";
@@ -148,6 +148,11 @@ export default class MemosPlugin extends Plugin {
       await workspace.getLeaf(false).setViewState({ type: MEMOS_VIEW_TYPE });
     }
     workspace.revealLeaf(workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0]);
+    setTimeout(() => {
+      if( FocusOnEditor !== false ){
+        document.querySelector("div[data-type='memos_view'] .view-content textarea").focus();
+      }
+    }, 100);
   }
 
   async focusOnEditor() {

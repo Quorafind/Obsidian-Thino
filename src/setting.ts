@@ -14,6 +14,7 @@ export interface MemosSettings {
   UseButtonToShowEditor: boolean;
   FocusOnEditor: boolean;
   OpenDailyMemosWithMemos: boolean;
+  HideDoneTasks: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -28,7 +29,8 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   DefaultEditorLocation: "Top",
   UseButtonToShowEditor: false,
   FocusOnEditor: true,
-  OpenDailyMemosWithMemos: true
+  OpenDailyMemosWithMemos: true,
+  HideDoneTasks: false
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -58,9 +60,14 @@ export class MemosSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     this.containerEl.empty();
 
+    this.containerEl.createEl("h1", { text: "Basic Options" });
+    // containerEl.createDiv("", (el) => {
+    //   el.innerHTML = "Basic Options";
+    // });
+
     new Setting(containerEl)
-      .setName("USER_NAME")
-      .setDesc("USER_NAME")
+      .setName("User name in Memos")
+      .setDesc("Set your user name here. 'Memos 😏' By default")
       .addText((text) =>
         text
           .setPlaceholder(DEFAULT_SETTINGS.UserName)
@@ -72,8 +79,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Insert After")
-      .setDesc("INSERT_AFTER")
+      .setName("Insert after heading")
+      .setDesc("You should set the same heading below if you want to insert and process memos below the same heading.")
       .addText((text) =>
         text
           .setPlaceholder(DEFAULT_SETTINGS.InsertAfter)
@@ -124,7 +131,7 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Save Memo Button Label")
+      .setName("Save Memo button label")
       .setDesc("The text shown on the save Memo button in the UI. 'NOTEIT' by default.")
       .addText((text) =>
         text
@@ -136,10 +143,12 @@ export class MemosSettingTab extends PluginSettingTab {
           })
       );
     
+    this.containerEl.createEl("h1", { text: "Advanced Options" });
+
     let dropdown: DropdownComponent;
 
     new Setting(containerEl)
-      .setName("UI Language")
+      .setName("UI language")
       .setDesc("Translates the UI language. Only 'en' and 'zh' are available.")
       .addDropdown(async (d: DropdownComponent) => {
         dropdown = d;
@@ -154,8 +163,8 @@ export class MemosSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName("Default Prefix Style")
-      .setDesc("Set the default prefix style when create memo, 'List' by default.")
+      .setName("Default prefix")
+      .setDesc("Set the default prefix when create memo, 'List' by default.")
       .addDropdown(async (d: DropdownComponent) => {
         dropdown = d;
         dropdown.addOption("List", "List");
@@ -169,7 +178,7 @@ export class MemosSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-    .setName("Default Insert Date Format")
+    .setName("Default insert date format")
     .setDesc("Set the default date format when insert date by @, 'Tasks' by default.")
     .addDropdown(async (d: DropdownComponent) => {
       dropdown = d;
@@ -184,7 +193,7 @@ export class MemosSettingTab extends PluginSettingTab {
     });
 
     new Setting(containerEl)
-    .setName("Default Editor Position on Mobile")
+    .setName("Default editor position on mobile")
     .setDesc("Set the default editor position on Mobile, 'Top' by default.")
     .addDropdown(async (d: DropdownComponent) => {
       dropdown = d;
@@ -199,15 +208,37 @@ export class MemosSettingTab extends PluginSettingTab {
     });
 
     new Setting(containerEl)
-    .setName("Use Button to Show Editor On Mobile")
-    .setDesc("Set a float button to call editor on mobile. Only when editor at the bottom works.")
-    .addToggle((toggle) =>
-      toggle
-        .setValue(this.plugin.settings.UseButtonToShowEditor)
-        .onChange(async (value) => {
-          this.plugin.settings.UseButtonToShowEditor = value;
-          this.applySettingsUpdate();
-        }),
-    );
+      .setName("Use button to show editor on mobile")
+      .setDesc("Set a float button to call editor on mobile. Only when editor located at the bottom works.")
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.UseButtonToShowEditor)
+          .onChange(async (value) => {
+            this.plugin.settings.UseButtonToShowEditor = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName("Hide done tasks in Memo list")
+      .setDesc("Hide all done tasks in Memo list. Show done tasks by default.")
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.HideDoneTasks)
+          .onChange(async (value) => {
+            this.plugin.settings.HideDoneTasks = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    this.containerEl.createEl("h1", { text: "Say Thank You" });
+
+    new Setting(containerEl)
+      .setName('Donate')
+      .setDesc('If you like this plugin, consider donating to support continued development:')
+      // .setClass("AT-extra")
+      .addButton((bt) => {
+          bt.buttonEl.outerHTML = `<a href="https://www.buymeacoffee.com/boninall"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=boninall&button_colour=6495ED&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00"></a>`;
+    });
   }
 }

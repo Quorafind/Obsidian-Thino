@@ -21,14 +21,11 @@ const AboutSiteDialog: React.FC<Props> = ({ destroy }: Props) => {
         </button>
       </div>
       <div className="dialog-content-container">
-        Hi, I am Quorafind, if you are interested in this project, please support my work and enthusiasm by buying me a coffee on <a href="https://www.buymeacoffee.com/boninall">https://www.buymeacoffee.com/boninall</a>
+        Hi, I am Quorafind(Boninall), if you are interested in this project, please support my work and enthusiasm by buying me a coffee on <a href="https://www.buymeacoffee.com/boninall">https://www.buymeacoffee.com/boninall</a>
+        <a href="https://www.buymeacoffee.com/boninall"><img src={`https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=boninall&button_colour=6495ED&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00`} /></a>
         <br />
         <p>
-          基于 <a href="https://github.com/justmemos/memos">memos</a> 开源项目所构建的项目。
-        </p>
-        <br />
-        <p>
-          NOTE: Based on <a href="https://github.com/justmemos/memos">memos</a> project to build.
+        基于 <a href="https://github.com/justmemos/memos">memos</a> 开源项目所构建的项目。 NOTE: Based on <a href="https://github.com/justmemos/memos">memos</a> project to build.
         </p>
         <br />
         <p>
