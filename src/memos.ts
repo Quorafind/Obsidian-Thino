@@ -90,7 +90,7 @@ export class Memos extends ItemView {
 	private async onFileDeleted(file: TFile): Promise<void> {
 		if (getDateFromFile(file, "day")) {
 			await dailyNotesService.getMyAllDailyNotes();
-			memoService.clearMemos();
+			// memoService.clearMemos();
 			memoService.fetchAllMemos();
 		}
 	}
@@ -99,7 +99,7 @@ export class Memos extends ItemView {
 		const date = getDateFromFile(file, "day");
 		
 		if (date && this.memosComponent) {
-			memoService.clearMemos();
+			// memoService.clearMemos();
 			memoService.fetchAllMemos();
 		}
 	}
@@ -108,7 +108,7 @@ export class Memos extends ItemView {
 		if (this.app.workspace.layoutReady && this.memosComponent) {
 			if (getDateFromFile(file, "day")) {
 				dailyNotesService.getMyAllDailyNotes();
-				memoService.clearMemos();
+				// memoService.clearMemos();
 				memoService.fetchAllMemos();
 				}
 			}	

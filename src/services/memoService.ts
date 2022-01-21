@@ -81,8 +81,8 @@ class MemoService {
 
   public async restoreMemoById(id: string) {
     await api.restoreMemo(id);
-    memoService.clearMemos();
-    memoService.fetchAllMemos();
+    // memoService.clearMemos();
+    // memoService.fetchAllMemos();
   }
 
   public async deleteMemoById(id: string) {
