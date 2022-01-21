@@ -99,7 +99,6 @@ export class Memos extends ItemView {
 		const date = getDateFromFile(file, "day");
 		
 		if (date && this.memosComponent) {
-			console.log("yes");
 			memoService.clearMemos();
 			memoService.fetchAllMemos();
 		}

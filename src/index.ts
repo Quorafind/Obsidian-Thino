@@ -51,7 +51,6 @@ import { TRANSLATIONS_EN } from "./translations/en/translations";
 
 export default class MemosPlugin extends Plugin {
   public settings: MemosSettings;
-  private view: Memos;
   async onload(): Promise<void> {
     console.log("obsidian-memos loading...");
 

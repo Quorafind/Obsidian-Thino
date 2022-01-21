@@ -37,7 +37,7 @@ const UsageHeatMap: React.FC<Props> = () => {
   const nullCell = new Array(7 - todayDay).fill(0);
   const usedDaysAmount = (tableConfig.width - 1) * tableConfig.height + todayDay;
   const beginDayTimestamp = utils.getDateStampByDate(todayTimeStamp - usedDaysAmount * DAILY_TIMESTAMP);
-  const startDate = moment().subtract(usedDaysAmount, 'days');
+  const startDate = moment().subtract(usedDaysAmount, 'days').endOf('day');
 
   const {
     memoState: { memos },
@@ -51,10 +51,11 @@ const UsageHeatMap: React.FC<Props> = () => {
   useEffect(() => {
     const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestamp);
     for (const m of memos) {
-      const creationDate = moment(m.createdAt);
+      const creationDate = moment(m.createdAt.replaceAll("/", "-"));
       const index = creationDate.diff(startDate, 'days');
+      // const index = (utils.getDateStampByDate(m.createdAt) - beginDayTimestamp) / (1000 * 3600 * 24) - 1;
       // if(index != newStat.length) { }
-      if (index >= 0 && index< newStat.length) {
+      if (index >= 0 && index < newStat.length) {
         newStat[index].count += 1;
       }
     }
@@ -90,7 +91,7 @@ const UsageHeatMap: React.FC<Props> = () => {
       if (!["/", "/recycle"].includes(locationService.getState().pathname)) {
         locationService.setPathname("/");
       }
-      locationService.setFromAndToQuery(item.timestamp, item.timestamp + DAILY_TIMESTAMP);
+      locationService.setFromAndToQuery(item.timestamp, utils.getTimeStampByDate(moment(item.timestamp + DAILY_TIMESTAMP).subtract(1, "days").endOf('day').format("YYYY-MM-DD HH:mm:ss")));
       setCurrentStat(item);
     }
   }, []);
