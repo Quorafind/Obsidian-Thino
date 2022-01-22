@@ -128,6 +128,8 @@ export class Memos extends ItemView {
 		FocusOnEditor = this.plugin.settings.FocusOnEditor;
 		OpenDailyMemosWithMemos = this.plugin.settings.OpenDailyMemosWithMemos;
 		HideDoneTasks = this.plugin.settings.HideDoneTasks;
+		ShareFooterStart = this.plugin.settings.ShareFooterStart;
+		ShareFooterEnd = this.plugin.settings.ShareFooterEnd;
   
 		this.memosComponent = React.createElement(App);
   
@@ -151,3 +153,5 @@ export class Memos extends ItemView {
   export let FocusOnEditor: boolean;
   export let OpenDailyMemosWithMemos: boolean;
   export let HideDoneTasks: boolean;
+  export let ShareFooterStart: string;
+  export let ShareFooterEnd: string;

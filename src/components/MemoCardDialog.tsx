@@ -4,13 +4,12 @@ import utils from "../helpers/utils";
 import { globalStateService, memoService } from "../services";
 import { parseHtmlToRawText } from "../helpers/marked";
 import { formatMemoContent } from "./Memo";
-import toastHelper from "./Toast";
 import { showDialog } from "./Dialog";
 import Only from "./common/OnlyWhen";
 import Image from "./Image";
 import "../less/memo-card-dialog.less";
 import React from "react";
-import { TFile, Vault } from "obsidian";
+import { Notice, TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
 import close from '../icons/close.svg';
 import edit from '../icons/edit.svg';
@@ -203,7 +202,7 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
         setLinkedMemos([]);
         setMemo(nextMemo);
       } else {
-        toastHelper.error("MEMO Not Found");
+        new Notice("MEMO Not Found");
         targetEl.classList.remove("memo-link-text");
       }
     }

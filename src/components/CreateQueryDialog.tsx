@@ -3,7 +3,6 @@ import { memoService, queryService } from "../services";
 import { checkShouldShowMemoWithFilters, filterConsts, getDefaultFilter, relationConsts } from "../helpers/filter";
 import useLoading from "../hooks/useLoading";
 import { showDialog } from "./Dialog";
-import toastHelper from "./Toast";
 import Selector from "./common/Selector";
 import "../less/create-query-dialog.less";
 import React from "react";
@@ -61,7 +60,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
         queryService.getMyAllQueries();
       }
     } catch (error: any) {
-      toastHelper.error(error.message);
+      new Notice(error.message);
     }
     destroy();
   };
@@ -70,7 +69,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
     if (filters.length > 0) {
       const lastFilter = filters[filters.length - 1];
       if (lastFilter.value.value === "") {
-        toastHelper.info("先完善上一个过滤器吧");
+        new Notice("先完善上一个过滤器吧");
         return;
       }
     }

@@ -8,7 +8,6 @@ import Only from "./common/OnlyWhen";
 import Image from "./Image";
 import showMemoCardDialog from "./MemoCardDialog";
 import showShareMemoImageDialog from "./ShareMemoImageDialog";
-import toastHelper from "./Toast";
 import "../less/memo.less";
 import React from "react";
 import { Notice, TFile, Vault } from "obsidian";
@@ -38,6 +37,7 @@ const detectWikiInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[1]
   const internalAltName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[5]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
+  // console.log(file.path);
   if(file === null){
     return {
       linkText: internalFileName,
@@ -228,7 +228,7 @@ const Memo: React.FC<Props> = (props: Props) => {
       if (memoTemp) {
         showMemoCardDialog(memoTemp);
       } else {
-        toastHelper.error("MEMO Not Found");
+        new Notice("MEMO Not Found");
         targetEl.classList.remove("memo-link-text");
       }
     } else if (targetEl.className === "todo-block") {

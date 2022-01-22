@@ -6,12 +6,12 @@ import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } fr
 import utils from "../helpers/utils";
 import { checkShouldShowMemoWithFilters } from "../helpers/filter";
 import Only from "../components/common/OnlyWhen";
-import toastHelper from "../components/Toast";
 import DeletedMemo from "../components/DeletedMemo";
 import MemoFilter from "../components/MemoFilter";
 import "../less/memo-trash.less";
 import React from "react";
 import menuSvg from "../icons/menu.svg";
+import { Notice } from "obsidian";
 
 interface Props {}
 
@@ -101,7 +101,7 @@ const MemoTrash: React.FC<Props> = () => {
         }
       })
       .catch((error) => {
-        toastHelper.error("Failed to fetch deleted memos: ", error);
+        new Notice("Failed to fetch deleted memos: ", error);
       })
       .finally(() => {
         loadingState.setFinish();

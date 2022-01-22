@@ -3,7 +3,6 @@ import appContext from "../stores/appContext";
 import { globalStateService, locationService, memoService, resourceService } from "../services";
 import utils from "../helpers/utils";
 import { storage } from "../helpers/storage";
-import toastHelper from "./Toast";
 import Editor, { EditorRefActions } from "./Editor/Editor";
 import "../less/memo-editor.less";
 import "../less/select-date-picker.less";
@@ -431,13 +430,13 @@ const MemoEditor: React.FC<Props> = () => {
 
       return url;
     } catch (error: any) {
-      toastHelper.error(error);
+      new Notice(error);
     }
   }, []);
 
   const handleSaveBtnClick = useCallback(async (content: string) => {
     if (content === "") {
-      toastHelper.error("内容不能为空呀");
+      new Notice("内容不能为空呀");
       return;
     }
 

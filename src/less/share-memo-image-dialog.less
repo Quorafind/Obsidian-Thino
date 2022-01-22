@@ -13,6 +13,16 @@
       background-color: white;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
+
+      > .btn-group {
+        > .copy-btn{
+          background-color: rgb(255, 255, 255);
+        }
+
+        > .close-btn{
+          background-color: rgb(255, 255, 255);
+        }
+      }
     }
 
     > .dialog-content-container {
@@ -110,8 +120,28 @@
           width: 100%;
           padding: 16px 26px;
 
-          > .normal-text {
+          > .normal-text.footer-start {
             .flex(row, flex-start, center);
+            width: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            color: gray;
+
+            > .name-text {
+              font-size: 13px;
+              color: @text-black;
+              margin-left: 4px;
+              line-height: 20px;
+            }
+
+            > .icon-text {
+              font-size: 15px;
+              margin-right: 6px;
+            }
+          }
+
+          > .normal-text.footer-end {
+            .flex(row, flex-end, center);
             width: 100%;
             font-size: 12px;
             line-height: 20px;
@@ -161,11 +191,13 @@
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
 
-      > .close-btn{
-        background-color: rgb(0, 0, 0);
-
-        > .icon-img {
-          filter: invert(0.8);
+      > .btn-group {
+        > .close-btn{
+          background-color: rgb(0, 0, 0);
+  
+          > .icon-img {
+            filter: invert(0.8);
+          }
         }
       }
     }
@@ -268,7 +300,7 @@
           border-bottom-left-radius: 8px;
           border-bottom-right-radius: 8px;
 
-          > .normal-text {
+          > .normal-text.footer-start {
             .flex(row, flex-start, center);
             width: 100%;
             font-size: 12px;
@@ -286,6 +318,26 @@
               font-size: 15px;
               margin-right: 6px;
             }
+          }
+        }
+
+        > .normal-text.footer-end {
+          .flex(row, flex-end, center);
+          width: 100%;
+          font-size: 12px;
+          line-height: 20px;
+          color: rgb(161, 161, 161);
+
+          > .name-text {
+            font-size: 13px;
+            color: @text-dark-black;
+            margin-left: 4px;
+            line-height: 20px;
+          }
+
+          > .icon-text {
+            font-size: 15px;
+            margin-right: 6px;
           }
         }
       }

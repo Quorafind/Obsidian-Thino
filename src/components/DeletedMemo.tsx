@@ -4,11 +4,10 @@ import useToggle from "../hooks/useToggle";
 import { memoService } from "../services";
 import Only from "./common/OnlyWhen";
 import Image from "./Image";
-import toastHelper from "./Toast";
 import { formatMemoContent } from "./Memo";
 import "../less/memo.less";
 import React from "react";
-import { TFile, Vault } from "obsidian";
+import { Notice, TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
 import more from '../icons/more.svg';
 
@@ -151,7 +150,7 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
         await memoService.deleteMemoById(memo.id);
         handleDeletedMemoAction(memo.id);
       } catch (error: any) {
-        toastHelper.error(error.message);
+        new Notice(error.message);
       }
     } else {
       toggleConfirmDeleteBtn();
@@ -162,9 +161,9 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
     try {
       await memoService.restoreMemoById(memo.id);
       handleDeletedMemoAction(memo.id);
-      toastHelper.info("RESTORE SUCCEED");
+      new Notice("RESTORE SUCCEED");
     } catch (error: any) {
-      toastHelper.error(error.message);
+      new Notice(error.message);
     }
   };
 

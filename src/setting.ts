@@ -9,6 +9,8 @@ export interface MemosSettings {
   ProcessEntriesBelow: string;
   Language: string;
   SaveMemoButtonLabel: string;
+  ShareFooterStart: string;
+  ShareFooterEnd: string;
   DefaultPrefix: string;
   InsertDateFormat: string;
   DefaultEditorLocation: string;
@@ -25,6 +27,8 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ProcessEntriesBelow: "# Journal",
   Language: "en",
   SaveMemoButtonLabel: "NOTEIT",
+  ShareFooterStart: "{MemosNum} Memos {UsedDay} Day",
+  ShareFooterEnd: "✍️ by {UserName}",
   DefaultPrefix: "List",
   InsertDateFormat: "Tasks",
   DefaultEditorLocation: "Top",
@@ -141,6 +145,34 @@ export class MemosSettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.SaveMemoButtonLabel)
           .onChange(async (value) => {
             this.plugin.settings.SaveMemoButtonLabel = value;
+            this.applySettingsUpdate();
+          })
+      );
+    
+    this.containerEl.createEl("h1", { text: "Share Options" });
+
+    new Setting(containerEl)
+      .setName("Share Memos Image Footer Start")
+      .setDesc("Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default")
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterStart)
+          .setValue(this.plugin.settings.ShareFooterStart)
+          .onChange(async (value) => {
+            this.plugin.settings.ShareFooterStart = value;
+            this.applySettingsUpdate();
+          })
+      );
+
+    new Setting(containerEl)
+      .setName("Share Memos Image Footer End")
+      .setDesc("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default")
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterEnd)
+          .setValue(this.plugin.settings.ShareFooterEnd)
+          .onChange(async (value) => {
+            this.plugin.settings.ShareFooterEnd = value;
             this.applySettingsUpdate();
           })
       );
