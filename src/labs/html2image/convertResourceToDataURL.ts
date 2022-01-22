@@ -15,10 +15,10 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
   if(!/(http|https)/g.test(url)){
 
     if(await vault.adapter.exists(url)){
-      var buffer = await vault.adapter.readBinary(url);
-      var arr = new Uint8Array(buffer);
+      const buffer = await vault.adapter.readBinary(url);
+      const arr = new Uint8Array(buffer);
 
-      var blob = new Blob([arr], { type: 'image/png' });
+      const blob = new Blob([arr], { type: 'image/png' });
       // var len = arr.byteLength;
       // for (var i = 0; i < len; i++) {
       //     binary += String.fromCharCode( arr[ i ] );
@@ -52,10 +52,9 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
             // },
           });
 
-      var enc = new TextEncoder(); // always utf-8
-      var bf = enc.encode(download);
-      var blob = new Blob([bf], { type: 'image/png' });
-      console.log(blob);
+      const enc = new TextEncoder(); // always utf-8
+      const bf = enc.encode(download);
+      const blob = new Blob([bf], { type: 'image/png' });
       return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onloadend = () => {

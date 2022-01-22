@@ -46,12 +46,16 @@
     > .memo-content-text {
       margin-top: -14px;
 
-      > a {
-        width: 400px;
-        overflow: hidden;
-        text-overflow: ellipsis; //文本溢出显示省略号
-        white-space: nowrap; //文本不会换行
+      p {
+        > a {
+          width:20em;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+        }
       }
+      
 
       .tag-span {
         cursor: unset;
@@ -144,6 +148,16 @@
       -webkit-text-overflow: ellipsis;
       -moz-text-overflow: ellipsis;
       white-space: nowrap;  /*规定段落中的文本不进行换行*/**
+
+      p {
+        > a.link {
+          width:20em;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+        }
+      }
 
       .tag-span {
         cursor: unset;
