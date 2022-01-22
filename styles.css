@@ -7830,7 +7830,6 @@ div[data-type="memos_view"] #page-wrapper > .content-wrapper {
   padding-left: 10px;
   width: 600px;
   height: 100%;
-  overflow-y: hidden;
 }
 div[data-type="memos_view"] #page-wrapper > .content-wrapper-padding-fix {
   display: flex;
@@ -7866,7 +7865,6 @@ div[data-type="memos_view"] #page-wrapper > .content-wrapper-padding-fix {
     padding-top: 0;
     transition: all 0.4s ease;
     transform: translateX(0);
-    overflow-y: hidden;
   }
 }
 .mono-font-family {
