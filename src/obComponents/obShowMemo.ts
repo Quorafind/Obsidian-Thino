@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { moment } from "obsidian";
 import dailyNotesService from '../services/dailyNotesService';
 import { getDailyNote } from 'obsidian-daily-notes-interface';
 import { Platform } from 'obsidian';

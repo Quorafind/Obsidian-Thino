@@ -1,6 +1,6 @@
 import { getDailyNotePath } from "./obUpdateMemo";
 import { TFile, normalizePath, Notice } from 'obsidian';
-import moment from 'moment';
+import { moment } from "obsidian";
 import appStore from "../stores/appStore";
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import { insertAfterHandler } from "./obCreateMemo";
@@ -16,7 +16,7 @@ export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> 
         const deleteFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
 
         if (deleteFile instanceof TFile) {
-            let fileContents = await vault.cachedRead(deleteFile);
+            let fileContents = await vault.read(deleteFile);
             let fileLines = getAllLinesFromFile(fileContents);
             if(fileLines.length === 0){
                 return ;
@@ -36,14 +36,14 @@ export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> 
                     const existingFile = getDailyNote(date, dailyNotes);
                     if(!existingFile){
                         const file = await createDailyNote(date);
-                        const fileContents = await vault.cachedRead(file);
+                        const fileContents = await vault.read(file);
                         const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
                         await vault.modify(file, newFileContent.content);
                         return [{
                             deletedAt: "",
                         }]
                     }else{
-                        const fileContents = await vault.cachedRead(existingFile);
+                        const fileContents = await vault.read(existingFile);
                         const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
                         await vault.modify(existingFile, newFileContent.content);
                         return [{
@@ -69,7 +69,7 @@ export async function deleteForever(deletedMemoid: string): Promise<void> {
         const deleteFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
 
         if (deleteFile instanceof TFile) {
-            let fileContents = await vault.cachedRead(deleteFile);
+            let fileContents = await vault.read(deleteFile);
             let fileLines = getAllLinesFromFile(fileContents);
             if(fileLines.length === 0){
                 return ;
@@ -98,7 +98,7 @@ export async function getDeletedMemos(): Promise<any[]> {
     const deletedMemos: any[] | PromiseLike<any[]> = [];
     const deleteFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
     if (deleteFile instanceof TFile) {
-      let fileContents = await vault.cachedRead(deleteFile);
+      let fileContents = await vault.read(deleteFile);
       let fileLines = getAllLinesFromFile(fileContents);
       if(fileLines.length === 0){
           return deletedMemos;
@@ -144,7 +144,7 @@ export const sendMemoToDelete = async (memoContent: string): Promise<any> =>{
     const deleteFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
 
     if(deleteFile instanceof TFile){
-        const fileContents = await vault.cachedRead(deleteFile);
+        const fileContents = await vault.read(deleteFile);
         const fileLines = getAllLinesFromFile(fileContents);
         const date = moment();
         const deleteDate = date.format("YYYY/MM/DD HH:mm:ss");
@@ -162,7 +162,7 @@ export const sendMemoToDelete = async (memoContent: string): Promise<any> =>{
     }else{
         const deleteFilePath = normalizePath(absolutePath);
         const file = await createdeleteFile(deleteFilePath);
-        // const fileContents = await vault.cachedRead(deleteFile);
+        // const fileContents = await vault.read(deleteFile);
         // const fileLines = getAllLinesFromFile(fileContents);
         const date = moment();
         const deleteDate = date.format("YYYY/MM/DD HH:mm:ss");

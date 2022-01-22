@@ -12,7 +12,7 @@ export async function deleteQueryForever(queryID: string): Promise<void> {
         const queryFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
 
         if (queryFile instanceof TFile) {
-            let fileContents = await vault.cachedRead(queryFile);
+            let fileContents = await vault.read(queryFile);
             let fileLines = getAllLinesFromFile(fileContents);
             if(fileLines.length === 0){
                 return ;

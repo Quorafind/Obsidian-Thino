@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { moment } from "obsidian";
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
 import { InsertAfter } from "../memos";
@@ -51,7 +51,7 @@ export async function waitForInsert(MemoContent: string, isList: boolean) : Prom
     if(!existingFile){
       const file = await createDailyNote(date);
       await dailyNotesService.getMyAllDailyNotes();
-      const fileContents = await vault.cachedRead(file);
+      const fileContents = await vault.read(file);
       const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
       await vault.modify(file, newFileContent.content);
       if(newFileContent.posNum === -1){
@@ -81,7 +81,7 @@ export async function waitForInsert(MemoContent: string, isList: boolean) : Prom
         }
       
     }else{
-        const fileContents = await vault.cachedRead(existingFile);
+        const fileContents = await vault.read(existingFile);
         const newFileContent = await insertAfterHandler(InsertAfter, newEvent ,fileContents);
         await vault.modify(existingFile, newFileContent.content);
         if(newFileContent.posNum === -1){

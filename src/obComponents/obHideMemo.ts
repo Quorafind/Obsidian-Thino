@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { moment } from "obsidian";
 import { getDailyNote } from "obsidian-daily-notes-interface";
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
@@ -18,7 +18,7 @@ export async function obHideMemo(memoid: string): Promise<Model.Memo> {
         const idString = parseInt(memoid.slice(14));
         const changeDate = moment(timeString, "YYYYMMDDHHmmSS");
         const dailyNote = getDailyNote(changeDate, dailyNotes);
-        const fileContent = await vault.cachedRead(dailyNote);
+        const fileContent = await vault.read(dailyNote);
         const fileLines = getAllLinesFromFile(fileContent);
         const content = extractContentfromText(fileLines[idString]);
         const originalLine = "- " + memoid + " " + content;

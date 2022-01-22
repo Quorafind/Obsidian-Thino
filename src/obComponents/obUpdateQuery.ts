@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { moment } from "obsidian";
 import { TFile  } from "obsidian";
 import appStore from "../stores/appStore";
 import { getDailyNotePath } from "./obUpdateMemo";
@@ -12,7 +12,7 @@ export const updateObsidianQuery = async (queryId: string, title: string, queryS
     const queryFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
 
     if(queryFile instanceof TFile){
-        const fileContents = await vault.cachedRead(queryFile);
+        const fileContents = await vault.read(queryFile);
         const fileLines = getAllLinesFromFile(fileContents);
 
         let lineID;

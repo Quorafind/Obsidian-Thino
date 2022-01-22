@@ -16,7 +16,7 @@ import { usePopper } from 'react-popper';
 // import { createPopper } from '@popperjs/core'
 // import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
-import moment from "moment";
+import { moment } from "obsidian";
 import { DefaultEditorLocation, DefaultPrefix, InsertDateFormat, UseButtonToShowEditor } from "../memos";
 import useToggle from "../hooks/useToggle";
 // import dailyNotesService from '../services/dailyNotesService';

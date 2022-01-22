@@ -10,7 +10,7 @@ export async function getRemainingTasks(note: TFile): Promise<number> {
     return 0;
   }
   const { vault } = appStore.getState().dailyNotesState.app;
-  let fileContents = await vault.cachedRead(note);
+  let fileContents = await vault.read(note);
   //eslint-disable-next-line
   const matchLength = (fileContents.match(/(-|\*) (\[ \]\s)?((\<time\>)?\d{1,2}\:\d{2})?/g) || []).length;
   const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "g");
@@ -30,7 +30,7 @@ export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents
   const Tasks = await getRemainingTasks(dailyNote);
 
   if (Tasks) {
-    let fileContents = await vault.cachedRead(dailyNote);
+    let fileContents = await vault.read(dailyNote);
     let fileLines = getAllLinesFromFile(fileContents);
     const startDate = getDateFromFile(dailyNote, "day");
     const endDate = getDateFromFile(dailyNote, "day");

@@ -1,6 +1,6 @@
 import { getDailyNotePath } from "./obUpdateMemo";
 import { TFile, Notice } from 'obsidian';
-import moment from 'moment';
+import { moment } from "obsidian";
 import appStore from "../stores/appStore";
 
 export const pinQueryInFile = async (queryID: string): Promise<any> =>{
@@ -13,7 +13,7 @@ export const pinQueryInFile = async (queryID: string): Promise<any> =>{
         const queryFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
 
         if(queryFile instanceof TFile){
-            const fileContents = await vault.cachedRead(queryFile);
+            const fileContents = await vault.read(queryFile);
             const fileLines = getAllLinesFromFile(fileContents);
             const date = moment();
             const originalLineNum = parseInt(queryID.slice(14));
@@ -45,7 +45,7 @@ export const unpinQueryInFile = async (queryID: string): Promise<any> =>{
     const queryFile = metadataCache.getFirstLinkpathDest("" , absolutePath);
 
     if(queryFile instanceof TFile){
-        const fileContents = await vault.cachedRead(queryFile);
+        const fileContents = await vault.read(queryFile);
         const fileLines = getAllLinesFromFile(fileContents);
         const originalLineNum = parseInt(queryID.slice(14));
         const originalContent = fileLines[originalLineNum-1];

@@ -1,6 +1,6 @@
 import { getDailyNotePath } from "./obUpdateMemo";
 import { TFile, normalizePath, Notice } from "obsidian";
-import moment from "moment";
+import { moment } from "obsidian";
 import appStore from "../stores/appStore";
 
 export const createObsidianQuery = async (title: string, querystring: string): Promise<any> => {
@@ -12,7 +12,7 @@ export const createObsidianQuery = async (title: string, querystring: string): P
   const queryFile = metadataCache.getFirstLinkpathDest("", absolutePath);
 
   if (queryFile instanceof TFile) {
-    const fileContents = await vault.cachedRead(queryFile);
+    const fileContents = await vault.read(queryFile);
     const fileLines = getAllLinesFromFile(fileContents);
     const date = moment();
     const createdDate = date.format("YYYY/MM/DD HH:mm:ss");
@@ -43,7 +43,7 @@ export const createObsidianQuery = async (title: string, querystring: string): P
   } else {
     const queryFilePath = normalizePath(absolutePath);
     const file = await createQueryFile(queryFilePath);
-    const fileContents = await vault.cachedRead(file);
+    const fileContents = await vault.read(file);
     const date = moment();
     const createdDate = date.format("YYYY/MM/DD HH:mm:ss");
     const updatedDate = createdDate;

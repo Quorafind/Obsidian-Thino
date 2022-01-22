@@ -5,7 +5,7 @@ import { DAILY_TIMESTAMP } from "../helpers/consts";
 import utils from "../helpers/utils";
 import "../less/usage-heat-map.less";
 import React from "react";
-import moment from "moment";
+import { moment } from "obsidian";
 import i18next from "i18next";
 
 const tableConfig = {

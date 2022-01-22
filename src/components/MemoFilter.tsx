@@ -6,7 +6,7 @@ import { getTextWithMemoType } from "../helpers/filter";
 import "../less/memo-filter.less";
 import React from "react";
 import i18next from "i18next";
-import moment from "moment";
+import { moment } from "obsidian";
 
 interface FilterProps {}
 
