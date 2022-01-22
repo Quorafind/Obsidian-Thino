@@ -4931,11 +4931,12 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
 .theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text {
   margin-top: -14px;
 }
-.theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text > a {
-  width: 400px;
+.theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text p > a {
+  width: 20em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span {
   cursor: unset;
@@ -5029,13 +5030,20 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
   white-space: nowrap;
   /*规定段落中的文本不进行换行*/
 }
-.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text ** .tag-span {
+.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text ** p > a.link {
+  width: 20em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span {
   cursor: unset;
   padding-left: 4px;
   padding-right: 6px;
   margin-left: 4px;
 }
-.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text ** .tag-span:hover {
+.theme-dark .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span:hover {
   color: #bbbec7;
   background-color: #616161;
 }
