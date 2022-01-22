@@ -3090,7 +3090,7 @@ div[data-type="memos_view"] .image-container > img {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 100%;
+  width: 400px;
   word-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
@@ -3104,6 +3104,12 @@ div[data-type="memos_view"] .image-container > img {
   line-height: 24px;
   min-height: 24px;
   white-space: pre-wrap;
+}
+.theme-light div[data-type="memos_view"] .daily-memo-wrapper .memo-content-text > p > a {
+  width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .theme-light div[data-type="memos_view"] .daily-memo-wrapper .memo-content-text .tag-span {
   display: inline-block;
@@ -4924,6 +4930,12 @@ div[data-type="memos_view"] .preference-wrapper > .sections-wrapper > .section-c
 }
 .theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text {
   margin-top: -14px;
+}
+.theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text > a {
+  width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .theme-light .daily-memo-wrapper > .memo-content-container > .memo-content-text .tag-span {
   cursor: unset;

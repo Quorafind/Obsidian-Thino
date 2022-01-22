@@ -130,6 +130,7 @@ export class Memos extends ItemView {
 		HideDoneTasks = this.plugin.settings.HideDoneTasks;
 		ShareFooterStart = this.plugin.settings.ShareFooterStart;
 		ShareFooterEnd = this.plugin.settings.ShareFooterEnd;
+		OpenMemosAutomatically = this.plugin.settings.OpenMemosAutomatically;
   
 		this.memosComponent = React.createElement(App);
   
@@ -155,3 +156,4 @@ export class Memos extends ItemView {
   export let HideDoneTasks: boolean;
   export let ShareFooterStart: string;
   export let ShareFooterEnd: string;
+  export let OpenMemosAutomatically: boolean;

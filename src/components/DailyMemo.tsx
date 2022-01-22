@@ -151,7 +151,7 @@ const DailyMemo: React.FC<Props> = (props: Props) => {
         <Only when={externalImageUrls.length > 0}>
           <div className="images-container">
             {externalImageUrls.map((imgUrl, idx) => (
-              <img key={idx} src={imgUrl} referrerPolicy="no-referrer" />
+              <img key={idx} src={imgUrl} referrerPolicy="no-referrer"/>
             ))}
           </div>
         </Only>

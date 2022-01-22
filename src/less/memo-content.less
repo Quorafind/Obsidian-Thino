@@ -2,10 +2,13 @@
 
 .theme-light div[data-type="memos_view"] .daily-memo-wrapper .memo-content-text {
   .flex(column, flex-start, flex-start);
-  width: 100%;
+  width: 400px;
   word-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
+
+ 
+
 
   > p {
     display: inline-block;
@@ -16,6 +19,13 @@
     line-height: 24px;
     min-height: 24px;
     white-space: pre-wrap;
+
+    > a {
+      width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis; //文本溢出显示省略号
+      white-space: nowrap; //文本不会换行
+    }
   }
 
   .tag-span {
@@ -71,6 +81,8 @@
     white-space: pre-wrap;
   }
 }
+
+
 
 .theme-light [data-type="memos_view"] .memolist-wrapper .memo-content-text {
   .flex(column, flex-start, flex-start);
