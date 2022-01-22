@@ -4,13 +4,13 @@ import useToggle from "../hooks/useToggle";
 import useLoading from "../hooks/useLoading";
 import Only from "./common/OnlyWhen";
 import utils from "../helpers/utils";
-import toastHelper from "./Toast";
 import { locationService, queryService } from "../services";
 import showCreateQueryDialog from "./CreateQueryDialog";
 import "../less/query-list.less";
 import React from "react";
 import more from '../icons/more.svg';
 import moreWhite from '../icons/more-white.svg';
+import { Notice } from "obsidian";
 
 interface Props {}
 
@@ -99,7 +99,7 @@ const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemC
       try {
         await queryService.deleteQuery(query.id);
       } catch (error: any) {
-        toastHelper.error(error.message);
+        new Notice(error.message);
       }
     } else {
       toggleConfirmDeleteBtn();

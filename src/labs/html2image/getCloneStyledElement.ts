@@ -1,7 +1,11 @@
 // import convertResourceToDataURL from "./convertResourceToDataURL";
+// import { dailyNotesService } from '../../services';
+
+import convertResourceToDataURL from "./convertResourceToDataURL";
 
 const getCloneStyledElement = async (element: HTMLElement) => {
   const clonedElementContainer = document.createElement(element.tagName);
+  // const { vault } = dailyNotesService.getState().app;
   clonedElementContainer.innerHTML = element.innerHTML;
 
   const applyStyles = async (sourceElement: HTMLElement, clonedElement: HTMLElement) => {
@@ -11,14 +15,14 @@ const getCloneStyledElement = async (element: HTMLElement) => {
 
     const sourceStyles = window.getComputedStyle(sourceElement);
 
-    // if (sourceElement.tagName === "IMG") {
-    //   try {
-    //     const url = await convertResourceToDataURL(sourceElement.getAttribute("src") ?? "");
-    //     (clonedElement as HTMLImageElement).src = url;
-    //   } catch (error) {
-    //     // do nth
-    //   }
-    // }
+    if (sourceElement.tagName === "IMG") {
+      try {
+        const url = await convertResourceToDataURL(sourceElement.getAttribute("path") ?? sourceElement.getAttribute("src"));
+        (clonedElement as HTMLImageElement).src = url;
+      } catch (error) {
+        // do nth
+      }
+    }
 
     for (const item of sourceStyles) {
       clonedElement.style.setProperty(item, sourceStyles.getPropertyValue(item), sourceStyles.getPropertyPriority(item));

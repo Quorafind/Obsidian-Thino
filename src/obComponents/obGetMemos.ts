@@ -42,7 +42,7 @@ export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents
       if (processHeaderFound == false && lineContainsParseBelowToken(line)) {
         processHeaderFound = true;
       }
-      if (processHeaderFound == true && !lineContainsParseBelowToken(line) && /^#{0,} /g.test(line)) {
+      if (processHeaderFound == true && !lineContainsParseBelowToken(line) && /^#{1,} /g.test(line)) {
         processHeaderFound = false;
       }
 

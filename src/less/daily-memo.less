@@ -46,6 +46,13 @@
     > .memo-content-text {
       margin-top: -14px;
 
+      > a {
+        width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis; //文本溢出显示省略号
+        white-space: nowrap; //文本不会换行
+      }
+
       .tag-span {
         cursor: unset;
         padding-left: 4px;

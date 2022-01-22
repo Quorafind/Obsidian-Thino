@@ -90,7 +90,7 @@ export class Memos extends ItemView {
 	private async onFileDeleted(file: TFile): Promise<void> {
 		if (getDateFromFile(file, "day")) {
 			await dailyNotesService.getMyAllDailyNotes();
-			memoService.clearMemos();
+			// memoService.clearMemos();
 			memoService.fetchAllMemos();
 		}
 	}
@@ -99,8 +99,7 @@ export class Memos extends ItemView {
 		const date = getDateFromFile(file, "day");
 		
 		if (date && this.memosComponent) {
-			console.log("yes");
-			memoService.clearMemos();
+			// memoService.clearMemos();
 			memoService.fetchAllMemos();
 		}
 	}
@@ -109,7 +108,7 @@ export class Memos extends ItemView {
 		if (this.app.workspace.layoutReady && this.memosComponent) {
 			if (getDateFromFile(file, "day")) {
 				dailyNotesService.getMyAllDailyNotes();
-				memoService.clearMemos();
+				// memoService.clearMemos();
 				memoService.fetchAllMemos();
 				}
 			}	
@@ -129,6 +128,9 @@ export class Memos extends ItemView {
 		FocusOnEditor = this.plugin.settings.FocusOnEditor;
 		OpenDailyMemosWithMemos = this.plugin.settings.OpenDailyMemosWithMemos;
 		HideDoneTasks = this.plugin.settings.HideDoneTasks;
+		ShareFooterStart = this.plugin.settings.ShareFooterStart;
+		ShareFooterEnd = this.plugin.settings.ShareFooterEnd;
+		OpenMemosAutomatically = this.plugin.settings.OpenMemosAutomatically;
   
 		this.memosComponent = React.createElement(App);
   
@@ -152,3 +154,6 @@ export class Memos extends ItemView {
   export let FocusOnEditor: boolean;
   export let OpenDailyMemosWithMemos: boolean;
   export let HideDoneTasks: boolean;
+  export let ShareFooterStart: string;
+  export let ShareFooterEnd: string;
+  export let OpenMemosAutomatically: boolean;

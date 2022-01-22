@@ -51,10 +51,9 @@ import { TRANSLATIONS_EN } from "./translations/en/translations";
 
 export default class MemosPlugin extends Plugin {
   public settings: MemosSettings;
-  private view: Memos;
   async onload(): Promise<void> {
     console.log("obsidian-memos loading...");
-
+    // this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
     await this.loadSettings();
     await this.initLocalization();
 
@@ -100,7 +99,7 @@ export default class MemosPlugin extends Plugin {
       hotkeys: [],
     });
 
-    // this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
+    this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
     console.log(i18next.t("welcome"));
     console.log("obsidian-memos loaded");
     
@@ -119,29 +118,24 @@ export default class MemosPlugin extends Plugin {
     new Notice("Close Memos Successfully");
   }
 
-  // onLayoutReady(): void {
-  //     if (!this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length) {
-  //       return;
-  //     }
-  //     const side = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0].getRoot().side;
-  //     let sidebar = document.querySelector("div[data-type='memos_view'] .view-content .memos-sidebar-wrapper") as HTMLElement;
-  //     let page = document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper") as HTMLElement;
-  //       if( side !== undefined && (side === "left" || side === "right")){
-  //         if(!sidebar.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
-  //           sidebar.addClass("memos-sidebar-wrapper-display");
-  //           page.addClass("page-wrapper-padding-fix");
-  //         }
-  //     }else {
-  //       if(sidebar.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
-  //         sidebar.removeClass("memos-sidebar-wrapper-display");
-  //         page.removeClass("page-wrapper-padding-fix");
-  //     }	
-  //   }
-  // }
+  async onLayoutReady(): Promise<void> {
+      if (this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)?.length) {
+        return;
+      }
+      // await this.loadSettings();
+      
+      if( this.settings.OpenMemosAutomatically !== true){
+        return;
+      }
+      if(this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length !== null && this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length !== undefined){
+        this.openMemos();
+      }
+      
+  }
 
   async openDailyMemo() {
     const workspaceLeaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
-    if(OpenDailyMemosWithMemos ){
+    if( OpenDailyMemosWithMemos === true){
       if (workspaceLeaves !== undefined && workspaceLeaves.length === 0) {
         this.openMemos();
         showDailyMemoDiaryDialog();

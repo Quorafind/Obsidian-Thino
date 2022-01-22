@@ -5,6 +5,7 @@ import "../less/preview-image-dialog.less";
 import React from "react";
 import appStore from "../stores/appStore";
 import close from '../icons/close.svg';
+import { Notice } from "obsidian";
 
 interface Props extends DialogProps {
   imgUrl: string;
@@ -40,14 +41,35 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Prop
     setImgWidth(imgWidth + 10);
   };
 
+  const convertBase64ToBlob = (base64: string, type: string) => {
+    var bytes = window.atob(base64);
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < bytes.length; i++) {
+        ia[i] = bytes.charCodeAt(i);
+    }
+    return new Blob([ab], { type: type });
+  }
+
   const copyImageToClipboard = async () => {
-    var buffer = await vault.adapter.readBinary(filepath);
-    var arr = new Uint8Array(buffer);
-    var blob = new Blob([arr], { type: 'image/png' });
-    // @ts-ignore
-    const item = new ClipboardItem({ 'image/png': blob });
-    // @ts-ignore
-    window.navigator['clipboard'].write([item]);
+    if((filepath === null || filepath === undefined) && imgUrl !== null ){
+      const myBase64 = imgUrl.split('base64,')[1];
+      const blobInput = convertBase64ToBlob(myBase64, 'image/png');
+      const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
+      // @ts-ignore
+      window.navigator['clipboard'].write([clipboardItemInput]);
+      new Notice("Send to clipboard successfully");
+    }else{
+      var buffer = await vault.adapter.readBinary(filepath);
+      var arr = new Uint8Array(buffer);
+  
+      var blob = new Blob([arr], { type: 'image/png' });
+      // @ts-ignore
+      const item = new ClipboardItem({ 'image/png': blob });
+      // @ts-ignore
+      window.navigator['clipboard'].write([item]);
+    }
+
   };
 
   return (

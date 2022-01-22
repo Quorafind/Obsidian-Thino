@@ -6,6 +6,7 @@ import { getTextWithMemoType } from "../helpers/filter";
 import "../less/memo-filter.less";
 import React from "react";
 import i18next from "i18next";
+import moment from "moment";
 
 interface FilterProps {}
 
@@ -53,7 +54,7 @@ const MemoFilter: React.FC<FilterProps> = () => {
             locationService.setFromAndToQuery(0, 0);
           }}
         >
-          <span className="icon-text">🗓️</span> {utils.getDateString(duration.from)} {i18next.t("to")} {utils.getDateString(duration.to)}
+          <span className="icon-text">🗓️</span> {utils.getDateString(duration.from)} {i18next.t("to")} {moment(duration.to, "x").add(1,'days').format("YYYY/MM/DD")}
         </div>
       ) : null}
       <div

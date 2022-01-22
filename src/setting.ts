@@ -9,6 +9,8 @@ export interface MemosSettings {
   ProcessEntriesBelow: string;
   Language: string;
   SaveMemoButtonLabel: string;
+  ShareFooterStart: string;
+  ShareFooterEnd: string;
   DefaultPrefix: string;
   InsertDateFormat: string;
   DefaultEditorLocation: string;
@@ -16,6 +18,7 @@ export interface MemosSettings {
   FocusOnEditor: boolean;
   OpenDailyMemosWithMemos: boolean;
   HideDoneTasks: boolean;
+  OpenMemosAutomatically: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -25,13 +28,16 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ProcessEntriesBelow: "# Journal",
   Language: "en",
   SaveMemoButtonLabel: "NOTEIT",
+  ShareFooterStart: "{MemosNum} Memos {UsedDay} Day",
+  ShareFooterEnd: "✍️ by {UserName}",
   DefaultPrefix: "List",
   InsertDateFormat: "Tasks",
   DefaultEditorLocation: "Top",
   UseButtonToShowEditor: false,
   FocusOnEditor: true,
   OpenDailyMemosWithMemos: true,
-  HideDoneTasks: false
+  HideDoneTasks: false,
+  OpenMemosAutomatically: false
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -109,6 +115,19 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
+      .setName("Save Memo button label")
+      .setDesc("The text shown on the save Memo button in the UI. 'NOTEIT' by default.")
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.SaveMemoButtonLabel)
+          .setValue(this.plugin.settings.SaveMemoButtonLabel)
+          .onChange(async (value) => {
+            this.plugin.settings.SaveMemoButtonLabel = value;
+            this.applySettingsUpdate();
+          })
+      );
+
+    new Setting(containerEl)
       .setName("Focus on editor when open memos")
       .setDesc("Focus on editor when open memos. Focus by default.")
       .addToggle((toggle) =>
@@ -121,8 +140,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Open daily memos without open memos")
-      .setDesc("Open daily memos without open memos. Open by default.")
+      .setName("Open daily memos with open memos")
+      .setDesc("Open daily memos with open memos. Open by default.")
       .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.settings.OpenDailyMemosWithMemos)
@@ -133,14 +152,41 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("Save Memo button label")
-      .setDesc("The text shown on the save Memo button in the UI. 'NOTEIT' by default.")
+      .setName("Open Memos when obsidian opens")
+      .setDesc("WHen enable this, Memos will open when Obsidian opens. False by default.")
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.OpenMemosAutomatically)
+          .onChange(async (value) => {
+            this.plugin.settings.OpenMemosAutomatically = value;
+            this.applySettingsUpdate();
+          }),
+      );
+    
+    this.containerEl.createEl("h1", { text: "Share Options" });
+
+    new Setting(containerEl)
+      .setName("Share Memos Image Footer Start")
+      .setDesc("Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default")
       .addText((text) =>
         text
-          .setPlaceholder(DEFAULT_SETTINGS.SaveMemoButtonLabel)
-          .setValue(this.plugin.settings.SaveMemoButtonLabel)
+          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterStart)
+          .setValue(this.plugin.settings.ShareFooterStart)
           .onChange(async (value) => {
-            this.plugin.settings.SaveMemoButtonLabel = value;
+            this.plugin.settings.ShareFooterStart = value;
+            this.applySettingsUpdate();
+          })
+      );
+
+    new Setting(containerEl)
+      .setName("Share Memos Image Footer End")
+      .setDesc("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default")
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterEnd)
+          .setValue(this.plugin.settings.ShareFooterEnd)
+          .onChange(async (value) => {
+            this.plugin.settings.ShareFooterEnd = value;
             this.applySettingsUpdate();
           })
       );

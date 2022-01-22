@@ -22,6 +22,7 @@ interface LinkMatch {
   linkText: string;
   altText: string;
   path: string;
+  filePath?: string;
 }
 
 export const getPathOfImage = (vault: Vault, image: TFile) => {
@@ -39,6 +40,7 @@ const detectWikiInternalLink = (lineText : string, app: App) : LinkMatch | null 
       linkText: internalFileName,
       altText: internalAltName,
       path: "",
+      filePath: "",
     }
   }else{
     const imagePath = getPathOfImage(app.vault, file);
@@ -47,12 +49,14 @@ const detectWikiInternalLink = (lineText : string, app: App) : LinkMatch | null 
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
+        filePath: file.path,
       }
     }else {
       return {
         linkText: internalFileName,
         altText: "",
         path: imagePath,
+        filePath: file.path,
       }
     }
   }
@@ -69,6 +73,7 @@ const detectMDInternalLink = (lineText : string, app: App) : LinkMatch | null =>
       linkText: internalFileName,
       altText: internalAltName,
       path: "",
+      filePath: "",
     }
   }else{
     const imagePath = getPathOfImage(app.vault, file);
@@ -77,12 +82,14 @@ const detectMDInternalLink = (lineText : string, app: App) : LinkMatch | null =>
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
+        filePath: file.path,
       }
     }else {
       return {
         linkText: internalFileName,
         altText: "",
         path: imagePath,
+        filePath: file.path,
       }
     }
   }
@@ -144,14 +151,14 @@ const DailyMemo: React.FC<Props> = (props: Props) => {
         <Only when={externalImageUrls.length > 0}>
           <div className="images-container">
             {externalImageUrls.map((imgUrl, idx) => (
-              <img key={idx} src={imgUrl} referrerPolicy="no-referrer" />
+              <img key={idx} src={imgUrl} referrerPolicy="no-referrer"/>
             ))}
           </div>
         </Only>
         <Only when={internalImageUrls.length > 0}>
           <div className="images-container internal-embed image-embed is-loaded">
             {internalImageUrls.map((imgUrl, idx) => (
-              <img key={idx} src={imgUrl.path} alt={imgUrl.altText}/>
+              <img key={idx} src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath}/>
             ))}
           </div>
         </Only>

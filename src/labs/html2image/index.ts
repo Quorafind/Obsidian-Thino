@@ -104,7 +104,16 @@ export const toCanvas = async (element: HTMLElement, options?: Options): Promise
 };
 
 const toImage = async (element: HTMLElement, options?: Options) => {
+
   const canvas = await toCanvas(element, options);
+
+  // canvas.toBlob(function deal(blob) {
+  //   var clipboardItem = new ClipboardItem({[`image/png`]: blob});
+  //   navigator.clipboard.write([clipboardItem]).then(() => {
+  //       alert('复制成功');
+  //   });
+  // },);
+  // console.log(canvas);
 
   return canvas.toDataURL();
 };

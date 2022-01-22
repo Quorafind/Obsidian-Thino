@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 // import { userService } from "../services";
 import toImage from "../labs/html2image";
 import { ANIMATION_DURATION, IMAGE_URL_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, WIKI_IMAGE_URL_REG } from "../helpers/consts";
@@ -6,13 +6,13 @@ import utils from "../helpers/utils";
 import { showDialog } from "./Dialog";
 import { formatMemoContent } from "./Memo";
 import Only from "./common/OnlyWhen";
-import toastHelper from "./Toast";
 import "../less/share-memo-image-dialog.less";
 import React from "react";
-import { TFile, Vault } from "obsidian";
+import { Notice, TFile, Vault } from "obsidian";
 import appStore from "../stores/appStore";
-import { UserName } from '../memos';
+import { ShareFooterEnd, UserName, ShareFooterStart } from '../memos';
 import close from '../icons/close.svg';
+import share from "../icons/share.svg";
 
 interface Props extends DialogProps {
   memo: Model.Memo;
@@ -23,6 +23,7 @@ interface LinkMatch {
   linkText: string;
   altText: string;
   path: string;
+  filePath?: string;
 }
 
 export const getPathOfImage = (vault: Vault, image: TFile) => {
@@ -35,11 +36,13 @@ const detectWikiInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[1]
   const internalAltName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[5]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
+  
   if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
       path: "",
+      filePath: "",
     }
   }else{
     const imagePath = getPathOfImage(vault, file);
@@ -48,12 +51,14 @@ const detectWikiInternalLink = (lineText : string) : LinkMatch | null => {
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
+        filePath: file.path,
       }
     }else {
       return {
         linkText: internalFileName,
         altText: "",
         path: imagePath,
+        filePath: file.path,
       }
     }
   }
@@ -65,11 +70,13 @@ const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
   const internalFileName =  MARKDOWN_URL_REG.exec(lineText)?.[5]
   const internalAltName =  MARKDOWN_URL_REG.exec(lineText)?.[2]
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
+  
   if(file === null){
     return {
       linkText: internalFileName,
       altText: internalAltName,
       path: "",
+      filePath: "",
     }
   }else{
     const imagePath = getPathOfImage(vault, file);
@@ -78,12 +85,14 @@ const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
+        filePath: file.path,
       }
     }else {
       return {
         linkText: internalFileName,
         altText: "",
         path: imagePath,
+        filePath: file.path,
       }
     }
   }
@@ -92,13 +101,26 @@ const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
 const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
 
   const { memo: propsMemo, destroy } = props;
+  const {
+    memos
+  } = appStore.getState().memoState;
+  let memosLength;
+  let createdDays;
+  if (memos.length) {
+    memosLength = memos.length - 1;
+    createdDays = memos ? Math.ceil((Date.now() - utils.getTimeStampByDate(memos[memosLength].createdAt)) / 1000 / 3600 / 24) : 0;
+  }
   // const { user: userinfo } = userService.getState();
   const memo: FormattedMemo = {
     ...propsMemo,
     createdAtStr: utils.getDateTimeString(propsMemo.createdAt),
   };
   // const memoImgUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
+  // const memosNum = memos.length;
 
+  const footerEnd = ShareFooterEnd.replace("{UserName}", UserName);
+  const footerStart = ShareFooterStart.replace("{MemosNum}", memos.length.toString()).replace("{UsedDay}", createdDays.toString());
+  
   
   let externalImageUrls = [] as string[];
   let internalImageUrls = [];
@@ -169,9 +191,29 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     destroy();
   };
 
+  const convertBase64ToBlob = (base64: string, type: string) => {
+    var bytes = window.atob(base64);
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < bytes.length; i++) {
+        ia[i] = bytes.charCodeAt(i);
+    }
+    return new Blob([ab], { type: type });
+  }
+
+  const handleCopytoClipboardBtnClick = () => {
+    const divs = document.querySelector(".memo-shortcut-img") as HTMLElement;
+    const myBase64 = divs.getAttribute("src").split('base64,')[1];
+    const blobInput = convertBase64ToBlob(myBase64, 'image/png');
+    const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
+    // @ts-ignore
+    window.navigator['clipboard'].write([clipboardItemInput]);
+    new Notice("Send to clipboard successfully");
+  };
+
   const handleImageOnLoad = (ev: React.SyntheticEvent<HTMLImageElement>) => {
     if (ev.type === "error") {
-      toastHelper.error("有个图片加载失败了😟");
+      new Notice("有个图片加载失败了😟");
       (ev.target as HTMLImageElement).remove();
     }
     setImgAmount(imgAmount - 1);
@@ -181,15 +223,20 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     <>
       <div className="dialog-header-container">
         <p className="title-text">
-          <span className="icon-text">🥰</span>分享 Memo 图片
+          <span className="icon-text">🥰</span>Share Memo Image
         </p>
-        <button className="btn close-btn" onClick={handleCloseBtnClick}>
-          <img className="icon-img" src={close} />
-        </button>
+        <div className="btn-group">
+          <button className="btn copy-btn" onClick={handleCopytoClipboardBtnClick}>
+            <img className="icon-img" src={share} />
+          </button>
+          <button className="btn close-btn" onClick={handleCloseBtnClick}>
+            <img className="icon-img" src={close} />
+          </button>
+        </div>
       </div>
       <div className="dialog-content-container">
         <div className={`tip-words-container ${shortcutImgUrl ? "finish" : "loading"}`}>
-          <p className="tip-text">{shortcutImgUrl ? "右键或长按即可保存图片 👇" : "图片生成中..."}</p>
+          <p className="tip-text">{shortcutImgUrl ? "↗Click the button to save" : "图片生成中..."}</p>
         </div>
         <div className="memo-container" ref={memoElRef}>
           <Only when={shortcutImgUrl !== ""}>
@@ -216,14 +263,16 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
           <Only when={internalImageUrls.length > 0}>
           <div className="images-container internal-embed image-embed is-loaded">
             {internalImageUrls.map((imgUrl, idx) => (
-              <img key={idx} className="memo-img" src={imgUrl.path} alt={imgUrl.altText}/>
+              <img key={idx} className="memo-img" src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath}/>
             ))}
           </div>
         </Only>
           <div className="watermark-container">
-            <span className="normal-text">
-              {/* TODO: 需要加上获取自定义名称的方式  {userinfo?.username} */}
-              <span className="icon-text">✍️</span> by <span className="name-text">{UserName}</span>
+            <span className="normal-text footer-start">
+              <span className="name-text">{footerStart}</span>
+            </span>
+            <span className="normal-text footer-end">
+              <span className="name-text">{footerEnd}</span>
             </span>
           </div>
         </div>
