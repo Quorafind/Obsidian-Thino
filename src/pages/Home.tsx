@@ -6,9 +6,6 @@ import Sidebar from "../components/Sidebar";
 import useLoading from "../hooks/useLoading";
 import "../less/home.less";
 import React from "react";
-import useRefresh from "../hooks/useRefresh";
-import { MEMOS_VIEW_TYPE } from "../constants";
-import { dailyNotesService } from '../services';
 
 function Home() {
   const {

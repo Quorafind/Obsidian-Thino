@@ -16,46 +16,7 @@ export class Memos extends ItemView {
 	constructor(leaf: WorkspaceLeaf, plugin: MemosPlugin) {
 		super(leaf);
 		this.plugin = plugin;
-		
-		this.onMemosSettingsUpdate = this.onMemosSettingsUpdate.bind(this);
-		this.onFileCreated = this.onFileCreated.bind(this);
-		this.onFileDeleted = this.onFileDeleted.bind(this);
-		this.onFileModified = this.onFileModified.bind(this);
 
-		this.registerEvent(
-            this.plugin.app.workspace.on("layout-change", () => {
-                if (!this.memosComponent) return;
-                if (!this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length) {
-					return;
-				}
-					const side = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0].getRoot().side;
-					const sidebar = document.querySelector("div[data-type='memos_view'] .view-content .memos-sidebar-wrapper") as HTMLElement;
-					const page = document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper") as HTMLElement;
-					if( side !== undefined && (side === "left" || side === "right")){
-						if(!sidebar?.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
-							sidebar.addClass("memos-sidebar-wrapper-display");
-							page.className = "content-wrapper-padding-fix";
-						}
-					}else {
-						if(sidebar?.classList.contains("memos-sidebar-wrapper-display") && page !== undefined){
-							sidebar.removeClass("memos-sidebar-wrapper-display");
-							page.className = "content-wrapper";
-					}	
-				}
-            })
-        );
-
-		this.registerEvent(
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(<any>this.app.workspace).on(
-				"obsidian-memos:settings-updated",
-				this.onMemosSettingsUpdate
-			)
-		);
-
-		this.registerEvent(this.app.vault.on("create", this.onFileCreated));
-		this.registerEvent(this.app.vault.on("delete", this.onFileDeleted));
-		this.registerEvent(this.app.vault.on("modify", this.onFileModified));
 
 
 		// this.plugin.settings = null;
@@ -99,7 +60,7 @@ export class Memos extends ItemView {
 		const date = getDateFromFile(file, "day");
 		
 		if (date && this.memosComponent) {
-			memoService.clearMemos();
+			// memoService.clearMemos();
 			memoService.fetchAllMemos();
 		}
 	}
@@ -108,14 +69,56 @@ export class Memos extends ItemView {
 		if (this.app.workspace.layoutReady && this.memosComponent) {
 			if (getDateFromFile(file, "day")) {
 				dailyNotesService.getMyAllDailyNotes();
-				memoService.clearMemos();
+				// memoService.clearMemos();
 				memoService.fetchAllMemos();
 				}
 			}	
 	}
   
 	async onOpen(): Promise<void> {
-		await this.plugin.loadSettings();
+
+		this.onMemosSettingsUpdate = this.onMemosSettingsUpdate.bind(this);
+		this.onFileCreated = this.onFileCreated.bind(this);
+		this.onFileDeleted = this.onFileDeleted.bind(this);
+		this.onFileModified = this.onFileModified.bind(this);
+
+		this.registerEvent(
+			this.plugin.app.workspace.on("layout-change", () => {
+				if (!this.memosComponent) return;
+				if (!this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length) {
+					return;
+				}
+				const side = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0].getRoot().side;
+				const sidebar = document.querySelector("div[data-type='memos_view'] .view-content .memos-sidebar-wrapper") as HTMLElement;
+				const page = document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper") as HTMLElement;
+				if( side !== undefined && (side === "left" || side === "right")){
+					if(!sidebar?.className.contains("memos-sidebar-wrapper-display") && page !== undefined){
+						sidebar.addClass("memos-sidebar-wrapper-display");
+						page.className = "content-wrapper-padding-fix";
+					}
+				}else {
+					if(sidebar?.classList.contains("memos-sidebar-wrapper-display") && page !== undefined){
+						sidebar.removeClass("memos-sidebar-wrapper-display");
+						page.className = "content-wrapper";
+					}
+				}
+			})
+		);
+
+		this.registerEvent(
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(<any>this.app.workspace).on(
+				"obsidian-memos:settings-updated",
+				this.onMemosSettingsUpdate
+			)
+		);
+
+		this.registerEvent(this.app.vault.on("create", this.onFileCreated));
+		this.registerEvent(this.app.vault.on("delete", this.onFileDeleted));
+		this.registerEvent(this.app.vault.on("modify", this.onFileModified));
+
+
+
 		dailyNotesService.getApp(this.app);
 		InsertAfter = this.plugin.settings.InsertAfter;
 		UserName = this.plugin.settings.UserName;

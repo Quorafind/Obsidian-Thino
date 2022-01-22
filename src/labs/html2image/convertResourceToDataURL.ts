@@ -52,8 +52,9 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
             // },
           });
 
-      const enc = new TextEncoder(); // always utf-8
-      const bf = enc.encode(download);
+      const enc = new TextEncoder().encode(download); // always utf-8
+      const bf = enc;
+      console.log(bf);
       const blob = new Blob([bf], { type: 'image/png' });
       return new Promise((resolve) => {
         const reader = new FileReader();

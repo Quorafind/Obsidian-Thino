@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { moment } from "obsidian";
 import { getDailyNote, getDailyNoteSettings } from "obsidian-daily-notes-interface";
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
@@ -16,7 +16,7 @@ export async function changeMemo(memoid: string, originalContent: string, conten
     const idString = parseInt(memoid.slice(14));
     const changeDate = moment(timeString, "YYYYMMDDHHmmSS");
     const dailyNote = getDailyNote(changeDate, dailyNotes);
-    const fileContent = await vault.cachedRead(dailyNote);
+    const fileContent = await vault.read(dailyNote);
     const fileLines = getAllLinesFromFile(fileContent);
     const removeEnter = content.replace(/\n/g, "<br>");
     const originalLine = fileLines[idString];

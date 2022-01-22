@@ -13,13 +13,6 @@ import { TRANSLATIONS_ZH } from "./translations/zh/translations";
 import { TRANSLATIONS_EN } from "./translations/en/translations";
 // import { globalStateService } from "./services";
 
-// declare global {
-//   interface Window {
-//     app: App;
-//     plugin: MemosPlugin;
-//   }
-// }
-
 // declare module "obsidian" {
 //   interface App {
 //       isMobile: boolean;
@@ -172,7 +165,7 @@ export default class MemosPlugin extends Plugin {
     const workspace = this.app.workspace;
     if( workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0] !== null &&  workspace.getLeavesOfType(MEMOS_VIEW_TYPE).length !== 0){
       workspace.setActiveLeaf(workspace.getLeavesOfType(MEMOS_VIEW_TYPE)[0]);
-      document.querySelector("textarea").focus();
+      document.querySelector("div[data-type='memos_view'] textarea").focus();
     }else{
       this.openMemos();
       setTimeout(() => {

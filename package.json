@@ -1,6 +1,6 @@
 {
   "name": "obsidian-memos",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "A Quick Capture Plugin For Obsidian Daily Notes",
   "author": "boninall",
   "main": "main.js",
@@ -33,7 +33,6 @@
     "@webscopeio/react-textarea-autocomplete": "^4.9.1",
     "babel": "^6.23.0",
     "chi-time-nlp": "^1.0.4",
-    "data-fns": "^0.1.8",
     "date-fns": "^2.28.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.3.0",

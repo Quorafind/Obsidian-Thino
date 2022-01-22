@@ -1,6 +1,6 @@
 // import api from "../helpers/api";
 
-import moment from 'moment';
+import { moment } from "obsidian";
 import { TFile } from "obsidian";
 import { createDailyNote, getAllDailyNotes, getDailyNote } from "obsidian-daily-notes-interface";
 import appStore from "../stores/appStore";
