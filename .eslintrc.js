@@ -1,14 +1,15 @@
 module.exports = {
   root: true,
-  parser: "@typescript-eslint/parser",
-  plugins: ["react", "@typescript-eslint", "prettier"],
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react', '@typescript-eslint', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   rules: {
-    "@typescript-eslint/no-unused-vars": [2, { args: "all", argsIgnorePattern: "^_" }],
-    "@typescript-eslint/no-empty-interface": ["off"],
-    "@typescript-eslint/no-explicit-any": ["off"],
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-namespace": "off",
+    '@typescript-eslint/no-unused-vars': [2, {args: 'all', argsIgnorePattern: '^_'}],
+    '@typescript-eslint/no-empty-interface': ['off'],
+    '@typescript-eslint/no-explicit-any': ['off'],
+    'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-namespace': 'off',
+    'prettier/prettier': 'error',
   },
   env: {
     browser: true,
@@ -20,7 +21,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
 };

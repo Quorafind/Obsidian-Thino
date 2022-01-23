@@ -1,12 +1,16 @@
 {
   "name": "obsidian-memos",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "A Quick Capture Plugin For Obsidian Daily Notes",
   "author": "boninall",
   "main": "main.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "dev": "npm run lint && vite build --watch",
+    "lint:fix": "npm run lint -- -- -- fix",
+    "prettier": "npx prettier src test --check",
+    "prettier:fix": "npm run prettier -- -- write",
+    "format": "npm run prettier:fix && npm run lint:fix",
     "build:nolint": "NODE_ENV=production rollup -c",
     "build": "vite build",
     "test": "jest",
