@@ -1,11 +1,11 @@
-import combineReducers from "../labs/combineReducers";
-import createStore from "../labs/createStore";
-import * as globalStore from "./globalStateStore";
-import * as locationStore from "./locationStore";
-import * as memoStore from "./memoStore";
-import * as userStore from "./userStore";
-import * as queryStore from "./queryStore";
-import * as dailyNotesStore from "./dailyNotesStore";
+import combineReducers from '../labs/combineReducers';
+import createStore from '../labs/createStore';
+import * as globalStore from './globalStateStore';
+import * as locationStore from './locationStore';
+import * as memoStore from './memoStore';
+import * as userStore from './userStore';
+import * as queryStore from './queryStore';
+import * as dailyNotesStore from './dailyNotesStore';
 
 interface AppState {
   globalState: globalStore.State;
@@ -16,7 +16,13 @@ interface AppState {
   dailyNotesState: dailyNotesStore.State;
 }
 
-type AppStateActions = globalStore.Actions | locationStore.Actions | memoStore.Actions | userStore.Actions | queryStore.Actions | dailyNotesStore.Actions;
+type AppStateActions =
+  | globalStore.Actions
+  | locationStore.Actions
+  | memoStore.Actions
+  | userStore.Actions
+  | queryStore.Actions
+  | dailyNotesStore.Actions;
 
 const appStore = createStore<AppState, AppStateActions>(
   {
@@ -34,7 +40,7 @@ const appStore = createStore<AppState, AppStateActions>(
     userState: userStore.reducer,
     queryState: queryStore.reducer,
     dailyNotesState: dailyNotesStore.reducer,
-  })
+  }),
 );
 
 export default appStore;

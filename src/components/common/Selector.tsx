@@ -1,7 +1,7 @@
-import React from "react";
-import { memo, useEffect, useRef } from "react";
-import useToggle from "../../hooks/useToggle";
-import "../../less/common/selector.less";
+import React from 'react';
+import {memo, useEffect, useRef} from 'react';
+import useToggle from '../../hooks/useToggle';
+import '../../less/common/selector.less';
 // import arrowLeft from '../../icons/arrow-left.svg';
 import arrowRight from '../../icons/arrow-right.svg';
 
@@ -18,12 +18,12 @@ interface Props {
 }
 
 const nullItem = {
-  text: "SELECT",
-  value: "",
+  text: 'SELECT',
+  value: '',
 };
 
 const Selector: React.FC<Props> = (props: Props) => {
-  const { className, dataSource, handleValueChanged, value } = props;
+  const {className, dataSource, handleValueChanged, value} = props;
   const [showSelector, toggleSelectorStatus] = useToggle(false);
 
   const seletorElRef = useRef<HTMLDivElement>(null);
@@ -43,7 +43,7 @@ const Selector: React.FC<Props> = (props: Props) => {
           toggleSelectorStatus(false);
         }
       };
-      window.addEventListener("click", handleClickOutside, {
+      window.addEventListener('click', handleClickOutside, {
         capture: true,
         once: true,
       });
@@ -63,24 +63,23 @@ const Selector: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className={`selector-wrapper ${className ?? ""}`} ref={seletorElRef}>
-      <div className={`current-value-container ${showSelector ? "active" : ""}`} onClick={handleCurrentValueClick}>
+    <div className={`selector-wrapper ${className ?? ''}`} ref={seletorElRef}>
+      <div className={`current-value-container ${showSelector ? 'active' : ''}`} onClick={handleCurrentValueClick}>
         <span className="value-text">{currentItem.text}</span>
         <span className="arrow-text">
           <img className="icon-img" src={arrowRight} />
         </span>
       </div>
 
-      <div className={`items-wrapper ${showSelector ? "" : "hidden"}`}>
+      <div className={`items-wrapper ${showSelector ? '' : 'hidden'}`}>
         {dataSource.map((d) => {
           return (
             <div
-              className={`item-container ${d.value === value ? "selected" : ""}`}
+              className={`item-container ${d.value === value ? 'selected' : ''}`}
               key={d.value}
               onClick={() => {
                 handleItemClick(d);
-              }}
-            >
+              }}>
               {d.text}
             </div>
           );

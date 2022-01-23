@@ -1,6 +1,6 @@
 // import userService from "./userService";
-import api from "../helpers/api";
-import appStore from "../stores/appStore";
+import api from '../helpers/api';
+import appStore from '../stores/appStore';
 
 class QueryService {
   public getState() {
@@ -21,7 +21,7 @@ class QueryService {
     // });
     const data = await api.getMyQueries();
     appStore.dispatch({
-      type: "SET_QUERIES",
+      type: 'SET_QUERIES',
       payload: {
         queries: data,
       },
@@ -39,7 +39,7 @@ class QueryService {
 
   public pushQuery(query: Model.Query) {
     appStore.dispatch({
-      type: "INSERT_QUERY",
+      type: 'INSERT_QUERY',
       payload: {
         query: {
           ...query,
@@ -50,7 +50,7 @@ class QueryService {
 
   public editQuery(query: Model.Query) {
     appStore.dispatch({
-      type: "UPDATE_QUERY",
+      type: 'UPDATE_QUERY',
       payload: query,
     });
   }
@@ -58,7 +58,7 @@ class QueryService {
   public async deleteQuery(queryId: string) {
     await api.deleteQueryById(queryId);
     appStore.dispatch({
-      type: "DELETE_QUERY_BY_ID",
+      type: 'DELETE_QUERY_BY_ID',
       payload: {
         id: queryId,
       },
@@ -66,7 +66,7 @@ class QueryService {
   }
 
   public async createQuery(title: string, querystring: string) {
-    const data  = await api.createQuery(title, querystring);
+    const data = await api.createQuery(title, querystring);
     return data;
   }
 

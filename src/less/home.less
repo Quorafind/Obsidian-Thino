@@ -1,14 +1,14 @@
-@import "./mixin.less";
+@import './mixin.less';
 
-div[data-type="memos_view"] #root {
+div[data-type='memos_view'] #root {
   background-color: #f6f5f4;
 }
 
-div[data-type="memos_view"] .view-content {
+div[data-type='memos_view'] .view-content {
   overflow-y: hidden;
 }
 
-div[data-type="memos_view"] #page-wrapper {
+div[data-type='memos_view'] #page-wrapper {
   .flex(row, flex-start, flex-start);
   width: 848px;
   max-width: 100%;
@@ -38,10 +38,8 @@ div[data-type="memos_view"] #page-wrapper {
   }
 }
 
- 
-
 @media only screen and (max-width: 875px) {
-  div[data-type="memos_view"] body.mobile-show-sidebar {
+  div[data-type='memos_view'] body.mobile-show-sidebar {
     #page-wrapper {
       > .content-wrapper {
         transform: translateX(320px);
@@ -49,7 +47,7 @@ div[data-type="memos_view"] #page-wrapper {
     }
   }
 
-  div[data-type="memos_view"] #page-wrapper {
+  div[data-type='memos_view'] #page-wrapper {
     .flex(column, flex-start, flex-start);
     width: 100%;
     height: 100%;

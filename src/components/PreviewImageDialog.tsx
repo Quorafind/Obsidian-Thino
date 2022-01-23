@@ -1,24 +1,24 @@
-import { useEffect, useRef, useState } from "react";
-import utils from "../helpers/utils";
-import { showDialog } from "./Dialog";
-import "../less/preview-image-dialog.less";
-import React from "react";
-import appStore from "../stores/appStore";
+import {useEffect, useRef, useState} from 'react';
+import utils from '../helpers/utils';
+import {showDialog} from './Dialog';
+import '../less/preview-image-dialog.less';
+import React from 'react';
+import appStore from '../stores/appStore';
 import close from '../icons/close.svg';
-import { Notice } from "obsidian";
+import {Notice} from 'obsidian';
 
 interface Props extends DialogProps {
   imgUrl: string;
   filepath?: string;
 }
 
-const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Props) => {
+const PreviewImageDialog: React.FC<Props> = ({destroy, imgUrl, filepath}: Props) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const [imgWidth, setImgWidth] = useState<number>(-1);
-  const { vault } = appStore.getState().dailyNotesState.app;
+  const {vault} = appStore.getState().dailyNotesState.app;
 
   useEffect(() => {
-    utils.getImageSize(imgUrl).then(({ width }) => {
+    utils.getImageSize(imgUrl).then(({width}) => {
       if (width !== 0) {
         setImgWidth(80);
       } else {
@@ -46,30 +46,29 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Prop
     var ab = new ArrayBuffer(bytes.length);
     var ia = new Uint8Array(ab);
     for (var i = 0; i < bytes.length; i++) {
-        ia[i] = bytes.charCodeAt(i);
+      ia[i] = bytes.charCodeAt(i);
     }
-    return new Blob([ab], { type: type });
-  }
+    return new Blob([ab], {type: type});
+  };
 
   const copyImageToClipboard = async () => {
-    if((filepath === null || filepath === undefined) && imgUrl !== null ){
+    if ((filepath === null || filepath === undefined) && imgUrl !== null) {
       const myBase64 = imgUrl.split('base64,')[1];
       const blobInput = convertBase64ToBlob(myBase64, 'image/png');
-      const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
+      const clipboardItemInput = new ClipboardItem({'image/png': blobInput});
       // @ts-ignore
       window.navigator['clipboard'].write([clipboardItemInput]);
-      new Notice("Send to clipboard successfully");
-    }else{
+      new Notice('Send to clipboard successfully');
+    } else {
       var buffer = await vault.adapter.readBinary(filepath);
       var arr = new Uint8Array(buffer);
-  
-      var blob = new Blob([arr], { type: 'image/png' });
+
+      var blob = new Blob([arr], {type: 'image/png'});
       // @ts-ignore
-      const item = new ClipboardItem({ 'image/png': blob });
+      const item = new ClipboardItem({'image/png': blob});
       // @ts-ignore
       window.navigator['clipboard'].write([item]);
     }
-
   };
 
   return (
@@ -79,9 +78,9 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Prop
       </button>
 
       <div className="img-container internal-embed image-embed is-loaded">
-        <img className={imgWidth <= 0 ? "hidden" : ""} ref={imgRef} width={imgWidth + "%"} src={imgUrl} />
-        <span className={"loading-text " + (imgWidth === -1 ? "" : "hidden")}>图片加载中...</span>
-        <span className={"loading-text " + (imgWidth === 0 ? "" : "hidden")}>😟 图片加载失败，可能是无效的链接</span>
+        <img className={imgWidth <= 0 ? 'hidden' : ''} ref={imgRef} width={imgWidth + '%'} src={imgUrl} />
+        <span className={'loading-text ' + (imgWidth === -1 ? '' : 'hidden')}>图片加载中...</span>
+        <span className={'loading-text ' + (imgWidth === 0 ? '' : 'hidden')}>😟 图片加载失败，可能是无效的链接</span>
       </div>
 
       <div className="action-btns-container">
@@ -103,22 +102,21 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Prop
 };
 
 export default function showPreviewImageDialog(imgUrl: string, filepath?: string): void {
-  if(filepath){
+  if (filepath) {
     showDialog(
       {
-        className: "preview-image-dialog",
+        className: 'preview-image-dialog',
       },
       PreviewImageDialog,
-      { imgUrl , filepath }
+      {imgUrl, filepath},
     );
-  }
-  else{
+  } else {
     showDialog(
       {
-        className: "preview-image-dialog",
+        className: 'preview-image-dialog',
       },
       PreviewImageDialog,
-      { imgUrl }
+      {imgUrl},
     );
   }
 }

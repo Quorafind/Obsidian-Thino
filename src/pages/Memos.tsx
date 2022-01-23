@@ -1,13 +1,13 @@
-import MemoEditor from "../components/MemoEditor";
-import MemosHeader from "../components/MemosHeader";
-import MemoFilter from "../components/MemoFilter";
-import MemoList from "../components/MemoList";
-import React from "react";
-import { Platform } from "obsidian";
-import { DefaultEditorLocation } from "../memos";
+import MemoEditor from '../components/MemoEditor';
+import MemosHeader from '../components/MemosHeader';
+import MemoFilter from '../components/MemoFilter';
+import MemoList from '../components/MemoList';
+import React from 'react';
+import {Platform} from 'obsidian';
+import {DefaultEditorLocation} from '../memos';
 
 function Memos() {
-  if(Platform.isMobile && DefaultEditorLocation === "Bottom"){
+  if (Platform.isMobile && DefaultEditorLocation === 'Bottom') {
     return (
       <>
         <MemosHeader />
@@ -16,7 +16,7 @@ function Memos() {
         <MemoEditor />
       </>
     );
-  }else{
+  } else {
     return (
       <>
         <MemosHeader />
@@ -26,7 +26,6 @@ function Memos() {
       </>
     );
   }
-
 }
 
 export default Memos;

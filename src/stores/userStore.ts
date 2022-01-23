@@ -3,12 +3,12 @@ export interface State {
 }
 
 interface SignInAction {
-  type: "SIGN_IN";
+  type: 'SIGN_IN';
   payload: State;
 }
 
 interface SignOutAction {
-  type: "SIGN_OUT";
+  type: 'SIGN_OUT';
   payload: null;
 }
 
@@ -16,12 +16,12 @@ export type Actions = SignInAction | SignOutAction;
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
-    case "SIGN_IN": {
+    case 'SIGN_IN': {
       return {
         user: action.payload.user,
       };
     }
-    case "SIGN_OUT": {
+    case 'SIGN_OUT': {
       return {
         user: null,
       };
@@ -32,4 +32,4 @@ export function reducer(state: State, action: Actions): State {
   }
 }
 
-export const defaultState: State = { user: null };
+export const defaultState: State = {user: null};

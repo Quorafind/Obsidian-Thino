@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import appContext from "../stores/appContext";
-import { locationService } from "../services";
-import { memoSpecialTypes } from "../helpers/filter";
-import "../less/search-bar.less";
-import React from "react";
-import search from "../icons/search.svg";
+import {useContext} from 'react';
+import appContext from '../stores/appContext';
+import {locationService} from '../services';
+import {memoSpecialTypes} from '../helpers/filter';
+import '../less/search-bar.less';
+import React from 'react';
+import search from '../icons/search.svg';
 // import useToggle from "../hooks/useToggle";
 
 interface Props {}
@@ -15,15 +15,15 @@ export let searchBoxInput: HTMLInputElement;
 const SearchBar: React.FC<Props> = () => {
   const {
     locationState: {
-      query: { type: memoType },
+      query: {type: memoType},
     },
   } = useContext(appContext);
   // const [isSearchBarShown, toggleSearchbar] = useToggle(false);
-  
-  const handleMemoTypeItemClick = (type: MemoSpecType | "") => {
-    const { type: prevType } = locationService.getState().query;
+
+  const handleMemoTypeItemClick = (type: MemoSpecType | '') => {
+    const {type: prevType} = locationService.getState().query;
     if (type === prevType) {
-      type = "";
+      type = '';
     }
     locationService.setMemoTypeQuery(type);
   };
@@ -61,11 +61,10 @@ const SearchBar: React.FC<Props> = () => {
                 return (
                   <div key={t.value}>
                     <span
-                      className={`type-item ${memoType === t.value ? "selected" : ""}`}
+                      className={`type-item ${memoType === t.value ? 'selected' : ''}`}
                       onClick={() => {
                         handleMemoTypeItemClick(t.value as MemoSpecType);
-                      }}
-                    >
+                      }}>
                       {t.text}
                     </span>
                     {idx + 1 < memoSpecialTypes.length ? <span className="split-text">/</span> : null}

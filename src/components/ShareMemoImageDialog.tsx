@@ -1,23 +1,28 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import {useContext, useEffect, useRef, useState} from 'react';
 // import { userService } from "../services";
-import toImage from "../labs/html2image";
-import { ANIMATION_DURATION, IMAGE_URL_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, WIKI_IMAGE_URL_REG } from "../helpers/consts";
-import utils from "../helpers/utils";
-import { showDialog } from "./Dialog";
-import { formatMemoContent } from "./Memo";
-import Only from "./common/OnlyWhen";
-import "../less/share-memo-image-dialog.less";
-import React from "react";
-import { Notice, TFile, Vault } from "obsidian";
-import appStore from "../stores/appStore";
-import { ShareFooterEnd, UserName, ShareFooterStart } from '../memos';
+import toImage from '../labs/html2image';
+import {
+  ANIMATION_DURATION,
+  IMAGE_URL_REG,
+  MARKDOWN_URL_REG,
+  MARKDOWN_WEB_URL_REG,
+  WIKI_IMAGE_URL_REG,
+} from '../helpers/consts';
+import utils from '../helpers/utils';
+import {showDialog} from './Dialog';
+import {formatMemoContent} from './Memo';
+import Only from './common/OnlyWhen';
+import '../less/share-memo-image-dialog.less';
+import React from 'react';
+import {Notice, TFile, Vault} from 'obsidian';
+import appStore from '../stores/appStore';
+import {ShareFooterEnd, UserName, ShareFooterStart} from '../memos';
 import close from '../icons/close.svg';
-import share from "../icons/share.svg";
+import share from '../icons/share.svg';
 
 interface Props extends DialogProps {
   memo: Model.Memo;
 }
-
 
 interface LinkMatch {
   linkText: string;
@@ -30,85 +35,82 @@ export const getPathOfImage = (vault: Vault, image: TFile) => {
   return vault.getResourcePath(image);
 };
 
-const detectWikiInternalLink = (lineText : string) : LinkMatch | null => {
-
-  const { metadataCache,vault } = appStore.getState().dailyNotesState.app;
-  const internalFileName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[1]
-  const internalAltName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[5]
+const detectWikiInternalLink = (lineText: string): LinkMatch | null => {
+  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const internalFileName = WIKI_IMAGE_URL_REG.exec(lineText)?.[1];
+  const internalAltName = WIKI_IMAGE_URL_REG.exec(lineText)?.[5];
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  
-  if(file === null){
+
+  if (file === null) {
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: "",
-      filePath: "",
-    }
-  }else{
+      path: '',
+      filePath: '',
+    };
+  } else {
     const imagePath = getPathOfImage(vault, file);
-    if(internalAltName){
+    if (internalAltName) {
       return {
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
         filePath: file.path,
-      }
-    }else {
+      };
+    } else {
       return {
         linkText: internalFileName,
-        altText: "",
+        altText: '',
         path: imagePath,
         filePath: file.path,
-      }
+      };
     }
   }
-}
+};
 
-const detectMDInternalLink = (lineText : string) : LinkMatch | null => {
-
-  const { metadataCache,vault } = appStore.getState().dailyNotesState.app;
-  const internalFileName =  MARKDOWN_URL_REG.exec(lineText)?.[5]
-  const internalAltName =  MARKDOWN_URL_REG.exec(lineText)?.[2]
+const detectMDInternalLink = (lineText: string): LinkMatch | null => {
+  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const internalFileName = MARKDOWN_URL_REG.exec(lineText)?.[5];
+  const internalAltName = MARKDOWN_URL_REG.exec(lineText)?.[2];
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  
-  if(file === null){
+
+  if (file === null) {
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: "",
-      filePath: "",
-    }
-  }else{
+      path: '',
+      filePath: '',
+    };
+  } else {
     const imagePath = getPathOfImage(vault, file);
-    if(internalAltName){
+    if (internalAltName) {
       return {
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
         filePath: file.path,
-      }
-    }else {
+      };
+    } else {
       return {
         linkText: internalFileName,
-        altText: "",
+        altText: '',
         path: imagePath,
         filePath: file.path,
-      }
+      };
     }
   }
-}
+};
 
 const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
-
-  const { memo: propsMemo, destroy } = props;
-  const {
-    memos
-  } = appStore.getState().memoState;
+  const {memo: propsMemo, destroy} = props;
+  const {memos} = appStore.getState().memoState;
   let memosLength;
   let createdDays;
   if (memos.length) {
     memosLength = memos.length - 1;
-    createdDays = memos ? Math.ceil((Date.now() - utils.getTimeStampByDate(memos[memosLength].createdAt)) / 1000 / 3600 / 24) : 0;
+    createdDays = memos
+      ? Math.ceil((Date.now() - utils.getTimeStampByDate(memos[memosLength].createdAt)) / 1000 / 3600 / 24)
+      : 0;
   }
   // const { user: userinfo } = userService.getState();
   const memo: FormattedMemo = {
@@ -118,39 +120,41 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
   // const memoImgUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
   // const memosNum = memos.length;
 
-  const footerEnd = ShareFooterEnd.replace("{UserName}", UserName);
-  const footerStart = ShareFooterStart.replace("{MemosNum}", memos.length.toString()).replace("{UsedDay}", createdDays.toString());
-  
-  
+  const footerEnd = ShareFooterEnd.replace('{UserName}', UserName);
+  const footerStart = ShareFooterStart.replace('{MemosNum}', memos.length.toString()).replace(
+    '{UsedDay}',
+    createdDays.toString(),
+  );
+
   let externalImageUrls = [] as string[];
   let internalImageUrls = [];
   let allMarkdownLink: string | any[] = [];
   let allInternalLink = [] as any[];
-  if(IMAGE_URL_REG.test(memo.content)){
+  if (IMAGE_URL_REG.test(memo.content)) {
     let allExternalImageUrls = [] as string[];
     let anotherExternalImageUrls = [] as string[];
-    if(MARKDOWN_URL_REG.test(memo.content)){
+    if (MARKDOWN_URL_REG.test(memo.content)) {
       allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
     }
-    if(WIKI_IMAGE_URL_REG.test(memo.content)){
+    if (WIKI_IMAGE_URL_REG.test(memo.content)) {
       allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
     }
     // const allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
-    if(MARKDOWN_WEB_URL_REG.test(memo.content)){
+    if (MARKDOWN_WEB_URL_REG.test(memo.content)) {
       allExternalImageUrls = Array.from(memo.content.match(MARKDOWN_WEB_URL_REG));
     }
-    if(allInternalLink.length){
-      for(let i = 0; i < allInternalLink.length; i++){
+    if (allInternalLink.length) {
+      for (let i = 0; i < allInternalLink.length; i++) {
         let one = allInternalLink[i];
         internalImageUrls.push(detectWikiInternalLink(one));
       }
     }
-    if(allMarkdownLink.length){
-      for(let i = 0; i < allMarkdownLink.length; i++){
+    if (allMarkdownLink.length) {
+      for (let i = 0; i < allMarkdownLink.length; i++) {
         let two = allMarkdownLink[i];
-        if(/(.*)http[s]?(.*)/.test(two)){
+        if (/(.*)http[s]?(.*)/.test(two)) {
           anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
-        }else{
+        } else {
           internalImageUrls.push(detectMDInternalLink(two));
         }
       }
@@ -159,8 +163,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     // externalImageUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
   }
 
-
-  const [shortcutImgUrl, setShortcutImgUrl] = useState("");
+  const [shortcutImgUrl, setShortcutImgUrl] = useState('');
   const [imgAmount, setImgAmount] = useState(externalImageUrls.length);
   const memoElRef = useRef<HTMLDivElement>(null);
 
@@ -175,7 +178,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
       }
 
       toImage(memoElRef.current, {
-        backgroundColor: "#eaeaea",
+        backgroundColor: '#eaeaea',
         pixelRatio: window.devicePixelRatio * 2,
       })
         .then((url) => {
@@ -196,24 +199,24 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     var ab = new ArrayBuffer(bytes.length);
     var ia = new Uint8Array(ab);
     for (var i = 0; i < bytes.length; i++) {
-        ia[i] = bytes.charCodeAt(i);
+      ia[i] = bytes.charCodeAt(i);
     }
-    return new Blob([ab], { type: type });
-  }
+    return new Blob([ab], {type: type});
+  };
 
   const handleCopytoClipboardBtnClick = () => {
-    const divs = document.querySelector(".memo-shortcut-img") as HTMLElement;
-    const myBase64 = divs.getAttribute("src").split('base64,')[1];
+    const divs = document.querySelector('.memo-shortcut-img') as HTMLElement;
+    const myBase64 = divs.getAttribute('src').split('base64,')[1];
     const blobInput = convertBase64ToBlob(myBase64, 'image/png');
-    const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
+    const clipboardItemInput = new ClipboardItem({'image/png': blobInput});
     // @ts-ignore
     window.navigator['clipboard'].write([clipboardItemInput]);
-    new Notice("Send to clipboard successfully");
+    new Notice('Send to clipboard successfully');
   };
 
   const handleImageOnLoad = (ev: React.SyntheticEvent<HTMLImageElement>) => {
-    if (ev.type === "error") {
-      new Notice("有个图片加载失败了😟");
+    if (ev.type === 'error') {
+      new Notice('有个图片加载失败了😟');
       (ev.target as HTMLImageElement).remove();
     }
     setImgAmount(imgAmount - 1);
@@ -235,15 +238,15 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
         </div>
       </div>
       <div className="dialog-content-container">
-        <div className={`tip-words-container ${shortcutImgUrl ? "finish" : "loading"}`}>
-          <p className="tip-text">{shortcutImgUrl ? "↗Click the button to save" : "图片生成中..."}</p>
+        <div className={`tip-words-container ${shortcutImgUrl ? 'finish' : 'loading'}`}>
+          <p className="tip-text">{shortcutImgUrl ? '↗Click the button to save' : '图片生成中...'}</p>
         </div>
         <div className="memo-container" ref={memoElRef}>
-          <Only when={shortcutImgUrl !== ""}>
+          <Only when={shortcutImgUrl !== ''}>
             <img className="memo-shortcut-img" src={shortcutImgUrl} />
           </Only>
           <span className="time-text">{memo.createdAtStr}</span>
-          <div className="memo-content-text" dangerouslySetInnerHTML={{ __html: formatMemoContent(memo.content) }}></div>
+          <div className="memo-content-text" dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}></div>
           <Only when={externalImageUrls.length > 0}>
             <div className="images-container">
               {externalImageUrls.map((imgUrl, idx) => (
@@ -261,12 +264,12 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
             </div>
           </Only>
           <Only when={internalImageUrls.length > 0}>
-          <div className="images-container internal-embed image-embed is-loaded">
-            {internalImageUrls.map((imgUrl, idx) => (
-              <img key={idx} className="memo-img" src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath}/>
-            ))}
-          </div>
-        </Only>
+            <div className="images-container internal-embed image-embed is-loaded">
+              {internalImageUrls.map((imgUrl, idx) => (
+                <img key={idx} className="memo-img" src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath} />
+              ))}
+            </div>
+          </Only>
           <div className="watermark-container">
             <span className="normal-text footer-start">
               <span className="name-text">{footerStart}</span>
@@ -284,9 +287,9 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
 export default function showShareMemoImageDialog(memo: Model.Memo): void {
   showDialog(
     {
-      className: "share-memo-image-dialog",
+      className: 'share-memo-image-dialog',
     },
     ShareMemoImageDialog,
-    { memo }
+    {memo},
   );
 }

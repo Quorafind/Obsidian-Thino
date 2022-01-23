@@ -3,24 +3,24 @@ namespace utils {
     return Date.now();
   }
 
-  export function getOSVersion(): "Windows" | "MacOS" | "Linux" | "Unknown" {
+  export function getOSVersion(): 'Windows' | 'MacOS' | 'Linux' | 'Unknown' {
     const appVersion = navigator.userAgent;
-    let detectedOS: "Windows" | "MacOS" | "Linux" | "Unknown" = "Unknown";
+    let detectedOS: 'Windows' | 'MacOS' | 'Linux' | 'Unknown' = 'Unknown';
 
-    if (appVersion.indexOf("Win") != -1) {
-      detectedOS = "Windows";
-    } else if (appVersion.indexOf("Mac") != -1) {
-      detectedOS = "MacOS";
-    } else if (appVersion.indexOf("Linux") != -1) {
-      detectedOS = "Linux";
+    if (appVersion.indexOf('Win') != -1) {
+      detectedOS = 'Windows';
+    } else if (appVersion.indexOf('Mac') != -1) {
+      detectedOS = 'MacOS';
+    } else if (appVersion.indexOf('Linux') != -1) {
+      detectedOS = 'Linux';
     }
 
     return detectedOS;
   }
 
   export function getTimeStampByDate(t: Date | number | string): number {
-    if (typeof t === "string") {
-      t = t.replaceAll("-", "/");
+    if (typeof t === 'string') {
+      t = t.replaceAll('-', '/');
     }
     return new Date(t).getTime();
   }
@@ -30,8 +30,6 @@ namespace utils {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
   }
 
-
-  
   export function getDateString(t: Date | number | string): string {
     const d = new Date(getTimeStampByDate(t));
 
@@ -48,8 +46,8 @@ namespace utils {
     const hours = d.getHours();
     const mins = d.getMinutes();
 
-    const hoursStr = hours < 10 ? "0" + hours : hours;
-    const minsStr = mins < 10 ? "0" + mins : mins;
+    const hoursStr = hours < 10 ? '0' + hours : hours;
+    const minsStr = mins < 10 ? '0' + mins : mins;
 
     return `${hoursStr}:${minsStr}`;
   }
@@ -65,12 +63,12 @@ namespace utils {
     const mins = d.getMinutes();
     // const secs = d.getSeconds();
 
-    const monthStr = month < 10 ? "0" + month : month;
-    const dateStr = date < 10 ? "0" + date : date;
-    const hoursStr = hours < 10 ? "0" + hours : hours;
-    const minsStr = mins < 10 ? "0" + mins : mins;
+    const monthStr = month < 10 ? '0' + month : month;
+    const dateStr = date < 10 ? '0' + date : date;
+    const hoursStr = hours < 10 ? '0' + hours : hours;
+    const minsStr = mins < 10 ? '0' + mins : mins;
     // const secsStr = secs < 10 ? "0" + secs : secs;
-    const secsStr = "00";
+    const secsStr = '00';
 
     return `${year}/${monthStr}/${dateStr} ${hoursStr}:${minsStr}:${secsStr}`;
   }
@@ -79,7 +77,7 @@ namespace utils {
     return Array.from(new Set(data));
   }
 
-  export function dedupeObjectWithId<T extends { id: string }>(data: T[]): T[] {
+  export function dedupeObjectWithId<T extends {id: string}>(data: T[]): T[] {
     const idSet = new Set<string>();
     const result = [];
 
@@ -128,23 +126,23 @@ namespace utils {
     for (const key of keys) {
       const val = object[key];
       if (val) {
-        if (typeof val === "object") {
-          params.push(...transformObjectToParamsString(val).split("&"));
+        if (typeof val === 'object') {
+          params.push(...transformObjectToParamsString(val).split('&'));
         } else {
           params.push(`${key}=${val}`);
         }
       }
     }
 
-    return params.join("&");
+    return params.join('&');
   }
 
   export function transformParamsStringToObject(paramsString: string): KVObject {
     const object: KVObject = {};
-    const params = paramsString.split("&");
+    const params = paramsString.split('&');
 
     for (const p of params) {
-      const [key, val] = p.split("=");
+      const [key, val] = p.split('=');
       if (key && val) {
         object[key] = val;
       }
@@ -163,7 +161,7 @@ namespace utils {
 
     for (const key of keys) {
       const val = object[key];
-      if (typeof val === "object") {
+      if (typeof val === 'object') {
         const temp = filterObjectNullKeys(JSON.parse(JSON.stringify(val)));
         if (temp && Object.keys(temp).length > 0) {
           finalObject[key] = temp;
@@ -183,32 +181,32 @@ namespace utils {
       try {
         await navigator.clipboard.writeText(text);
       } catch (error: unknown) {
-        console.warn("Copy to clipboard failed.", error);
+        console.warn('Copy to clipboard failed.', error);
       }
     } else {
-      console.warn("Copy to clipboard failed, methods not supports.");
+      console.warn('Copy to clipboard failed, methods not supports.');
     }
   }
 
-  export function getImageSize(src: string): Promise<{ width: number; height: number }> {
+  export function getImageSize(src: string): Promise<{width: number; height: number}> {
     return new Promise((resolve) => {
       const imgEl = new Image();
 
       imgEl.onload = () => {
-        const { width, height } = imgEl;
+        const {width, height} = imgEl;
 
         if (width > 0 && height > 0) {
-          resolve({ width, height });
+          resolve({width, height});
         } else {
-          resolve({ width: 0, height: 0 });
+          resolve({width: 0, height: 0});
         }
       };
 
       imgEl.onerror = () => {
-        resolve({ width: 0, height: 0 });
+        resolve({width: 0, height: 0});
       };
 
-      imgEl.className = "hidden";
+      imgEl.className = 'hidden';
       imgEl.src = src;
       document.body.appendChild(imgEl);
       imgEl.remove();

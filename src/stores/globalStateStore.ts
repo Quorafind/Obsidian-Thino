@@ -13,43 +13,48 @@ export interface State extends AppSetting {
 }
 
 interface SetMarkMemoIdAction {
-  type: "SET_MARK_MEMO_ID";
+  type: 'SET_MARK_MEMO_ID';
   payload: {
     markMemoId: string;
   };
 }
 
 interface SetEditMemoIdAction {
-  type: "SET_EDIT_MEMO_ID";
+  type: 'SET_EDIT_MEMO_ID';
   payload: {
     editMemoId: string;
   };
 }
 
 interface SetMobileViewAction {
-  type: "SET_MOBILE_VIEW";
+  type: 'SET_MOBILE_VIEW';
   payload: {
     isMobileView: boolean;
   };
 }
 
 interface SetShowSidebarAction {
-  type: "SET_SHOW_SIDEBAR_IN_MOBILE_VIEW";
+  type: 'SET_SHOW_SIDEBAR_IN_MOBILE_VIEW';
   payload: {
     showSiderbarInMobileView: boolean;
   };
 }
 
 interface SetAppSettingAction {
-  type: "SET_APP_SETTING";
+  type: 'SET_APP_SETTING';
   payload: Partial<AppSetting>;
 }
 
-export type Actions = SetMobileViewAction | SetShowSidebarAction | SetEditMemoIdAction | SetMarkMemoIdAction | SetAppSettingAction;
+export type Actions =
+  | SetMobileViewAction
+  | SetShowSidebarAction
+  | SetEditMemoIdAction
+  | SetMarkMemoIdAction
+  | SetAppSettingAction;
 
 export function reducer(state: State, action: Actions) {
   switch (action.type) {
-    case "SET_MARK_MEMO_ID": {
+    case 'SET_MARK_MEMO_ID': {
       if (action.payload.markMemoId === state.markMemoId) {
         return state;
       }
@@ -59,7 +64,7 @@ export function reducer(state: State, action: Actions) {
         markMemoId: action.payload.markMemoId,
       };
     }
-    case "SET_EDIT_MEMO_ID": {
+    case 'SET_EDIT_MEMO_ID': {
       if (action.payload.editMemoId === state.editMemoId) {
         return state;
       }
@@ -69,7 +74,7 @@ export function reducer(state: State, action: Actions) {
         editMemoId: action.payload.editMemoId,
       };
     }
-    case "SET_MOBILE_VIEW": {
+    case 'SET_MOBILE_VIEW': {
       if (action.payload.isMobileView === state.isMobileView) {
         return state;
       }
@@ -79,7 +84,7 @@ export function reducer(state: State, action: Actions) {
         isMobileView: action.payload.isMobileView,
       };
     }
-    case "SET_SHOW_SIDEBAR_IN_MOBILE_VIEW": {
+    case 'SET_SHOW_SIDEBAR_IN_MOBILE_VIEW': {
       if (action.payload.showSiderbarInMobileView === state.showSiderbarInMobileView) {
         return state;
       }
@@ -89,7 +94,7 @@ export function reducer(state: State, action: Actions) {
         showSiderbarInMobileView: action.payload.showSiderbarInMobileView,
       };
     }
-    case "SET_APP_SETTING": {
+    case 'SET_APP_SETTING': {
       return {
         ...state,
         ...action.payload,
@@ -102,8 +107,8 @@ export function reducer(state: State, action: Actions) {
 }
 
 export const defaultState: State = {
-  markMemoId: "",
-  editMemoId: "",
+  markMemoId: '',
+  editMemoId: '',
   shouldSplitMemoWord: true,
   shouldHideImageUrl: true,
   shouldUseMarkdownParser: true,

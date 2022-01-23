@@ -1,10 +1,10 @@
-import ReactDOM from "react-dom";
-import appContext from "../stores/appContext";
-import Provider from "../labs/Provider";
-import appStore from "../stores/appStore";
-import { ANIMATION_DURATION } from "../helpers/consts";
-import "../less/dialog.less";
-import React from "react";
+import ReactDOM from 'react-dom';
+import appContext from '../stores/appContext';
+import Provider from '../labs/Provider';
+import appStore from '../stores/appStore';
+import {ANIMATION_DURATION} from '../helpers/consts';
+import '../less/dialog.less';
+import React from 'react';
 
 interface DialogConfig {
   className: string;
@@ -17,7 +17,7 @@ interface Props extends DialogConfig, DialogProps {
 }
 
 const BaseDialog: React.FC<Props> = (props: Props) => {
-  const { children, className, clickSpaceDestroy, destroy } = props;
+  const {children, className, clickSpaceDestroy, destroy} = props;
 
   const handleSpaceClicked = () => {
     if (clickSpaceDestroy) {
@@ -37,19 +37,19 @@ const BaseDialog: React.FC<Props> = (props: Props) => {
 export function showDialog<T extends DialogProps>(
   config: DialogConfig,
   DialogComponent: React.FC<T>,
-  props?: Omit<T, "destroy">
+  props?: Omit<T, 'destroy'>,
 ): DialogCallback {
-  const tempDiv = document.createElement("div");
+  const tempDiv = document.createElement('div');
   document.body.append(tempDiv);
 
   setTimeout(() => {
-    tempDiv.firstElementChild?.classList.add("showup");
+    tempDiv.firstElementChild?.classList.add('showup');
   }, 0);
 
   const cbs: DialogCallback = {
     destroy: () => {
-      tempDiv.firstElementChild?.classList.remove("showup");
-      tempDiv.firstElementChild?.classList.add("showoff");
+      tempDiv.firstElementChild?.classList.remove('showup');
+      tempDiv.firstElementChild?.classList.add('showoff');
       setTimeout(() => {
         tempDiv.remove();
         ReactDOM.unmountComponentAtNode(tempDiv);

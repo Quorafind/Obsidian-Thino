@@ -1,5 +1,5 @@
-import { App, TFile } from "obsidian";
-import { getAllDailyNotes } from "obsidian-daily-notes-interface";
+import {App, TFile} from 'obsidian';
+import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
 
 export interface State {
   dailyNotes: Record<string, TFile>;
@@ -7,14 +7,14 @@ export interface State {
 }
 
 interface SetDailyNotesAction {
-  type: "SET_DAILYNOTES";
+  type: 'SET_DAILYNOTES';
   payload: {
     dailyNotes: Record<string, TFile>;
   };
 }
 
 interface SetObsidianAppAction {
-  type: "SET_APP";
+  type: 'SET_APP';
   payload: {
     app: App;
   };
@@ -27,12 +27,11 @@ interface SetObsidianAppAction {
 //   };
 // }
 
-export type Actions = SetDailyNotesAction | SetObsidianAppAction ;
+export type Actions = SetDailyNotesAction | SetObsidianAppAction;
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
-    case "SET_DAILYNOTES": {
-      
+    case 'SET_DAILYNOTES': {
       const dailyNotes = getAllDailyNotes();
 
       return {
@@ -40,7 +39,7 @@ export function reducer(state: State, action: Actions): State {
         dailyNotes: dailyNotes,
       };
     }
-    case "SET_APP": {
+    case 'SET_APP': {
       return {
         ...state,
         app: action.payload.app,

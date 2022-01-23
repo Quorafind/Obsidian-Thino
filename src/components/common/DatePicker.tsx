@@ -1,7 +1,7 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { DAILY_TIMESTAMP } from "../../helpers/consts";
-import "../../less/common/date-picker.less";
+import React from 'react';
+import {useEffect, useState} from 'react';
+import {DAILY_TIMESTAMP} from '../../helpers/consts';
+import '../../less/common/date-picker.less';
 import arrowLeft from '../../icons/arrow-left.svg';
 import arrowRight from '../../icons/arrow-right.svg';
 
@@ -12,7 +12,7 @@ interface DatePickerProps {
 }
 
 const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
-  const { className, datestamp, handleDateStampChange } = props;
+  const {className, datestamp, handleDateStampChange} = props;
   const [currentDateStamp, setCurrentDateStamp] = useState<DateStamp>(getMonthFirstDayDateStamp(datestamp));
 
   useEffect(() => {
@@ -82,16 +82,15 @@ const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
           if (d.date === 0) {
             return (
               <span key={d.datestamp} className="day-item null">
-                {""}
+                {''}
               </span>
             );
           } else {
             return (
               <span
                 key={d.datestamp}
-                className={`day-item ${d.datestamp === datestamp ? "current" : ""}`}
-                onClick={() => handleDateItemClick(d.datestamp)}
-              >
+                className={`day-item ${d.datestamp === datestamp ? 'current' : ''}`}
+                onClick={() => handleDateItemClick(d.datestamp)}>
                 {d.date}
               </span>
             );

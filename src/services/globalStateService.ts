@@ -1,10 +1,15 @@
-import { storage } from "../helpers/storage";
-import appStore from "../stores/appStore";
-import { AppSetting } from "../stores/globalStateStore";
+import {storage} from '../helpers/storage';
+import appStore from '../stores/appStore';
+import {AppSetting} from '../stores/globalStateStore';
 
 class GlobalStateService {
   constructor() {
-    const cachedSetting = storage.get(["shouldSplitMemoWord", "shouldHideImageUrl", "shouldUseMarkdownParser", "useTinyUndoHistoryCache"]);
+    const cachedSetting = storage.get([
+      'shouldSplitMemoWord',
+      'shouldHideImageUrl',
+      'shouldUseMarkdownParser',
+      'useTinyUndoHistoryCache',
+    ]);
     const defaultAppSetting = {
       shouldSplitMemoWord: cachedSetting.shouldSplitMemoWord ?? true,
       shouldHideImageUrl: cachedSetting.shouldHideImageUrl ?? true,
@@ -21,7 +26,7 @@ class GlobalStateService {
 
   public setEditMemoId = (editMemoId: string) => {
     appStore.dispatch({
-      type: "SET_EDIT_MEMO_ID",
+      type: 'SET_EDIT_MEMO_ID',
       payload: {
         editMemoId,
       },
@@ -30,7 +35,7 @@ class GlobalStateService {
 
   public setMarkMemoId = (markMemoId: string) => {
     appStore.dispatch({
-      type: "SET_MARK_MEMO_ID",
+      type: 'SET_MARK_MEMO_ID',
       payload: {
         markMemoId,
       },
@@ -39,7 +44,7 @@ class GlobalStateService {
 
   public setIsMobileView = (isMobileView: boolean) => {
     appStore.dispatch({
-      type: "SET_MOBILE_VIEW",
+      type: 'SET_MOBILE_VIEW',
       payload: {
         isMobileView,
       },
@@ -48,7 +53,7 @@ class GlobalStateService {
 
   public setShowSiderbarInMobileView = (showSiderbarInMobileView: boolean) => {
     appStore.dispatch({
-      type: "SET_SHOW_SIDEBAR_IN_MOBILE_VIEW",
+      type: 'SET_SHOW_SIDEBAR_IN_MOBILE_VIEW',
       payload: {
         showSiderbarInMobileView,
       },
@@ -57,7 +62,7 @@ class GlobalStateService {
 
   public setAppSetting = (appSetting: Partial<AppSetting>) => {
     appStore.dispatch({
-      type: "SET_APP_SETTING",
+      type: 'SET_APP_SETTING',
       payload: appSetting,
     });
     storage.set(appSetting);

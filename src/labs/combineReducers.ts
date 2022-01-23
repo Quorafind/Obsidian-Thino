@@ -1,11 +1,11 @@
-import { Action, Reducer, State } from "./createStore";
+import {Action, Reducer, State} from './createStore';
 
 interface ReducersMapObject<S extends State = any, A extends Action = any> {
   [key: string]: Reducer<S, A>;
 }
 
 type StateFromReducersMapObject<M> = M extends ReducersMapObject
-  ? { [P in keyof M]: M[P] extends Reducer<infer S, any> ? S : never }
+  ? {[P in keyof M]: M[P] extends Reducer<infer S, any> ? S : never}
   : never;
 
 function combineReducers<S extends State, A extends Action>(reducers: ReducersMapObject): Reducer<S, A> {
@@ -13,7 +13,7 @@ function combineReducers<S extends State, A extends Action>(reducers: ReducersMa
   const finalReducersObj: ReducersMapObject = {};
 
   for (const key of reducerKeys) {
-    if (typeof reducers[key] === "function") {
+    if (typeof reducers[key] === 'function') {
       finalReducersObj[key] = reducers[key];
     }
   }

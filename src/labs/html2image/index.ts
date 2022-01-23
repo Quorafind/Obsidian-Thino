@@ -5,8 +5,8 @@
  * 1. html-to-image: https://github.com/bubkoo/html-to-image
  * 2. <foreignObject>: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject
  */
-import getCloneStyledElement from "./getCloneStyledElement";
-import getFontsStyleElement from "./getFontsStyleElement";
+import getCloneStyledElement from './getCloneStyledElement';
+import getFontsStyleElement from './getFontsStyleElement';
 
 type Options = Partial<{
   backgroundColor: string;
@@ -14,11 +14,11 @@ type Options = Partial<{
 }>;
 
 const getElementSize = (element: HTMLElement) => {
-  const { width, height } = window.getComputedStyle(element);
+  const {width, height} = window.getComputedStyle(element);
 
   return {
-    width: parseInt(width.replace("px", "")),
-    height: parseInt(height.replace("px", "")),
+    width: parseInt(width.replace('px', '')),
+    height: parseInt(height.replace('px', '')),
   };
 };
 
@@ -29,20 +29,20 @@ const convertSVGToDataURL = (svg: SVGElement): string => {
 };
 
 const generateSVGElement = (width: number, height: number, element: HTMLElement): SVGSVGElement => {
-  const xmlNS = "http://www.w3.org/2000/svg";
-  const svgElement = document.createElementNS(xmlNS, "svg");
+  const xmlNS = 'http://www.w3.org/2000/svg';
+  const svgElement = document.createElementNS(xmlNS, 'svg');
 
-  svgElement.setAttribute("width", `${width}`);
-  svgElement.setAttribute("height", `${height}`);
-  svgElement.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svgElement.setAttribute('width', `${width}`);
+  svgElement.setAttribute('height', `${height}`);
+  svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
-  const foreignObject = document.createElementNS(xmlNS, "foreignObject");
+  const foreignObject = document.createElementNS(xmlNS, 'foreignObject');
 
-  foreignObject.setAttribute("width", "100%");
-  foreignObject.setAttribute("height", "100%");
-  foreignObject.setAttribute("x", "0");
-  foreignObject.setAttribute("y", "0");
-  foreignObject.setAttribute("externalResourcesRequired", "true");
+  foreignObject.setAttribute('width', '100%');
+  foreignObject.setAttribute('height', '100%');
+  foreignObject.setAttribute('x', '0');
+  foreignObject.setAttribute('y', '0');
+  foreignObject.setAttribute('externalResourcesRequired', 'true');
 
   foreignObject.appendChild(element);
   svgElement.appendChild(foreignObject);
@@ -51,7 +51,7 @@ const generateSVGElement = (width: number, height: number, element: HTMLElement)
 };
 
 export const toSVG = async (element: HTMLElement, options?: Options) => {
-  const { width, height } = getElementSize(element);
+  const {width, height} = getElementSize(element);
 
   const clonedElement = await getCloneStyledElement(element);
 
@@ -74,13 +74,13 @@ export const toCanvas = async (element: HTMLElement, options?: Options): Promise
   imageEl.src = url;
 
   const ratio = options?.pixelRatio || 1;
-  const { width, height } = getElementSize(element);
+  const {width, height} = getElementSize(element);
 
-  const canvas = document.createElement("canvas");
-  const context = canvas.getContext("2d");
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
 
   if (!context) {
-    return Promise.reject("Canvas error");
+    return Promise.reject('Canvas error');
   }
 
   canvas.width = width * ratio;
@@ -104,7 +104,6 @@ export const toCanvas = async (element: HTMLElement, options?: Options): Promise
 };
 
 const toImage = async (element: HTMLElement, options?: Options) => {
-
   const canvas = await toCanvas(element, options);
 
   // canvas.toBlob(function deal(blob) {

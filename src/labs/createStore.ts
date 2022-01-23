@@ -20,7 +20,10 @@ export interface Store<S extends State, A extends Action> {
  * @param reducer reducer pure function
  * @returns store
  */
-function createStore<S extends State, A extends Action>(preloadedState: S, reducer: Reducer<S, A>): Store<Readonly<S>, A> {
+function createStore<S extends State, A extends Action>(
+  preloadedState: S,
+  reducer: Reducer<S, A>,
+): Store<Readonly<S>, A> {
   const listeners: Listener<S>[] = [];
   let currentState = preloadedState;
 

@@ -1,11 +1,11 @@
-import { IMAGE_URL_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, WIKI_IMAGE_URL_REG } from "../helpers/consts";
-import utils from "../helpers/utils";
-import { formatMemoContent } from "./Memo";
-import Only from "./common/OnlyWhen";
-import "../less/daily-memo.less";
-import React, { useContext, useEffect } from "react";
-import { TFile, Vault, App } from 'obsidian';
-import appStore from "../stores/appStore";
+import {IMAGE_URL_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, WIKI_IMAGE_URL_REG} from '../helpers/consts';
+import utils from '../helpers/utils';
+import {formatMemoContent} from './Memo';
+import Only from './common/OnlyWhen';
+import '../less/daily-memo.less';
+import React, {useContext, useEffect} from 'react';
+import {TFile, Vault, App} from 'obsidian';
+import appStore from '../stores/appStore';
 // import appContext from "../stores/appContext";
 // import appStore from "../stores/appStore";
 // import { dailyNotesService } from "../services";
@@ -29,76 +29,73 @@ export const getPathOfImage = (vault: Vault, image: TFile) => {
   return vault.getResourcePath(image);
 };
 
-const detectWikiInternalLink = (lineText : string, app: App) : LinkMatch | null => {
-
-
-  const internalFileName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[1]
-  const internalAltName =  WIKI_IMAGE_URL_REG.exec(lineText)?.[5]
+const detectWikiInternalLink = (lineText: string, app: App): LinkMatch | null => {
+  const internalFileName = WIKI_IMAGE_URL_REG.exec(lineText)?.[1];
+  const internalAltName = WIKI_IMAGE_URL_REG.exec(lineText)?.[5];
   const file = app.metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  if(file === null){
+  if (file === null) {
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: "",
-      filePath: "",
-    }
-  }else{
+      path: '',
+      filePath: '',
+    };
+  } else {
     const imagePath = getPathOfImage(app.vault, file);
-    if(internalAltName){
+    if (internalAltName) {
       return {
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
         filePath: file.path,
-      }
-    }else {
+      };
+    } else {
       return {
         linkText: internalFileName,
-        altText: "",
+        altText: '',
         path: imagePath,
         filePath: file.path,
-      }
+      };
     }
   }
-}
+};
 
-const detectMDInternalLink = (lineText : string, app: App) : LinkMatch | null => {
-
+const detectMDInternalLink = (lineText: string, app: App): LinkMatch | null => {
   // const { metadataCache,vault } = appStore.getState().dailyNotesState.app;
-  const internalFileName =  MARKDOWN_URL_REG.exec(lineText)?.[5]
-  const internalAltName =  MARKDOWN_URL_REG.exec(lineText)?.[2]
+  const internalFileName = MARKDOWN_URL_REG.exec(lineText)?.[5];
+  const internalAltName = MARKDOWN_URL_REG.exec(lineText)?.[2];
   const file = app.metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  if(file === null){
+  if (file === null) {
     return {
       linkText: internalFileName,
       altText: internalAltName,
-      path: "",
-      filePath: "",
-    }
-  }else{
+      path: '',
+      filePath: '',
+    };
+  } else {
     const imagePath = getPathOfImage(app.vault, file);
-    if(internalAltName){
+    if (internalAltName) {
       return {
         linkText: internalFileName,
         altText: internalAltName,
         path: imagePath,
         filePath: file.path,
-      }
-    }else {
+      };
+    } else {
       return {
         linkText: internalFileName,
-        altText: "",
+        altText: '',
         path: imagePath,
         filePath: file.path,
-      }
+      };
     }
   }
-}
+};
 
 const DailyMemo: React.FC<Props> = (props: Props) => {
   // const plugin = MemosPlugin;
-  const { app }  = appStore.getState().dailyNotesState;
-  const { memo: propsMemo } = props;
+  const {app} = appStore.getState().dailyNotesState;
+  const {memo: propsMemo} = props;
   const memo: DailyMemo = {
     ...propsMemo,
     createdAtStr: utils.getDateTimeString(propsMemo.createdAt),
@@ -108,32 +105,32 @@ const DailyMemo: React.FC<Props> = (props: Props) => {
   let internalImageUrls = [];
   let allMarkdownLink: string | any[] = [];
   let allInternalLink = [] as any[];
-  if(IMAGE_URL_REG.test(memo.content)){
+  if (IMAGE_URL_REG.test(memo.content)) {
     let allExternalImageUrls = [] as string[];
     let anotherExternalImageUrls = [] as string[];
-    if(MARKDOWN_URL_REG.test(memo.content)){
+    if (MARKDOWN_URL_REG.test(memo.content)) {
       allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
     }
-    if(WIKI_IMAGE_URL_REG.test(memo.content)){
+    if (WIKI_IMAGE_URL_REG.test(memo.content)) {
       allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
     }
     // const allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
-    if(MARKDOWN_WEB_URL_REG.test(memo.content)){
+    if (MARKDOWN_WEB_URL_REG.test(memo.content)) {
       allExternalImageUrls = Array.from(memo.content.match(MARKDOWN_WEB_URL_REG));
     }
-    if(allInternalLink.length){
-      for(let i = 0; i < allInternalLink.length; i++){
+    if (allInternalLink.length) {
+      for (let i = 0; i < allInternalLink.length; i++) {
         let one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one,app));
+        internalImageUrls.push(detectWikiInternalLink(one, app));
       }
     }
-    if(allMarkdownLink.length){
-      for(let i = 0; i < allMarkdownLink.length; i++){
+    if (allMarkdownLink.length) {
+      for (let i = 0; i < allMarkdownLink.length; i++) {
         let two = allMarkdownLink[i];
-        if(/(.*)http[s]?(.*)/.test(two)){
+        if (/(.*)http[s]?(.*)/.test(two)) {
           anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
-        }else{
-          internalImageUrls.push(detectMDInternalLink(two,app));
+        } else {
+          internalImageUrls.push(detectMDInternalLink(two, app));
         }
       }
     }
@@ -147,18 +144,18 @@ const DailyMemo: React.FC<Props> = (props: Props) => {
         <span className="normal-text">{memo.timeStr}</span>
       </div>
       <div className="memo-content-container">
-        <div className="memo-content-text" dangerouslySetInnerHTML={{ __html: formatMemoContent(memo.content) }}></div>
+        <div className="memo-content-text" dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}></div>
         <Only when={externalImageUrls.length > 0}>
           <div className="images-container">
             {externalImageUrls.map((imgUrl, idx) => (
-              <img key={idx} src={imgUrl} referrerPolicy="no-referrer"/>
+              <img key={idx} src={imgUrl} referrerPolicy="no-referrer" />
             ))}
           </div>
         </Only>
         <Only when={internalImageUrls.length > 0}>
           <div className="images-container internal-embed image-embed is-loaded">
             {internalImageUrls.map((imgUrl, idx) => (
-              <img key={idx} src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath}/>
+              <img key={idx} src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath} />
             ))}
           </div>
         </Only>

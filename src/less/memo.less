@@ -1,7 +1,7 @@
-@import "./mixin.less";
-@import "./memo-content.less";
+@import './mixin.less';
+@import './memo-content.less';
 
-.theme-light div[data-type="memos_view"] .memo-wrapper {
+.theme-light div[data-type='memos_view'] .memo-wrapper {
   .flex(column, flex-start, flex-start);
   width: 100%;
   padding: 12px 18px;
@@ -69,7 +69,6 @@
             line-height: unset;
             justify-content: flex-start;
 
-
             &.delete-btn {
               color: @text-red;
 
@@ -101,7 +100,6 @@
           > .icon-img {
             width: 16px;
             height: 16px;
-            
           }
 
           &:hover {
@@ -156,7 +154,7 @@
 }
 
 @media only screen and (max-width: 875px) {
-  .theme-light div[data-type="memos_view"] .memo-wrapper {
+  .theme-light div[data-type='memos_view'] .memo-wrapper {
     > .btns-container {
       > .more-action-btns-wrapper {
         > .more-action-btns-container {
@@ -171,7 +169,7 @@
   }
 }
 
-.theme-dark div[data-type="memos_view"] .memo-wrapper {
+.theme-dark div[data-type='memos_view'] .memo-wrapper {
   .flex(column, flex-start, flex-start);
   width: 100%;
   padding: 12px 18px;
@@ -327,12 +325,12 @@
 
 @media only screen and (max-width: 875px) {
   .theme-dark {
-    div[data-type="memos_view"] .memo-wrapper {
+    div[data-type='memos_view'] .memo-wrapper {
       > .btns-container {
         > .more-action-btns-wrapper {
           > .more-action-btns-container {
             line-height: 0px;
-  
+
             // > .btn {
             //   // line-height: 10px;
             // }

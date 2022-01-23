@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import {useCallback, useState} from 'react';
 
 function useRefresh() {
   const [, setBoolean] = useState<boolean>(false);
