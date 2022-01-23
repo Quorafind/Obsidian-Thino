@@ -13,12 +13,12 @@ export interface ValidatorConfig {
   noChinese: boolean;
 }
 
-export function validate(text: string, config: Partial<ValidatorConfig>): { result: boolean; reason?: string } {
+export function validate(text: string, config: Partial<ValidatorConfig>): {result: boolean; reason?: string} {
   if (config.minLength !== undefined) {
     if (text.length < config.minLength) {
       return {
         result: false,
-        reason: "长度过短",
+        reason: '长度过短',
       };
     }
   }
@@ -27,22 +27,22 @@ export function validate(text: string, config: Partial<ValidatorConfig>): { resu
     if (text.length > config.maxLength) {
       return {
         result: false,
-        reason: "长度超出",
+        reason: '长度超出',
       };
     }
   }
 
-  if (config.noSpace && text.includes(" ")) {
+  if (config.noSpace && text.includes(' ')) {
     return {
       result: false,
-      reason: "不应含有空格",
+      reason: '不应含有空格',
     };
   }
 
   if (config.noChinese && chineseReg.test(text)) {
     return {
       result: false,
-      reason: "不应含有中文字符",
+      reason: '不应含有中文字符',
     };
   }
 

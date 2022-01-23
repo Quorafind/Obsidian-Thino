@@ -1,4 +1,4 @@
-import { InputAction } from "tiny-undo";
+import {InputAction} from 'tiny-undo';
 
 /**
  * Define storage data type
@@ -39,7 +39,7 @@ export namespace storage {
           data[key] = val;
         }
       } catch (error: any) {
-        console.error("Get storage failed in ", key, error);
+        console.error('Get storage failed in ', key, error);
       }
     }
 
@@ -52,7 +52,7 @@ export namespace storage {
         const stringifyValue = JSON.stringify(data[key as StorageKey]);
         localStorage.setItem(key, stringifyValue);
       } catch (error: any) {
-        console.error("Save storage failed in ", key, error);
+        console.error('Save storage failed in ', key, error);
       }
     }
   }
@@ -62,17 +62,17 @@ export namespace storage {
       try {
         localStorage.removeItem(key);
       } catch (error: any) {
-        console.error("Remove storage failed in ", key, error);
+        console.error('Remove storage failed in ', key, error);
       }
     }
   }
 
   export function emitStorageChangedEvent() {
-    const iframeEl = document.createElement("iframe");
-    iframeEl.style.display = "none";
+    const iframeEl = document.createElement('iframe');
+    iframeEl.style.display = 'none';
     document.body.appendChild(iframeEl);
 
-    iframeEl.contentWindow?.localStorage.setItem("t", Date.now().toString());
+    iframeEl.contentWindow?.localStorage.setItem('t', Date.now().toString());
     iframeEl.remove();
   }
 }

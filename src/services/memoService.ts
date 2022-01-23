@@ -1,9 +1,9 @@
-import api from "../helpers/api";
-import { NOP_FIRST_TAG_REG, TAG_REG } from "../helpers/consts";
-import utils from "../helpers/utils";
-import appStore from "../stores/appStore";
-import { waitForInsert } from "../obComponents/obCreateMemo";
-import { changeMemo } from "../obComponents/obUpdateMemo";
+import api from '../helpers/api';
+import {NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
+import utils from '../helpers/utils';
+import appStore from '../stores/appStore';
+import {waitForInsert} from '../obComponents/obCreateMemo';
+import {changeMemo} from '../obComponents/obUpdateMemo';
 // import userService from "./userService";
 
 class MemoService {
@@ -25,7 +25,7 @@ class MemoService {
       memos.push(m);
     }
     appStore.dispatch({
-      type: "SET_MEMOS",
+      type: 'SET_MEMOS',
       payload: {
         memos,
       },
@@ -44,13 +44,16 @@ class MemoService {
     // }
 
     const data = await api.getMyDeletedMemos();
-    data.sort((a: { deletedAt: string | number | Date; }, b: { deletedAt: string | number | Date; }) => utils.getTimeStampByDate(b.deletedAt) - utils.getTimeStampByDate(a.deletedAt));
+    data.sort(
+      (a: {deletedAt: string | number | Date}, b: {deletedAt: string | number | Date}) =>
+        utils.getTimeStampByDate(b.deletedAt) - utils.getTimeStampByDate(a.deletedAt),
+    );
     return data;
   }
 
   public pushMemo(memo: Model.Memo) {
     appStore.dispatch({
-      type: "INSERT_MEMO",
+      type: 'INSERT_MEMO',
       payload: {
         memo: {
           ...memo,
@@ -72,7 +75,7 @@ class MemoService {
   public async hideMemoById(id: string) {
     await api.hideMemo(id);
     appStore.dispatch({
-      type: "DELETE_MEMO_BY_ID",
+      type: 'DELETE_MEMO_BY_ID',
       payload: {
         id: id,
       },
@@ -91,25 +94,25 @@ class MemoService {
 
   public editMemo(memo: Model.Memo) {
     appStore.dispatch({
-      type: "EDIT_MEMO",
+      type: 'EDIT_MEMO',
       payload: memo,
     });
   }
 
   public updateTagsState() {
-    const { memos } = this.getState();
+    const {memos} = this.getState();
     const tagsSet = new Set<string>();
     for (const m of memos) {
       for (const t of Array.from(m.content.match(TAG_REG) ?? [])) {
-        tagsSet.add(t.replace(TAG_REG, "$1").trim());
+        tagsSet.add(t.replace(TAG_REG, '$1').trim());
       }
       for (const t of Array.from(m.content.match(NOP_FIRST_TAG_REG) ?? [])) {
-        tagsSet.add(t.replace(NOP_FIRST_TAG_REG, "$1").trim());
+        tagsSet.add(t.replace(NOP_FIRST_TAG_REG, '$1').trim());
       }
     }
 
     appStore.dispatch({
-      type: "SET_TAGS",
+      type: 'SET_TAGS',
       payload: {
         tags: Array.from(tagsSet),
       },
@@ -118,7 +121,7 @@ class MemoService {
 
   public clearMemos() {
     appStore.dispatch({
-      type: "SET_MEMOS",
+      type: 'SET_MEMOS',
       payload: {
         memos: [],
       },
@@ -126,7 +129,7 @@ class MemoService {
   }
 
   public async getLinkedMemos(memoId: string): Promise<Model.Memo[]> {
-    const { memos } = this.getState();
+    const {memos} = this.getState();
     return memos.filter((m) => m.content.includes(memoId));
   }
 

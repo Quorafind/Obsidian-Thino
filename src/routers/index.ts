@@ -1,10 +1,10 @@
 // import appRouter from "./appRouter";
-import homeRouter from "./homeRouter";
+import homeRouter from './homeRouter';
 
 // just like React-Router
 interface Router {
   [key: string]: JSX.Element | null;
-  "*": JSX.Element | null;
+  '*': JSX.Element | null;
 }
 
 const routerSwitch = (router: Router) => {
@@ -14,7 +14,7 @@ const routerSwitch = (router: Router) => {
         return router[key];
       }
     }
-    return router["*"];
+    return router['*'];
   };
 };
 

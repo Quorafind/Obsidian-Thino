@@ -1,15 +1,15 @@
-import { useCallback, useContext, useEffect } from "react";
+import {useCallback, useContext, useEffect} from 'react';
 // import { locationService, userService } from "../services";
-import { homeRouterSwitch } from "../routers";
-import appContext from "../stores/appContext";
-import Sidebar from "../components/Sidebar";
-import useLoading from "../hooks/useLoading";
-import "../less/home.less";
-import React from "react";
+import {homeRouterSwitch} from '../routers';
+import appContext from '../stores/appContext';
+import Sidebar from '../components/Sidebar';
+import useLoading from '../hooks/useLoading';
+import '../less/home.less';
+import React from 'react';
 
 function Home() {
   const {
-    locationState: { pathname },
+    locationState: {pathname},
   } = useContext(appContext);
   // const { app } = dailyNotesService.getState();
   const loadingState = useLoading();
@@ -31,11 +31,10 @@ function Home() {
     //       // }
     //     });
     // } else {
-      loadingState.setFinish();
-      
+    loadingState.setFinish();
+
     // }
   }, []);
-
 
   return (
     <>

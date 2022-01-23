@@ -1,5 +1,5 @@
 // import utils from "../helpers/utils";
-import appStore from "../stores/appStore";
+import appStore from '../stores/appStore';
 
 // const updateLocationUrl = (method: "replace" | "push" = "replace") => {
 //   const { query, pathname, hash } = appStore.getState().locationState;
@@ -26,25 +26,25 @@ class LocationService {
   }
 
   public updateStateWithLocation = () => {
-    const { pathname, search, hash } = window.location;
+    const {pathname, search, hash} = window.location;
     const urlParams = new URLSearchParams(search);
     const state: AppLocation = {
-      pathname: "/",
-      hash: "",
+      pathname: '/',
+      hash: '',
       query: {
-        tag: "",
+        tag: '',
         duration: null,
-        text: "",
-        type: "",
-        filter: "",
+        text: '',
+        type: '',
+        filter: '',
       },
     };
-    state.query.tag = urlParams.get("tag") ?? "";
-    state.query.type = (urlParams.get("type") ?? "") as MemoSpecType;
-    state.query.text = urlParams.get("text") ?? "";
-    state.query.filter = urlParams.get("filter") ?? "";
-    const from = parseInt(urlParams.get("from") ?? "0");
-    const to = parseInt(urlParams.get("to") ?? "0");
+    state.query.tag = urlParams.get('tag') ?? '';
+    state.query.type = (urlParams.get('type') ?? '') as MemoSpecType;
+    state.query.text = urlParams.get('text') ?? '';
+    state.query.filter = urlParams.get('filter') ?? '';
+    const from = parseInt(urlParams.get('from') ?? '0');
+    const to = parseInt(urlParams.get('to') ?? '0');
     if (to > from && to !== 0) {
       state.query.duration = {
         from,
@@ -54,7 +54,7 @@ class LocationService {
     state.hash = hash;
     state.pathname = this.getValidPathname(pathname);
     appStore.dispatch({
-      type: "SET_LOCATION",
+      type: 'SET_LOCATION',
       payload: state,
     });
   };
@@ -65,13 +65,13 @@ class LocationService {
 
   public clearQuery = () => {
     appStore.dispatch({
-      type: "SET_QUERY",
+      type: 'SET_QUERY',
       payload: {
-        tag: "",
+        tag: '',
         duration: null,
-        text: "",
-        type: "",
-        filter: "",
+        text: '',
+        type: '',
+        filter: '',
       },
     });
 
@@ -80,7 +80,7 @@ class LocationService {
 
   public setQuery = (query: Query) => {
     appStore.dispatch({
-      type: "SET_QUERY",
+      type: 'SET_QUERY',
       payload: query,
     });
 
@@ -89,7 +89,7 @@ class LocationService {
 
   public setHash = (hash: string) => {
     appStore.dispatch({
-      type: "SET_HASH",
+      type: 'SET_HASH',
       payload: {
         hash,
       },
@@ -100,7 +100,7 @@ class LocationService {
 
   public setPathname = (pathname: string) => {
     appStore.dispatch({
-      type: "SET_PATHNAME",
+      type: 'SET_PATHNAME',
       payload: {
         pathname,
       },
@@ -111,7 +111,7 @@ class LocationService {
 
   public pushHistory = (pathname: string) => {
     appStore.dispatch({
-      type: "SET_PATHNAME",
+      type: 'SET_PATHNAME',
       payload: {
         pathname,
       },
@@ -122,7 +122,7 @@ class LocationService {
 
   public replaceHistory = (pathname: string) => {
     appStore.dispatch({
-      type: "SET_PATHNAME",
+      type: 'SET_PATHNAME',
       payload: {
         pathname,
       },
@@ -131,9 +131,9 @@ class LocationService {
     // updateLocationUrl("replace");
   };
 
-  public setMemoTypeQuery = (type: MemoSpecType | "" = "") => {
+  public setMemoTypeQuery = (type: MemoSpecType | '' = '') => {
     appStore.dispatch({
-      type: "SET_TYPE",
+      type: 'SET_TYPE',
       payload: {
         type,
       },
@@ -144,7 +144,7 @@ class LocationService {
 
   public setMemoFilter = (filterId: string) => {
     appStore.dispatch({
-      type: "SET_QUERY_FILTER",
+      type: 'SET_QUERY_FILTER',
       payload: filterId,
     });
 
@@ -153,7 +153,7 @@ class LocationService {
 
   public setTextQuery = (text: string) => {
     appStore.dispatch({
-      type: "SET_TEXT",
+      type: 'SET_TEXT',
       payload: {
         text,
       },
@@ -164,7 +164,7 @@ class LocationService {
 
   public setTagQuery = (tag: string) => {
     appStore.dispatch({
-      type: "SET_TAG_QUERY",
+      type: 'SET_TAG_QUERY',
       payload: {
         tag,
       },
@@ -175,9 +175,9 @@ class LocationService {
 
   public setFromAndToQuery = (from: number, to: number) => {
     appStore.dispatch({
-      type: "SET_DURATION_QUERY",
+      type: 'SET_DURATION_QUERY',
       payload: {
-        duration: { from, to },
+        duration: {from, to},
       },
     });
 
@@ -185,10 +185,10 @@ class LocationService {
   };
 
   public getValidPathname = (pathname: string): AppRouter => {
-    if (["/", "/recycle", "/setting"].includes(pathname)) {
+    if (['/', '/recycle', '/setting'].includes(pathname)) {
       return pathname as AppRouter;
     } else {
-      return "/";
+      return '/';
     }
   };
 }

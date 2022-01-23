@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
-import { locationService } from "../services";
-import showAboutSiteDialog from "./AboutSiteDialog";
-import "../less/menu-btns-popup.less";
-import React from "react";
+import {useEffect, useRef} from 'react';
+import {locationService} from '../services';
+import showAboutSiteDialog from './AboutSiteDialog';
+import '../less/menu-btns-popup.less';
+import React from 'react';
 import dailyNotesService from '../services/dailyNotesService';
 
 interface Props {
@@ -11,8 +11,8 @@ interface Props {
 }
 
 const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
-  const { shownStatus, setShownStatus } = props;
-  const { app } = dailyNotesService.getState();
+  const {shownStatus, setShownStatus} = props;
+  const {app} = dailyNotesService.getState();
 
   const popupElRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +24,7 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
         }
         setShownStatus(false);
       };
-      window.addEventListener("click", handleClickOutside, {
+      window.addEventListener('click', handleClickOutside, {
         capture: true,
         once: true,
       });
@@ -33,11 +33,11 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
 
   const handleMyAccountBtnClick = () => {
     app.setting.open();
-    app.setting.openTabById("obsidian-memos");
+    app.setting.openTabById('obsidian-memos');
   };
 
   const handleMemosTrashBtnClick = () => {
-    locationService.pushHistory("/recycle");
+    locationService.pushHistory('/recycle');
   };
 
   const handleAboutBtnClick = () => {
@@ -49,7 +49,7 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
   // };
 
   return (
-    <div className={`menu-btns-popup ${shownStatus ? "" : "hidden"}`} ref={popupElRef}>
+    <div className={`menu-btns-popup ${shownStatus ? '' : 'hidden'}`} ref={popupElRef}>
       <button className="btn action-btn" onClick={handleMyAccountBtnClick}>
         <span className="icon">👤</span> Settings
       </button>

@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import ReactDOM from "react-dom";
-import { TOAST_ANIMATION_DURATION } from "../helpers/consts";
-import "../less/toast.less";
+import {useEffect} from 'react';
+import ReactDOM from 'react-dom';
+import {TOAST_ANIMATION_DURATION} from '../helpers/consts';
+import '../less/toast.less';
 
-type ToastType = "normal" | "success" | "info" | "error";
+type ToastType = 'normal' | 'success' | 'info' | 'error';
 
 type ToastConfig = {
   type: ToastType;
@@ -19,7 +19,7 @@ type ToastItemProps = {
 };
 
 const Toast: React.FC<ToastItemProps> = (props: ToastItemProps) => {
-  const { destory, duration } = props;
+  const {destory, duration} = props;
 
   useEffect(() => {
     if (duration > 0) {
@@ -42,39 +42,39 @@ class ToastHelper {
   private shownToastContainers: HTMLDivElement[] = [];
 
   constructor() {
-    const wrapperClassName = "toast-list-container";
-    const tempDiv = document.createElement("div");
+    const wrapperClassName = 'toast-list-container';
+    const tempDiv = document.createElement('div');
     tempDiv.className = wrapperClassName;
     document.body.appendChild(tempDiv);
     this.toastWrapper = tempDiv;
   }
 
   public info = (content: string, duration = 3000) => {
-    return this.showToast({ type: "normal", content, duration });
+    return this.showToast({type: 'normal', content, duration});
   };
 
   public success = (content: string, duration = 3000) => {
-    return this.showToast({ type: "success", content, duration });
+    return this.showToast({type: 'success', content, duration});
   };
 
   public error = (content: string, duration = 3000) => {
-    return this.showToast({ type: "error", content, duration });
+    return this.showToast({type: 'error', content, duration});
   };
 
   private showToast = (config: ToastConfig) => {
-    const tempDiv = document.createElement("div");
+    const tempDiv = document.createElement('div');
     tempDiv.className = `toast-wrapper ${config.type}`;
     this.toastWrapper.appendChild(tempDiv);
     this.shownToastAmount++;
     this.shownToastContainers.push(tempDiv);
 
     setTimeout(() => {
-      tempDiv.classList.add("showup");
+      tempDiv.classList.add('showup');
     }, 0);
 
     const cbs = {
       destory: () => {
-        tempDiv.classList.add("destory");
+        tempDiv.classList.add('destory');
 
         setTimeout(() => {
           if (!tempDiv.parentElement) {

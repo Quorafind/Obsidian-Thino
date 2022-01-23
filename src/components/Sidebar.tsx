@@ -1,20 +1,20 @@
-import { useContext, useEffect, useMemo, useRef } from "react";
-import appContext from "../stores/appContext";
-import { SHOW_SIDERBAR_MOBILE_CLASSNAME } from "../helpers/consts";
-import { globalStateService } from "../services";
-import UserBanner from "./UserBanner";
-import QueryList from "./QueryList";
-import TagList from "./TagList";
-import UsageHeatMap from "./UsageHeatMap";
-import "../less/siderbar.less";
-import React from "react";
+import {useContext, useEffect, useMemo, useRef} from 'react';
+import appContext from '../stores/appContext';
+import {SHOW_SIDERBAR_MOBILE_CLASSNAME} from '../helpers/consts';
+import {globalStateService} from '../services';
+import UserBanner from './UserBanner';
+import QueryList from './QueryList';
+import TagList from './TagList';
+import UsageHeatMap from './UsageHeatMap';
+import '../less/siderbar.less';
+import React from 'react';
 
 interface Props {}
 
 const Sidebar: React.FC<Props> = () => {
   const {
     locationState,
-    globalState: { isMobileView, showSiderbarInMobileView },
+    globalState: {isMobileView, showSiderbarInMobileView},
   } = useContext(appContext);
   const wrapperElRef = useRef<HTMLElement>(null);
 
@@ -23,7 +23,7 @@ const Sidebar: React.FC<Props> = () => {
       const siderbarShown = globalStateService.getState().showSiderbarInMobileView;
 
       if (!siderbarShown) {
-        window.removeEventListener("click", handleClickOutsideOfWrapper, {
+        window.removeEventListener('click', handleClickOutsideOfWrapper, {
           capture: true,
         });
         return;
@@ -35,7 +35,7 @@ const Sidebar: React.FC<Props> = () => {
             event.stopPropagation();
           }
           globalStateService.setShowSiderbarInMobileView(false);
-          window.removeEventListener("click", handleClickOutsideOfWrapper, {
+          window.removeEventListener('click', handleClickOutsideOfWrapper, {
             capture: true,
           });
         }
@@ -57,7 +57,7 @@ const Sidebar: React.FC<Props> = () => {
 
   useEffect(() => {
     if (isMobileView && showSiderbarInMobileView) {
-      window.addEventListener("click", handleClickOutsideOfWrapper, {
+      window.addEventListener('click', handleClickOutsideOfWrapper, {
         capture: true,
       });
     }

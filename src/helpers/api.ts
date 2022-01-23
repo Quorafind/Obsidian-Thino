@@ -1,14 +1,13 @@
 // import utils from "./utils";
 
-import { findQuery } from "../obComponents/obGetQueries";
-import { createObsidianQuery } from "../obComponents/obCreateQuery";
-import { getMemos } from "../obComponents/obGetMemos";
-import { updateObsidianQuery } from "../obComponents/obUpdateQuery";
-import { obHideMemo } from "../obComponents/obHideMemo";
-import { deleteForever, getDeletedMemos, restoreDeletedMemo } from "../obComponents/obDeleteMemo";
-import { deleteQueryForever } from "../obComponents/obDeleteQuery";
-import { pinQueryInFile, unpinQueryInFile } from "../obComponents/obPinQuery";
-
+import {findQuery} from '../obComponents/obGetQueries';
+import {createObsidianQuery} from '../obComponents/obCreateQuery';
+import {getMemos} from '../obComponents/obGetMemos';
+import {updateObsidianQuery} from '../obComponents/obUpdateQuery';
+import {obHideMemo} from '../obComponents/obHideMemo';
+import {deleteForever, getDeletedMemos, restoreDeletedMemo} from '../obComponents/obDeleteMemo';
+import {deleteQueryForever} from '../obComponents/obDeleteQuery';
+import {pinQueryInFile, unpinQueryInFile} from '../obComponents/obPinQuery';
 
 // type ResponseType<T = unknown> = {
 //   succeed: boolean;
@@ -99,9 +98,8 @@ namespace api {
     // });
   }
 
-
   //eslint-disable-next-line
-  export function updateUserinfo(userinfo: Partial<{ username: string; password: string; githubName: string }>) {
+  export function updateUserinfo(userinfo: Partial<{username: string; password: string; githubName: string}>) {
     // return request({
     //   method: "PATCH",
     //   url: "/api/user/me",
@@ -111,7 +109,6 @@ namespace api {
 
   export async function getMyMemos() {
     return await getMemos();
-
 
     // return request<Model.Memo[]>({
     //   method: "GET",
@@ -169,7 +166,7 @@ namespace api {
     // });
   }
 
- //eslint-disable-next-line
+  //eslint-disable-next-line
   export function deleteMemo(memoId: string) {
     return deleteForever(memoId);
     // return request({
@@ -186,7 +183,7 @@ namespace api {
     // });
   }
 
-    //eslint-disable-next-line
+  //eslint-disable-next-line
   export function createQuery(title: string, querystring: string) {
     return createObsidianQuery(title, querystring);
     // return request<Model.Query>({
@@ -196,7 +193,7 @@ namespace api {
     // });
   }
 
-    //eslint-disable-next-line
+  //eslint-disable-next-line
   export function updateQuery(queryId: string, title: string, querystring: string) {
     return updateObsidianQuery(queryId, title, querystring);
     // return request<Model.Query>({
@@ -206,7 +203,7 @@ namespace api {
     // });
   }
 
-    //eslint-disable-next-line
+  //eslint-disable-next-line
   export function deleteQueryById(queryId: string) {
     return deleteQueryForever(queryId);
     // return request({
@@ -215,7 +212,7 @@ namespace api {
     // });
   }
 
-    //eslint-disable-next-line
+  //eslint-disable-next-line
   export function pinQuery(queryId: string) {
     return pinQueryInFile(queryId);
     // return request({
@@ -225,7 +222,7 @@ namespace api {
     // });
   }
 
-    //eslint-disable-next-line
+  //eslint-disable-next-line
   export function unpinQuery(queryId: string) {
     return unpinQueryInFile(queryId);
     // return request({
@@ -235,7 +232,7 @@ namespace api {
     // });
   }
 
-    //eslint-disable-next-line
+  //eslint-disable-next-line
   // export function uploadFile(formData: FormData) {
   //   // return request<Model.Resource>({
   //   //   method: "PUT",

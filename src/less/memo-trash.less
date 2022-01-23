@@ -1,7 +1,7 @@
-@import "./mixin.less";
-@import "./memos-header.less";
+@import './mixin.less';
+@import './memos-header.less';
 
-.theme-light div[data-type="memos_view"] .memo-trash-wrapper {
+.theme-light div[data-type='memos_view'] .memo-trash-wrapper {
   .flex(column, flex-start, flex-start);
   width: 100%;
   height: 100%;
@@ -36,7 +36,7 @@
     .hide-scroll-bar();
 
     > .memo-wrapper {
-      > .memo-content-text{
+      > .memo-content-text {
         line-height: 16px;
       }
     }
@@ -45,23 +45,23 @@
 
 @media only screen and (max-width: 875px) {
   .theme-light {
-    div[data-type="memos_view"] .deleted-memos-container {
+    div[data-type='memos_view'] .deleted-memos-container {
       padding: 0 12px;
     }
-  
-    div[data-type="memos_view"] .memo-trash-wrapper {
+
+    div[data-type='memos_view'] .memo-trash-wrapper {
       .flex(column, flex-start, flex-start);
       width: 100%;
       height: 100%;
       flex-grow: 1;
       overflow-y: scroll;
       .hide-scroll-bar();
-    
+
       > .section-header-container {
         width: 100%;
         height: 58px;
         margin-bottom: 0;
-    
+
         > .title-text {
           font-weight: bold;
           font-size: 15px;
@@ -72,7 +72,7 @@
   }
 }
 
-.theme-dark div[data-type="memos_view"] .memo-trash-wrapper {
+.theme-dark div[data-type='memos_view'] .memo-trash-wrapper {
   .flex(column, flex-start, flex-start);
   width: 100%;
   height: 100%;
@@ -110,7 +110,7 @@
     .hide-scroll-bar();
 
     > .memo-wrapper {
-      > .memo-content-text{
+      > .memo-content-text {
         line-height: 16px;
       }
     }
@@ -119,23 +119,23 @@
 
 @media only screen and (max-width: 875px) {
   .theme-dark {
-    div[data-type="memos_view"] .deleted-memos-container {
+    div[data-type='memos_view'] .deleted-memos-container {
       padding: 0 12px;
     }
-  
-    div[data-type="memos_view"] .memo-trash-wrapper {
+
+    div[data-type='memos_view'] .memo-trash-wrapper {
       .flex(column, flex-start, flex-start);
       width: 100%;
       height: 100%;
       flex-grow: 1;
       overflow-y: scroll;
       .hide-scroll-bar();
-    
+
       > .section-header-container {
         width: 100%;
         height: 58px;
         margin-bottom: 0;
-    
+
         > .title-text {
           font-weight: bold;
           font-size: 15px;

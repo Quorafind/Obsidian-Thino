@@ -1,24 +1,24 @@
-import { useContext, useEffect } from "react";
-import appContext from "../stores/appContext";
-import useToggle from "../hooks/useToggle";
-import useLoading from "../hooks/useLoading";
-import Only from "./common/OnlyWhen";
-import utils from "../helpers/utils";
-import { locationService, queryService } from "../services";
-import showCreateQueryDialog from "./CreateQueryDialog";
-import "../less/query-list.less";
-import React from "react";
+import {useContext, useEffect} from 'react';
+import appContext from '../stores/appContext';
+import useToggle from '../hooks/useToggle';
+import useLoading from '../hooks/useLoading';
+import Only from './common/OnlyWhen';
+import utils from '../helpers/utils';
+import {locationService, queryService} from '../services';
+import showCreateQueryDialog from './CreateQueryDialog';
+import '../less/query-list.less';
+import React from 'react';
 import more from '../icons/more.svg';
 import moreWhite from '../icons/more-white.svg';
-import { Notice } from "obsidian";
+import {Notice} from 'obsidian';
 
 interface Props {}
 
 const QueryList: React.FC<Props> = () => {
   const {
-    queryState: { queries },
+    queryState: {queries},
     locationState: {
-      query: { filter },
+      query: {filter},
     },
   } = useContext(appContext);
   const loadingState = useLoading();
@@ -67,14 +67,13 @@ interface QueryItemContainerProps {
 }
 
 const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemContainerProps) => {
-  const { query, isActive } = props;
+  const {query, isActive} = props;
   const [showActionBtns, toggleShowActionBtns] = useToggle(false);
   const [showConfirmDeleteBtn, toggleConfirmDeleteBtn] = useToggle(false);
 
   const handleQueryClick = () => {
-
     if (isActive) {
-      locationService.setMemoFilter("");
+      locationService.setMemoFilter('');
     } else {
       // if (!["/", "/recycle"].includes(locationService.getState().pathname)) {
       //   locationService.setPathname("/");
@@ -119,7 +118,7 @@ const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemC
         await queryService.unpinQuery(query.id);
         queryService.editQuery({
           ...query,
-          pinnedAt: "",
+          pinnedAt: '',
         });
       } else {
         await queryService.pinQuery(query.id);
@@ -139,7 +138,7 @@ const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemC
 
   return (
     <>
-      <div className={`query-item-container ${isActive ? "active" : ""}`} onClick={handleQueryClick}>
+      <div className={`query-item-container ${isActive ? 'active' : ''}`} onClick={handleQueryClick}>
         <div className="query-text-container">
           <span className="icon-text">#</span>
           <span className="query-text">{query.title}</span>
@@ -148,20 +147,21 @@ const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemC
           <span className="action-btn toggle-btn" onClick={handleShowActionBtnClick}>
             <img className="icon-img" src={isActive ? moreWhite : more} />
           </span>
-          <div className={`action-btns-wrapper ${showActionBtns ? "" : "hidden"}`} onMouseLeave={handleActionBtnContainerMouseLeave}>
+          <div
+            className={`action-btns-wrapper ${showActionBtns ? '' : 'hidden'}`}
+            onMouseLeave={handleActionBtnContainerMouseLeave}>
             <div className="action-btns-container">
               <span className="btn" onClick={handlePinQueryBtnClick}>
-                {query.pinnedAt ? "UNPIN" : "PIN"}
+                {query.pinnedAt ? 'UNPIN' : 'PIN'}
               </span>
               <span className="btn" onClick={handleEditQueryBtnClick}>
                 EDIT
               </span>
               <span
-                className={`btn delete-btn ${showConfirmDeleteBtn ? "final-confirm" : ""}`}
+                className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
                 onClick={handleDeleteMemoClick}
-                onMouseLeave={handleDeleteBtnMouseLeave}
-              >
-                {showConfirmDeleteBtn ? "CONFIRM！" : "DELETE"}
+                onMouseLeave={handleDeleteBtnMouseLeave}>
+                {showConfirmDeleteBtn ? 'CONFIRM！' : 'DELETE'}
               </span>
             </div>
           </div>

@@ -1,4 +1,4 @@
-type MemoFilterRalation = "AND" | "OR";
+type MemoFilterRalation = 'AND' | 'OR';
 
 interface BaseFilter {
   type: FilterType;
@@ -10,29 +10,29 @@ interface BaseFilter {
 }
 
 interface TagFilter extends BaseFilter {
-  type: "TAG";
+  type: 'TAG';
   value: {
-    operator: "CONTAIN" | "NOT_CONTAIN";
+    operator: 'CONTAIN' | 'NOT_CONTAIN';
     value: string;
   };
 }
 
 interface TypeFilter extends BaseFilter {
-  type: "TYPE";
+  type: 'TYPE';
   value: {
-    operator: "IS" | "IS_NOT";
+    operator: 'IS' | 'IS_NOT';
     value: MemoSpecType;
   };
 }
 
 interface TextFilter extends BaseFilter {
-  type: "TEXT";
+  type: 'TEXT';
   value: {
-    operator: "CONTAIN" | "NOT_CONTAIN";
+    operator: 'CONTAIN' | 'NOT_CONTAIN';
     value: string;
   };
 }
 
-type FilterType = "TEXT" | "TYPE" | "TAG";
+type FilterType = 'TEXT' | 'TYPE' | 'TAG';
 
 type Filter = BaseFilter | TagFilter | TypeFilter | TextFilter;

@@ -1,31 +1,33 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import appContext from "../stores/appContext";
-import useLoading from "../hooks/useLoading";
-import { globalStateService, locationService, memoService, queryService } from "../services";
-import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } from "../helpers/consts";
-import utils from "../helpers/utils";
-import { checkShouldShowMemoWithFilters } from "../helpers/filter";
-import Only from "../components/common/OnlyWhen";
-import DeletedMemo from "../components/DeletedMemo";
-import MemoFilter from "../components/MemoFilter";
-import "../less/memo-trash.less";
-import React from "react";
-import menuSvg from "../icons/menu.svg";
-import { Notice } from "obsidian";
+import {useCallback, useContext, useEffect, useState} from 'react';
+import appContext from '../stores/appContext';
+import useLoading from '../hooks/useLoading';
+import {globalStateService, locationService, memoService, queryService} from '../services';
+import {IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
+import utils from '../helpers/utils';
+import {checkShouldShowMemoWithFilters} from '../helpers/filter';
+import Only from '../components/common/OnlyWhen';
+import DeletedMemo from '../components/DeletedMemo';
+import MemoFilter from '../components/MemoFilter';
+import '../less/memo-trash.less';
+import React from 'react';
+import menuSvg from '../icons/menu.svg';
+import {Notice} from 'obsidian';
 
 interface Props {}
 
 const MemoTrash: React.FC<Props> = () => {
   const {
-    locationState: { query },
-    globalState: { isMobileView },
+    locationState: {query},
+    globalState: {isMobileView},
   } = useContext(appContext);
   const loadingState = useLoading();
   const [deletedMemos, setDeletedMemos] = useState<Model.Memo[]>([]);
 
-  const { tag: tagQuery, duration, type: memoType, text: textQuery, filter: queryId } = query;
+  const {tag: tagQuery, duration, type: memoType, text: textQuery, filter: queryId} = query;
   const queryFilter = queryService.getQueryById(queryId);
-  const showMemoFilter = Boolean(tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter);
+  const showMemoFilter = Boolean(
+    tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter,
+  );
 
   const shownMemos =
     showMemoFilter || queryFilter
@@ -42,23 +44,23 @@ const MemoTrash: React.FC<Props> = () => {
           if (tagQuery) {
             const tagsSet = new Set<string>();
             for (const t of Array.from(memo.content.match(TAG_REG) ?? [])) {
-              const tag = t.replace(TAG_REG, "$1").trim();
-              const items = tag.split("/");
-              let temp = "";
+              const tag = t.replace(TAG_REG, '$1').trim();
+              const items = tag.split('/');
+              let temp = '';
               for (const i of items) {
                 temp += i;
                 tagsSet.add(temp);
-                temp += "/";
+                temp += '/';
               }
             }
             for (const t of Array.from(memo.content.match(NOP_FIRST_TAG_REG) ?? [])) {
-              const tag = t.replace(NOP_FIRST_TAG_REG, "$1").trim();
-              const items = tag.split("/");
-              let temp = "";
+              const tag = t.replace(NOP_FIRST_TAG_REG, '$1').trim();
+              const items = tag.split('/');
+              let temp = '';
               for (const i of items) {
                 temp += i;
                 tagsSet.add(temp);
-                temp += "/";
+                temp += '/';
               }
             }
             if (!tagsSet.has(tagQuery)) {
@@ -68,18 +70,19 @@ const MemoTrash: React.FC<Props> = () => {
           if (
             duration &&
             duration.from < duration.to &&
-            (utils.getTimeStampByDate(memo.createdAt) < duration.from || utils.getTimeStampByDate(memo.createdAt) > duration.to)
+            (utils.getTimeStampByDate(memo.createdAt) < duration.from ||
+              utils.getTimeStampByDate(memo.createdAt) > duration.to)
           ) {
             shouldShow = false;
           }
           if (memoType) {
-            if (memoType === "NOT_TAGGED" && memo.content.match(TAG_REG) !== null) {
+            if (memoType === 'NOT_TAGGED' && memo.content.match(TAG_REG) !== null) {
               shouldShow = false;
-            } else if (memoType === "LINKED" && memo.content.match(LINK_REG) === null) {
+            } else if (memoType === 'LINKED' && memo.content.match(LINK_REG) === null) {
               shouldShow = false;
-            } else if (memoType === "IMAGED" && memo.content.match(IMAGE_URL_REG) === null) {
+            } else if (memoType === 'IMAGED' && memo.content.match(IMAGE_URL_REG) === null) {
               shouldShow = false;
-            } else if (memoType === "CONNECTED" && memo.content.match(MEMO_LINK_REG) === null) {
+            } else if (memoType === 'CONNECTED' && memo.content.match(MEMO_LINK_REG) === null) {
               shouldShow = false;
             }
           }
@@ -101,7 +104,7 @@ const MemoTrash: React.FC<Props> = () => {
         }
       })
       .catch((error) => {
-        new Notice("Failed to fetch deleted memos: ", error);
+        new Notice('Failed to fetch deleted memos: ', error);
       })
       .finally(() => {
         loadingState.setFinish();
@@ -141,7 +144,11 @@ const MemoTrash: React.FC<Props> = () => {
       ) : (
         <div className="deleted-memos-container">
           {shownMemos.map((memo) => (
-            <DeletedMemo key={`${memo.id}-${memo.updatedAt}`} memo={memo} handleDeletedMemoAction={handleDeletedMemoAction} />
+            <DeletedMemo
+              key={`${memo.id}-${memo.updatedAt}`}
+              memo={memo}
+              handleDeletedMemoAction={handleDeletedMemoAction}
+            />
           ))}
         </div>
       )}

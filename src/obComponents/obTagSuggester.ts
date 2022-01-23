@@ -3,22 +3,18 @@
 import memoService from '../services/memoService';
 
 export const usedTags = (seletecText: string) => {
-    
-    const { tags } = memoService.getState();
-    const lowerCaseInputStr = seletecText.toLowerCase();
-    const usedTags = [] as any;
+  const {tags} = memoService.getState();
+  const lowerCaseInputStr = seletecText.toLowerCase();
+  const usedTags = [] as any;
 
-    tags.forEach((tag: string) => {
-        if (
-            tag &&
-            tag.toLowerCase().contains(lowerCaseInputStr)
-        ) {
-            usedTags.push({
-                name: tag as string,
-                char: tag as string,
-            });
-        }
-    });
+  tags.forEach((tag: string) => {
+    if (tag && tag.toLowerCase().contains(lowerCaseInputStr)) {
+      usedTags.push({
+        name: tag as string,
+        char: tag as string,
+      });
+    }
+  });
 
-    return usedTags;
-}
+  return usedTags;
+};

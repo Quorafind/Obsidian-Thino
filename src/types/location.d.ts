@@ -6,12 +6,12 @@ interface TDuration {
 interface Query {
   tag: string;
   duration: TDuration | null;
-  type: MemoSpecType | "";
+  type: MemoSpecType | '';
   text: string;
   filter: string;
 }
 
-type AppRouter = "/" | "/signin" | "/recycle" | "/setting";
+type AppRouter = '/' | '/signin' | '/recycle' | '/setting';
 
 interface AppLocation {
   pathname: AppRouter;

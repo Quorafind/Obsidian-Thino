@@ -1,14 +1,11 @@
-@import "./mixin.less";
+@import './mixin.less';
 
-.theme-light div[data-type="memos_view"] .daily-memo-wrapper .memo-content-text {
+.theme-light div[data-type='memos_view'] .daily-memo-wrapper .memo-content-text {
   .flex(column, flex-start, flex-start);
   width: 400px;
   word-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
-
- 
-
 
   > p {
     display: inline-block;
@@ -82,9 +79,7 @@
   }
 }
 
-
-
-.theme-light [data-type="memos_view"] .memolist-wrapper .memo-content-text {
+.theme-light [data-type='memos_view'] .memolist-wrapper .memo-content-text {
   .flex(column, flex-start, flex-start);
   width: 100%;
   word-wrap: break-word;
@@ -158,15 +153,15 @@
 }
 
 @media only screen and (max-width: 875px) {
-  .theme-dark{
-    div[data-type="memos_view"] .memo-content-text {
+  .theme-dark {
+    div[data-type='memos_view'] .memo-content-text {
       > p {
         font-size: 15px;
         line-height: 26px;
         min-height: 26px;
         white-space: pre-wrap;
       }
-  
+
       .tag-span {
         line-height: 26px;
         font-size: 14px;
@@ -175,7 +170,7 @@
   }
 }
 
-.theme-dark div[data-type="memos_view"] .daily-memo-wrapper .memo-content-text {
+.theme-dark div[data-type='memos_view'] .daily-memo-wrapper .memo-content-text {
   .flex(column, flex-start, flex-start);
   width: 100%;
   word-wrap: break-word;
@@ -249,7 +244,7 @@
   }
 }
 
-.theme-dark div[data-type="memos_view"] .memolist-wrapper .memo-content-text {
+.theme-dark div[data-type='memos_view'] .memolist-wrapper .memo-content-text {
   .flex(column, flex-start, flex-start);
   width: 100%;
   word-wrap: break-word;
@@ -326,10 +321,9 @@
 
 @media only screen and (max-width: 875px) {
   .theme-dark {
-    div[data-type="memos_view"] .memolist-wrapper {
-     .memo-content-text{
-      color: @text-dark-black;
-
+    div[data-type='memos_view'] .memolist-wrapper {
+      .memo-content-text {
+        color: @text-dark-black;
 
         > p {
           font-size: 15px;
@@ -338,13 +332,12 @@
           white-space: pre-wrap;
           color: @text-dark-black;
         }
-    
+
         .tag-span {
           line-height: 26px;
           font-size: 14px;
         }
       }
-     }
+    }
   }
 }
-

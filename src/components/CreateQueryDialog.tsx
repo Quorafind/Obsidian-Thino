@@ -1,12 +1,12 @@
-import { memo, useCallback, useEffect, useState } from "react";
-import { memoService, queryService } from "../services";
-import { checkShouldShowMemoWithFilters, filterConsts, getDefaultFilter, relationConsts } from "../helpers/filter";
-import useLoading from "../hooks/useLoading";
-import { showDialog } from "./Dialog";
-import Selector from "./common/Selector";
-import "../less/create-query-dialog.less";
-import React from "react";
-import { Notice } from 'obsidian';
+import {memo, useCallback, useEffect, useState} from 'react';
+import {memoService, queryService} from '../services';
+import {checkShouldShowMemoWithFilters, filterConsts, getDefaultFilter, relationConsts} from '../helpers/filter';
+import useLoading from '../hooks/useLoading';
+import {showDialog} from './Dialog';
+import Selector from './common/Selector';
+import '../less/create-query-dialog.less';
+import React from 'react';
+import {Notice} from 'obsidian';
 import close from '../icons/close.svg';
 
 interface Props extends DialogProps {
@@ -14,9 +14,9 @@ interface Props extends DialogProps {
 }
 
 const CreateQueryDialog: React.FC<Props> = (props: Props) => {
-  const { destroy, queryId } = props;
+  const {destroy, queryId} = props;
 
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>('');
   const [filters, setFilters] = useState<Filter[]>([]);
   const requestState = useLoading(false);
 
@@ -25,7 +25,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
   }).length;
 
   useEffect(() => {
-    const queryTemp = queryService.getQueryById(queryId ?? "");
+    const queryTemp = queryService.getQueryById(queryId ?? '');
     if (queryTemp) {
       setTitle(queryTemp.title);
       const temp = JSON.parse(queryTemp.querystring);
@@ -42,10 +42,10 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
 
   const handleSaveBtnClick = async () => {
     if (!title) {
-      new Notice("TITLE CANNOT BE NULL！");
+      new Notice('TITLE CANNOT BE NULL！');
       return;
-    }else if(filters.length === 0){
-      new Notice("FILTER CANNOT BE NULL！");
+    } else if (filters.length === 0) {
+      new Notice('FILTER CANNOT BE NULL！');
       return;
     }
 
@@ -68,8 +68,8 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
   const handleAddFilterBenClick = () => {
     if (filters.length > 0) {
       const lastFilter = filters[filters.length - 1];
-      if (lastFilter.value.value === "") {
-        new Notice("先完善上一个过滤器吧");
+      if (lastFilter.value.value === '') {
+        new Notice('先完善上一个过滤器吧');
         return;
       }
     }
@@ -97,7 +97,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
       <div className="dialog-header-container">
         <p className="title-text">
           <span className="icon-text">🔖</span>
-          {queryId ? "EDIT QUERY" : "CREATE QUERY"}
+          {queryId ? 'EDIT QUERY' : 'CREATE QUERY'}
         </p>
         <button className="btn close-btn" onClick={destroy}>
           <img className="icon-img" src={close} />
@@ -131,10 +131,10 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
       <div className="dialog-footer-container">
         <div></div>
         <div className="btns-container">
-          <span className={`tip-text ${filters.length === 0 && "hidden"}`}>
+          <span className={`tip-text ${filters.length === 0 && 'hidden'}`}>
             MATCH Memo <strong>{shownMemoLength}</strong> TIMES
           </span>
-          <button className={`btn save-btn ${requestState.isLoading ? "requesting" : ""}`} onClick={handleSaveBtnClick}>
+          <button className={`btn save-btn ${requestState.isLoading ? 'requesting' : ''}`} onClick={handleSaveBtnClick}>
             SAVE
           </button>
         </div>
@@ -151,8 +151,8 @@ interface MemoFilterInputerProps {
 }
 
 const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInputerProps) => {
-  const { index, filter, handleFilterChange, handleFilterRemove } = props;
-  const { type } = filter;
+  const {index, filter, handleFilterChange, handleFilterRemove} = props;
+  const {type} = filter;
   const [inputElements, setInputElements] = useState<JSX.Element>(<></>);
 
   useEffect(() => {
@@ -170,18 +170,18 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
 
     let valueElement = <></>;
     switch (type) {
-      case "TYPE": {
+      case 'TYPE': {
         valueElement = (
           <Selector
             className="value-selector"
-            dataSource={filterConsts["TYPE"].values}
+            dataSource={filterConsts['TYPE'].values}
             value={filter.value.value}
             handleValueChanged={handleValueChange}
           />
         );
         break;
       }
-      case "TAG": {
+      case 'TAG': {
         valueElement = (
           <Selector
             className="value-selector"
@@ -189,7 +189,7 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
               .getState()
               .tags.sort()
               .map((t) => {
-                return { text: t, value: t };
+                return {text: t, value: t};
               })}
             value={filter.value.value}
             handleValueChanged={handleValueChange}
@@ -197,7 +197,7 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
         );
         break;
       }
-      case "TEXT": {
+      case 'TEXT': {
         valueElement = (
           <input
             type="text"
@@ -217,20 +217,20 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
       <>
         {operatorElement}
         {valueElement}
-      </>
+      </>,
     );
   }, [type, filter]);
 
   const handleRelationChange = useCallback(
     (value: string) => {
-      if (["AND", "OR"].includes(value)) {
+      if (['AND', 'OR'].includes(value)) {
         handleFilterChange(index, {
           ...filter,
           relation: value as MemoFilterRalation,
         });
       }
     },
-    [filter]
+    [filter],
   );
 
   const handleTypeChange = useCallback(
@@ -242,12 +242,12 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
           type: value as FilterType,
           value: {
             operator: ops[0].value,
-            value: "",
+            value: '',
           },
         });
       }
     },
-    [filter]
+    [filter],
   );
 
   const handleOperatorChange = useCallback(
@@ -260,7 +260,7 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
         },
       });
     },
-    [filter]
+    [filter],
   );
 
   const handleValueChange = useCallback(
@@ -273,7 +273,7 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
         },
       });
     },
-    [filter]
+    [filter],
   );
 
   const handleRemoveBtnClick = () => {
@@ -306,12 +306,11 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
 const MemoFilterInputer: React.FC<MemoFilterInputerProps> = memo(FilterInputer);
 
 export default function showCreateQueryDialog(queryId?: string): void {
-
   showDialog(
     {
-      className: "create-query-dialog",
+      className: 'create-query-dialog',
     },
     CreateQueryDialog,
-    { queryId }
+    {queryId},
   );
 }
