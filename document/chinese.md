@@ -23,7 +23,7 @@
 
 所有 Memos 都会附带时间戳，也允许以下格式的识别
 
-- `- 19:00 中午吃饭了` 
+- `- 19:00 中午吃饭了`
 - `- [ ] 19:00 中午去吃饭`
 
 ## 功能
@@ -81,7 +81,7 @@ Query 也就是检索，你可以设置多个同时存在或不同时存在的�
 
 ### 手动安装
 
-手动下载最新的安装包，然后将其中的三个文件解压到 (main.js, manifest.json, styles.css)  `{{obsidian_vault}}/.obsidian/plugins/Obsidian-Memos` 文件夹即可.
+手动下载最新的安装包，然后将其中的三个文件解压到 (main.js, manifest.json, styles.css) `{{obsidian_vault}}/.obsidian/plugins/Obsidian-Memos` 文件夹即可.
 
 # Say Thank You
 
