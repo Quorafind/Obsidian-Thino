@@ -4,9 +4,8 @@
 
 A new way for you to quick capture an idea in Obsidian. Which is highly based on the awesome open source project: [memos](https://github.com/justmemos/memos) and awesome service: [flomo](https://flomoapp.com/).
 
-![memo-light](./document/Memos-in-light.png)
-![memo-dark](./document/Memos-in-dark.png)
-![memo-mobile](./document/Memos-in-dark-mobile.png)
+![](https://raw.githubusercontent.com/Quorafind/Obsidian-Memos/main/document/Memos-Desktop.png)
+![](https://raw.githubusercontent.com/Quorafind/Obsidian-Memos/main/document/Memos-Mobile.png)
 
 ## Introduction
 

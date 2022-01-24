@@ -4,9 +4,8 @@
 
 用一个全新的方式来在 Obsidian 中记录日程，基于开源项目: [memos](https://github.com/justmemos/memos) 以及感谢: [flomo](https://flomoapp.com/)。
 
-![memo-light](./Memos-in-light.png)
-![memo-dark](./Memos-in-dark.png)
-![memo-mobile](./Memos-in-dark-mobile.png)
+![](https://raw.githubusercontent.com/Quorafind/Obsidian-Memos/main/document/Memos-Desktop.png)
+![](https://raw.githubusercontent.com/Quorafind/Obsidian-Memos/main/document/Memos-Mobile.png)
 
 ## 介绍
 
