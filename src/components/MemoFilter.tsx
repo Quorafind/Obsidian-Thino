@@ -29,7 +29,6 @@ const MemoFilter: React.FC<FilterProps> = () => {
     if (copyShownMemos.length > 0) {
       const memosByDate = getMemosByDate(copyShownMemos);
       const queryDailyMemos = transferMemosIntoText(memosByDate);
-      console.log(queryDailyMemos);
       await utils.copyTextToClipboard(queryDailyMemos);
     }
   };

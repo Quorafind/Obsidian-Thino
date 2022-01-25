@@ -8089,7 +8089,6 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
   -webkit-tap-highlight-color: transparent;
   font-family: 'DINPro', ui-sans-serif, -apple-system, 'system-ui', 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
-
 .theme-dark div[data-type='memos_view'] body,
 .theme-dark div[data-type='memos_view'] html {
   width: 100%;

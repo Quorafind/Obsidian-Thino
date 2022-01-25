@@ -1,18 +1,17 @@
 import {moment} from 'obsidian';
 import {getDailyNoteSettings} from 'obsidian-daily-notes-interface';
-import {ShowDate, ShowTime} from '../memos';
+import {AddBlankLineWhenDate, ShowDate, ShowTime} from '../memos';
 
 export const getMemosByDate = (memos: Model.Memo[]) => {
-  let dataArr = [] as any[];
+  const dataArr = [] as any[];
   memos.map((mapItem) => {
     if (dataArr.length == 0) {
       dataArr.push({date: moment(mapItem.createdAt, 'YYYY/MM/DD HH:mm:ss').format('YYYY-MM-DD'), have: [mapItem]});
     } else {
-      let res = dataArr.some((item) => {
+      const res = dataArr.some((item) => {
         //判断相同日期，有就添加到当前项
         if (item.date == moment(mapItem.createdAt, 'YYYY/MM/DD HH:mm:ss').format('YYYY-MM-DD')) {
           item.have.push(mapItem);
-          console.log(item);
           return true;
         }
       });
@@ -109,6 +108,9 @@ export const transferMemosIntoText = (dailyMemos: Array<any>): string => {
           }
         }
       }
+    }
+    if (ShowDate && AddBlankLineWhenDate) {
+      outputText = outputText + '\n';
     }
   });
 

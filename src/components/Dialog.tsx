@@ -27,7 +27,6 @@ const BaseDialog: React.FC<Props> = (props: Props) => {
 
   const handleEscClicked = (e: any) => {
     const {key} = e; 
-    console.log("yes");
     if (key === 'Escape') {
       destroy();
     }
