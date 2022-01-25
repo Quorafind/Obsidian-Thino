@@ -225,7 +225,9 @@ const MemoEditor: React.FC<Props> = () => {
       handleShowEditor(false);
       editorRef.current?.focus();
     } else {
-      handleShowEditor(false);
+      if(!isEditor){
+        handleShowEditor(false);
+      }
       editorRef.current?.focus();
     }
   }, []);
@@ -707,9 +709,9 @@ const MemoEditor: React.FC<Props> = () => {
       if (url) {
         editorRef.current?.insertText(url);
       }
+      document.body.removeChild(inputEl);
     };
     inputEl.click();
-    // document.body.removeChild(inputEl);
   }, []);
 
   const showEditStatus = Boolean(globalState.editMemoId);

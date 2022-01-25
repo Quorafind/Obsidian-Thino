@@ -7,6 +7,9 @@ import '../less/memo-filter.less';
 import React from 'react';
 import i18next from 'i18next';
 import {moment} from 'obsidian';
+import copy from '../icons/copy.svg';
+import {copyShownMemos} from './MemoList';
+import {getMemosByDate, transferMemosIntoText} from '../obComponents/obCopyMemos';
 
 interface FilterProps {}
 
@@ -22,46 +25,65 @@ const MemoFilter: React.FC<FilterProps> = () => {
     tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter,
   );
 
+  const handleCopyClick = async () => {
+    if (copyShownMemos.length > 0) {
+      const memosByDate = getMemosByDate(copyShownMemos);
+      const queryDailyMemos = transferMemosIntoText(memosByDate);
+      console.log(queryDailyMemos);
+      await utils.copyTextToClipboard(queryDailyMemos);
+    }
+  };
+
   return (
     <div className={`filter-query-container ${showFilter ? '' : 'hidden'}`}>
-      <span className="tip-text">FILTER: </span>
-      <div
-        className={'filter-item-container ' + (queryFilter ? '' : 'hidden')}
-        onClick={() => {
-          locationService.setMemoFilter('');
-        }}>
-        <span className="icon-text">🔖</span> {queryFilter?.title}
-      </div>
-      <div
-        className={'filter-item-container ' + (tagQuery ? '' : 'hidden')}
-        onClick={() => {
-          locationService.setTagQuery('');
-        }}>
-        <span className="icon-text">🏷️</span> {tagQuery}
-      </div>
-      <div
-        className={'filter-item-container ' + (memoType ? '' : 'hidden')}
-        onClick={() => {
-          locationService.setMemoTypeQuery('');
-        }}>
-        <span className="icon-text">📦</span> {getTextWithMemoType(memoType as MemoSpecType)}
-      </div>
-      {duration && duration.from < duration.to ? (
+      <div className="filter-query">
+        <span className="tip-text">FILTER: </span>
         <div
-          className="filter-item-container"
+          className={'filter-item-container ' + (queryFilter ? '' : 'hidden')}
           onClick={() => {
-            locationService.setFromAndToQuery(0, 0);
-          }}>
-          <span className="icon-text">🗓️</span> {utils.getDateString(duration.from)} {i18next.t('to')}{' '}
-          {moment(duration.to, 'x').add(1, 'days').format('YYYY/MM/DD')}
+            locationService.setMemoFilter('');
+          }}
+        >
+          <span className="icon-text">🔖</span> {queryFilter?.title}
         </div>
-      ) : null}
-      <div
-        className={'filter-item-container ' + (textQuery ? '' : 'hidden')}
-        onClick={() => {
-          locationService.setTextQuery('');
-        }}>
-        <span className="icon-text">🔍</span> {textQuery}
+        <div
+          className={'filter-item-container ' + (tagQuery ? '' : 'hidden')}
+          onClick={() => {
+            locationService.setTagQuery('');
+          }}
+        >
+          <span className="icon-text">🏷️</span> {tagQuery}
+        </div>
+        <div
+          className={'filter-item-container ' + (memoType ? '' : 'hidden')}
+          onClick={() => {
+            locationService.setMemoTypeQuery('');
+          }}
+        >
+          <span className="icon-text">📦</span> {getTextWithMemoType(memoType as MemoSpecType)}
+        </div>
+        {duration && duration.from < duration.to ? (
+          <div
+            className="filter-item-container"
+            onClick={() => {
+              locationService.setFromAndToQuery(0, 0);
+            }}
+          >
+            <span className="icon-text">🗓️</span> {utils.getDateString(duration.from)} {i18next.t('to')}{' '}
+            {moment(duration.to, 'x').add(1, 'days').format('YYYY/MM/DD')}
+          </div>
+        ) : null}
+        <div
+          className={'filter-item-container ' + (textQuery ? '' : 'hidden')}
+          onClick={() => {
+            locationService.setTextQuery('');
+          }}
+        >
+          <span className="icon-text">🔍</span> {textQuery}
+        </div>
+      </div>
+      <div className="copy-memo">
+        <img className="icon-img" src={copy} onClick={handleCopyClick} />
       </div>
     </div>
   );

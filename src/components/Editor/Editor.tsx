@@ -13,7 +13,7 @@ import {FocusOnEditor, SaveMemoButtonLabel} from '../../memos';
 import {getSuggestions} from '../../obComponents/obFileSuggester';
 import {TFile} from 'obsidian';
 import appStore from '../../stores/appStore';
-import { auto } from '@popperjs/core';
+import {auto} from '@popperjs/core';
 
 type ItemProps = {
   entity: {
@@ -180,7 +180,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
       }
       let behindCharNum = editorRef.current.selectionStart;
       for (let i = 0; i < prevValue.length; i++) {
-        if (prevValue[behindCharNum] !== ' ') {
+        if (!/\s/g.test(prevValue[behindCharNum])) {
           behindCharNum++;
         }
       }
@@ -210,7 +210,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
       }
       let behindCharNum = editorRef.current.selectionStart;
       for (let i = 0; i < prevValue.length; i++) {
-        if (prevValue[behindCharNum] !== ' ') {
+        if (!/\s/g.test(prevValue[behindCharNum])) {
           behindCharNum++;
         }
       }
@@ -358,7 +358,8 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
             <button
               className="action-btn confirm-btn"
               disabled={!editorRef.current?.value}
-              onClick={handleCommonConfirmBtnClick}>
+              onClick={handleCommonConfirmBtnClick}
+            >
               {SaveMemoButtonLabel}
               <span className="icon-text">✍️</span>
             </button>

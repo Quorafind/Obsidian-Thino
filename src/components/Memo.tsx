@@ -189,6 +189,10 @@ const Memo: React.FC<Props> = (props: Props) => {
     showMemoInDailyNotes(memo.id);
   };
 
+  // const handleCreateNewNoteClick = () => {
+  //   turnIntoNote(memo.id);
+  // };
+
   const handleDeleteMemoClick = async () => {
     if (showConfirmDeleteBtn) {
       try {

@@ -88,16 +88,27 @@ export class Memos extends ItemView {
         }
         const leaf = leaves[0];
         const side = leaf.getRoot().side;
-        const sidebar = leaf.view.containerEl.querySelector('.memos-sidebar-wrapper') as HTMLElement;
-        const page = leaf.view.containerEl.querySelector('.content-wrapper') as HTMLElement;
+		let sidebar: HTMLElement;
+		let page: HTMLElement;
+		if(leaf.view.containerEl.querySelector('.memos-sidebar-wrapper')){
+			sidebar = leaf.view.containerEl.querySelector('.memos-sidebar-wrapper') as HTMLElement;
+		}else{
+			sidebar = leaf.view.containerEl.querySelector('.memos-sidebar-wrapper-display') as HTMLElement;
+		}
+		if(leaf.view.containerEl.querySelector('.content-wrapper')){
+			page = leaf.view.containerEl.querySelector('.content-wrapper') as HTMLElement;
+		}else{
+			page = leaf.view.containerEl.querySelector('.content-wrapper-padding-fix') as HTMLElement;
+		}
+        // const page = leaf.view.containerEl.querySelector('.content-wrapper') as HTMLElement;
         if (side !== undefined && (side === 'left' || side === 'right')) {
           if (!sidebar?.className.contains('memos-sidebar-wrapper-display') && page !== undefined) {
-            sidebar.addClass('memos-sidebar-wrapper-display');
+            sidebar.className = 'memos-sidebar-wrapper-display';
             page.className = 'content-wrapper-padding-fix';
           }
         } else {
           if (sidebar?.classList.contains('memos-sidebar-wrapper-display') && page !== undefined) {
-            sidebar.removeClass('memos-sidebar-wrapper-display');
+            sidebar.className = 'memos-sidebar-wrapper';
             page.className = 'content-wrapper';
           }
         }
@@ -129,6 +140,8 @@ export class Memos extends ItemView {
     ShareFooterEnd = this.plugin.settings.ShareFooterEnd;
     OpenMemosAutomatically = this.plugin.settings.OpenMemosAutomatically;
     // EditorMaxHeight = this.plugin.settings.EditorMaxHeight;
+	ShowTime = this.plugin.settings.ShowTime;
+	ShowDate = this.plugin.settings.ShowDate;
 
     this.memosComponent = React.createElement(App);
 
@@ -156,3 +169,5 @@ export let ShareFooterStart: string;
 export let ShareFooterEnd: string;
 export let OpenMemosAutomatically: boolean;
 // export let EditorMaxHeight: string;
+export let ShowTime: boolean;
+export let ShowDate: boolean;
