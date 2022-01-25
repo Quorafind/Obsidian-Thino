@@ -179,11 +179,18 @@ export async function insertTextAfterPositionInBody(
   } else {
     const pre = splitContent.slice(0, pos + 1).join('\n');
     const post = splitContent.slice(pos + 1).join('\n');
+    if (/[\s\S]*?/g.test(post)) {
+      return {
+        content: `${pre}\n${text}`,
+        posNum: pos,
+      };
+    } else {
+      return {
+        content: `${pre}${text}\n${post}`,
+        posNum: pos,
+      };
+    }
     // return `${pre}${text}\n${post}`;
-    return {
-      content: `${pre}${text}\n${post}`,
-      posNum: pos,
-    };
   }
 }
 

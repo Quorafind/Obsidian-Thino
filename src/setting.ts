@@ -19,13 +19,14 @@ export interface MemosSettings {
   OpenDailyMemosWithMemos: boolean;
   HideDoneTasks: boolean;
   OpenMemosAutomatically: boolean;
+  // EditorMaxHeight: string;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
   StartDate: 'Sunday',
   InsertAfter: '# Journal',
   UserName: 'MEMO 😉',
-  ProcessEntriesBelow: '# Journal',
+  ProcessEntriesBelow: '',
   Language: 'en',
   SaveMemoButtonLabel: 'NOTEIT',
   ShareFooterStart: '{MemosNum} Memos {UsedDay} Day',
@@ -38,6 +39,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   OpenDailyMemosWithMemos: true,
   HideDoneTasks: false,
   OpenMemosAutomatically: false,
+  // EditorMaxHeight: '250',
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -188,6 +190,19 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     this.containerEl.createEl('h1', {text: 'Advanced Options'});
+
+    // new Setting(containerEl)
+    //   .setName('Set The Max-Height for Editor')
+    //   .setDesc("Set the max height for editor in Memos. '250' By default")
+    //   .addText((text) =>
+    //     text
+    //       .setPlaceholder(DEFAULT_SETTINGS.EditorMaxHeight)
+    //       .setValue(this.plugin.settings.EditorMaxHeight)
+    //       .onChange(async (value) => {
+    //         this.plugin.settings.EditorMaxHeight = value;
+    //         this.applySettingsUpdate();
+    //       }),
+    //   );
 
     let dropdown: DropdownComponent;
 

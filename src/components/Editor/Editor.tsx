@@ -13,6 +13,7 @@ import {FocusOnEditor, SaveMemoButtonLabel} from '../../memos';
 import {getSuggestions} from '../../obComponents/obFileSuggester';
 import {TFile} from 'obsidian';
 import appStore from '../../stores/appStore';
+import { auto } from '@popperjs/core';
 
 type ItemProps = {
   entity: {
