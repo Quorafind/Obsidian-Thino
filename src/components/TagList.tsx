@@ -72,7 +72,7 @@ const TagList: React.FC<Props> = () => {
 
   return (
     <div className="tags-wrapper">
-      <p className="title-text">USUALLY USED TAGS</p>
+      <p className="title-text">Frequently Used Tags</p>
       <div className="tags-container">
         {tags.map((t, idx) => (
           <TagItemContainer key={t.text + '-' + idx} tag={t} tagQuery={tagQuery} />

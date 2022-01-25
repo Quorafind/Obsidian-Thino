@@ -53,7 +53,7 @@ const SearchBar: React.FC<Props> = () => {
       </div>
       <div className="quickly-action-wrapper">
         <div className="quickly-action-container">
-          <p className="title-text">QUICKLY FILTER</p>
+          <p className="title-text">Quick filter</p>
           <div className="section-container types-container">
             <span className="section-text">TYPE:</span>
             <div className="values-container">
