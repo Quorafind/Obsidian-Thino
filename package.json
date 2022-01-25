@@ -1,6 +1,6 @@
 {
   "name": "obsidian-memos",
-  "version": "1.7.3",
+  "version": "1.7.8",
   "description": "A Quick Capture Plugin For Obsidian Daily Notes",
   "author": "boninall",
   "main": "main.js",
@@ -49,6 +49,7 @@
     "obsidian-dataview": "^0.4.21",
     "prettier": "2.5.1",
     "react-day-picker": "^8.0.0-beta.36",
+    "react-tabs": "^3.2.3",
     "typescript": "^4.2.3",
     "vite": "^2.3.8",
     "vite-plugin-react-svg": "^0.2.0"

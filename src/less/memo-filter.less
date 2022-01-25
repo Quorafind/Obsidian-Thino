@@ -1,7 +1,7 @@
 @import './mixin.less';
 
 .theme-light div[data-type='memos_view'] .filter-query-container {
-  .flex(row, flex-start, flex-start);
+  .flex(row, space-between, center);
   width: 100%;
   flex-wrap: wrap;
   padding: 12px 12px;
@@ -9,30 +9,51 @@
   font-size: 13px;
   line-height: 1.8;
 
-  > .tip-text {
-    padding: 2px 0;
-    margin-left: -6px;
-    margin-right: 3px;
+  > .filter-query {
+    .flex(row, flex-start, flex-start);
+
+    > .tip-text {
+      padding: 2px 0;
+      margin-left: -6px;
+      margin-right: 3px;
+    }
+  
+    > .filter-item-container {
+      padding: 2px 8px;
+      padding-left: 4px;
+      margin-right: 6px;
+      cursor: pointer;
+      background-color: @bg-gray;
+      border-radius: 4px;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  
+      > .icon-text {
+        letter-spacing: 2px;
+      }
+  
+      &:hover {
+        text-decoration: line-through;
+      }
+    }
   }
 
-  > .filter-item-container {
-    padding: 2px 8px;
-    padding-left: 4px;
-    margin-right: 6px;
-    cursor: pointer;
-    background-color: @bg-gray;
-    border-radius: 4px;
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  > .copy-memo {
+    // background: 2px #7e7e7e;
+    padding-right: 6px;
 
-    > .icon-text {
-      letter-spacing: 2px;
+    > .icon-img {
+      width: 20px;
+      height: auto;
+      // opacity: 0.8;
+      // filter: invert(1);
     }
 
     &:hover {
-      text-decoration: line-through;
+      opacity: 0.8;
+      filter:contrast(1) brightness(1) invert(0.5);
     }
   }
 }
@@ -44,7 +65,7 @@
 }
 
 .theme-dark div[data-type='memos_view'] .filter-query-container {
-  .flex(row, flex-start, flex-start);
+  .flex(row, space-between, center);
   width: 100%;
   flex-wrap: wrap;
   padding: 12px 12px;
@@ -52,31 +73,52 @@
   font-size: 13px;
   line-height: 1.8;
 
-  > .tip-text {
-    padding: 2px 0;
-    margin-left: -6px;
-    margin-right: 3px;
-    color: @text-dark-black;
+  > .filter-query{
+    .flex(row, flex-start, flex-start);
+
+    > .tip-text {
+      padding: 2px 0;
+      margin-left: -6px;
+      margin-right: 3px;
+      color: @text-dark-black;
+    }
+  
+    > .filter-item-container {
+      padding: 2px 8px;
+      padding-left: 4px;
+      margin-right: 6px;
+      cursor: pointer;
+      background-color: @bg-dark-black;
+      border-radius: 4px;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  
+      > .icon-text {
+        letter-spacing: 2px;
+      }
+  
+      &:hover {
+        text-decoration: line-through;
+      }
+    }
   }
 
-  > .filter-item-container {
-    padding: 2px 8px;
-    padding-left: 4px;
-    margin-right: 6px;
-    cursor: pointer;
-    background-color: @bg-dark-black;
-    border-radius: 4px;
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  > .copy-memo {
+    // background: 2px #7e7e7e;
+    padding-right: 6px;
 
-    > .icon-text {
-      letter-spacing: 2px;
+    > .icon-img {
+      width: 20px;
+      height: auto;
+      opacity: 0.8;
+      filter: invert(1);
     }
 
     &:hover {
-      text-decoration: line-through;
+      opacity: 0.8;
+      filter:contrast(1) brightness(1) invert(0.9);
     }
   }
 }

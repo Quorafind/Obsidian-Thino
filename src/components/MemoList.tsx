@@ -1,7 +1,7 @@
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import appContext from '../stores/appContext';
 import {locationService, memoService, queryService} from '../services';
-import {IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
+import {FIRST_TAG_REG, IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
 import utils from '../helpers/utils';
 import {checkShouldShowMemoWithFilters} from '../helpers/filter';
 import Memo from './Memo';
@@ -16,6 +16,8 @@ import {moment} from 'obsidian';
 // import { DefaultEditorLocation } from '../memos';
 
 interface Props {}
+
+export let copyShownMemos: Model.Memo[];
 
 const MemoList: React.FC<Props> = () => {
   const {
@@ -75,6 +77,16 @@ const MemoList: React.FC<Props> = () => {
                 temp += '/';
               }
             }
+            for (const t of Array.from(memo.content.match(FIRST_TAG_REG) ?? [])) {
+              const tag = t.replace(FIRST_TAG_REG, '$2').trim();
+              const items = tag.split('/');
+              let temp = '';
+              for (const i of items) {
+                temp += i;
+                tagsSet.add(temp);
+                temp += '/';
+              }
+            }
             if (!tagsSet.has(tagQuery)) {
               shouldShow = false;
             }
@@ -108,6 +120,8 @@ const MemoList: React.FC<Props> = () => {
           return shouldShow;
         })
       : memos;
+
+  copyShownMemos = shownMemos;
 
   useEffect(() => {
     memoService
@@ -159,7 +173,8 @@ const MemoList: React.FC<Props> = () => {
     <div
       className={`memolist-wrapper ${isFetching ? '' : 'completed'}`}
       onClick={handleMemoListClick}
-      ref={wrapperElement}>
+      ref={wrapperElement}
+    >
       {shownMemos.map((memo) => (
         <Memo key={`${memo.id}-${memo.updatedAt}`} memo={memo} />
       ))}

@@ -1,5 +1,5 @@
 import api from '../helpers/api';
-import {NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
+import {FIRST_TAG_REG, NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
 import utils from '../helpers/utils';
 import appStore from '../stores/appStore';
 import {waitForInsert} from '../obComponents/obCreateMemo';
@@ -108,6 +108,9 @@ class MemoService {
       }
       for (const t of Array.from(m.content.match(NOP_FIRST_TAG_REG) ?? [])) {
         tagsSet.add(t.replace(NOP_FIRST_TAG_REG, '$1').trim());
+      }
+      for (const t of Array.from(m.content.match(FIRST_TAG_REG) ?? [])) {
+        tagsSet.add(t.replace(FIRST_TAG_REG, '$2').trim());
       }
     }
 

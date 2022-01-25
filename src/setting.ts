@@ -19,13 +19,16 @@ export interface MemosSettings {
   OpenDailyMemosWithMemos: boolean;
   HideDoneTasks: boolean;
   OpenMemosAutomatically: boolean;
+  // EditorMaxHeight: string;
+  ShowTime: boolean;
+  ShowDate: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
   StartDate: 'Sunday',
   InsertAfter: '# Journal',
   UserName: 'MEMO 😉',
-  ProcessEntriesBelow: '# Journal',
+  ProcessEntriesBelow: '',
   Language: 'en',
   SaveMemoButtonLabel: 'NOTEIT',
   ShareFooterStart: '{MemosNum} Memos {UsedDay} Day',
@@ -38,6 +41,9 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   OpenDailyMemosWithMemos: true,
   HideDoneTasks: false,
   OpenMemosAutomatically: false,
+  // EditorMaxHeight: '250',
+  ShowTime: true,
+  ShowDate: true,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -157,37 +163,30 @@ export class MemosSettingTab extends PluginSettingTab {
         }),
       );
 
-    this.containerEl.createEl('h1', {text: 'Share Options'});
-
     new Setting(containerEl)
-      .setName('Share Memos Image Footer Start')
-      .setDesc(
-        "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default",
-      )
-      .addText((text) =>
-        text
-          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterStart)
-          .setValue(this.plugin.settings.ShareFooterStart)
-          .onChange(async (value) => {
-            this.plugin.settings.ShareFooterStart = value;
-            this.applySettingsUpdate();
-          }),
-      );
-
-    new Setting(containerEl)
-      .setName('Share Memos Image Footer End')
-      .setDesc("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default")
-      .addText((text) =>
-        text
-          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterEnd)
-          .setValue(this.plugin.settings.ShareFooterEnd)
-          .onChange(async (value) => {
-            this.plugin.settings.ShareFooterEnd = value;
-            this.applySettingsUpdate();
-          }),
+      .setName('Hide done tasks in Memo list')
+      .setDesc('Hide all done tasks in Memo list. Show done tasks by default.')
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.HideDoneTasks).onChange(async (value) => {
+          this.plugin.settings.HideDoneTasks = value;
+          this.applySettingsUpdate();
+        }),
       );
 
     this.containerEl.createEl('h1', {text: 'Advanced Options'});
+
+    // new Setting(containerEl)
+    //   .setName('Set The Max-Height for Editor')
+    //   .setDesc("Set the max height for editor in Memos. '250' By default")
+    //   .addText((text) =>
+    //     text
+    //       .setPlaceholder(DEFAULT_SETTINGS.EditorMaxHeight)
+    //       .setValue(this.plugin.settings.EditorMaxHeight)
+    //       .onChange(async (value) => {
+    //         this.plugin.settings.EditorMaxHeight = value;
+    //         this.applySettingsUpdate();
+    //       }),
+    //   );
 
     let dropdown: DropdownComponent;
 
@@ -254,13 +253,53 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Hide done tasks in Memo list')
-      .setDesc('Hide all done tasks in Memo list. Show done tasks by default.')
+      .setName('Show Time When Copy Results')
+      .setDesc('Show time when you copy results, like 12:00. Copy time by default.')
       .addToggle((toggle) =>
-        toggle.setValue(this.plugin.settings.HideDoneTasks).onChange(async (value) => {
-          this.plugin.settings.HideDoneTasks = value;
+        toggle.setValue(this.plugin.settings.ShowTime).onChange(async (value) => {
+          this.plugin.settings.ShowTime = value;
           this.applySettingsUpdate();
         }),
+      );
+
+    new Setting(containerEl)
+      .setName('Show Date When Copy Results')
+      .setDesc('Show date when you copy results, like [[2022-01-01]]. Copy date by default.')
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.ShowDate).onChange(async (value) => {
+          this.plugin.settings.ShowDate = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    this.containerEl.createEl('h1', {text: 'Share Options'});
+
+    new Setting(containerEl)
+      .setName('Share Memos Image Footer Start')
+      .setDesc(
+        "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default",
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterStart)
+          .setValue(this.plugin.settings.ShareFooterStart)
+          .onChange(async (value) => {
+            this.plugin.settings.ShareFooterStart = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName('Share Memos Image Footer End')
+      .setDesc("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default")
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.ShareFooterEnd)
+          .setValue(this.plugin.settings.ShareFooterEnd)
+          .onChange(async (value) => {
+            this.plugin.settings.ShareFooterEnd = value;
+            this.applySettingsUpdate();
+          }),
       );
 
     this.containerEl.createEl('h1', {text: 'Say Thank You'});

@@ -4,7 +4,7 @@ import Provider from '../labs/Provider';
 import appStore from '../stores/appStore';
 import {ANIMATION_DURATION} from '../helpers/consts';
 import '../less/dialog.less';
-import React from 'react';
+import React, {KeyboardEvent, useRef} from 'react';
 
 interface DialogConfig {
   className: string;
@@ -25,8 +25,16 @@ const BaseDialog: React.FC<Props> = (props: Props) => {
     }
   };
 
+  const handleEscClicked = (e: any) => {
+    const {key} = e; 
+    console.log("yes");
+    if (key === 'Escape') {
+      destroy();
+    }
+  };
+
   return (
-    <div className={`dialog-wrapper ${className}`} onClick={handleSpaceClicked}>
+    <div className={`dialog-wrapper ${className}`} onClick={handleSpaceClicked} onKeyPress={handleEscClicked}>
       <div className="dialog-container" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>

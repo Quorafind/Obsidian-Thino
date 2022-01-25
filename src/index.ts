@@ -92,6 +92,27 @@ export default class MemosPlugin extends Plugin {
       hotkeys: [],
     });
 
+    this.addCommand({
+      id: 'note-it',
+      name: 'Note It',
+      callback: () => this.noteIt(),
+      hotkeys: [],
+    });
+
+    this.addCommand({
+      id: 'focus-on-search-bar',
+      name: 'Search It',
+      callback: () => this.searchIt(),
+      hotkeys: [],
+    });
+
+    this.addCommand({
+      id: 'change-status',
+      name: 'Change Status Between Task Or List',
+      callback: () => this.changeStatus(),
+      hotkeys: [],
+    });
+
     this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
     console.log(i18next.t('welcome'));
     console.log('obsidian-memos loaded');
@@ -111,10 +132,15 @@ export default class MemosPlugin extends Plugin {
   }
 
   async onLayoutReady(): Promise<void> {
-    if (this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE)?.length) {
+    const leaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+    if (leaves.length > 0) {
+      if (this.settings.FocusOnEditor) {
+        const leaf = leaves[0];
+        leaf.view.containerEl.querySelector('textarea').focus();
+      }
       return;
     }
-    if (this.settings.OpenMemosAutomatically !== true) {
+    if (!this.settings.OpenMemosAutomatically) {
       return;
     }
     this.openMemos();
@@ -143,7 +169,21 @@ export default class MemosPlugin extends Plugin {
     await leaf.setViewState({type: MEMOS_VIEW_TYPE});
     workspace.revealLeaf(leaf);
     if (FocusOnEditor !== false) {
-      leaf.view.containerEl.querySelector('textarea').focus();
+      if (leaf.view.containerEl.querySelector('textarea') !== undefined) {
+        leaf.view.containerEl.querySelector('textarea').focus();
+      }
+    }
+  }
+
+  searchIt() {
+    const workspace = this.app.workspace;
+    const leaves = workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+    if (leaves.length > 0) {
+      const leaf = leaves[0];
+      workspace.setActiveLeaf(leaf);
+      leaf.view.containerEl.querySelector('.search-bar-inputer .text-input').focus();
+    } else {
+      this.openMemos();
     }
   }
 
@@ -154,6 +194,30 @@ export default class MemosPlugin extends Plugin {
       const leaf = leaves[0];
       workspace.setActiveLeaf(leaf);
       leaf.view.containerEl.querySelector('textarea').focus();
+    } else {
+      this.openMemos();
+    }
+  }
+
+  noteIt() {
+    const workspace = this.app.workspace;
+    const leaves = workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+    if (leaves.length > 0) {
+      const leaf = leaves[0];
+      workspace.setActiveLeaf(leaf);
+      leaf.view.containerEl.querySelector('.memo-editor .confirm-btn').click();
+    } else {
+      this.openMemos();
+    }
+  }
+
+  changeStatus() {
+    const workspace = this.app.workspace;
+    const leaves = workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+    if (leaves.length > 0) {
+      const leaf = leaves[0];
+      workspace.setActiveLeaf(leaf);
+      leaf.view.containerEl.querySelector('.list-or-task').click();
     } else {
       this.openMemos();
     }

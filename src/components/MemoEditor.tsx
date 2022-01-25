@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 import appContext from '../stores/appContext';
-import {globalStateService, locationService, memoService, resourceService} from '../services';
+import {dailyNotesService, globalStateService, locationService, memoService, resourceService} from '../services';
 import utils from '../helpers/utils';
 import {storage} from '../helpers/storage';
 import Editor, {EditorRefActions} from './Editor/Editor';
@@ -22,6 +22,7 @@ import useToggle from '../hooks/useToggle';
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
 import {Notice, Platform} from 'obsidian';
+import {MEMOS_VIEW_TYPE} from '../constants';
 
 const getCursorPostion = (input: HTMLTextAreaElement) => {
   const {
@@ -68,7 +69,7 @@ interface Props {}
 
 let isList: boolean;
 let isEditor = false as boolean;
-let isEditorGo = true as boolean;
+let isEditorGo = false as boolean;
 let positionX: number;
 
 const MemoEditor: React.FC<Props> = () => {
@@ -79,6 +80,7 @@ const MemoEditor: React.FC<Props> = () => {
   const prevGlobalStateRef = useRef(globalState);
   const [selected, setSelected] = useState<Date>();
   const [isPopperOpen, setIsPopperOpen] = useState(false);
+  const {app} = dailyNotesService.getState();
 
   const popperRef = useRef<HTMLDivElement>(null);
   const [popperElement, setPopperElement] = useState(null);
@@ -105,8 +107,8 @@ const MemoEditor: React.FC<Props> = () => {
       return;
     }
 
-    if (Platform.isMobile !== true || window.innerWidth > 875) {
-      handleShowEditor();
+    if ((Platform.isMobile === true || window.innerWidth < 875) && UseButtonToShowEditor) {
+      toggleEditor(true);
     }
     editorRef.current?.focus();
   }, []);
@@ -122,8 +124,20 @@ const MemoEditor: React.FC<Props> = () => {
       Platform.isMobile === true &&
       window.innerWidth < 875
     ) {
+      const leaves = app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+      let memosHeight;
+      let leafView;
+      if (leaves.length > 0) {
+        const leaf = leaves[0];
+        leafView = leaf.view.containerEl;
+        memosHeight = leafView.offsetHeight;
+      } else {
+        leafView = document;
+        memosHeight = window.innerHeight;
+      }
+
       const divThis = document.createElement('img');
-      const memoEditorDiv = document.querySelector(
+      const memoEditorDiv = leafView.querySelector(
         "div[data-type='memos_view'] .view-content .memo-editor-wrapper",
       ) as HTMLElement;
       divThis.src = `${showEditorSvg}`;
@@ -132,7 +146,7 @@ const MemoEditor: React.FC<Props> = () => {
       } else {
         divThis.className = 'memo-show-editor-button';
       }
-      const buttonTop = window.innerHeight - 200;
+      const buttonTop = memosHeight - 200;
       const buttonLeft = window.innerWidth / 2 - 25;
       divThis.style.top = buttonTop + 'px';
       divThis.style.left = buttonLeft + 'px';
@@ -153,20 +167,18 @@ const MemoEditor: React.FC<Props> = () => {
 
         setTimeout(() => {
           divThis.className = 'memo-show-editor-button hidden';
-          handleShowEditor(true);
+          handleShowEditor();
           editorRef.current?.focus();
           scaleElementAni.reverse();
           // rotateElementAni.pause();
         }, 300);
       };
-      document.querySelector("div[data-type='memos_view'] .view-content .content-wrapper").prepend(divThis);
+      leafView.querySelector('.content-wrapper').prepend(divThis);
 
-      const memolistScroll = document.querySelector(
-        "div[data-type='memos_view'] .view-content .memolist-wrapper",
-      ) as HTMLElement;
+      const memolistScroll = leafView.querySelector('.memolist-wrapper') as HTMLElement;
       memolistScroll.onscroll = function () {
-        if (isEditor && isEditorGo) {
-          isEditorGo = false;
+        if (isEditor && !isEditorGo) {
+          isEditorGo = true;
           let scaleEditorElementAni = memoEditorDiv.animate(
             [
               // keyframes
@@ -195,7 +207,7 @@ const MemoEditor: React.FC<Props> = () => {
             );
           }, 300);
           setTimeout(() => {
-            handleShowEditor(false);
+            handleShowEditor(true);
             divThis.className = 'memo-show-editor-button';
           }, 300);
           setTimeout(() => {
@@ -210,10 +222,12 @@ const MemoEditor: React.FC<Props> = () => {
       Platform.isMobile === true &&
       window.innerWidth < 875
     ) {
-      handleShowEditor(true);
+      handleShowEditor(false);
       editorRef.current?.focus();
     } else {
-      handleShowEditor(true);
+      if(!isEditor){
+        handleShowEditor(false);
+      }
       editorRef.current?.focus();
     }
   }, []);
@@ -252,7 +266,7 @@ const MemoEditor: React.FC<Props> = () => {
           },
         ],
       });
-    } else if (window.innerWidth - positionX < seletorPopupWidth) {
+    } else if (window.innerWidth - positionX < seletorPopupWidth && window.innerWidth > seletorPopupWidth * 1.5) {
       popper = usePopper(popperRef.current, popperElement, {
         placement: 'left-end',
         modifiers: [
@@ -604,12 +618,12 @@ const MemoEditor: React.FC<Props> = () => {
       return;
     }
 
-    if (!isEditor || flag === true) {
-      isEditor = true;
+    if (isEditor || flag === true) {
+      isEditor = false;
       toggleEditor(true);
     } else {
-      isEditor = false;
-      isEditorGo = true;
+      isEditor = true;
+      isEditorGo = false;
       toggleEditor(false);
     }
   };
@@ -634,6 +648,7 @@ const MemoEditor: React.FC<Props> = () => {
 
     editorRef.current.element.value = nextValue;
     editorRef.current.element.setSelectionRange(cursorIndex, cursorIndex);
+
     editorRef.current.focus();
     handleContentChange(editorRef.current.element.value);
   }, []);
@@ -667,6 +682,8 @@ const MemoEditor: React.FC<Props> = () => {
         top = y + 20;
       } else if (DefaultEditorLocation === 'Bottom' && window.innerWidth <= 875) {
         top = y + 35;
+      } else if (DefaultEditorLocation === 'Top' && window.innerWidth <= 875) {
+        top = y + 20;
       }
     }
 
@@ -715,7 +732,7 @@ const MemoEditor: React.FC<Props> = () => {
   );
 
   return (
-    <div className={`memo-editor-wrapper ${showEditStatus ? 'edit-ing' : ''} ${isEditorShown ? '' : 'hidden'}`}>
+    <div className={`memo-editor-wrapper ${showEditStatus ? 'edit-ing' : ''} ${isEditorShown ? 'hidden' : ''}`}>
       <p className={`tip-text ${showEditStatus ? '' : 'hidden'}`}>Modifying...</p>
       <Editor
         ref={editorRef}
@@ -742,13 +759,15 @@ const MemoEditor: React.FC<Props> = () => {
               allowOutsideClick: true,
               clickOutsideDeactivates: true,
               onDeactivate: closePopper,
-            }}>
+            }}
+          >
             <div
               tabIndex={-1}
               style={popper.styles.popper}
               {...popper.attributes.popper}
               ref={setPopperElement}
-              role="dialog">
+              role="dialog"
+            >
               <DayPicker
                 initialFocus={isPopperOpen}
                 mode="single"

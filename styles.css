@@ -447,6 +447,16 @@
   text-decoration: none;
   background: #af487b;
 }
+@media only screen and (max-width: 875px) {
+  .theme-light .rta__textarea {
+    max-height: 140px;
+    overflow-y: scroll;
+  }
+  .theme-dark .rta__textarea {
+    max-height: 140px;
+    overflow-y: scroll;
+  }
+}
 .mono-font-family {
   font-family: 'ubuntu-mono', SFMono-Regular, Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace;
 }
@@ -1611,8 +1621,8 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
 .theme-light div[data-type='memos_view'] .filter-query-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   flex-wrap: wrap;
   padding: 12px 12px;
@@ -1620,12 +1630,18 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   font-size: 13px;
   line-height: 1.8;
 }
-.theme-light div[data-type='memos_view'] .filter-query-container > .tip-text {
+.theme-light div[data-type='memos_view'] .filter-query-container > .filter-query {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.theme-light div[data-type='memos_view'] .filter-query-container > .filter-query > .tip-text {
   padding: 2px 0;
   margin-left: -6px;
   margin-right: 3px;
 }
-.theme-light div[data-type='memos_view'] .filter-query-container > .filter-item-container {
+.theme-light div[data-type='memos_view'] .filter-query-container > .filter-query > .filter-item-container {
   padding: 2px 8px;
   padding-left: 4px;
   margin-right: 6px;
@@ -1637,11 +1653,22 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.theme-light div[data-type='memos_view'] .filter-query-container > .filter-item-container > .icon-text {
+.theme-light div[data-type='memos_view'] .filter-query-container > .filter-query > .filter-item-container > .icon-text {
   letter-spacing: 2px;
 }
-.theme-light div[data-type='memos_view'] .filter-query-container > .filter-item-container:hover {
+.theme-light div[data-type='memos_view'] .filter-query-container > .filter-query > .filter-item-container:hover {
   text-decoration: line-through;
+}
+.theme-light div[data-type='memos_view'] .filter-query-container > .copy-memo {
+  padding-right: 6px;
+}
+.theme-light div[data-type='memos_view'] .filter-query-container > .copy-memo > .icon-img {
+  width: 20px;
+  height: auto;
+}
+.theme-light div[data-type='memos_view'] .filter-query-container > .copy-memo:hover {
+  opacity: 0.8;
+  filter: contrast(1) brightness(1) invert(0.5);
 }
 @media only screen and (max-width: 875px) {
   .theme-light div[data-type='memos_view'] .filter-query-container {
@@ -1651,8 +1678,8 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
 .theme-dark div[data-type='memos_view'] .filter-query-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   flex-wrap: wrap;
   padding: 12px 12px;
@@ -1660,13 +1687,19 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   font-size: 13px;
   line-height: 1.8;
 }
-.theme-dark div[data-type='memos_view'] .filter-query-container > .tip-text {
+.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-query {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-query > .tip-text {
   padding: 2px 0;
   margin-left: -6px;
   margin-right: 3px;
   color: #d2d1cd;
 }
-.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-item-container {
+.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-query > .filter-item-container {
   padding: 2px 8px;
   padding-left: 4px;
   margin-right: 6px;
@@ -1678,11 +1711,24 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-item-container > .icon-text {
+.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-query > .filter-item-container > .icon-text {
   letter-spacing: 2px;
 }
-.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-item-container:hover {
+.theme-dark div[data-type='memos_view'] .filter-query-container > .filter-query > .filter-item-container:hover {
   text-decoration: line-through;
+}
+.theme-dark div[data-type='memos_view'] .filter-query-container > .copy-memo {
+  padding-right: 6px;
+}
+.theme-dark div[data-type='memos_view'] .filter-query-container > .copy-memo > .icon-img {
+  width: 20px;
+  height: auto;
+  opacity: 0.8;
+  filter: invert(1);
+}
+.theme-dark div[data-type='memos_view'] .filter-query-container > .copy-memo:hover {
+  opacity: 0.8;
+  filter: contrast(1) brightness(1) invert(0.9);
 }
 @media only screen and (max-width: 875px) {
   .theme-dark div[data-type='memos_view'] .filter-query-container {
@@ -3038,7 +3084,7 @@ div[data-type='memos_view'] .image-container > img {
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  font-size: 12px;
+  font-size: 8px;
   line-height: 20px;
   color: #a1a1a1;
 }
@@ -4791,7 +4837,7 @@ div[data-type='memos_view'] .preference-wrapper > .sections-wrapper > .section-c
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  padding: 8px 16px;
+  padding: 8px 4px;
   font-size: 14px;
   line-height: 1.6;
   border-radius: 4px;
@@ -4835,7 +4881,7 @@ div[data-type='memos_view'] .preference-wrapper > .sections-wrapper > .section-c
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  padding: 8px 16px;
+  padding: 8px 4px;
   font-size: 14px;
   line-height: 1.6;
   border-radius: 4px;
@@ -7693,6 +7739,15 @@ div[data-type='memos_view'] .preference-wrapper > .sections-wrapper > .section-c
 }
 .memos-sidebar-wrapper-display {
   display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 240px;
+  height: 100%;
+  padding: 16px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-shrink: 0;
 }
 @media only screen and (max-width: 875px) {
   body.mobile-show-sidebar #page-wrapper > .memos-sidebar-wrapper {

@@ -77,7 +77,7 @@ const PreviewImageDialog: React.FC<Props> = ({destroy, imgUrl, filepath}: Props)
         <img className="icon-img" src={close} />
       </button>
 
-      <div className="img-container internal-embed image-embed is-loaded">
+      <div className="img-container internal-embed image-embed is-loaded" >
         <img className={imgWidth <= 0 ? 'hidden' : ''} ref={imgRef} width={imgWidth + '%'} src={imgUrl} />
         <span className={'loading-text ' + (imgWidth === -1 ? '' : 'hidden')}>图片加载中...</span>
         <span className={'loading-text ' + (imgWidth === 0 ? '' : 'hidden')}>😟 图片加载失败，可能是无效的链接</span>
@@ -119,4 +119,20 @@ export default function showPreviewImageDialog(imgUrl: string, filepath?: string
       {imgUrl},
     );
   }
+
+  // setTimeout(() => {
+  //   document.querySelector(".preview-image-dialog").addEventListener("keypress", closeWindowByEsc);
+  // }, 0);
 }
+
+// function closeWindow() {
+//   document.querySelector(".preview-image-dialog .close-btn").click();
+// }
+
+// function closeWindowByEsc(e) {
+//   if (!e) e = window.event;
+//   var keyCode = e.keyCode || e.which;
+//   if (keyCode == '27') {
+//     closeWindow();
+//   }
+// }
