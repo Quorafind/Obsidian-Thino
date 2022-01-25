@@ -692,6 +692,7 @@ const MemoEditor: React.FC<Props> = () => {
       if (url) {
         editorRef.current?.insertText(url);
       }
+      document.body.removeChild(inputEl);
     };
     inputEl.click();
   }, []);
