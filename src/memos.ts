@@ -142,6 +142,7 @@ export class Memos extends ItemView {
     // EditorMaxHeight = this.plugin.settings.EditorMaxHeight;
     ShowTime = this.plugin.settings.ShowTime;
     ShowDate = this.plugin.settings.ShowDate;
+	AddBlankLineWhenDate = this.plugin.settings.AddBlankLineWhenDate;
 
     this.memosComponent = React.createElement(App);
 
@@ -171,3 +172,4 @@ export let OpenMemosAutomatically: boolean;
 // export let EditorMaxHeight: string;
 export let ShowTime: boolean;
 export let ShowDate: boolean;
+export let AddBlankLineWhenDate: boolean;

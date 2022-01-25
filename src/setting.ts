@@ -22,6 +22,7 @@ export interface MemosSettings {
   // EditorMaxHeight: string;
   ShowTime: boolean;
   ShowDate: boolean;
+  AddBlankLineWhenDate: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -44,6 +45,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   // EditorMaxHeight: '250',
   ShowTime: true,
   ShowDate: true,
+  AddBlankLineWhenDate: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -268,6 +270,16 @@ export class MemosSettingTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.ShowDate).onChange(async (value) => {
           this.plugin.settings.ShowDate = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName('Add Blank Line Between Different Date')
+      .setDesc('Add blank line when copy result with date. No blank line by default.')
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.AddBlankLineWhenDate).onChange(async (value) => {
+          this.plugin.settings.AddBlankLineWhenDate = value;
           this.applySettingsUpdate();
         }),
       );
