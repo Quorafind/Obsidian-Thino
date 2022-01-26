@@ -1,6 +1,8 @@
+import {moment} from 'obsidian';
+
 namespace utils {
   export function getNowTimeStamp(): number {
-    return Date.now();
+    return parseInt(moment().format('x'));
   }
 
   export function getOSVersion(): 'Windows' | 'MacOS' | 'Linux' | 'Unknown' {

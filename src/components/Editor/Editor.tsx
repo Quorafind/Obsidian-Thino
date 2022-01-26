@@ -172,6 +172,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
 
     if (event.currentTrigger === '#') {
       const prevValue = editorRef.current.value;
+      console.log(actualToken);
       let removeCharNum;
       if (actualToken !== null && actualToken !== undefined) {
         removeCharNum = actualToken.length;

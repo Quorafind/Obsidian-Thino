@@ -22,7 +22,7 @@ const UserBanner: React.FC<Props> = () => {
   if (memos.length) {
     memosLength = memos.length - 1;
     createdDays = memos
-      ? Math.ceil((Date.now() - utils.getTimeStampByDate(memos[memosLength].createdAt)) / 1000 / 3600 / 24)
+      ? Math.ceil((Date.now() - utils.getTimeStampByDate(memos[memosLength].createdAt)) / 1000 / 3600 / 24) + 1
       : 0;
   }
   // const firstMemo = memos[] as Model.Memo;

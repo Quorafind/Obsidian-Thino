@@ -1,6 +1,6 @@
 {
   "name": "obsidian-memos",
-  "version": "1.7.9",
+  "version": "1.7.10",
   "description": "A Quick Capture Plugin For Obsidian Daily Notes",
   "author": "boninall",
   "main": "main.js",
