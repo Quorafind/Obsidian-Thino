@@ -5776,7 +5776,7 @@ div[data-type='memos_view'] .preference-wrapper > .sections-wrapper > .section-c
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
 .theme-light div[data-type='memos_view'] .user-banner-container > .status-text-container > .status-text > .amount-text {
   font-weight: bold;
@@ -5879,7 +5879,7 @@ div[data-type='memos_view'] .preference-wrapper > .sections-wrapper > .section-c
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
 .theme-dark div[data-type='memos_view'] .user-banner-container > .status-text-container > .status-text > .amount-text {
   font-weight: bold;
