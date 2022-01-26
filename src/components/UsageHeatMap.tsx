@@ -17,10 +17,11 @@ const getInitialUsageStat = (usedDaysAmount: number, beginDayTimestamp: number):
   const initialUsageStat: DailyUsageStat[] = [];
   for (let i = 1; i <= usedDaysAmount; i++) {
     initialUsageStat.push({
-      timestamp: beginDayTimestamp + DAILY_TIMESTAMP * i,
+      timestamp: parseInt(moment(beginDayTimestamp).add(i, 'days').format('x')),
       count: 0,
     });
   }
+  console.log(initialUsageStat);
   return initialUsageStat;
 };
 
@@ -32,7 +33,7 @@ interface DailyUsageStat {
 interface Props {}
 
 const UsageHeatMap: React.FC<Props> = () => {
-  const todayTimeStamp = utils.getDateStampByDate(Date.now());
+  const todayTimeStamp = utils.getDateStampByDate(moment().format('YYYY-MM-DD HH:mm:ss'));
   const todayDay = new Date(todayTimeStamp).getDay() || 7;
   const nullCell = new Array(7 - todayDay).fill(0);
   const usedDaysAmount = (tableConfig.width - 1) * tableConfig.height + todayDay;
@@ -100,6 +101,15 @@ const UsageHeatMap: React.FC<Props> = () => {
             .format('YYYY-MM-DD HH:mm:ss'),
         ),
       );
+      console.log(item.timestamp);
+      console.log(
+        utils.getTimeStampByDate(
+          moment(item.timestamp + DAILY_TIMESTAMP)
+            .subtract(1, 'days')
+            .endOf('day')
+            .format('YYYY-MM-DD HH:mm:ss'),
+        ),
+      );
       setCurrentStat(item);
     }
   }, []);
@@ -144,7 +154,8 @@ const UsageHeatMap: React.FC<Props> = () => {
               key={i}
               onMouseEnter={(e) => handleUsageStatItemMouseEnter(e, v)}
               onMouseLeave={handleUsageStatItemMouseLeave}
-              onClick={() => handleUsageStatItemClick(v)}></span>
+              onClick={() => handleUsageStatItemClick(v)}
+            ></span>
           );
         })}
         {nullCell.map((v, i) => (
