@@ -21,7 +21,6 @@ const getInitialUsageStat = (usedDaysAmount: number, beginDayTimestamp: number):
       count: 0,
     });
   }
-  console.log(initialUsageStat);
   return initialUsageStat;
 };
 
@@ -94,15 +93,6 @@ const UsageHeatMap: React.FC<Props> = () => {
       }
       locationService.setFromAndToQuery(
         item.timestamp,
-        utils.getTimeStampByDate(
-          moment(item.timestamp + DAILY_TIMESTAMP)
-            .subtract(1, 'days')
-            .endOf('day')
-            .format('YYYY-MM-DD HH:mm:ss'),
-        ),
-      );
-      console.log(item.timestamp);
-      console.log(
         utils.getTimeStampByDate(
           moment(item.timestamp + DAILY_TIMESTAMP)
             .subtract(1, 'days')
