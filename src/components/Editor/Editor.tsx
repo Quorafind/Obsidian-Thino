@@ -57,6 +57,7 @@ const Loading = ({data}: LoadingProps) => {
 };
 
 export let editorInput: HTMLTextAreaElement;
+let actualToken: string;
 
 // eslint-disable-next-line react/display-name
 const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRefActions>) => {
@@ -78,7 +79,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   const refresh = useRefresh();
   // const [value, setValue] = useState("")
 
-  let actualToken: string;
+  
 
   useEffect(() => {
     if (!editorRef.current) {
