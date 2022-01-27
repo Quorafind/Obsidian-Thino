@@ -8,6 +8,7 @@ import '../less/create-query-dialog.less';
 import React from 'react';
 import {Notice} from 'obsidian';
 import close from '../icons/close.svg';
+import { t } from '../translations/helper';
 
 interface Props extends DialogProps {
   queryId?: string;
@@ -97,7 +98,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
       <div className="dialog-header-container">
         <p className="title-text">
           <span className="icon-text">🔖</span>
-          {queryId ? 'EDIT QUERY' : 'CREATE QUERY'}
+          {queryId ? t('EDIT QUERY') : t('CREATE QUERY')}
         </p>
         <button className="btn close-btn" onClick={destroy}>
           <img className="icon-img" src={close} />
@@ -105,11 +106,11 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
       </div>
       <div className="dialog-content-container">
         <div className="form-item-container input-form-container">
-          <span className="normal-text">TITLE</span>
+          <span className="normal-text">{t('TITLE')}</span>
           <input className="title-input" type="text" value={title} onChange={handleTitleInputChange} />
         </div>
         <div className="form-item-container filter-form-container">
-          <span className="normal-text">FILTER</span>
+          <span className="normal-text">{t('FILTER')}</span>
           <div className="filters-wrapper">
             {filters.map((f, index) => {
               return (
@@ -123,7 +124,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
               );
             })}
             <div className="create-filter-btn" onClick={handleAddFilterBenClick}>
-              ADD FILTER TERMS
+              {t('ADD FILTER TERMS')}
             </div>
           </div>
         </div>
@@ -132,7 +133,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
         <div></div>
         <div className="btns-container">
           <span className={`tip-text ${filters.length === 0 && 'hidden'}`}>
-            MATCH Memo <strong>{shownMemoLength}</strong> TIMES
+            {t('MATCH')} Memo <strong>{shownMemoLength}</strong> {t('TIMES')}
           </span>
           <button className={`btn save-btn ${requestState.isLoading ? 'requesting' : ''}`} onClick={handleSaveBtnClick}>
             SAVE

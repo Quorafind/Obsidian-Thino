@@ -12,6 +12,7 @@ import '../less/memo-trash.less';
 import React from 'react';
 import menuSvg from '../icons/menu.svg';
 import {Notice} from 'obsidian';
+import { t } from '../translations/helper';
 
 interface Props {}
 
@@ -129,17 +130,17 @@ const MemoTrash: React.FC<Props> = () => {
               <img className="icon-img" src={menuSvg} alt="menu" />
             </button>
           </Only>
-          <span className="normal-text">Recycle bin</span>
+          <span className="normal-text">{t('Recycle bin')}</span>
         </div>
       </div>
       <MemoFilter />
       {loadingState.isLoading ? (
         <div className="tip-text-container">
-          <p className="tip-text">Fetching data...</p>
+          <p className="tip-text">{t('Fetching data...')}</p>
         </div>
       ) : deletedMemos.length === 0 ? (
         <div className="tip-text-container">
-          <p className="tip-text">Here is No Zettels.</p>
+          <p className="tip-text">{t('Here is No Zettels.')}</p>
         </div>
       ) : (
         <div className="deleted-memos-container">

@@ -13,7 +13,7 @@ import {FocusOnEditor, SaveMemoButtonLabel} from '../../memos';
 import {getSuggestions} from '../../obComponents/obFileSuggester';
 import {TFile} from 'obsidian';
 import appStore from '../../stores/appStore';
-import {auto} from '@popperjs/core';
+import { t } from '../../translations/helper';
 
 type ItemProps = {
   entity: {
@@ -354,7 +354,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
         <div className="btns-container">
           <Only when={showCancelBtn}>
             <button className="action-btn cancel-btn" onClick={handleCommonCancelBtnClick}>
-              CANCEL EDIT
+              {t('CANCEL EDIT')}
             </button>
           </Only>
           <Only when={showConfirmBtn}>

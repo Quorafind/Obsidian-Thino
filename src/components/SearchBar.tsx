@@ -5,6 +5,7 @@ import {memoSpecialTypes} from '../helpers/filter';
 import '../less/search-bar.less';
 import React from 'react';
 import search from '../icons/search.svg';
+import { t } from '../translations/helper';
 // import useToggle from "../hooks/useToggle";
 
 interface Props {}
@@ -53,9 +54,9 @@ const SearchBar: React.FC<Props> = () => {
       </div>
       <div className="quickly-action-wrapper">
         <div className="quickly-action-container">
-          <p className="title-text">Quick filter</p>
+          <p className="title-text">{t('Quick filter')}</p>
           <div className="section-container types-container">
-            <span className="section-text">TYPE:</span>
+            <span className="section-text">{t('TYPE')}:</span>
             <div className="values-container">
               {memoSpecialTypes.map((t, idx) => {
                 return (

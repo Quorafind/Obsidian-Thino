@@ -1,3 +1,4 @@
+import {t} from '../translations/helper';
 import {IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG} from './consts';
 
 export const relationConsts = [
@@ -8,61 +9,61 @@ export const relationConsts = [
 export const filterConsts = {
   TAG: {
     value: 'TAG',
-    text: 'TAG',
+    text: t('TAG'),
     operators: [
       {
-        text: 'INCLUDE',
+        text: t('INCLUDE'),
         value: 'CONTAIN',
       },
       {
-        text: 'EXCLUDE',
+        text: t('EXCLUDE'),
         value: 'NOT_CONTAIN',
       },
     ],
   },
   TYPE: {
     value: 'TYPE',
-    text: 'TYPE',
+    text: t('TYPE'),
     operators: [
       {
         value: 'IS',
-        text: 'IS',
+        text: t('IS'),
       },
       {
         value: 'IS_NOT',
-        text: 'ISNOT',
+        text: t('ISNOT'),
       },
     ],
     values: [
       {
         value: 'CONNECTED',
-        text: 'LINKED',
+        text: t('LINKED'),
       },
       {
         value: 'NOT_TAGGED',
-        text: 'NO TAGS',
+        text: t('NO TAGS'),
       },
       {
         value: 'LINKED',
-        text: 'HAS LINKS',
+        text: t('HAS LINKS'),
       },
       {
         value: 'IMAGED',
-        text: 'HAS IMAGES',
+        text: t('HAS IMAGES'),
       },
     ],
   },
   TEXT: {
     value: 'TEXT',
-    text: 'TEXT',
+    text: t('TEXT'),
     operators: [
       {
         value: 'CONTAIN',
-        text: 'INCLUDE',
+        text: t('INCLUDE'),
       },
       {
         value: 'NOT_CONTAIN',
-        text: 'EXCLUDE',
+        text: t('EXCLUDE'),
       },
     ],
   },

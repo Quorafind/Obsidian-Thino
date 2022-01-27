@@ -10,6 +10,7 @@ import React from 'react';
 import {Notice, TFile, Vault} from 'obsidian';
 import appStore from '../stores/appStore';
 import more from '../icons/more.svg';
+import { t } from '../translations/helper';
 
 interface Props {
   memo: Model.Memo;
@@ -173,7 +174,7 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
   return (
     <div className={`memo-wrapper ${'memos-' + memo.id}`} onMouseLeave={handleMouseLeaveMemoWrapper}>
       <div className="memo-top-wrapper">
-        <span className="time-text">DELETE AT {memo.deletedAtStr}</span>
+        <span className="time-text">{t('DELETE AT')} {memo.deletedAtStr}</span>
         <div className="btns-container">
           <span className="btn more-action-btn">
             <img className="icon-img" src={more} />
@@ -181,12 +182,12 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
           <div className="more-action-btns-wrapper">
             <div className="more-action-btns-container">
               <span className="btn restore-btn" onClick={handleRestoreMemoClick}>
-                RESTORE
+                {t('RESTORE')}
               </span>
               <span
                 className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
                 onClick={handleDeleteMemoClick}>
-                {showConfirmDeleteBtn ? 'CONFIRM！' : 'DELETE'}
+                {showConfirmDeleteBtn ? t('CONFIRM！') : t('DELETE')}
               </span>
             </div>
           </div>

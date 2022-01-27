@@ -6,6 +6,7 @@ import React from 'react';
 import appStore from '../stores/appStore';
 import close from '../icons/close.svg';
 import {Notice} from 'obsidian';
+import {t} from '../translations/helper';
 
 interface Props extends DialogProps {
   imgUrl: string;
@@ -77,10 +78,12 @@ const PreviewImageDialog: React.FC<Props> = ({destroy, imgUrl, filepath}: Props)
         <img className="icon-img" src={close} />
       </button>
 
-      <div className="img-container internal-embed image-embed is-loaded" >
+      <div className="img-container internal-embed image-embed is-loaded">
         <img className={imgWidth <= 0 ? 'hidden' : ''} ref={imgRef} width={imgWidth + '%'} src={imgUrl} />
-        <span className={'loading-text ' + (imgWidth === -1 ? '' : 'hidden')}>图片加载中...</span>
-        <span className={'loading-text ' + (imgWidth === 0 ? '' : 'hidden')}>😟 图片加载失败，可能是无效的链接</span>
+        <span className={'loading-text ' + (imgWidth === -1 ? '' : 'hidden')}>{t('Image is loading...')}</span>
+        <span className={'loading-text ' + (imgWidth === 0 ? '' : 'hidden')}>
+          {t('😟 Cannot load image, image link maybe broken')}
+        </span>
       </div>
 
       <div className="action-btns-container">

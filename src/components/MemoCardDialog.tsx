@@ -19,6 +19,7 @@ import {Notice, TFile, Vault} from 'obsidian';
 import appStore from '../stores/appStore';
 import close from '../icons/close.svg';
 import edit from '../icons/edit.svg';
+import { t } from '../translations/helper';
 
 interface LinkedMemo extends FormattedMemo {
   dateStr: string;
@@ -289,7 +290,7 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
       </div>
       {linkMemos.length > 0 ? (
         <div className="linked-memos-wrapper">
-          <p className="normal-text">LINKED {linkMemos.length} MEMO </p>
+          <p className="normal-text">{t('LINKED')} {linkMemos.length} MEMO </p>
           {linkMemos.map((m) => {
             const rawtext = parseHtmlToRawText(formatMemoContent(m.content)).replaceAll('\n', ' ');
             return (
@@ -303,7 +304,7 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
       ) : null}
       {linkedMemos.length > 0 ? (
         <div className="linked-memos-wrapper">
-          <p className="normal-text">{linkedMemos.length} MEMO LINK TO THE MEMO</p>
+          <p className="normal-text">{linkedMemos.length} MEMO {t('LINK TO THE')} MEMO</p>
           {linkedMemos.map((m) => {
             const rawtext = parseHtmlToRawText(formatMemoContent(m.content)).replaceAll('\n', ' ');
             return (

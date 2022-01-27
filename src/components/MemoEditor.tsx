@@ -23,6 +23,7 @@ import useToggle from '../hooks/useToggle';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
 import {Notice, Platform} from 'obsidian';
 import {MEMOS_VIEW_TYPE} from '../constants';
+import { t } from '../translations/helper';
 
 const getCursorPostion = (input: HTMLTextAreaElement) => {
   const {
@@ -399,7 +400,7 @@ const MemoEditor: React.FC<Props> = () => {
   useEffect(() => {
     if (globalState.markMemoId) {
       const editorCurrentValue = editorRef.current?.getContent();
-      const memoLinkText = `${editorCurrentValue ? '\n' : ''}Mark: [@MEMO](${globalState.markMemoId})`;
+      const memoLinkText = `${editorCurrentValue ? '\n' : ''}${t('MARK')}: [@MEMO](${globalState.markMemoId})`;
       editorRef.current?.insertText(memoLinkText);
       globalStateService.setMarkMemoId('');
     }
@@ -726,7 +727,7 @@ const MemoEditor: React.FC<Props> = () => {
     () => ({
       className: 'memo-editor',
       initialContent: getEditorContentCache(),
-      placeholder: 'What do you think now...',
+      placeholder: t('What do you think now...'),
       showConfirmBtn: true,
       showCancelBtn: showEditStatus,
       showTools: true,

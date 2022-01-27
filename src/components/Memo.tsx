@@ -25,6 +25,7 @@ import appStore from '../stores/appStore';
 import {showMemoInDailyNotes} from '../obComponents/obShowMemo';
 import more from '../icons/more.svg';
 import {UseButtonToShowEditor, DefaultEditorLocation} from '../memos';
+import { t } from '../translations/helper';
 
 interface Props {
   memo: Model.Memo;
@@ -266,24 +267,24 @@ const Memo: React.FC<Props> = (props: Props) => {
           <div className="more-action-btns-wrapper">
             <div className="more-action-btns-container">
               <span className="btn" onClick={handleShowMemoStoryDialog}>
-                READ
+                {t('READ')}
               </span>
               <span className="btn" onClick={handleMarkMemoClick}>
-                MARK
+                {t('MARK')}
               </span>
               <span className="btn" onClick={handleGenMemoImageBtnClick}>
-                SHARE
+                {t('SHARE')}
               </span>
               <span className="btn" onClick={handleEditMemoClick}>
-                EDIT
+                {t('EDIT')}
               </span>
               <span className="btn" onClick={handleSourceMemoClick}>
-                SOURCE
+                {t('SOURCE')}
               </span>
               <span
                 className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
                 onClick={handleDeleteMemoClick}>
-                {showConfirmDeleteBtn ? 'CONFIRM！' : 'DELETE'}
+                {showConfirmDeleteBtn ? t('CONFIRM！') : t('DELETE')}
               </span>
             </div>
           </div>

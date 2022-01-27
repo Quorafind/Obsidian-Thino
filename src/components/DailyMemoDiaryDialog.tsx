@@ -20,6 +20,7 @@ import { AutoSaveWhenOnMobile } from '../memos';
 import { Platform, TFile, moment } from 'obsidian';
 import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
+import { t } from '../translations/helper';
 
 interface Props extends DialogProps {
   currentDateStamp: DateStamp;
@@ -120,7 +121,7 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
     <>
       <div className="dialog-header-container">
         <div className="header-wrapper">
-          <p className="title-text">Daily Memos</p>
+          <p className="title-text">{t('Daily Memos')}</p>
           <div className="btns-container">
             <span className="btn-text" onClick={() => setCurrentDateStamp(currentDateStamp - DAILY_TIMESTAMP)}>
               <img className="icon-img" src={arrowLeft} />
@@ -153,11 +154,11 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
         />
         {loadingState.isLoading ? (
           <div className="tip-container">
-            <p className="tip-text">努力加载中...</p>
+            <p className="tip-text">{t('Loading...')}</p>
           </div>
         ) : memos.length === 0 ? (
           <div className="tip-container">
-            <p className="tip-text">Noooop!</p>
+            <p className="tip-text">{t('Noooop!')}</p>
           </div>
         ) : (
           <div className="dailymemos-wrapper">
