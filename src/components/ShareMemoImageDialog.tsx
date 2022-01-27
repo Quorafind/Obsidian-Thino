@@ -14,11 +14,13 @@ import {formatMemoContent} from './Memo';
 import Only from './common/OnlyWhen';
 import '../less/share-memo-image-dialog.less';
 import React from 'react';
-import {Notice, TFile, Vault} from 'obsidian';
+import {Notice, TFile, Vault, moment, Platform} from 'obsidian';
 import appStore from '../stores/appStore';
-import {ShareFooterEnd, UserName, ShareFooterStart} from '../memos';
+import {ShareFooterEnd, UserName, ShareFooterStart, AutoSaveWhenOnMobile} from '../memos';
 import close from '../icons/close.svg';
 import share from '../icons/share.svg';
+import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
+import {t} from '../translations/helper';
 
 interface Props extends DialogProps {
   memo: Model.Memo;
@@ -204,10 +206,32 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     return new Blob([ab], {type: type});
   };
 
-  const handleCopytoClipboardBtnClick = () => {
+  const handleCopytoClipboardBtnClick = async () => {
+    const {vault} = appStore.getState().dailyNotesState.app;
     const divs = document.querySelector('.memo-shortcut-img') as HTMLElement;
     const myBase64 = divs.getAttribute('src').split('base64,')[1];
     const blobInput = convertBase64ToBlob(myBase64, 'image/png');
+    if (AutoSaveWhenOnMobile && Platform.isMobile) {
+      blobInput.arrayBuffer().then(async (buffer) => {
+        let aFile;
+        let newFile;
+        const ext = 'png';
+        const dailyNotes = getAllDailyNotes();
+        for (const string in dailyNotes) {
+          if (dailyNotes[string] instanceof TFile) {
+            aFile = dailyNotes[string];
+            break;
+          }
+        }
+        if (aFile !== undefined) {
+          newFile = await vault.createBinary(
+            //eslint-disable-next-line
+            await vault.getAvailablePathForAttachments(`Pasted Image ${moment().format('YYYYMMDDHHmmss')}`, ext, aFile),
+            buffer,
+          );
+        }
+      });
+    }
     const clipboardItemInput = new ClipboardItem({'image/png': blobInput});
     // @ts-ignore
     window.navigator['clipboard'].write([clipboardItemInput]);
@@ -226,7 +250,8 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     <>
       <div className="dialog-header-container">
         <p className="title-text">
-          <span className="icon-text">🥰</span>Share Memo Image
+          <span className="icon-text">🥰</span>
+          {t('Share Memo Image')}
         </p>
         <div className="btn-group">
           <button className="btn copy-btn" onClick={handleCopytoClipboardBtnClick}>
@@ -239,7 +264,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
       </div>
       <div className="dialog-content-container">
         <div className={`tip-words-container ${shortcutImgUrl ? 'finish' : 'loading'}`}>
-          <p className="tip-text">{shortcutImgUrl ? '↗Click the button to save' : '图片生成中...'}</p>
+          <p className="tip-text">{shortcutImgUrl ? t('↗Click the button to save') : t('Image is generating...')}</p>
         </div>
         <div className="memo-container" ref={memoElRef}>
           <Only when={shortcutImgUrl !== ''}>

@@ -13,6 +13,7 @@ import appStore from '../stores/appStore';
 import {Notice, Platform} from 'obsidian';
 import {HideDoneTasks} from '../memos';
 import {moment} from 'obsidian';
+import { t } from '../translations/helper';
 // import { DefaultEditorLocation } from '../memos';
 
 interface Props {}
@@ -181,12 +182,12 @@ const MemoList: React.FC<Props> = () => {
       <div className="status-text-container">
         <p className="status-text">
           {isFetching
-            ? 'Fetching data...'
+            ? t('Fetching data...')
             : shownMemos.length === 0
-            ? 'Noooop!'
+            ? t('Noooop!')
             : showMemoFilter
             ? ''
-            : 'All Data is Loaded 🎉'}
+            : t('All Data is Loaded 🎉')}
         </p>
       </div>
     </div>

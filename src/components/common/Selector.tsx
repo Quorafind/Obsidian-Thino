@@ -4,6 +4,7 @@ import useToggle from '../../hooks/useToggle';
 import '../../less/common/selector.less';
 // import arrowLeft from '../../icons/arrow-left.svg';
 import arrowRight from '../../icons/arrow-right.svg';
+import { t } from '../../translations/helper';
 
 interface TVObject {
   text: string;
@@ -18,7 +19,7 @@ interface Props {
 }
 
 const nullItem = {
-  text: 'SELECT',
+  text: t('SELECT'),
   value: '',
 };
 

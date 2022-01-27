@@ -17,12 +17,13 @@ import {usePopper} from 'react-popper';
 // import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
 import {moment} from 'obsidian';
-import {DefaultEditorLocation, DefaultPrefix, InsertDateFormat, UseButtonToShowEditor} from '../memos';
+import { DefaultEditorLocation, DefaultPrefix, InsertDateFormat, UseButtonToShowEditor, FocusOnEditor } from '../memos';
 import useToggle from '../hooks/useToggle';
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
 import {Notice, Platform} from 'obsidian';
 import {MEMOS_VIEW_TYPE} from '../constants';
+import { t } from '../translations/helper';
 
 const getCursorPostion = (input: HTMLTextAreaElement) => {
   const {
@@ -110,7 +111,9 @@ const MemoEditor: React.FC<Props> = () => {
     if ((Platform.isMobile === true || window.innerWidth < 875) && UseButtonToShowEditor) {
       toggleEditor(true);
     }
-    editorRef.current?.focus();
+    if(FocusOnEditor){
+      editorRef.current?.focus();
+    }
   }, []);
 
   useEffect(() => {
@@ -223,12 +226,16 @@ const MemoEditor: React.FC<Props> = () => {
       window.innerWidth < 875
     ) {
       handleShowEditor(false);
-      editorRef.current?.focus();
+      if(FocusOnEditor){
+        editorRef.current?.focus();
+      }
     } else {
       if(!isEditor){
         handleShowEditor(false);
       }
-      editorRef.current?.focus();
+      if(FocusOnEditor){
+        editorRef.current?.focus();
+      }
     }
   }, []);
 
@@ -393,7 +400,7 @@ const MemoEditor: React.FC<Props> = () => {
   useEffect(() => {
     if (globalState.markMemoId) {
       const editorCurrentValue = editorRef.current?.getContent();
-      const memoLinkText = `${editorCurrentValue ? '\n' : ''}Mark: [@MEMO](${globalState.markMemoId})`;
+      const memoLinkText = `${editorCurrentValue ? '\n' : ''}${t('MARK')}: [@MEMO](${globalState.markMemoId})`;
       editorRef.current?.insertText(memoLinkText);
       globalStateService.setMarkMemoId('');
     }
@@ -720,7 +727,7 @@ const MemoEditor: React.FC<Props> = () => {
     () => ({
       className: 'memo-editor',
       initialContent: getEditorContentCache(),
-      placeholder: 'What do you think now...',
+      placeholder: t('What do you think now...'),
       showConfirmBtn: true,
       showCancelBtn: showEditStatus,
       showTools: true,

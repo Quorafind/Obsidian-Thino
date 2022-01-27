@@ -499,6 +499,7 @@
 .theme-light div[data-type='memos_view'] .memo-editor-wrapper > .tip-text {
   font-size: 12px;
   line-height: 20px;
+  margin-top: 0px;
   color: #cac8c4;
 }
 .theme-light div[data-type='memos_view'] .memo-editor-wrapper > .memo-editor {
@@ -547,6 +548,7 @@
 .theme-dark div[data-type='memos_view'] .memo-editor-wrapper > .tip-text {
   font-size: 12px;
   line-height: 20px;
+  margin-top: 0px;
   color: #5e5b56;
 }
 .theme-dark div[data-type='memos_view'] .memo-editor-wrapper > .memo-editor {

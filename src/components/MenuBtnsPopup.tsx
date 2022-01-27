@@ -4,6 +4,7 @@ import showAboutSiteDialog from './AboutSiteDialog';
 import '../less/menu-btns-popup.less';
 import React from 'react';
 import dailyNotesService from '../services/dailyNotesService';
+import { t } from '../translations/helper';
 
 interface Props {
   shownStatus: boolean;
@@ -51,13 +52,13 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
   return (
     <div className={`menu-btns-popup ${shownStatus ? '' : 'hidden'}`} ref={popupElRef}>
       <button className="btn action-btn" onClick={handleMyAccountBtnClick}>
-        <span className="icon">👤</span> Settings
+        <span className="icon">👤</span> {t('Settings')}
       </button>
       <button className="btn action-btn" onClick={handleMemosTrashBtnClick}>
-        <span className="icon">🗑️</span> Recycle bin
+        <span className="icon">🗑️</span> {t('Recycle bin')}
       </button>
       <button className="btn action-btn" onClick={handleAboutBtnClick}>
-        <span className="icon">🤠</span> About ME
+        <span className="icon">🤠</span> {t('About Me')}
       </button>
       {/* <button className="btn action-btn" onClick={handleSignOutBtnClick}>
         <span className="icon">👋</span> 退出

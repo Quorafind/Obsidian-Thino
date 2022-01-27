@@ -13,7 +13,7 @@ import {FocusOnEditor, SaveMemoButtonLabel} from '../../memos';
 import {getSuggestions} from '../../obComponents/obFileSuggester';
 import {TFile} from 'obsidian';
 import appStore from '../../stores/appStore';
-import {auto} from '@popperjs/core';
+import { t } from '../../translations/helper';
 
 type ItemProps = {
   entity: {
@@ -135,7 +135,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     () => ({
       element: editorRef.current as HTMLTextAreaElement,
       focus: () => {
-        editorRef.current?.focus();
+        if(FocusOnEditor){
+          editorRef.current?.focus();
+        }
       },
       insertText: (rawText: string) => {
         if (!editorRef.current) {
@@ -281,7 +283,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   return (
     <div className={'common-editor-wrapper ' + className}>
       <ReactTextareaAutocomplete
-        autoFocus
+        // autoFocus
         className="common-editor-inputer scroll"
         loadingComponent={Loading}
         placeholder={placeholder}
@@ -352,7 +354,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
         <div className="btns-container">
           <Only when={showCancelBtn}>
             <button className="action-btn cancel-btn" onClick={handleCommonCancelBtnClick}>
-              CANCEL EDIT
+              {t('CANCEL EDIT')}
             </button>
           </Only>
           <Only when={showConfirmBtn}>

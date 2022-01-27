@@ -11,6 +11,7 @@ import React from 'react';
 import more from '../icons/more.svg';
 import moreWhite from '../icons/more-white.svg';
 import {Notice} from 'obsidian';
+import { t } from '../translations/helper';
 
 interface Props {}
 
@@ -40,7 +41,7 @@ const QueryList: React.FC<Props> = () => {
   return (
     <div className="queries-wrapper">
       <p className="title-text">
-        <span className="normal-text">QUERY</span>
+        <span className="normal-text">{t('QUERY')}</span>
         <span className="btn" onClick={() => showCreateQueryDialog()}>
           +
         </span>
@@ -48,7 +49,7 @@ const QueryList: React.FC<Props> = () => {
       <Only when={loadingState.isSucceed && sortedQueries.length === 0}>
         <div className="create-query-btn-container">
           <span className="btn" onClick={() => showCreateQueryDialog()}>
-            CREATE FILTER
+            {t('CREATE FILTER')}
           </span>
         </div>
       </Only>
@@ -152,16 +153,16 @@ const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemC
             onMouseLeave={handleActionBtnContainerMouseLeave}>
             <div className="action-btns-container">
               <span className="btn" onClick={handlePinQueryBtnClick}>
-                {query.pinnedAt ? 'UNPIN' : 'PIN'}
+                {query.pinnedAt ? t('UNPIN') : t('PIN')}
               </span>
               <span className="btn" onClick={handleEditQueryBtnClick}>
-                EDIT
+                {t('EDIT')}
               </span>
               <span
                 className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
                 onClick={handleDeleteMemoClick}
                 onMouseLeave={handleDeleteBtnMouseLeave}>
-                {showConfirmDeleteBtn ? 'CONFIRM！' : 'DELETE'}
+                {showConfirmDeleteBtn ? t('CONFIRM！') : t('DELETE')}
               </span>
             </div>
           </div>

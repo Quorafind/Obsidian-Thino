@@ -1,6 +1,7 @@
 import {App, DropdownComponent, PluginSettingTab, Setting} from 'obsidian';
 import type MemosPlugin from './index';
 import memoService from './services/memoService';
+import {t} from './translations/helper';
 
 export interface MemosSettings {
   StartDate: string;
@@ -23,6 +24,7 @@ export interface MemosSettings {
   ShowTime: boolean;
   ShowDate: boolean;
   AddBlankLineWhenDate: boolean;
+  AutoSaveWhenOnMobile: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -46,6 +48,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ShowTime: true,
   ShowDate: true,
   AddBlankLineWhenDate: false,
+  AutoSaveWhenOnMobile: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -76,14 +79,14 @@ export class MemosSettingTab extends PluginSettingTab {
     const {containerEl} = this;
     this.containerEl.empty();
 
-    this.containerEl.createEl('h1', {text: 'Basic Options'});
+    this.containerEl.createEl('h1', {text: t('Basic Options')});
     // containerEl.createDiv("", (el) => {
     //   el.innerHTML = "Basic Options";
     // });
 
     new Setting(containerEl)
-      .setName('User name in Memos')
-      .setDesc("Set your user name here. 'Memos 😏' By default")
+      .setName(t('User name in Memos'))
+      .setDesc(t("Set your user name here. 'Memos 😏' By default"))
       .addText((text) =>
         text
           .setPlaceholder(DEFAULT_SETTINGS.UserName)
@@ -95,8 +98,10 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Insert after heading')
-      .setDesc('You should set the same heading below if you want to insert and process memos below the same heading.')
+      .setName(t('Insert after heading'))
+      .setDesc(
+        t('You should set the same heading below if you want to insert and process memos below the same heading.'),
+      )
       .addText((text) =>
         text
           .setPlaceholder(DEFAULT_SETTINGS.InsertAfter)
@@ -108,9 +113,11 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Process Memos below')
+      .setName(t('Process Memos below'))
       .setDesc(
-        'Only entries below this string/section in your notes will be processed. If it does not exist no notes will be processed for that file.',
+        t(
+          'Only entries below this string/section in your notes will be processed. If it does not exist no notes will be processed for that file.',
+        ),
       )
       .addText((text) =>
         text
@@ -123,8 +130,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Save Memo button label')
-      .setDesc("The text shown on the save Memo button in the UI. 'NOTEIT' by default.")
+      .setName(t('Save Memo button label'))
+      .setDesc(t("The text shown on the save Memo button in the UI. 'NOTEIT' by default."))
       .addText((text) =>
         text
           .setPlaceholder(DEFAULT_SETTINGS.SaveMemoButtonLabel)
@@ -136,8 +143,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Focus on editor when open memos')
-      .setDesc('Focus on editor when open memos. Focus by default.')
+      .setName(t('Focus on editor when open memos'))
+      .setDesc(t('Focus on editor when open memos. Focus by default.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.FocusOnEditor).onChange(async (value) => {
           this.plugin.settings.FocusOnEditor = value;
@@ -146,8 +153,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Open daily memos with open memos')
-      .setDesc('Open daily memos with open memos. Open by default.')
+      .setName(t('Open daily memos with open memos'))
+      .setDesc(t('Open daily memos with open memos. Open by default.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.OpenDailyMemosWithMemos).onChange(async (value) => {
           this.plugin.settings.OpenDailyMemosWithMemos = value;
@@ -156,8 +163,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Open Memos when obsidian opens')
-      .setDesc('WHen enable this, Memos will open when Obsidian opens. False by default.')
+      .setName(t('Open Memos when obsidian opens'))
+      .setDesc(t('When enable this, Memos will open when Obsidian opens. False by default.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.OpenMemosAutomatically).onChange(async (value) => {
           this.plugin.settings.OpenMemosAutomatically = value;
@@ -166,8 +173,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Hide done tasks in Memo list')
-      .setDesc('Hide all done tasks in Memo list. Show done tasks by default.')
+      .setName(t('Hide done tasks in Memo list'))
+      .setDesc(t('Hide all done tasks in Memo list. Show done tasks by default.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.HideDoneTasks).onChange(async (value) => {
           this.plugin.settings.HideDoneTasks = value;
@@ -175,7 +182,7 @@ export class MemosSettingTab extends PluginSettingTab {
         }),
       );
 
-    this.containerEl.createEl('h1', {text: 'Advanced Options'});
+    this.containerEl.createEl('h1', {text: t('Advanced Options')});
 
     // new Setting(containerEl)
     //   .setName('Set The Max-Height for Editor')
@@ -193,8 +200,8 @@ export class MemosSettingTab extends PluginSettingTab {
     let dropdown: DropdownComponent;
 
     new Setting(containerEl)
-      .setName('UI language')
-      .setDesc("Translates the UI language. Only 'en' and 'zh' are available.")
+      .setName(t('UI language for date'))
+      .setDesc(t("Translates the date UI language. Only 'en' and 'zh' are available."))
       .addDropdown(async (d: DropdownComponent) => {
         dropdown = d;
         dropdown.addOption('zh', '中文');
@@ -206,12 +213,12 @@ export class MemosSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('Default prefix')
-      .setDesc("Set the default prefix when create memo, 'List' by default.")
+      .setName(t('Default prefix'))
+      .setDesc(t("Set the default prefix when create memo, 'List' by default."))
       .addDropdown(async (d: DropdownComponent) => {
         dropdown = d;
-        dropdown.addOption('List', 'List');
-        dropdown.addOption('Task', 'Task');
+        dropdown.addOption('List', t('List'));
+        dropdown.addOption('Task', t('Task'));
         dropdown.setValue(this.plugin.settings.DefaultPrefix).onChange(async (value) => {
           this.plugin.settings.DefaultPrefix = value;
           this.applySettingsUpdate();
@@ -219,8 +226,8 @@ export class MemosSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('Default insert date format')
-      .setDesc("Set the default date format when insert date by @, 'Tasks' by default.")
+      .setName(t('Default insert date format'))
+      .setDesc(t("Set the default date format when insert date by @, 'Tasks' by default."))
       .addDropdown(async (d: DropdownComponent) => {
         dropdown = d;
         dropdown.addOption('Tasks', 'Tasks');
@@ -232,12 +239,12 @@ export class MemosSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('Default editor position on mobile')
-      .setDesc("Set the default editor position on Mobile, 'Top' by default.")
+      .setName(t('Default editor position on mobile'))
+      .setDesc(t("Set the default editor position on Mobile, 'Top' by default."))
       .addDropdown(async (d: DropdownComponent) => {
         dropdown = d;
-        dropdown.addOption('Top', 'Top');
-        dropdown.addOption('Bottom', 'Bottom');
+        dropdown.addOption('Top', t('Top'));
+        dropdown.addOption('Bottom', t('Bottom'));
         dropdown.setValue(this.plugin.settings.DefaultEditorLocation).onChange(async (value) => {
           this.plugin.settings.DefaultEditorLocation = value;
           this.applySettingsUpdate();
@@ -245,8 +252,8 @@ export class MemosSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('Use button to show editor on mobile')
-      .setDesc('Set a float button to call editor on mobile. Only when editor located at the bottom works.')
+      .setName(t('Use button to show editor on mobile'))
+      .setDesc(t('Set a float button to call editor on mobile. Only when editor located at the bottom works.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.UseButtonToShowEditor).onChange(async (value) => {
           this.plugin.settings.UseButtonToShowEditor = value;
@@ -255,8 +262,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Show Time When Copy Results')
-      .setDesc('Show time when you copy results, like 12:00. Copy time by default.')
+      .setName(t('Show Time When Copy Results'))
+      .setDesc(t('Show time when you copy results, like 12:00. Copy time by default.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.ShowTime).onChange(async (value) => {
           this.plugin.settings.ShowTime = value;
@@ -265,8 +272,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Show Date When Copy Results')
-      .setDesc('Show date when you copy results, like [[2022-01-01]]. Copy date by default.')
+      .setName(t('Show Date When Copy Results'))
+      .setDesc(t('Show date when you copy results, like [[2022-01-01]]. Copy date by default.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.ShowDate).onChange(async (value) => {
           this.plugin.settings.ShowDate = value;
@@ -275,8 +282,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Add Blank Line Between Different Date')
-      .setDesc('Add blank line when copy result with date. No blank line by default.')
+      .setName(t('Add Blank Line Between Different Date'))
+      .setDesc(t('Add blank line when copy result with date. No blank line by default.'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.AddBlankLineWhenDate).onChange(async (value) => {
           this.plugin.settings.AddBlankLineWhenDate = value;
@@ -284,12 +291,14 @@ export class MemosSettingTab extends PluginSettingTab {
         }),
       );
 
-    this.containerEl.createEl('h1', {text: 'Share Options'});
+    this.containerEl.createEl('h1', {text: t('Share Options')});
 
     new Setting(containerEl)
-      .setName('Share Memos Image Footer Start')
+      .setName(t('Share Memos Image Footer Start'))
       .setDesc(
-        "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default",
+        t(
+          "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default",
+        ),
       )
       .addText((text) =>
         text
@@ -302,8 +311,8 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Share Memos Image Footer End')
-      .setDesc("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default")
+      .setName(t('Share Memos Image Footer End'))
+      .setDesc(t("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default"))
       .addText((text) =>
         text
           .setPlaceholder(DEFAULT_SETTINGS.ShareFooterEnd)
@@ -314,11 +323,21 @@ export class MemosSettingTab extends PluginSettingTab {
           }),
       );
 
-    this.containerEl.createEl('h1', {text: 'Say Thank You'});
+    new Setting(containerEl)
+      .setName(t('Save Shared Image To Folder For Mobile'))
+      .setDesc(t('Save image to folder for mobile. False by Default'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.AutoSaveWhenOnMobile).onChange(async (value) => {
+          this.plugin.settings.AutoSaveWhenOnMobile = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    this.containerEl.createEl('h1', {text: t('Say Thank You')});
 
     new Setting(containerEl)
-      .setName('Donate')
-      .setDesc('If you like this plugin, consider donating to support continued development:')
+      .setName(t('Donate'))
+      .setDesc(t('If you like this plugin, consider donating to support continued development:'))
       // .setClass("AT-extra")
       .addButton((bt) => {
         bt.buttonEl.outerHTML = `<a href="https://www.buymeacoffee.com/boninall"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=boninall&button_colour=6495ED&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00"></a>`;
