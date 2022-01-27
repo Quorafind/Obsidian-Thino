@@ -143,6 +143,7 @@ export class Memos extends ItemView {
     ShowTime = this.plugin.settings.ShowTime;
     ShowDate = this.plugin.settings.ShowDate;
     AddBlankLineWhenDate = this.plugin.settings.AddBlankLineWhenDate;
+	AutoSaveWhenOnMobile = this.plugin.settings.AutoSaveWhenOnMobile;
 
     this.memosComponent = React.createElement(App);
 
@@ -173,3 +174,4 @@ export let OpenMemosAutomatically: boolean;
 export let ShowTime: boolean;
 export let ShowDate: boolean;
 export let AddBlankLineWhenDate: boolean;
+export let AutoSaveWhenOnMobile: boolean;

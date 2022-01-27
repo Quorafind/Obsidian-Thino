@@ -168,7 +168,7 @@ export default class MemosPlugin extends Plugin {
     );
     await leaf.setViewState({type: MEMOS_VIEW_TYPE});
     workspace.revealLeaf(leaf);
-    if (FocusOnEditor !== false) {
+    if (FocusOnEditor) {
       if (leaf.view.containerEl.querySelector('textarea') !== undefined) {
         leaf.view.containerEl.querySelector('textarea').focus();
       }

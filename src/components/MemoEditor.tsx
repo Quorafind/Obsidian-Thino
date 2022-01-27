@@ -17,7 +17,7 @@ import {usePopper} from 'react-popper';
 // import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
 import {moment} from 'obsidian';
-import {DefaultEditorLocation, DefaultPrefix, InsertDateFormat, UseButtonToShowEditor} from '../memos';
+import { DefaultEditorLocation, DefaultPrefix, InsertDateFormat, UseButtonToShowEditor, FocusOnEditor } from '../memos';
 import useToggle from '../hooks/useToggle';
 // import dailyNotesService from '../services/dailyNotesService';
 // import { TagsSuggest } from "../obComponents/obTagSuggester";
@@ -110,7 +110,9 @@ const MemoEditor: React.FC<Props> = () => {
     if ((Platform.isMobile === true || window.innerWidth < 875) && UseButtonToShowEditor) {
       toggleEditor(true);
     }
-    editorRef.current?.focus();
+    if(FocusOnEditor){
+      editorRef.current?.focus();
+    }
   }, []);
 
   useEffect(() => {
@@ -223,12 +225,16 @@ const MemoEditor: React.FC<Props> = () => {
       window.innerWidth < 875
     ) {
       handleShowEditor(false);
-      editorRef.current?.focus();
+      if(FocusOnEditor){
+        editorRef.current?.focus();
+      }
     } else {
       if(!isEditor){
         handleShowEditor(false);
       }
-      editorRef.current?.focus();
+      if(FocusOnEditor){
+        editorRef.current?.focus();
+      }
     }
   }, []);
 

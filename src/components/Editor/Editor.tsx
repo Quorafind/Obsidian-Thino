@@ -135,7 +135,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     () => ({
       element: editorRef.current as HTMLTextAreaElement,
       focus: () => {
-        editorRef.current?.focus();
+        if(FocusOnEditor){
+          editorRef.current?.focus();
+        }
       },
       insertText: (rawText: string) => {
         if (!editorRef.current) {
@@ -281,7 +283,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   return (
     <div className={'common-editor-wrapper ' + className}>
       <ReactTextareaAutocomplete
-        autoFocus
+        // autoFocus
         className="common-editor-inputer scroll"
         loadingComponent={Loading}
         placeholder={placeholder}

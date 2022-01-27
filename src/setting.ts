@@ -23,6 +23,7 @@ export interface MemosSettings {
   ShowTime: boolean;
   ShowDate: boolean;
   AddBlankLineWhenDate: boolean;
+  AutoSaveWhenOnMobile: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -46,6 +47,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ShowTime: true,
   ShowDate: true,
   AddBlankLineWhenDate: false,
+  AutoSaveWhenOnMobile: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -312,6 +314,16 @@ export class MemosSettingTab extends PluginSettingTab {
             this.plugin.settings.ShareFooterEnd = value;
             this.applySettingsUpdate();
           }),
+      );
+
+    new Setting(containerEl)
+      .setName('Save Shared Image To Folder For Mobile')
+      .setDesc('Save image to folder for mobile. Disable by Default')
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.AutoSaveWhenOnMobile).onChange(async (value) => {
+          this.plugin.settings.AutoSaveWhenOnMobile = value;
+          this.applySettingsUpdate();
+        }),
       );
 
     this.containerEl.createEl('h1', {text: 'Say Thank You'});
