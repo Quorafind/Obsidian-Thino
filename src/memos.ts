@@ -87,6 +87,7 @@ export class Memos extends ItemView {
           return;
         }
         const leaf = leaves[0];
+        //@ts-expect-error, private method
         const side = leaf.getRoot().side;
         let sidebar: HTMLElement;
         let page: HTMLElement;

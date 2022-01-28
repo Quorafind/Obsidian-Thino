@@ -93,7 +93,7 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
               }
               if (aFile !== undefined) {
                 newFile = await vault.createBinary(
-                  //eslint-disable-next-line
+                  //@ts-expect-error, private method
                   await vault.getAvailablePathForAttachments(
                     `Pasted Image ${moment().format('YYYYMMDDHHmmss')}`,
                     ext,
