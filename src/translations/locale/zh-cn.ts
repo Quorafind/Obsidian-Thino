@@ -60,6 +60,8 @@ export default {
   "Set the filename for recycle bin. 'delete' By default": "给回收站设置一个文件名。默认为'delete'",
   'File Name of Query File': '检索文件的文件名',
   "Set the filename for query file. 'query' By default": "设置存放检索式的文件的文件名。默认为'query'",
+  'Use Tags In Vault': '使用在库内的所有标签',
+  'Use tags in vault rather than only in Memos. False by default.': '使用在库内的而不是 Memos 内的标签。默认关闭',
   List: '列表',
   Task: '任务',
   Top: '顶部',

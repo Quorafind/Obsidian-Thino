@@ -67,6 +67,9 @@ export default {
   "Set the filename for recycle bin. 'delete' By default": "Set the filename for recycle bin. 'delete' By default",
   'File Name of Query File': 'File Name of Query File',
   "Set the filename for query file. 'query' By default": "Set the filename for query file. 'query' By default",
+  'Use Tags In Vault': 'Use Tags In Vault',
+  'Use tags in vault rather than only in Memos. False by default.':
+    'Use tags in vault rather than only in Memos. False by default.',
   List: 'List',
   Task: 'Task',
   Top: 'Top',

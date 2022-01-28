@@ -146,6 +146,7 @@ export class Memos extends ItemView {
     AutoSaveWhenOnMobile = this.plugin.settings.AutoSaveWhenOnMobile;
     QueryFileName = this.plugin.settings.QueryFileName;
     DeleteFileName = this.plugin.settings.DeleteFileName;
+    UseVaultTags = this.plugin.settings.UseVaultTags;
 
     this.memosComponent = React.createElement(App);
 
@@ -179,3 +180,4 @@ export let AddBlankLineWhenDate: boolean;
 export let AutoSaveWhenOnMobile: boolean;
 export let QueryFileName: string;
 export let DeleteFileName: string;
+export let UseVaultTags: boolean;

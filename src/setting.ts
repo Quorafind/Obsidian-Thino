@@ -28,6 +28,7 @@ export interface MemosSettings {
   AutoSaveWhenOnMobile: boolean;
   DeleteFileName: string;
   QueryFileName: string;
+  UseVaultTags: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -54,6 +55,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   AutoSaveWhenOnMobile: false,
   DeleteFileName: 'delete',
   QueryFileName: 'query',
+  UseVaultTags: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -192,6 +194,16 @@ export class MemosSettingTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.HideDoneTasks).onChange(async (value) => {
           this.plugin.settings.HideDoneTasks = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Use Tags In Vault'))
+      .setDesc(t('Use tags in vault rather than only in Memos. False by default.'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.UseVaultTags).onChange(async (value) => {
+          this.plugin.settings.UseVaultTags = value;
           this.applySettingsUpdate();
         }),
       );
