@@ -56,6 +56,10 @@ export default {
   Donate: '捐赠',
   'If you like this plugin, consider donating to support continued development:':
     '如果你喜欢这个插件，而且也希望给我买鸡腿，那么可以考虑 Github 页面右边的 Sponsor~',
+  'File Name of Recycle Bin': '回收站的文件名',
+  "Set the filename for recycle bin. 'delete' By default": "给回收站设置一个文件名。默认为'delete'",
+  'File Name of Query File': '检索文件的文件名',
+  "Set the filename for query file. 'query' By default": "设置存放检索式的文件的文件名。默认为'query'",
   List: '列表',
   Task: '任务',
   Top: '顶部',
@@ -112,4 +116,5 @@ export default {
   'Daily Memos': '每日 Memos',
   'CANCEL EDIT': '取消编辑',
   'LINK TO THE': '链接到',
+  'Mobile Options': '移动端选项',
 };

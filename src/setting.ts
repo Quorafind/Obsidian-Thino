@@ -1,5 +1,6 @@
 import {App, DropdownComponent, PluginSettingTab, Setting} from 'obsidian';
 import type MemosPlugin from './index';
+import {getDailyNotePath} from './obComponents/obUpdateMemo';
 import memoService from './services/memoService';
 import {t} from './translations/helper';
 
@@ -25,6 +26,8 @@ export interface MemosSettings {
   ShowDate: boolean;
   AddBlankLineWhenDate: boolean;
   AutoSaveWhenOnMobile: boolean;
+  DeleteFileName: string;
+  QueryFileName: string;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -49,6 +52,8 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ShowDate: true,
   AddBlankLineWhenDate: false,
   AutoSaveWhenOnMobile: false,
+  DeleteFileName: 'delete',
+  QueryFileName: 'query',
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -68,6 +73,15 @@ export class MemosSettingTab extends PluginSettingTab {
       plugin.saveSettings();
     }, 100);
     memoService.updateTagsState();
+  }
+
+  async changeFileName(originalFileName: string, fileName: string) {
+    const filePath = getDailyNotePath();
+    const absolutePath = filePath + '/' + originalFileName + '.md';
+    const newFilePath = filePath + '/' + fileName + '.md';
+    const getFile = this.app.vault.getAbstractFileByPath(absolutePath);
+    // const deleteFile = this.app.metadataCache.getFirstLinkpathDest('', absolutePath);
+    await this.app.fileManager.renameFile(getFile, newFilePath);
   }
 
   //eslint-disable-next-line
@@ -239,29 +253,6 @@ export class MemosSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName(t('Default editor position on mobile'))
-      .setDesc(t("Set the default editor position on Mobile, 'Top' by default."))
-      .addDropdown(async (d: DropdownComponent) => {
-        dropdown = d;
-        dropdown.addOption('Top', t('Top'));
-        dropdown.addOption('Bottom', t('Bottom'));
-        dropdown.setValue(this.plugin.settings.DefaultEditorLocation).onChange(async (value) => {
-          this.plugin.settings.DefaultEditorLocation = value;
-          this.applySettingsUpdate();
-        });
-      });
-
-    new Setting(containerEl)
-      .setName(t('Use button to show editor on mobile'))
-      .setDesc(t('Set a float button to call editor on mobile. Only when editor located at the bottom works.'))
-      .addToggle((toggle) =>
-        toggle.setValue(this.plugin.settings.UseButtonToShowEditor).onChange(async (value) => {
-          this.plugin.settings.UseButtonToShowEditor = value;
-          this.applySettingsUpdate();
-        }),
-      );
-
-    new Setting(containerEl)
       .setName(t('Show Time When Copy Results'))
       .setDesc(t('Show time when you copy results, like 12:00. Copy time by default.'))
       .addToggle((toggle) =>
@@ -287,6 +278,59 @@ export class MemosSettingTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.AddBlankLineWhenDate).onChange(async (value) => {
           this.plugin.settings.AddBlankLineWhenDate = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('File Name of Recycle Bin'))
+      .setDesc(t("Set the filename for recycle bin. 'delete' By default"))
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.DeleteFileName)
+          .setValue(this.plugin.settings.DeleteFileName)
+          .onChange(async (value) => {
+            await this.changeFileName(this.plugin.settings.DeleteFileName, value);
+            this.plugin.settings.DeleteFileName = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('File Name of Query File'))
+      .setDesc(t("Set the filename for query file. 'query' By default"))
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.QueryFileName)
+          .setValue(this.plugin.settings.QueryFileName)
+          .onChange(async (value) => {
+            await this.changeFileName(this.plugin.settings.QueryFileName, value);
+            this.plugin.settings.QueryFileName = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    this.containerEl.createEl('h1', {text: t('Mobile Options')});
+
+    new Setting(containerEl)
+      .setName(t('Default editor position on mobile'))
+      .setDesc(t("Set the default editor position on Mobile, 'Top' by default."))
+      .addDropdown(async (d: DropdownComponent) => {
+        dropdown = d;
+        dropdown.addOption('Top', t('Top'));
+        dropdown.addOption('Bottom', t('Bottom'));
+        dropdown.setValue(this.plugin.settings.DefaultEditorLocation).onChange(async (value) => {
+          this.plugin.settings.DefaultEditorLocation = value;
+          this.applySettingsUpdate();
+        });
+      });
+
+    new Setting(containerEl)
+      .setName(t('Use button to show editor on mobile'))
+      .setDesc(t('Set a float button to call editor on mobile. Only when editor located at the bottom works.'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.UseButtonToShowEditor).onChange(async (value) => {
+          this.plugin.settings.UseButtonToShowEditor = value;
           this.applySettingsUpdate();
         }),
       );

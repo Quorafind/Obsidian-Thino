@@ -58,11 +58,15 @@ export default {
   "Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default":
     "Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default",
   'Save Shared Image To Folder For Mobile': 'Save Shared Image To Folder For Mobile',
-  'Save image to folder for mobile. Disable by Default': 'Save image to folder for mobile. False by Default',
+  'Save image to folder for mobile. False by Default': 'Save image to folder for mobile. False by Default',
   'Say Thank You': 'Say Thank You',
   Donate: 'Donate',
   'If you like this plugin, consider donating to support continued development:':
     'If you like this plugin, consider donating to support continued development:',
+  'File Name of Recycle Bin': 'File Name of Recycle Bin',
+  "Set the filename for recycle bin. 'delete' By default": "Set the filename for recycle bin. 'delete' By default",
+  'File Name of Query File': 'File Name of Query File',
+  "Set the filename for query file. 'query' By default": "Set the filename for query file. 'query' By default",
   List: 'List',
   Task: 'Task',
   Top: 'Top',
@@ -119,4 +123,5 @@ export default {
   'Daily Memos': 'Daily Memos',
   'CANCEL EDIT': 'CANCEL EDIT',
   'LINK TO THE': 'LINK TO THE',
+  'Mobile Options': 'Mobile Options',
 };
