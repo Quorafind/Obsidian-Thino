@@ -6,9 +6,12 @@
   width: 100%;
   padding: 12px 18px;
   background-color: rgb(255, 255, 255);
-  margin-top: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
+
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
 
   &:hover {
     border-color: @bg-gray;
@@ -174,9 +177,12 @@
   width: 100%;
   padding: 12px 18px;
   background-color: #303030;
-  margin-top: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
+
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
 
   &:hover {
     border-color: @bg-dark-gray;
