@@ -490,6 +490,7 @@
   height: auto;
   background-color: white;
   padding: 16px;
+  margin-bottom: 8px;
   border-radius: 8px;
   border: 2px solid #e4e4e4;
 }
@@ -539,6 +540,7 @@
   height: auto;
   background-color: #3b3b3b;
   padding: 16px;
+  margin-bottom: 8px;
   border-radius: 8px;
   border: 2px solid #353535;
 }
@@ -3449,9 +3451,11 @@ div[data-type='memos_view'] .image-container > img {
   width: 100%;
   padding: 12px 18px;
   background-color: #ffffff;
-  margin-top: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
+}
+.theme-light div[data-type='memos_view'] .memo-wrapper:not(:first-child) {
+  margin-top: 8px;
 }
 .theme-light div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #e4e4e4;
@@ -3632,9 +3636,11 @@ div[data-type='memos_view'] .image-container > img {
   width: 100%;
   padding: 12px 18px;
   background-color: #303030;
-  margin-top: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
+}
+.theme-dark div[data-type='memos_view'] .memo-wrapper:not(:first-child) {
+  margin-top: 8px;
 }
 .theme-dark div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #353535;
