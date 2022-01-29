@@ -1629,8 +1629,8 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
-  padding: 12px 12px;
-  padding-bottom: 4px;
+  padding: 4px 12px;
+  padding-bottom: 12px;
   font-size: 13px;
   line-height: 1.8;
 }
@@ -1686,8 +1686,8 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
-  padding: 12px 12px;
-  padding-bottom: 4px;
+  padding: 4px 12px;
+  padding-bottom: 12px;
   font-size: 13px;
   line-height: 1.8;
 }
