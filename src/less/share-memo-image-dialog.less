@@ -401,6 +401,7 @@
           // display:-webkit-box;
           // display:-ms-flexbox;
           // display:flex;
+          width: calc(100% - 27px);
           -webkit-box-orient: vertical;
           -webkit-box-direction: normal;
           -ms-flex-direction: column;
@@ -437,7 +438,7 @@
           }
 
           > .background-container {
-            height: 6.5em;
+            height: 6em;
             background: transparent;
           }
 
@@ -448,6 +449,7 @@
             padding-bottom: 12px;
             padding-left: 16px;
             width: 100%;
+            word-wrap: break-word;
             font-size: 15px;
             background-color: rgb(31, 31, 31);
           }
@@ -472,10 +474,10 @@
           .tag-span {
             display: inline-block;
             /*   width: auto; */
-            position: absolute;
+            // position: absolute;
             padding-left: 4px;
             padding-right: 6px;
-            margin-left: 0px;
+            margin-left: -2px;
             line-height: 22px;
             font-size: 12px;
             border: none;

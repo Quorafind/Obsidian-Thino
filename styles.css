@@ -490,6 +490,7 @@
   height: auto;
   background-color: white;
   padding: 16px;
+  margin-bottom: 8px;
   border-radius: 8px;
   border: 2px solid #e4e4e4;
 }
@@ -539,6 +540,7 @@
   height: auto;
   background-color: #3b3b3b;
   padding: 16px;
+  margin-bottom: 8px;
   border-radius: 8px;
   border: 2px solid #353535;
 }
@@ -3121,6 +3123,7 @@ div[data-type='memos_view'] .image-container > img {
   margin-right: 15px;
   margin-bottom: 15px;
   margin-left: 12px;
+  width: calc(100% - 27px);
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -3146,7 +3149,7 @@ div[data-type='memos_view'] .image-container > img {
   background-color: #1f1f1f;
 }
 .theme-dark .share-memo-image-dialog > .dialog-container > .dialog-content-container > .memo-container > .memo-background > .background-container {
-  height: 6.5em;
+  height: 6em;
   background: transparent;
 }
 .theme-dark .share-memo-image-dialog > .dialog-container > .dialog-content-container > .memo-container > .memo-background > .memo-content-text {
@@ -3154,6 +3157,7 @@ div[data-type='memos_view'] .image-container > img {
   padding-bottom: 12px;
   padding-left: 16px;
   width: 100%;
+  word-wrap: break-word;
   font-size: 15px;
   background-color: #1f1f1f;
 }
@@ -3195,10 +3199,9 @@ div[data-type='memos_view'] .image-container > img {
 .theme-dark .share-memo-image-dialog > .dialog-container > .dialog-content-container > .memo-container > .memo-background .tag-span {
   display: inline-block;
   /*   width: auto; */
-  position: absolute;
   padding-left: 4px;
   padding-right: 6px;
-  margin-left: 0px;
+  margin-left: -2px;
   line-height: 22px;
   font-size: 12px;
   border: none;
@@ -3613,9 +3616,11 @@ div[data-type='memos_view'] .image-container > img {
   width: 100%;
   padding: 12px 18px;
   background-color: #ffffff;
-  margin-top: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
+}
+.theme-light div[data-type='memos_view'] .memo-wrapper:not(:first-child) {
+  margin-top: 8px;
 }
 .theme-light div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #e4e4e4;
@@ -3796,9 +3801,11 @@ div[data-type='memos_view'] .image-container > img {
   width: 100%;
   padding: 12px 18px;
   background-color: #303030;
-  margin-top: 8px;
   border-radius: 8px;
   border: 1px solid transparent;
+}
+.theme-dark div[data-type='memos_view'] .memo-wrapper:not(:first-child) {
+  margin-top: 8px;
 }
 .theme-dark div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #353535;

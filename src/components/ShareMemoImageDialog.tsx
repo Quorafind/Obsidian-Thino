@@ -290,8 +290,8 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
               <div className="images-container">
                 {externalImageUrls.map((imgUrl, idx) => (
                   <img
-                    crossOrigin="anonymous"
-                    decoding="async"
+                    // crossOrigin="anonymous"
+                    // decoding="async"
                     key={idx}
                     src={imgUrl}
                     alt=""
