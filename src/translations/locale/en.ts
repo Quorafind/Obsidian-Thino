@@ -70,6 +70,7 @@ export default {
   'Use Tags In Vault': 'Use Tags In Vault',
   'Use tags in vault rather than only in Memos. False by default.':
     'Use tags in vault rather than only in Memos. False by default.',
+  'Ready to convert image into background': 'Ready to convert image into background',
   List: 'List',
   Task: 'Task',
   Top: 'Top',
@@ -127,4 +128,6 @@ export default {
   'CANCEL EDIT': 'CANCEL EDIT',
   'LINK TO THE': 'LINK TO THE',
   'Mobile Options': 'Mobile Options',
+  "Don't support web image yet, please input image path in vault":
+    "Don't support web image yet, please input image path in vault",
 };

@@ -211,10 +211,11 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     const divs = document.querySelector('.memo-shortcut-img') as HTMLElement;
     const myBase64 = divs.getAttribute('src').split('base64,')[1];
     const blobInput = convertBase64ToBlob(myBase64, 'image/png');
+    let aFile: TFile;
+    let newFile;
     if (AutoSaveWhenOnMobile && Platform.isMobile) {
       blobInput.arrayBuffer().then(async (buffer) => {
-        let aFile;
-        let newFile;
+        
         const ext = 'png';
         const dailyNotes = getAllDailyNotes();
         for (const string in dailyNotes) {

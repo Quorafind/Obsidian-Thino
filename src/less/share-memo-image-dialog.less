@@ -92,6 +92,7 @@
           // display:-webkit-box;
           // display:-ms-flexbox;
           // display:flex;
+          width: calc(100% - 24px);
           -webkit-box-orient: vertical;
           -webkit-box-direction: normal;
           -ms-flex-direction: column;
@@ -128,17 +129,18 @@
           }
 
           > .background-container {
-            height: 6.5em;
+            height: 6em;
             background: transparent;
           }
 
           > .memo-content-text {
             // padding: 12px 24px;
             // padding-top: 6.5em;
-            padding-right: 12px;
+            padding-right: 8%;
             padding-bottom: 12px;
-            padding-left: 16px;
+            padding-left: 8%;
             width: 100%;
+            word-wrap: break-word;
             font-size: 15px;
             background-color: white;
           }
@@ -163,10 +165,9 @@
           .tag-span {
             display: inline-block;
             /*   width: auto; */
-            position: absolute;
             padding-left: 4px;
             padding-right: 6px;
-            margin-left: 0px;
+            margin-left: -2px;
             line-height: 22px;
             font-size: 12px;
             border: none;
@@ -249,7 +250,26 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
   }
+
+  .theme-light .dialog-wrapper.share-memo-image-dialog {
+    .memo-background {
+      > .memo-content-text {
+        // padding: 12px 24px;
+        // padding-top: 6.5em;
+        padding-right: 8%;
+        padding-bottom: 12px;
+        padding-left: 8%;
+        width: 100%;
+        word-wrap: break-word;
+        font-size: 15px;
+        background-color: white;
+      }
+    }
+  }
+  
+
 
   .theme-light .dialog-wrapper.share-memo-image-dialog .watermark-container {
     .flex(row, flex-start, center);
@@ -410,7 +430,7 @@
           border-radius: 16px;
           overflow: hidden;
           -webkit-box-shadow: 15px 15px 27px #666666, -15px -15px 27px #3a3a3a;
-          box-shadow:  6px 4px 4px 2px #383333, 5px 2px 4px 2px #444444;
+          box-shadow: 6px 4px 4px 2px #383333, 5px 2px 4px 2px #444444;
           // height: 100vh;
           // width: 100%;
           // display: flex;
@@ -445,9 +465,9 @@
           > .memo-content-text {
             // padding: 12px 24px;
             // padding-top: 6.5em;
-            padding-right: 12px;
+            padding-right: 8%;
             padding-bottom: 12px;
-            padding-left: 16px;
+            padding-left: 8%;
             width: 100%;
             word-wrap: break-word;
             font-size: 15px;

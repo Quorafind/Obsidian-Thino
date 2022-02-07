@@ -1,5 +1,5 @@
 import {dailyNotesService} from '../../services';
-import {request} from 'obsidian';
+// import {request} from 'obsidian';
 
 const cachedResourceMap = new Map<string, string>();
 
@@ -38,7 +38,6 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
     try {
       // getBase64Image(url);
       const buffer = (await downloadFile(url)).buffer;
-      console.log(buffer);
       // const download = await request({
       //   method: 'GET',
       //   url: url,
@@ -90,7 +89,7 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
 //   return 0;
 // }
 
-const downloadFile = async (url: string, path?: string) => {
+const downloadFile = async (url: string) => {
   const response = await fetch(url, {
     // method: 'GET',
     mode: 'no-cors',

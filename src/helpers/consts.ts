@@ -22,7 +22,7 @@ export const ALL_TAG_REG = /([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/
 
 // URL 正则
 //eslint-disable-next-line
-export const LINK_REG = /(\s|：|>)((http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-]))/g;
+export const LINK_REG = /(\s|：|>|^)((http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-]))/g;
 
 // export const CHECK_LINK_REG = /(\((\s*))(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/g;
 // export const LINK_REG = /(https?:\/\/[^\s<\\*>']+)/g;

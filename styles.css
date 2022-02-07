@@ -2830,6 +2830,7 @@ div[data-type='memos_view'] .image-container > img {
   margin-right: 15px;
   margin-bottom: 15px;
   margin-left: 12px;
+  width: calc(100% - 24px);
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -2855,14 +2856,15 @@ div[data-type='memos_view'] .image-container > img {
   background-color: white;
 }
 .theme-light .share-memo-image-dialog > .dialog-container > .dialog-content-container > .memo-container > .memo-background > .background-container {
-  height: 6.5em;
+  height: 6em;
   background: transparent;
 }
 .theme-light .share-memo-image-dialog > .dialog-container > .dialog-content-container > .memo-container > .memo-background > .memo-content-text {
-  padding-right: 12px;
+  padding-right: 8%;
   padding-bottom: 12px;
-  padding-left: 16px;
+  padding-left: 8%;
   width: 100%;
+  word-wrap: break-word;
   font-size: 15px;
   background-color: white;
 }
@@ -2904,10 +2906,9 @@ div[data-type='memos_view'] .image-container > img {
 .theme-light .share-memo-image-dialog > .dialog-container > .dialog-content-container > .memo-container > .memo-background .tag-span {
   display: inline-block;
   /*   width: auto; */
-  position: absolute;
   padding-left: 4px;
   padding-right: 6px;
-  margin-left: 0px;
+  margin-left: -2px;
   line-height: 22px;
   font-size: 12px;
   border: none;
@@ -2981,6 +2982,15 @@ div[data-type='memos_view'] .image-container > img {
   }
   .theme-light .dialog-wrapper.share-memo-image-dialog::-webkit-scrollbar {
     display: none;
+  }
+  .theme-light .dialog-wrapper.share-memo-image-dialog .memo-background > .memo-content-text {
+    padding-right: 8%;
+    padding-bottom: 12px;
+    padding-left: 8%;
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 15px;
+    background-color: white;
   }
   .theme-light .dialog-wrapper.share-memo-image-dialog .watermark-container {
     display: flex;
@@ -3153,9 +3163,9 @@ div[data-type='memos_view'] .image-container > img {
   background: transparent;
 }
 .theme-dark .share-memo-image-dialog > .dialog-container > .dialog-content-container > .memo-container > .memo-background > .memo-content-text {
-  padding-right: 12px;
+  padding-right: 8%;
   padding-bottom: 12px;
-  padding-left: 16px;
+  padding-left: 8%;
   width: 100%;
   word-wrap: break-word;
   font-size: 15px;
