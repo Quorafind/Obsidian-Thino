@@ -211,10 +211,11 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     const divs = document.querySelector('.memo-shortcut-img') as HTMLElement;
     const myBase64 = divs.getAttribute('src').split('base64,')[1];
     const blobInput = convertBase64ToBlob(myBase64, 'image/png');
+    let aFile: TFile;
+    let newFile;
     if (AutoSaveWhenOnMobile && Platform.isMobile) {
       blobInput.arrayBuffer().then(async (buffer) => {
-        let aFile;
-        let newFile;
+        
         const ext = 'png';
         const dailyNotes = getAllDailyNotes();
         for (const string in dailyNotes) {
@@ -225,7 +226,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
         }
         if (aFile !== undefined) {
           newFile = await vault.createBinary(
-            //eslint-disable-next-line
+            //@ts-expect-error, private method
             await vault.getAvailablePathForAttachments(`Pasted Image ${moment().format('YYYYMMDDHHmmss')}`, ext, aFile),
             buffer,
           );
@@ -270,38 +271,54 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
           <Only when={shortcutImgUrl !== ''}>
             <img className="memo-shortcut-img" src={shortcutImgUrl} />
           </Only>
-          <span className="time-text">{memo.createdAtStr}</span>
-          <div className="memo-content-text" dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}></div>
-          <Only when={externalImageUrls.length > 0}>
-            <div className="images-container">
-              {externalImageUrls.map((imgUrl, idx) => (
-                <img
-                  crossOrigin="anonymous"
-                  decoding="async"
-                  key={idx}
-                  src={imgUrl}
-                  alt=""
-                  referrerPolicy="no-referrer"
-                  onLoad={handleImageOnLoad}
-                  onError={handleImageOnLoad}
-                />
-              ))}
+          <div className="memo-background">
+            <div
+              className="property-image"
+              style={{
+                backgroundImage:
+                  "url('https://cdn.photographylife.com/wp-content/uploads/2017/01/What-is-landscape-photography.jpg')",
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            ></div>
+            {/* <span className="time-text">{memo.createdAtStr}</span> */}
+            <span className='background-container'></span>
+            <div
+              className="memo-content-text"
+              dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}
+            ></div>
+            <Only when={externalImageUrls.length > 0}>
+              <div className="images-container">
+                {externalImageUrls.map((imgUrl, idx) => (
+                  <img
+                    // crossOrigin="anonymous"
+                    // decoding="async"
+                    key={idx}
+                    src={imgUrl}
+                    alt=""
+                    referrerPolicy="no-referrer"
+                    onLoad={handleImageOnLoad}
+                    onError={handleImageOnLoad}
+                  />
+                ))}
+              </div>
+            </Only>
+            <Only when={internalImageUrls.length > 0}>
+              <div className="images-container internal-embed image-embed is-loaded">
+                {internalImageUrls.map((imgUrl, idx) => (
+                  <img key={idx} className="memo-img" src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath} />
+                ))}
+              </div>
+            </Only>
+            <div className="watermark-container">
+              <span className="normal-text footer-start">
+                <div className="property-social-icons"></div>
+                <span className="name-text">{footerStart}</span>
+              </span>
+              <span className="normal-text footer-end">
+                <span className="name-text">{footerEnd}</span>
+              </span>
             </div>
-          </Only>
-          <Only when={internalImageUrls.length > 0}>
-            <div className="images-container internal-embed image-embed is-loaded">
-              {internalImageUrls.map((imgUrl, idx) => (
-                <img key={idx} className="memo-img" src={imgUrl.path} alt={imgUrl.altText} path={imgUrl.filePath} />
-              ))}
-            </div>
-          </Only>
-          <div className="watermark-container">
-            <span className="normal-text footer-start">
-              <span className="name-text">{footerStart}</span>
-            </span>
-            <span className="normal-text footer-end">
-              <span className="name-text">{footerEnd}</span>
-            </span>
           </div>
         </div>
       </div>

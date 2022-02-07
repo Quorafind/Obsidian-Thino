@@ -181,7 +181,7 @@ export default class MemosPlugin extends Plugin {
     if (leaves.length > 0) {
       const leaf = leaves[0];
       workspace.setActiveLeaf(leaf);
-      leaf.view.containerEl.querySelector('.search-bar-inputer .text-input').focus();
+      (leaf.view.containerEl.querySelector('.search-bar-inputer .text-input') as HTMLElement).focus();
     } else {
       this.openMemos();
     }

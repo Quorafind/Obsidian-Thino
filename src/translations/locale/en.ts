@@ -58,11 +58,19 @@ export default {
   "Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default":
     "Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default",
   'Save Shared Image To Folder For Mobile': 'Save Shared Image To Folder For Mobile',
-  'Save image to folder for mobile. Disable by Default': 'Save image to folder for mobile. False by Default',
+  'Save image to folder for mobile. False by Default': 'Save image to folder for mobile. False by Default',
   'Say Thank You': 'Say Thank You',
   Donate: 'Donate',
   'If you like this plugin, consider donating to support continued development:':
     'If you like this plugin, consider donating to support continued development:',
+  'File Name of Recycle Bin': 'File Name of Recycle Bin',
+  "Set the filename for recycle bin. 'delete' By default": "Set the filename for recycle bin. 'delete' By default",
+  'File Name of Query File': 'File Name of Query File',
+  "Set the filename for query file. 'query' By default": "Set the filename for query file. 'query' By default",
+  'Use Tags In Vault': 'Use Tags In Vault',
+  'Use tags in vault rather than only in Memos. False by default.':
+    'Use tags in vault rather than only in Memos. False by default.',
+  'Ready to convert image into background': 'Ready to convert image into background',
   List: 'List',
   Task: 'Task',
   Top: 'Top',
@@ -119,4 +127,7 @@ export default {
   'Daily Memos': 'Daily Memos',
   'CANCEL EDIT': 'CANCEL EDIT',
   'LINK TO THE': 'LINK TO THE',
+  'Mobile Options': 'Mobile Options',
+  "Don't support web image yet, please input image path in vault":
+    "Don't support web image yet, please input image path in vault",
 };

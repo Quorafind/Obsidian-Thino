@@ -16,11 +16,11 @@ import arrowLeft from '../icons/arrow-left.svg';
 import arrowRight from '../icons/arrow-right.svg';
 import share from '../icons/share.svg';
 import i18next from 'i18next';
-import { AutoSaveWhenOnMobile } from '../memos';
-import { Platform, TFile, moment } from 'obsidian';
-import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
+import {AutoSaveWhenOnMobile} from '../memos';
+import {Platform, TFile, moment} from 'obsidian';
+import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
-import { t } from '../translations/helper';
+import {t} from '../translations/helper';
 
 interface Props extends DialogProps {
   currentDateStamp: DateStamp;
@@ -93,7 +93,7 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
               }
               if (aFile !== undefined) {
                 newFile = await vault.createBinary(
-                  //eslint-disable-next-line
+                  //@ts-expect-error, private method
                   await vault.getAvailablePathForAttachments(
                     `Pasted Image ${moment().format('YYYYMMDDHHmmss')}`,
                     ext,

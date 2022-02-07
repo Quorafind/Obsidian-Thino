@@ -33,7 +33,9 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
   }, [shownStatus]);
 
   const handleMyAccountBtnClick = () => {
+    //@ts-expect-error, private method
     app.setting.open();
+    //@ts-expect-error, private method
     app.setting.openTabById('obsidian-memos');
   };
 

@@ -36,13 +36,13 @@ class ResourceService {
     if (!existingFile) {
       const dailyFile = await createDailyNote(date);
       newFile = await vault.createBinary(
-        //eslint-disable-next-line
+        //@ts-expect-error, private method
         await vault.getAvailablePathForAttachments(`Pasted Image ${moment().format('YYYYMMDDHHmmss')}`, ext, dailyFile),
         fileArray,
       );
     } else if (existingFile instanceof TFile) {
       newFile = await vault.createBinary(
-        //eslint-disable-next-line
+        //@ts-expect-error, private method
         await vault.getAvailablePathForAttachments(
           `Pasted Image ${moment().format('YYYYMMDDHHmmss')}`,
           ext,

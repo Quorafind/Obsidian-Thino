@@ -1,5 +1,5 @@
 import {dailyNotesService} from '../../services';
-import {request} from 'obsidian';
+// import {request} from 'obsidian';
 
 const cachedResourceMap = new Map<string, string>();
 
@@ -37,23 +37,24 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
   } else {
     try {
       // getBase64Image(url);
-      const download = await request({
-        method: 'GET',
-        url: url,
-        contentType: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
-        // headers: {
-        //   "Content-Type": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-        //   Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-        //   "Proxy-Connection": "keep-alive",
-        //   Pragma: "no-cache",
-        //   "Cache-Control": "no-cache",
-        //   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/0.12.19 Chrome/91.0.4472.164 Electron/13.5.2 Safari/537.36",
-        // },
-      });
+      const buffer = (await downloadFile(url)).buffer;
+      // const download = await request({
+      //   method: 'GET',
+      //   url: url,
+      //   contentType: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+      //   // headers: {
+      //   //   "Content-Type": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+      //   //   Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+      //   //   "Proxy-Connection": "keep-alive",
+      //   //   Pragma: "no-cache",
+      //   //   "Cache-Control": "no-cache",
+      //   //   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/0.12.19 Chrome/91.0.4472.164 Electron/13.5.2 Safari/537.36",
+      //   // },
+      // });
 
-      const enc = new TextEncoder().encode(download); // always utf-8
-      const bf = enc;
-      const blob = new Blob([bf], {type: 'image/png'});
+      // const enc = new TextEncoder().encode(download); // always utf-8
+      // const bf = enc;
+      const blob = new Blob([buffer], {type: 'image/png'});
       return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -87,5 +88,32 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
 
 //   return 0;
 // }
+
+const downloadFile = async (url: string) => {
+  const response = await fetch(url, {
+    // method: 'GET',
+    mode: 'no-cors',
+  });
+  if (response.status !== 200) {
+    return {
+      ok: false,
+      msg: response.statusText,
+    };
+  }
+  const buffer = await response.arrayBuffer();
+  try {
+    console.log(buffer);
+    return {
+      ok: true,
+      msg: 'ok',
+      buffer: buffer,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      msg: err,
+    };
+  }
+};
 
 export default convertResourceToDataURL;

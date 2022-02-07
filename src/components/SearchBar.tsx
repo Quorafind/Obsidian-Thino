@@ -6,6 +6,7 @@ import '../less/search-bar.less';
 import React from 'react';
 import search from '../icons/search.svg';
 import { t } from '../translations/helper';
+import useToggle from '../hooks/useToggle';
 // import useToggle from "../hooks/useToggle";
 
 interface Props {}
@@ -19,7 +20,7 @@ const SearchBar: React.FC<Props> = () => {
       query: {type: memoType},
     },
   } = useContext(appContext);
-  // const [isSearchBarShown, toggleSearchbar] = useToggle(false);
+  const [isSearchBarShow, toggleSearchbar] = useToggle(false);
 
   const handleMemoTypeItemClick = (type: MemoSpecType | '') => {
     const {type: prevType} = locationService.getState().query;
@@ -32,6 +33,14 @@ const SearchBar: React.FC<Props> = () => {
   const handleTextQueryInput = (event: React.FormEvent<HTMLInputElement>) => {
     const text = event.currentTarget.value;
     locationService.setTextQuery(text);
+  };
+
+  const mouseIn = () => {
+    toggleSearchbar(true);
+  };
+
+  const mouseOut = () => {
+    toggleSearchbar(false);
   };
 
   // const handleSearchBarStatus = () => {
@@ -50,7 +59,7 @@ const SearchBar: React.FC<Props> = () => {
     <div className="search-bar-container">
       <div className="search-bar-inputer">
         <img className="icon-img" src={search} />
-        <input className="text-input" type="text" placeholder="" onChange={handleTextQueryInput} />
+        <input className="text-input" type="text" onMouseOver={mouseIn} onMouseOut={mouseOut} placeholder={isSearchBarShow ? "Type Here" : ""} onChange={handleTextQueryInput} />
       </div>
       <div className="quickly-action-wrapper">
         <div className="quickly-action-container">

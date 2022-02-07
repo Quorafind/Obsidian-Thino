@@ -87,6 +87,7 @@ export class Memos extends ItemView {
           return;
         }
         const leaf = leaves[0];
+        //@ts-expect-error, private method
         const side = leaf.getRoot().side;
         let sidebar: HTMLElement;
         let page: HTMLElement;
@@ -144,6 +145,9 @@ export class Memos extends ItemView {
     ShowDate = this.plugin.settings.ShowDate;
     AddBlankLineWhenDate = this.plugin.settings.AddBlankLineWhenDate;
     AutoSaveWhenOnMobile = this.plugin.settings.AutoSaveWhenOnMobile;
+    QueryFileName = this.plugin.settings.QueryFileName;
+    DeleteFileName = this.plugin.settings.DeleteFileName;
+    UseVaultTags = this.plugin.settings.UseVaultTags;
 
     this.memosComponent = React.createElement(App);
 
@@ -175,3 +179,6 @@ export let ShowTime: boolean;
 export let ShowDate: boolean;
 export let AddBlankLineWhenDate: boolean;
 export let AutoSaveWhenOnMobile: boolean;
+export let QueryFileName: string;
+export let DeleteFileName: string;
+export let UseVaultTags: boolean;

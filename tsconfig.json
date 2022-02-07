@@ -13,20 +13,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "noEmit": true,
-    "lib": [
-      "dom",
-      "esnext",
-      "DOM.Iterable",
-      "scripthost",
-      "es2015"
-    ]
+    "lib": ["dom", "esnext", "DOM.Iterable", "scripthost", "es2015"]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }
-
 
 // {
 //   "compilerOptions": {
