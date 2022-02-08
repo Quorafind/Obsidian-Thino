@@ -490,7 +490,6 @@
   height: auto;
   background-color: white;
   padding: 16px;
-  margin-bottom: 8px;
   border-radius: 8px;
   border: 2px solid #e4e4e4;
 }
@@ -522,7 +521,6 @@
     width: calc(100% - 24px);
     margin: auto;
     margin-right: 16px;
-    margin-bottom: 8px;
   }
   .theme-light img.memo-show-editor-button {
     position: fixed;
@@ -540,7 +538,6 @@
   height: auto;
   background-color: #3b3b3b;
   padding: 16px;
-  margin-bottom: 8px;
   border-radius: 8px;
   border: 2px solid #353535;
 }
@@ -572,7 +569,6 @@
     width: calc(100% - 24px);
     margin: auto;
     margin-right: 16px;
-    margin-bottom: 8px;
   }
   .theme-dark img.memo-show-editor-button {
     position: fixed;
@@ -1444,7 +1440,6 @@ div[data-type='memos_view'] .memos-header-container {
   height: 40px;
   flex-wrap: nowrap;
   margin-top: 16px;
-  margin-bottom: 8px;
   flex-shrink: 0;
 }
 div[data-type='memos_view'] .section-header-container > .title-text,
@@ -1525,7 +1520,6 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   height: 40px;
   flex-wrap: nowrap;
   margin-top: 16px;
-  margin-bottom: 8px;
   flex-shrink: 0;
 }
 .theme-dark div[data-type='memos_view'] .section-header-container > .title-text,
@@ -1632,7 +1626,7 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
-  padding: 12px 12px;
+  padding: 4px 12px;
   padding-bottom: 4px;
   font-size: 13px;
   line-height: 1.8;
@@ -1689,7 +1683,7 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
-  padding: 12px 12px;
+  padding: 4px 12px;
   padding-bottom: 4px;
   font-size: 13px;
   line-height: 1.8;
@@ -3629,9 +3623,6 @@ div[data-type='memos_view'] .image-container > img {
   border-radius: 8px;
   border: 1px solid transparent;
 }
-.theme-light div[data-type='memos_view'] .memo-wrapper:not(:first-child) {
-  margin-top: 8px;
-}
 .theme-light div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #e4e4e4;
 }
@@ -3813,9 +3804,6 @@ div[data-type='memos_view'] .image-container > img {
   background-color: #303030;
   border-radius: 8px;
   border: 1px solid transparent;
-}
-.theme-dark div[data-type='memos_view'] .memo-wrapper:not(:first-child) {
-  margin-top: 8px;
 }
 .theme-dark div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #353535;
@@ -4020,6 +4008,7 @@ div[data-type='memos_view'] .image-container > img {
   flex-grow: 1;
   width: 100%;
   overflow-y: scroll;
+  gap: 8px;
   scrollbar-width: none;
 }
 .theme-light div[data-type='memos_view'] .memolist-wrapper::-webkit-scrollbar {
@@ -4074,6 +4063,7 @@ div[data-type='memos_view'] .image-container > img {
   flex-grow: 1;
   width: 100%;
   overflow-y: scroll;
+  gap: 8px;
   scrollbar-width: none;
 }
 .theme-dark div[data-type='memos_view'] .memolist-wrapper::-webkit-scrollbar {
@@ -4153,7 +4143,6 @@ div[data-type='memos_view'] .memos-header-container {
   height: 40px;
   flex-wrap: nowrap;
   margin-top: 16px;
-  margin-bottom: 8px;
   flex-shrink: 0;
 }
 div[data-type='memos_view'] .section-header-container > .title-text,
@@ -4234,7 +4223,6 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   height: 40px;
   flex-wrap: nowrap;
   margin-top: 16px;
-  margin-bottom: 8px;
   flex-shrink: 0;
 }
 .theme-dark div[data-type='memos_view'] .section-header-container > .title-text,
@@ -4647,7 +4635,6 @@ div[data-type='memos_view'] .memos-header-container {
   height: 40px;
   flex-wrap: nowrap;
   margin-top: 16px;
-  margin-bottom: 8px;
   flex-shrink: 0;
 }
 div[data-type='memos_view'] .section-header-container > .title-text,
@@ -4728,7 +4715,6 @@ div[data-type='memos_view'] .memos-header-container > .btns-container {
   height: 40px;
   flex-wrap: nowrap;
   margin-top: 16px;
-  margin-bottom: 8px;
   flex-shrink: 0;
 }
 .theme-dark div[data-type='memos_view'] .section-header-container > .title-text,
@@ -8067,6 +8053,7 @@ div[data-type='memos_view'] #page-wrapper > .content-wrapper {
   padding-left: 10px;
   width: 600px;
   height: 100%;
+  gap: 8px;
 }
 div[data-type='memos_view'] #page-wrapper > .content-wrapper-padding-fix {
   display: flex;
@@ -8079,6 +8066,7 @@ div[data-type='memos_view'] #page-wrapper > .content-wrapper-padding-fix {
   height: 100%;
   overflow-y: hidden;
   padding-left: 34px;
+  gap: 8px;
 }
 @media only screen and (max-width: 875px) {
   div[data-type='memos_view'] body.mobile-show-sidebar #page-wrapper > .content-wrapper {
