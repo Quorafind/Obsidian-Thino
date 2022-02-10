@@ -29,6 +29,9 @@ export interface MemosSettings {
   DeleteFileName: string;
   QueryFileName: string;
   UseVaultTags: boolean;
+  DefaultLightBackgroundImage: string;
+  DefaultDarkBackgroundImage: string;
+  DefaultMemoComposition: string;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -56,6 +59,9 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   DeleteFileName: 'delete',
   QueryFileName: 'query',
   UseVaultTags: false,
+  DefaultLightBackgroundImage: '',
+  DefaultDarkBackgroundImage: '',
+  DefaultMemoComposition: '{TIME} {CONTENT}',
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -225,18 +231,18 @@ export class MemosSettingTab extends PluginSettingTab {
 
     let dropdown: DropdownComponent;
 
-    new Setting(containerEl)
-      .setName(t('UI language for date'))
-      .setDesc(t("Translates the date UI language. Only 'en' and 'zh' are available."))
-      .addDropdown(async (d: DropdownComponent) => {
-        dropdown = d;
-        dropdown.addOption('zh', '中文');
-        dropdown.addOption('en', 'English');
-        dropdown.setValue(this.plugin.settings.Language).onChange(async (value) => {
-          this.plugin.settings.Language = value;
-          this.applySettingsUpdate();
-        });
-      });
+    // new Setting(containerEl)
+    //   .setName(t('UI language for date'))
+    //   .setDesc(t("Translates the date UI language. Only 'en' and 'zh' are available."))
+    //   .addDropdown(async (d: DropdownComponent) => {
+    //     dropdown = d;
+    //     dropdown.addOption('zh', '中文');
+    //     dropdown.addOption('en', 'English');
+    //     dropdown.setValue(this.plugin.settings.Language).onChange(async (value) => {
+    //       this.plugin.settings.Language = value;
+    //       this.applySettingsUpdate();
+    //     });
+    //   });
 
     new Setting(containerEl)
       .setName(t('Default prefix'))
@@ -380,6 +386,32 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
+      .setName(t('Background Image in Light Theme'))
+      .setDesc(t('Set background image in light theme. Set something like "Daily/one.png"'))
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.DefaultLightBackgroundImage)
+          .setValue(this.plugin.settings.DefaultLightBackgroundImage)
+          .onChange(async (value) => {
+            this.plugin.settings.DefaultLightBackgroundImage = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Background Image in Dark Theme'))
+      .setDesc(t('Set background image in dark theme. Set something like "Daily/one.png"'))
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.DefaultDarkBackgroundImage)
+          .setValue(this.plugin.settings.DefaultDarkBackgroundImage)
+          .onChange(async (value) => {
+            this.plugin.settings.DefaultDarkBackgroundImage = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    new Setting(containerEl)
       .setName(t('Save Shared Image To Folder For Mobile'))
       .setDesc(t('Save image to folder for mobile. False by Default'))
       .addToggle((toggle) =>
@@ -387,6 +419,25 @@ export class MemosSettingTab extends PluginSettingTab {
           this.plugin.settings.AutoSaveWhenOnMobile = value;
           this.applySettingsUpdate();
         }),
+      );
+
+    this.containerEl.createEl('h1', {text: t('Experimental Options')});
+
+    new Setting(containerEl)
+      .setName(t('Default Memo Composition'))
+      .setDesc(
+        t(
+          'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default',
+        ),
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.DefaultMemoComposition)
+          .setValue(this.plugin.settings.DefaultMemoComposition)
+          .onChange(async (value) => {
+            this.plugin.settings.DefaultMemoComposition = value;
+            this.applySettingsUpdate();
+          }),
       );
 
     this.containerEl.createEl('h1', {text: t('Say Thank You')});

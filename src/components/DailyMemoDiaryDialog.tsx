@@ -15,7 +15,6 @@ import close from '../icons/close.svg';
 import arrowLeft from '../icons/arrow-left.svg';
 import arrowRight from '../icons/arrow-right.svg';
 import share from '../icons/share.svg';
-import i18next from 'i18next';
 import {AutoSaveWhenOnMobile} from '../memos';
 import {Platform, TFile, moment} from 'obsidian';
 import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
@@ -142,9 +141,9 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
         <div className="date-card-container" onClick={() => toggleShowDatePicker()}>
           <div className="year-text">{currentDate.getFullYear()}</div>
           <div className="date-container">
-            <div className="month-text">{i18next.t('months', {returnObjects: true})[currentDate.getMonth()]}</div>
+            <div className="month-text">{t('months')[currentDate.getMonth()]}</div>
             <div className="date-text">{currentDate.getDate()}</div>
-            <div className="day-text">{i18next.t('weekDays', {returnObjects: true})[currentDate.getDay()]}</div>
+            <div className="day-text">{t('weekDays')[currentDate.getDay()]}</div>
           </div>
         </div>
         <DatePicker
