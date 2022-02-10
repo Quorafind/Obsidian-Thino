@@ -1,5 +1,6 @@
 import {moment} from 'obsidian';
 import {getDailyNote} from 'obsidian-daily-notes-interface';
+import {DefaultMemoComposition} from '../memos';
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
 // import { TFile } from "obsidian";
@@ -27,7 +28,25 @@ export async function obHideMemo(memoid: string): Promise<Model.Memo> {
 }
 
 const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
-//eslint-disable-next-line
-const extractContentfromText = (line: string) =>/^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(
-    line,
-  )?.[8];
+const extractContentfromText = (line: string) => {
+  let regexMatch;
+  if (
+    DefaultMemoComposition != '' &&
+    /{TIME}/g.test(DefaultMemoComposition) &&
+    /{CONTENT}/g.test(DefaultMemoComposition)
+  ) {
+    //eslint-disable-next-line
+    regexMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
+      DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?').replace(
+        /{CONTENT}/g,
+        '(.*)$',
+      );
+  } else {
+    //eslint-disable-next-line
+    regexMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?\\s?(.*)$';
+  }
+  const regexMatchRe = new RegExp(regexMatch, '');
+  //eslint-disable-next-line
+  return regexMatchRe.exec(line)?.[8];
+  // return /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
+};

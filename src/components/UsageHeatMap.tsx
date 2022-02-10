@@ -1,12 +1,14 @@
-import {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import {useCallback, useContext, useEffect, useRef} from 'react';
+import useState from 'react-usestateref';
 import appContext from '../stores/appContext';
-import {globalStateService, locationService} from '../services';
+import {dailyNotesService, globalStateService, locationService} from '../services';
 import {DAILY_TIMESTAMP} from '../helpers/consts';
 import utils from '../helpers/utils';
 import '../less/usage-heat-map.less';
 import React from 'react';
-import {moment} from 'obsidian';
-import i18next from 'i18next';
+import {moment, Platform} from 'obsidian';
+import {t} from '../translations/helper';
+import {getDailyNote} from 'obsidian-daily-notes-interface';
 
 const tableConfig = {
   width: 12,
@@ -29,7 +31,13 @@ interface DailyUsageStat {
   count: number;
 }
 
+// interface FromTo {
+//   begin: string;
+// }
+
 interface Props {}
+
+// let FromTo: string = '';
 
 const UsageHeatMap: React.FC<Props> = () => {
   const todayTimeStamp = utils.getDateStampByDate(moment().format('YYYY-MM-DD HH:mm:ss'));
@@ -45,8 +53,12 @@ const UsageHeatMap: React.FC<Props> = () => {
   const [allStat, setAllStat] = useState<DailyUsageStat[]>(getInitialUsageStat(usedDaysAmount, beginDayTimestamp));
   const [popupStat, setPopupStat] = useState<DailyUsageStat | null>(null);
   const [currentStat, setCurrentStat] = useState<DailyUsageStat | null>(null);
+  const [fromTo, setFromTo, fromToRef] = useState('');
   const containerElRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
+  // const newFromTo = {
+  //   begin: "from",
+  // } as FromTo;
 
   useEffect(() => {
     const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestamp);
@@ -83,11 +95,95 @@ const UsageHeatMap: React.FC<Props> = () => {
     setPopupStat(null);
   }, []);
 
-  const handleUsageStatItemClick = useCallback((item: DailyUsageStat) => {
-    if (locationService.getState().query.duration?.from === item.timestamp) {
+  const handleUsageStatItemClick = useCallback((event: React.MouseEvent, item: DailyUsageStat) => {
+    if (
+      locationService.getState().query.duration?.from === item.timestamp &&
+      moment(locationService.getState().query.duration?.from).diff(
+        locationService.getState().query.duration?.to,
+        'day',
+      ) == 0
+    ) {
       locationService.setFromAndToQuery(0, 0);
       setCurrentStat(null);
-    } else if (item.count > 0) {
+      setFromTo(null);
+    } else if (
+      locationService.getState().query.duration?.from !== item.timestamp &&
+      locationService.getState().query.duration?.from > 0 &&
+      event.shiftKey
+    ) {
+      const timeStampDays = moment(item.timestamp)
+        .endOf('day')
+        .diff(locationService.getState().query.duration?.to, 'day');
+      if (
+        timeStampDays > 0 &&
+        moment(locationService.getState().query.duration?.from).diff(
+          locationService.getState().query.duration?.to,
+          'day',
+        ) == 0
+      ) {
+        setFromTo('from');
+      } else if (
+        timeStampDays < 0 &&
+        moment(locationService.getState().query.duration?.from).diff(
+          locationService.getState().query.duration?.to,
+          'day',
+        ) == 0
+      ) {
+        setFromTo('to');
+      }
+      if (moment(locationService.getState().query.duration?.from).isBefore(item.timestamp)) {
+        if (fromToRef.current === 'to') {
+          if (timeStampDays < 0) {
+            locationService.setFromAndToQuery(item.timestamp, locationService.getState().query.duration?.to);
+          } else {
+            locationService.setFromAndToQuery(
+              parseInt(moment(locationService.getState().query.duration?.to).startOf('day').format('x')),
+              parseInt(moment(item.timestamp).endOf('day').format('x')),
+            );
+            setFromTo('from');
+          }
+        } else if (fromToRef.current === 'from') {
+          if (timeStampDays < 0) {
+            locationService.setFromAndToQuery(
+              locationService.getState().query.duration?.from,
+              parseInt(moment(item.timestamp).endOf('day').format('x')),
+            );
+          } else {
+            locationService.setFromAndToQuery(
+              locationService.getState().query.duration?.from,
+              parseInt(moment(item.timestamp).endOf('day').format('x')),
+            );
+          }
+        }
+      } else {
+        // const days = moment(locationService.getState().query.duration?.from).diff(locationService.getState().query.duration?.to, 'day');
+        if (fromToRef.current === 'to') {
+          locationService.setFromAndToQuery(item.timestamp, locationService.getState().query.duration?.to);
+        } else if (fromToRef.current === 'from') {
+          locationService.setFromAndToQuery(
+            item.timestamp,
+            parseInt(moment(locationService.getState().query.duration?.from).endOf('day').format('x')),
+          );
+          setFromTo('to');
+        }
+      }
+    } else if (locationService.getState().query.duration?.from === 0 && event.shiftKey) {
+      locationService.setFromAndToQuery(item.timestamp, parseInt(moment().endOf('day').format('x')));
+    } else if (item.count > 0 && (event.ctrlKey || event.metaKey)) {
+      const {app, dailyNotes} = dailyNotesService.getState();
+
+      const file = getDailyNote(moment(item.timestamp), dailyNotes);
+      if (!Platform.isMobile) {
+        const leaf = app.workspace.splitActiveLeaf();
+        leaf.openFile(file);
+      } else {
+        let leaf = app.workspace.activeLeaf;
+        if (leaf === null) {
+          leaf = app.workspace.getLeaf(true);
+        }
+        leaf.openFile(file);
+      }
+    } else if (item.count > 0 && !event.shiftKey && !event.ctrlKey && !event.metaKey) {
       if (!['/', '/recycle'].includes(locationService.getState().pathname)) {
         locationService.setPathname('/');
       }
@@ -107,13 +203,13 @@ const UsageHeatMap: React.FC<Props> = () => {
   return (
     <div className="usage-heat-map-wrapper" ref={containerElRef}>
       <div className="day-tip-text-container">
-        <span className="tip-text">{i18next.t('weekDaysShort', {returnObjects: true})[0]}</span>
+        <span className="tip-text">{t('weekDaysShort')[0]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">{i18next.t('weekDaysShort', {returnObjects: true})[2]}</span>
+        <span className="tip-text">{t('weekDaysShort')[2]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">{i18next.t('weekDaysShort', {returnObjects: true})[4]}</span>
+        <span className="tip-text">{t('weekDaysShort')[4]}</span>
         <span className="tip-text"></span>
-        <span className="tip-text">{i18next.t('weekDaysShort', {returnObjects: true})[6]}</span>
+        <span className="tip-text">{t('weekDaysShort')[6]}</span>
       </div>
 
       {/* popup */}
@@ -144,7 +240,7 @@ const UsageHeatMap: React.FC<Props> = () => {
               key={i}
               onMouseEnter={(e) => handleUsageStatItemMouseEnter(e, v)}
               onMouseLeave={handleUsageStatItemMouseLeave}
-              onClick={() => handleUsageStatItemClick(v)}
+              onClick={(e) => handleUsageStatItemClick(e, v)}
             ></span>
           );
         })}

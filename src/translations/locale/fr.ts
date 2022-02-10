@@ -1,5 +1,29 @@
+// français
+
 export default {
   // setting.ts
+  welcome: 'Bienvenue dans Mémo !',
+  ribbonIconTitle: 'Mémos',
+  months: [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Aout',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
+  ],
+  monthsShort: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
+  weekDays: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+  weekDaysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+  to: 'à',
+  year: null,
+  month: null,
   'Basic Options': 'Options basique',
   'User name in Memos': 'User name dans Mémos',
   "Set your user name here. 'Memos 😏' By default": "Définissez votre username ici. Défaut : 'Memo 😏'",
@@ -51,10 +75,11 @@ export default {
     'Ajoute une ligne lors de la copie du résultat avec la date. Pas de ligne par défaut.',
   'Share Options': 'Options de partage',
   'Share Memos Image Footer Start': 'Début du pied de page — Partage de mémo de mémos',
-  "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default": "Définissez ce que vous voulez ici, utilisez {MemosNum} pour afficher le nombre de mémos, {UsedDay} pour les jours. Par défaut : '{MemosNum} Memos {UsedDay} Days.",
+  "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default":
+    "Définissez ce que vous voulez ici, utilisez {MemosNum} pour afficher le nombre de mémos, {UsedDay} pour les jours. Par défaut : '{MemosNum} Memos {UsedDay} Days.",
   'Share Memos Image Footer End': 'Fin du pied de page — Partage de mémo',
   "Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default":
-      "Définissez ce que vous voulez ici. Utilisez {UserName} comme username. Par défaut : '✍️ By {UserName}'",
+    "Définissez ce que vous voulez ici. Utilisez {UserName} comme username. Par défaut : '✍️ By {UserName}'",
   'Save Shared Image To Folder For Mobile': 'Sauvegarde des images partagés dans un dossier sur mobile.',
   'Save image to folder for mobile. False by Default':
     'Sauvegarder les images dans un dossier sur mobile. Désactivé par défaut.',
@@ -128,4 +153,13 @@ export default {
   'Mobile Options': 'Options mobile',
   "Don't support web image yet, please input image path in vault":
     "Ne supporte pas les images webs. Merci d'insérer le chemin de l'image depuis le coffre.",
+  'Background Image in Dark Theme': 'Image de fond en thème sombre',
+  'Background Image in Light Theme': 'Image de fond en thème clair',
+  'Set background image in dark theme. Set something like "Daily/one.png"':
+    'Définir l\'image de fond en thème sombre. Définir "Daily/one.png" par exemple.',
+  'Set background image in light theme. Set something like "Daily/one.png"':
+    'Définir l\'image de fond en thème clair. Définir "Daily/one.png" par exemple.',
+  'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
+    'Définir la composition par défaut du mémo, vous devez utiliser {TIME} comme "HH:mm" et {CONTENT} comme contenu. "{TIME} {CONTENT}" par défaut',
+  'Default Memo Composition': 'Composition par défaut du mémo',
 };

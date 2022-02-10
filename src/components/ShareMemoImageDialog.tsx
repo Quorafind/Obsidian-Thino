@@ -16,11 +16,21 @@ import '../less/share-memo-image-dialog.less';
 import React from 'react';
 import {Notice, TFile, Vault, moment, Platform} from 'obsidian';
 import appStore from '../stores/appStore';
-import {ShareFooterEnd, UserName, ShareFooterStart, AutoSaveWhenOnMobile} from '../memos';
+import {
+  ShareFooterEnd,
+  UserName,
+  ShareFooterStart,
+  AutoSaveWhenOnMobile,
+  DefaultLightBackgroundImage,
+  DefaultDarkBackgroundImage,
+} from '../memos';
 import close from '../icons/close.svg';
 import share from '../icons/share.svg';
+import lightBackground from '../icons/lightBackground.svg';
+import darkBackground from '../icons/darkBackground.svg';
 import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
 import {t} from '../translations/helper';
+import {dailyNotesService} from '../services';
 
 interface Props extends DialogProps {
   memo: Model.Memo;
@@ -174,13 +184,23 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
       return;
     }
 
+    changeBackgroundImage();
+
     setTimeout(() => {
       if (!memoElRef.current) {
         return;
       }
 
+      let shareDialogBackgroundColor;
+
+      if (document.body.className.contains('theme-dark')) {
+        shareDialogBackgroundColor = '#727171';
+      } else {
+        shareDialogBackgroundColor = '#eaeaea';
+      }
+
       toImage(memoElRef.current, {
-        backgroundColor: '#eaeaea',
+        backgroundColor: shareDialogBackgroundColor,
         pixelRatio: window.devicePixelRatio * 2,
       })
         .then((url) => {
@@ -197,13 +217,65 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
   };
 
   const convertBase64ToBlob = (base64: string, type: string) => {
-    var bytes = window.atob(base64);
-    var ab = new ArrayBuffer(bytes.length);
-    var ia = new Uint8Array(ab);
+    const bytes = window.atob(base64);
+    const ab = new ArrayBuffer(bytes.length);
+    const ia = new Uint8Array(ab);
     for (var i = 0; i < bytes.length; i++) {
       ia[i] = bytes.charCodeAt(i);
     }
     return new Blob([ab], {type: type});
+  };
+
+  const convertBackgroundToBase64 = async (path: string): Promise<string> => {
+    const {vault} = dailyNotesService.getState().app;
+    const buffer = await vault.adapter.readBinary(path);
+    const arr = new Uint8Array(buffer);
+
+    const blob = new Blob([arr], {type: 'image/png'});
+
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Url = reader.result as string;
+        // cachedResourceMap.set(url, base64Url);
+        resolve(base64Url);
+      };
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  const changeBackgroundImage = async () => {
+    const {app} = dailyNotesService.getState();
+    let imageUrl;
+    let imagePath;
+    const lightBackgroundImage = encodeURI(lightBackground);
+    const darkBackgroundImage = encodeURI(darkBackground);
+    if (document.body.className.contains('theme-light')) {
+      if (
+        (await app.vault.adapter.exists(DefaultLightBackgroundImage)) &&
+        /\.(png|svg|jpg|jpeg)/g.test(DefaultLightBackgroundImage)
+      ) {
+        imagePath = DefaultLightBackgroundImage;
+        imageUrl = await convertBackgroundToBase64(imagePath);
+      } else {
+        imageUrl = lightBackgroundImage;
+      }
+    } else if (document.body.className.contains('theme-dark')) {
+      if (
+        (await app.vault.adapter.exists(DefaultDarkBackgroundImage)) &&
+        /\.(png|svg|jpg|jpeg)/g.test(DefaultDarkBackgroundImage)
+      ) {
+        imagePath = DefaultDarkBackgroundImage;
+        imageUrl = await convertBackgroundToBase64(imagePath);
+      } else {
+        imageUrl = darkBackgroundImage;
+      }
+    }
+    const memoShareDiv = document.querySelector('.dialog-wrapper .memo-background .property-image') as HTMLElement;
+    memoShareDiv.style.backgroundImage = "url('" + imageUrl + "')";
+    if (document.body.className.contains('theme-dark')) {
+      memoShareDiv.style.backgroundColor = '#1f1f1f';
+    }
   };
 
   const handleCopytoClipboardBtnClick = async () => {
@@ -215,7 +287,6 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     let newFile;
     if (AutoSaveWhenOnMobile && Platform.isMobile) {
       blobInput.arrayBuffer().then(async (buffer) => {
-        
         const ext = 'png';
         const dailyNotes = getAllDailyNotes();
         for (const string in dailyNotes) {
@@ -275,14 +346,12 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
             <div
               className="property-image"
               style={{
-                backgroundImage:
-                  "url('https://cdn.photographylife.com/wp-content/uploads/2017/01/What-is-landscape-photography.jpg')",
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
               }}
             ></div>
             {/* <span className="time-text">{memo.createdAtStr}</span> */}
-            <span className='background-container'></span>
+            <span className="background-container"></span>
             <div
               className="memo-content-text"
               dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}

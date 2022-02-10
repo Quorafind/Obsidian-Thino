@@ -2,6 +2,28 @@
 
 export default {
   // setting.ts
+  welcome: 'Bem-vindo ao Memos!',
+  ribbonIconTitle: 'Memos',
+  months: [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ],
+  monthsShort: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
+  weekDays: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+  weekDaysShort: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+  to: 'para',
+  year: null,
+  month: null,
   'Basic Options': 'Opções Básicas',
   'User name in Memos': 'Nome de usuário no Memos',
   "Set your user name here. 'Memos 😏' By default": "Define o nome de usuário. Padrão: 'Memos 😏'",
@@ -135,4 +157,14 @@ export default {
   'Mobile Options': 'Opções Móveis',
   "Don't support web image yet, please input image path in vault":
     'Ainda não existe suporte para imagens de web. Por favor, insira o link para uma imagem no vault',
+  'Experimental Options': 'Opções Experimentais',
+  'Background Image in Dark Theme': 'Imagem de fundo no Tema Escuro',
+  'Background Image in Light Theme': 'Imagem de fundo no Tema Claro',
+  'Set background image in dark theme. Set something like "Daily/one.png"':
+    'Defina a imagem de fundo no Tema Escuro. Defina algo como "Daily/one.png"',
+  'Set background image in light theme. Set something like "Daily/one.png"':
+    'Defina a imagem de fundo no Tema Claro. Defina algo como "Daily/one.png"',
+  'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
+    'Defina a composição padrão do Memo, deve usar {TIME} como "HH:mm" e {CONTENT} como conteúdo. Padrão: "{TIME} {CONTENT}"',
+  'Default Memo Composition': 'Composição Padrão do Memo',
 };

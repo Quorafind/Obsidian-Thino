@@ -1,10 +1,10 @@
 import {Notice} from 'obsidian';
 import {t} from '../translations/helper';
 import {IMAGE_URL_REG} from '../helpers/consts';
-import { dailyNotesService } from '../services';
+import {dailyNotesService} from '../services';
 
 export const getBackgroundFile = async (path: string) => {
-   const {app} = dailyNotesService.getState();
+  const {app} = dailyNotesService.getState();
   if (/(https|http)/g.test(path)) {
     new Notice(t("Don't support web image yet, please input image path in vault"));
     return;

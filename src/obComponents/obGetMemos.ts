@@ -2,17 +2,33 @@ import {normalizePath, TFolder, TFile} from 'obsidian';
 import {getAllDailyNotes, getDailyNoteSettings, getDateFromFile} from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
 import {ProcessEntriesBelow} from '../memos';
+import {DefaultMemoComposition} from '../memos';
 
 export class DailyNotesFolderMissingError extends Error {}
 
-export async function getRemainingTasks(note: TFile): Promise<number> {
+export async function getRemainingMemos(note: TFile): Promise<number> {
   if (!note) {
     return 0;
   }
   const {vault} = appStore.getState().dailyNotesState.app;
   let fileContents = await vault.read(note);
+  let regexMatch;
+  if (
+    DefaultMemoComposition != '' &&
+    /{TIME}/g.test(DefaultMemoComposition) &&
+    /{CONTENT}/g.test(DefaultMemoComposition)
+  ) {
+    //eslint-disable-next-line
+    regexMatch = '(-|\\*) (\\[(.{1})\\]\\s)?' +
+      DefaultMemoComposition.replace(/{TIME}/g, '((\\<time\\>)?\\d{1,2}:\\d{2})?').replace(/ {CONTENT}/g, '');
+  } else {
+    //eslint-disable-next-line
+    regexMatch = '(-|\\*) (\\[(.{1})\\]\\s)?((\\<time\\>)?\\d{1,2}\\:\\d{2})?';
+  }
+  const regexMatchRe = new RegExp(regexMatch, 'g');
   //eslint-disable-next-line
-  const matchLength = (fileContents.match(/(-|\*) (\[ \]\s)?((\<time\>)?\d{1,2}\:\d{2})?/g) || []).length;
+  const matchLength = (fileContents.match(regexMatchRe) || []).length;
+  // const matchLength = (fileContents.match(/(-|\*) (\[ \]\s)?((\<time\>)?\d{1,2}\:\d{2})?/g) || []).length;
   const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g');
   const processEntriesHeader = (fileContents.match(re) || []).length;
   fileContents = null;
@@ -22,14 +38,14 @@ export async function getRemainingTasks(note: TFile): Promise<number> {
   return 0;
 }
 
-export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents: any[]): Promise<any[]> {
+export async function getMemosFromDailyNote(dailyNote: TFile | null, dailyEvents: any[]): Promise<any[]> {
   if (!dailyNote) {
     return [];
   }
   const {vault} = appStore.getState().dailyNotesState.app;
-  const Tasks = await getRemainingTasks(dailyNote);
+  const Memos = await getRemainingMemos(dailyNote);
 
-  if (Tasks) {
+  if (Memos) {
     let fileContents = await vault.read(dailyNote);
     let fileLines = getAllLinesFromFile(fileContents);
     const startDate = getDateFromFile(dailyNote, 'day');
@@ -47,13 +63,15 @@ export async function getTasksFromDailyNote(dailyNote: TFile | null, dailyEvents
       }
 
       if (lineContainsTime(line) && processHeaderFound) {
-        startDate.hours(parseInt(extractHourFromBulletLine(line)));
-        startDate.minutes(parseInt(extractMinFromBulletLine(line)));
-        endDate.hours(parseInt(extractHourFromBulletLine(line)));
-        if (parseInt(extractHourFromBulletLine(line)) > 22) {
-          endDate.minutes(parseInt(extractMinFromBulletLine(line)));
+        const hourText = extractHourFromBulletLine(line);
+        const minText = extractMinFromBulletLine(line);
+        startDate.hours(parseInt(hourText));
+        startDate.minutes(parseInt(minText));
+        endDate.hours(parseInt(hourText));
+        if (parseInt(hourText) > 22) {
+          endDate.minutes(parseInt(minText));
         } else {
-          endDate.minutes(parseInt(extractMinFromBulletLine(line)));
+          endDate.minutes(parseInt(minText));
         }
         if (/^\s*[-*]\s(\[(.{1})\])\s/g.test(line)) {
           const memoTaskType = extractMemoTaskTypeFromLine(line);
@@ -98,7 +116,7 @@ export async function getMemos(): Promise<any[]> {
 
   for (const string in dailyNotes) {
     if (dailyNotes[string] instanceof TFile) {
-      await getTasksFromDailyNote(dailyNotes[string], events);
+      await getMemosFromDailyNote(dailyNotes[string], events);
     }
   }
 
@@ -111,8 +129,25 @@ const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
 //   return /^\s*[\-\*]\s\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?\s*\S/.test(line)
 // }
 const lineContainsTime = (line: string) => {
+  let regexMatch;
+  if (
+    DefaultMemoComposition != '' &&
+    /{TIME}/g.test(DefaultMemoComposition) &&
+    /{CONTENT}/g.test(DefaultMemoComposition)
+  ) {
+    //eslint-disable-next-line
+    regexMatch = '^\\s*(-|\\*)\\s(\\[(.{1})\\]\\s)?' +
+      DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?\\d{1,2}:\\d{2}(\\<\\/time\\>)?').replace(
+        /{CONTENT}/g,
+        '(.*)$',
+      );
+  } else {
+    //eslint-disable-next-line
+    regexMatch = '^\\s*(-|\\*)\\s(\\[(.{1})\\]\\s)?(\\<time\\>)?\\d{1,2}\\:\\d{2}(.*)$';
+  }
+  const regexMatchRe = new RegExp(regexMatch, '');
   //eslint-disable-next-line
-  return /^\s*[\-\*]\s(\[(.{1})\]\s)?(\<time\>)?\d{1,2}\:\d{2}(.*)$/.test(line);
+  return regexMatchRe.test(line);
   // The below line excludes entries with a ':' after the time as I was having issues with my calendar
   // being pulled in. Once made configurable will be simpler to manage.
   // return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);
@@ -126,17 +161,73 @@ const lineContainsParseBelowToken = (line: string) => {
   return re.test(line);
 };
 
-const extractTextFromTodoLine = (line: string) =>
+const extractTextFromTodoLine = (line: string) => {
+  let regexMatch;
+  if (
+    DefaultMemoComposition != '' &&
+    /{TIME}/g.test(DefaultMemoComposition) &&
+    /{CONTENT}/g.test(DefaultMemoComposition)
+  ) {
+    //eslint-disable-next-line
+    regexMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
+      DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?').replace(
+        /{CONTENT}/g,
+        '(.*)$',
+      );
+  } else {
+    //eslint-disable-next-line
+    regexMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?\\s?(.*)$';
+  }
+  const regexMatchRe = new RegExp(regexMatch, '');
   //eslint-disable-next-line
-  /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
+  return regexMatchRe.exec(line)?.[8];
+  // return /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
+};
 
-const extractHourFromBulletLine = (line: string) =>
+const extractHourFromBulletLine = (line: string) => {
+  let regexHourMatch;
+  if (
+    DefaultMemoComposition != '' &&
+    /{TIME}/g.test(DefaultMemoComposition) &&
+    /{CONTENT}/g.test(DefaultMemoComposition)
+  ) {
+    //eslint-disable-next-line
+    regexHourMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
+      DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(\\<\\/time\\>)?').replace(
+        /{CONTENT}/g,
+        '(.*)$',
+      );
+  } else {
+    //eslint-disable-next-line
+    regexHourMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(.*)$';
+  }
+  const regexMatchRe = new RegExp(regexHourMatch, '');
   //eslint-disable-next-line
-  /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[4];
+  return regexMatchRe.exec(line)?.[4];
+};
 
-const extractMinFromBulletLine = (line: string) =>
+const extractMinFromBulletLine = (line: string) => {
+  let regexHourMatch;
+  if (
+    DefaultMemoComposition != '' &&
+    /{TIME}/g.test(DefaultMemoComposition) &&
+    /{CONTENT}/g.test(DefaultMemoComposition)
+  ) {
+    //eslint-disable-next-line
+    regexHourMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
+      DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(\\<\\/time\\>)?').replace(
+        /{CONTENT}/g,
+        '(.*)$',
+      );
+  } else {
+    //eslint-disable-next-line
+    regexHourMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(.*)$';
+  }
+  const regexMatchRe = new RegExp(regexHourMatch, '');
   //eslint-disable-next-line
-  /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5];
+  return regexMatchRe.exec(line)?.[5];
+  // /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5];
+};
 
 const extractMemoTaskTypeFromLine = (line: string) =>
   //eslint-disable-next-line

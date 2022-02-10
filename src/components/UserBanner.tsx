@@ -8,7 +8,7 @@ import '../less/user-banner.less';
 import React from 'react';
 import {UserName} from '../memos';
 import more from '../icons/more.svg';
-import { t } from '../translations/helper';
+import {t} from '../translations/helper';
 
 interface Props {}
 
@@ -63,7 +63,7 @@ const UserBanner: React.FC<Props> = () => {
           <span className="type-text">{t('TAG')}</span>
         </div>
         <div className="status-text duration-text" onClick={() => showDailyMemoDiaryDialog()}>
-          <span className="amount-text">{createdDays}</span>
+          <span className="amount-text">{createdDays ?? 0}</span>
           <span className="type-text">{t('DAY')}</span>
         </div>
       </div>

@@ -1,5 +1,14 @@
 export default {
   // setting.ts
+  welcome: '欢迎使用 Memos ',
+  ribbonIconTitle: 'Memos',
+  months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+  monthsShort: [null, null, null, null, null, null, null, null, null, null, null, null],
+  weekDays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+  weekDaysShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+  to: '至',
+  year: '年',
+  month: '月',
   'Basic Options': '基础选项',
   'User name in Memos': '在 Memos 中显示的用户名',
   "Set your user name here. 'Memos 😏' By default": "在这里设置你喜欢的用户名。 默认为 'Memos 😏'",
@@ -121,4 +130,14 @@ export default {
   'CANCEL EDIT': '取消编辑',
   'LINK TO THE': '链接到',
   'Mobile Options': '移动端选项',
+  'Experimental Options': '实验性选项',
+  'Background Image in Dark Theme': '深色主题的背景图',
+  'Background Image in Light Theme': '浅色主题的背景图',
+  'Set background image in dark theme. Set something like "Daily/one.png"':
+    '设置深色主题的背景图。请设置类似"Daily/one.png"的路径',
+  'Set background image in light theme. Set something like "Daily/one.png"':
+    '设置浅色主题的背景图。请设置类似"Daily/one.png"的路径',
+  'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
+    '设置默认 Memo 组成，你必须要使用 {TIME} 作为 "HH:mm" 而且要设置 {CONTENT} 作为内容识别。默认情况下， Memo 基于 "{TIME} {CONTENT}" 识别',
+  'Default Memo Composition': '默认 Memo 组成',
 };
