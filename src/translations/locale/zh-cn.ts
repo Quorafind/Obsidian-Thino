@@ -140,4 +140,6 @@ export default {
   'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
     '设置默认 Memo 组成，你必须要使用 {TIME} 作为 "HH:mm" 而且要设置 {CONTENT} 作为内容识别。默认情况下， Memo 基于 "{TIME} {CONTENT}" 识别',
   'Default Memo Composition': '默认 Memo 组成',
+  'Show Tasks Label': '展示任务标签',
+  'Show tasks label near the time text. False by default': '在 Memo 的时间旁展示任务标签。默认情况下不展示',
 };

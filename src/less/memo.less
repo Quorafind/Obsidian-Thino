@@ -23,12 +23,23 @@
     height: 24px;
     margin-bottom: 14px;
 
-    > .time-text {
-      font-size: 12px;
-      line-height: 24px;
-      color: rgb(168, 168, 168);
-      flex-shrink: 0;
-      cursor: pointer;
+    > .memo-top-left-wrapper {
+      .flex(row, flex-start, center);
+
+      > .time-text {
+        font-size: 12px;
+        line-height: 24px;
+        color: rgb(168, 168, 168);
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+
+      > .memo-type-img {
+        width: 11%;
+        height: 20px;
+        margin-left: 3px;
+        filter: opacity(0.5) invert(80%);
+      }
     }
 
     > .btns-container {
@@ -194,12 +205,23 @@
     height: 24px;
     margin-bottom: 14px;
 
-    > .time-text {
-      font-size: 12px;
-      line-height: 24px;
-      color: rgb(214, 214, 214);
-      flex-shrink: 0;
-      cursor: pointer;
+    > .memo-top-left-wrapper {
+      .flex(row, flex-start, center);
+
+      > .time-text {
+        font-size: 12px;
+        line-height: 24px;
+        color: rgb(168, 168, 168);
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+
+      > .memo-type-img {
+        width: 11%;
+        height: 20px;
+        margin-left: 3px;
+        filter: invert(0.8);
+      }
     }
 
     > .btns-container {

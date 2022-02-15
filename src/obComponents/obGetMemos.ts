@@ -86,14 +86,16 @@ export async function getMemosFromDailyNote(dailyNote: TFile | null, dailyEvents
           memoType = 'JOURNAL';
         }
         const rawText = extractTextFromTodoLine(line);
-        dailyEvents.push({
-          id: startDate.format('YYYYMMDDHHmmSS') + i,
-          content: rawText,
-          user_id: 1,
-          createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
-          updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
-          memoType: memoType,
-        });
+        if(rawText !== '') {
+          dailyEvents.push({
+            id: startDate.format('YYYYMMDDHHmmSS') + i,
+            content: rawText,
+            user_id: 1,
+            createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
+            updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
+            memoType: memoType,
+          });
+        }
       }
     }
     fileLines = null;

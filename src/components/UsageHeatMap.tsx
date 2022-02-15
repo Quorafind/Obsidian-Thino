@@ -17,7 +17,7 @@ const tableConfig = {
 
 const getInitialUsageStat = (usedDaysAmount: number, beginDayTimestamp: number): DailyUsageStat[] => {
   const initialUsageStat: DailyUsageStat[] = [];
-  for (let i = 1; i <= usedDaysAmount; i++) {
+  for (let i = 0; i <= usedDaysAmount; i++) {
     initialUsageStat.push({
       timestamp: parseInt(moment(beginDayTimestamp).add(i, 'days').format('x')),
       count: 0,
@@ -40,12 +40,14 @@ interface Props {}
 // let FromTo: string = '';
 
 const UsageHeatMap: React.FC<Props> = () => {
-  const todayTimeStamp = utils.getDateStampByDate(moment().format('YYYY-MM-DD HH:mm:ss'));
+  // const todayTimeStamp = utils.getDateStampByDate(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss'));
+  const todayTimeStamp = parseInt(moment().endOf('day').format('x'));
   const todayDay = new Date(todayTimeStamp).getDay() || 7;
   const nullCell = new Array(7 - todayDay).fill(0);
   const usedDaysAmount = (tableConfig.width - 1) * tableConfig.height + todayDay;
-  const beginDayTimestamp = utils.getDateStampByDate(todayTimeStamp - usedDaysAmount * DAILY_TIMESTAMP);
-  const startDate = moment().subtract(usedDaysAmount, 'days').endOf('day');
+  // const beginDayTimestamp = utils.getDateStampByDate(todayTimeStamp - usedDaysAmount * DAILY_TIMESTAMP);
+  const beginDayTimestamp = parseInt(moment().startOf('day').subtract(usedDaysAmount, 'days').format('x'));
+  const startDate = moment().startOf('day').subtract(usedDaysAmount, 'days');
 
   const {
     memoState: {memos},
@@ -63,7 +65,7 @@ const UsageHeatMap: React.FC<Props> = () => {
   useEffect(() => {
     const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestamp);
     for (const m of memos) {
-      const creationDate = moment(m.createdAt.replaceAll('/', '-'));
+      const creationDate = moment(m.createdAt.replaceAll('/', '-')).startOf('day');
       const index = creationDate.diff(startDate, 'days');
       // const index = (utils.getDateStampByDate(m.createdAt) - beginDayTimestamp) / (1000 * 3600 * 24) - 1;
       // if(index != newStat.length) { }

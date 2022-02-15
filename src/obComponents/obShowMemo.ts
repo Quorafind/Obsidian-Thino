@@ -7,7 +7,7 @@ export const showMemoInDailyNotes = async (memoId: string): Promise<any> => {
   const {app, dailyNotes} = dailyNotesService.getState();
 
   const lineNum = parseInt(memoId.slice(14));
-  const memoDateString = memoId.slice(0, 13);
+  const memoDateString = memoId.slice(0, 14);
   const date = moment(memoDateString, 'YYYYMMDDHHmmss');
   const file = getDailyNote(date, dailyNotes);
   if (!Platform.isMobile) {
