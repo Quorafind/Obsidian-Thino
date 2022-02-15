@@ -89,8 +89,8 @@ export const toCanvas = async (element: HTMLElement, options?: Options): Promise
   canvas.style.width = `${width}`;
   canvas.style.height = `${height}`;
 
-  if (options?.backgroundColor) {
-    context.fillStyle = options.backgroundColor;
+  if (options?.backgroundColor || document.body.className.contains('theme-dark')) {
+    context.fillStyle = options.backgroundColor || '#1f1f1f';
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
 

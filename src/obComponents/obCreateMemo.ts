@@ -3,6 +3,7 @@ import {createDailyNote, getAllDailyNotes, getDailyNote} from 'obsidian-daily-no
 import appStore from '../stores/appStore';
 import {InsertAfter} from '../memos';
 import {dailyNotesService} from '../services';
+import {DefaultMemoComposition} from '../memos';
 
 interface MContent {
   content: string;
@@ -39,11 +40,18 @@ export async function waitForInsert(MemoContent: string, isList: boolean): Promi
   const timeMinute = date.format('mm');
   let newEvent;
   let lineNum;
+  const timeText = String(timeHour) + `:` + String(timeMinute);
 
-  if (isList) {
+  if (isList && DefaultMemoComposition === '') {
     newEvent = `- [ ] ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
-  } else {
+  } else if (!isList && DefaultMemoComposition === '') {
     newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
+  }
+
+  if (isList && DefaultMemoComposition != '') {
+    newEvent = `- [ ] ` + DefaultMemoComposition.replace(/{TIME}/g, timeText).replace(/{CONTENT}/g, removeEnter);
+  } else if (!isList && DefaultMemoComposition != '') {
+    newEvent = `- ` + DefaultMemoComposition.replace(/{TIME}/g, timeText).replace(/{CONTENT}/g, removeEnter);
   }
 
   const dailyNotes = await getAllDailyNotes();

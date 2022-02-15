@@ -102,7 +102,6 @@ const downloadFile = async (url: string) => {
   }
   const buffer = await response.arrayBuffer();
   try {
-    console.log(buffer);
     return {
       ok: true,
       msg: 'ok',

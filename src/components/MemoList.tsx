@@ -31,11 +31,11 @@ const MemoList: React.FC<Props> = () => {
   // }
   const [isFetching, setFetchStatus] = useState(true);
   const wrapperElement = useRef<HTMLDivElement>(null);
-  const {tag: tagQuery, duration, type: memoType, text: textQuery, filter: queryId} = query;
+  const {tag: tagQuery, duration, type: memoContentType, text: textQuery, filter: queryId} = query;
   // const showMemoFilter = Boolean(tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryId);
   const queryFilter = queryService.getQueryById(queryId);
   const showMemoFilter = Boolean(
-    tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter,
+    tagQuery || (duration && duration.from < duration.to) || memoContentType || textQuery || queryFilter,
   );
 
   const shownMemos =
@@ -100,17 +100,17 @@ const MemoList: React.FC<Props> = () => {
           ) {
             shouldShow = false;
           }
-          if (memoType) {
+          if (memoContentType) {
             if (
-              memoType === 'NOT_TAGGED' &&
+              memoContentType === 'NOT_TAGGED' &&
               (memo.content.match(TAG_REG) !== null || memo.content.match(NOP_FIRST_TAG_REG) !== null)
             ) {
               shouldShow = false;
-            } else if (memoType === 'LINKED' && memo.content.match(LINK_REG) === null) {
+            } else if (memoContentType === 'LINKED' && memo.content.match(LINK_REG) === null) {
               shouldShow = false;
-            } else if (memoType === 'IMAGED' && memo.content.match(IMAGE_URL_REG) === null) {
+            } else if (memoContentType === 'IMAGED' && memo.content.match(IMAGE_URL_REG) === null) {
               shouldShow = false;
-            } else if (memoType === 'CONNECTED' && memo.content.match(MEMO_LINK_REG) === null) {
+            } else if (memoContentType === 'CONNECTED' && memo.content.match(MEMO_LINK_REG) === null) {
               shouldShow = false;
             }
           }

@@ -148,6 +148,9 @@ export class Memos extends ItemView {
     QueryFileName = this.plugin.settings.QueryFileName;
     DeleteFileName = this.plugin.settings.DeleteFileName;
     UseVaultTags = this.plugin.settings.UseVaultTags;
+    DefaultDarkBackgroundImage = this.plugin.settings.DefaultDarkBackgroundImage;
+    DefaultLightBackgroundImage = this.plugin.settings.DefaultLightBackgroundImage;
+    DefaultMemoComposition = this.plugin.settings.DefaultMemoComposition;
 
     this.memosComponent = React.createElement(App);
 
@@ -182,3 +185,6 @@ export let AutoSaveWhenOnMobile: boolean;
 export let QueryFileName: string;
 export let DeleteFileName: string;
 export let UseVaultTags: boolean;
+export let DefaultDarkBackgroundImage: string;
+export let DefaultLightBackgroundImage: string;
+export let DefaultMemoComposition: string;

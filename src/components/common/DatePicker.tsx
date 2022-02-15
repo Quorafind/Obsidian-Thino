@@ -4,6 +4,7 @@ import {DAILY_TIMESTAMP} from '../../helpers/consts';
 import '../../less/common/date-picker.less';
 import arrowLeft from '../../icons/arrow-left.svg';
 import arrowRight from '../../icons/arrow-right.svg';
+import {t} from '../../translations/helper';
 
 interface DatePickerProps {
   className?: string;
@@ -61,7 +62,7 @@ const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
           <img className="icon-img" src={arrowLeft} />
         </span>
         <span className="normal-text">
-          {firstDate.getFullYear()} 年 {firstDate.getMonth() + 1} 月
+          {firstDate.getFullYear()} {t('year')} {t('monthsShort')[firstDate.getMonth()] ?? firstDate.getMonth() + 1} {t('month') ?? ''}
         </span>
         <span className="btn-text" onClick={() => handleChangeMonthBtnClick(1)}>
           <img className="icon-img" src={arrowRight} />
@@ -69,13 +70,13 @@ const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
       </div>
       <div className="date-picker-day-container">
         <div className="date-picker-day-header">
-          <span className="day-item">周一</span>
-          <span className="day-item">周二</span>
-          <span className="day-item">周三</span>
-          <span className="day-item">周四</span>
-          <span className="day-item">周五</span>
-          <span className="day-item">周六</span>
-          <span className="day-item">周日</span>
+          <span className="day-item">{t('weekDaysShort')[0]}</span>
+          <span className="day-item">{t('weekDaysShort')[1]}</span>
+          <span className="day-item">{t('weekDaysShort')[2]}</span>
+          <span className="day-item">{t('weekDaysShort')[3]}</span>
+          <span className="day-item">{t('weekDaysShort')[4]}</span>
+          <span className="day-item">{t('weekDaysShort')[5]}</span>
+          <span className="day-item">{t('weekDaysShort')[6]}</span>
         </div>
 
         {dayList.map((d) => {
@@ -90,7 +91,8 @@ const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
               <span
                 key={d.datestamp}
                 className={`day-item ${d.datestamp === datestamp ? 'current' : ''}`}
-                onClick={() => handleDateItemClick(d.datestamp)}>
+                onClick={() => handleDateItemClick(d.datestamp)}
+              >
                 {d.date}
               </span>
             );

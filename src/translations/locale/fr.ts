@@ -1,7 +1,31 @@
+// français
+
 export default {
   // setting.ts
+  welcome: 'Bienvenue dans Mémo !',
+  ribbonIconTitle: 'Mémos',
+  months: [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Aout',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
+  ],
+  monthsShort: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
+  weekDays: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+  weekDaysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+  to: 'à',
+  year: null,
+  month: null,
   'Basic Options': 'Options basique',
-  'User name in Memos': 'User name dans Mémos',
+  'User name in Memos': 'Username dans Mémos',
   "Set your user name here. 'Memos 😏' By default": "Définissez votre username ici. Défaut : 'Memo 😏'",
   'Insert after heading': 'Insérer après le titre',
   'You should set the same heading below if you want to insert and process memos below the same heading.':
@@ -15,7 +39,7 @@ export default {
     "Le texte affiché sur le bouton de sauvegarde dans l'UI. Défaut : 'NOTEIT'",
   'Focus on editor when open memos': "Focus sur l'éditeur lors de l'ouverture du mémo.",
   'Focus on editor when open memos. Focus by default.':
-    "Focus sur l'éditeur" + " lors de l'ouverture du mémo. Focus par défaut.",
+    "Focus sur l'éditeur lors de l'ouverture du mémo. Focus par défaut.",
   'Open daily memos with open memos': 'Ouvrir les mémos quotidiens quand mémo est ouvert.',
   'Open daily memos with open memos. Open by default.': 'Ouvrir les mémos quotidiens quand mémo est ouvert.',
   'Open Memos when obsidian opens': 'Ouvrir Mémo quand Obsidian est ouvert.',
@@ -38,7 +62,7 @@ export default {
   "Set the default editor position on Mobile, 'Top' by default.":
     "Position par défaut de l'éditeur sur le mobile. Défaut : 'Haut'.",
   'Use button to show editor on mobile': "Utilisation du bouton pour afficher l'éditeur sur le mobile.",
-  'Show Time When Copy Results': 'Show Time When Copy Results',
+  'Show Time When Copy Results': "Aficher l'heure quand les résultats sont copiés"
   'Set a float button to call editor on mobile. Only when editor located at the bottom works.':
     "Place un bouton flottant pour appeler l'éditeur sur mobile. Fonctionne uniquement quand l'éditeur est placé en bas.",
   'Show time when you copy results, like 12:00. Copy time by default.':
@@ -51,10 +75,11 @@ export default {
     'Ajoute une ligne lors de la copie du résultat avec la date. Pas de ligne par défaut.',
   'Share Options': 'Options de partage',
   'Share Memos Image Footer Start': 'Début du pied de page — Partage de mémo de mémos',
-  "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default": "Définissez ce que vous voulez ici, utilisez {MemosNum} pour afficher le nombre de mémos, {UsedDay} pour les jours. Par défaut : '{MemosNum} Memos {UsedDay} Days.",
+  "Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default":
+    "Définissez ce que vous voulez ici, utilisez {MemosNum} pour afficher le nombre de mémos, {UsedDay} pour les jours. Par défaut : '{MemosNum} Memos {UsedDay} Days.",
   'Share Memos Image Footer End': 'Fin du pied de page — Partage de mémo',
   "Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default":
-      "Définissez ce que vous voulez ici. Utilisez {UserName} comme username. Par défaut : '✍️ By {UserName}'",
+    "Définissez ce que vous voulez ici. Utilisez {UserName} comme username. Par défaut : '✍️ By {UserName}'",
   'Save Shared Image To Folder For Mobile': 'Sauvegarde des images partagés dans un dossier sur mobile.',
   'Save image to folder for mobile. False by Default':
     'Sauvegarder les images dans un dossier sur mobile. Désactivé par défaut.',
@@ -82,8 +107,8 @@ export default {
   DELETE: 'DESÉPINGLER',
   'CONFIRM！': 'CONFIRMER ！',
   'CREATE FILTER': 'CRÉER FILTRE',
-  Settings: 'Paramètre',
-  'Recycle bin': 'Poubelle',
+  Settings: 'Paramètres',
+  'Recycle bin': 'Corbeille',
   'About Me': 'À propos de moi',
   'Fetching data...': 'Récupération des données...',
   'Here is No Zettels.': "Il n'y a pas de Zettels.",
@@ -128,4 +153,13 @@ export default {
   'Mobile Options': 'Options mobile',
   "Don't support web image yet, please input image path in vault":
     "Ne supporte pas les images webs. Merci d'insérer le chemin de l'image depuis le coffre.",
+  'Background Image in Dark Theme': 'Image de fond en thème sombre',
+  'Background Image in Light Theme': 'Image de fond en thème clair',
+  'Set background image in dark theme. Set something like "Daily/one.png"':
+    "Définir l'image de fond en thème sombre. Définir 'Daily/one.png' par exemple.",
+  'Set background image in light theme. Set something like "Daily/one.png"':
+    "Définir l'image de fond en thème clair. Définir 'Daily/one.png' par exemple.",
+  'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
+    'Définir la composition par défaut du mémo, vous devez utiliser {TIME} comme "HH:mm" et {CONTENT} comme contenu. "{TIME} {CONTENT}" par défaut',
+  'Default Memo Composition': 'Composition par défaut du mémo',
 };

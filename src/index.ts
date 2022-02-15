@@ -8,9 +8,7 @@ import {MemosSettingTab, DEFAULT_SETTINGS, MemosSettings} from './setting';
 import {appHasDailyNotesPluginLoaded} from 'obsidian-daily-notes-interface';
 // import { editorInput } from "./components/Editor/Editor";
 import showDailyMemoDiaryDialog from './components/DailyMemoDiaryDialog';
-import i18next from 'i18next';
-import {TRANSLATIONS_ZH} from './translations/zh/translations';
-import {TRANSLATIONS_EN} from './translations/en/translations';
+import {t} from './translations/helper';
 // import { globalStateService } from "./services";
 
 // declare module "obsidian" {
@@ -48,7 +46,7 @@ export default class MemosPlugin extends Plugin {
     console.log('obsidian-memos loading...');
     // this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
     await this.loadSettings();
-    await this.initLocalization();
+    // await this.initLocalization();
 
     // monkeyPatchConsole(this);
 
@@ -62,7 +60,7 @@ export default class MemosPlugin extends Plugin {
     this.addSettingTab(new MemosSettingTab(this.app, this));
 
     addIcons();
-    this.addRibbonIcon('Memos', i18next.t('ribbonIconTitle'), () => {
+    this.addRibbonIcon('Memos', t('ribbonIconTitle'), () => {
       new Notice('Open Memos Successfully');
       this.openMemos();
     });
@@ -114,7 +112,7 @@ export default class MemosPlugin extends Plugin {
     });
 
     this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
-    console.log(i18next.t('welcome'));
+    console.log(t('welcome'));
     console.log('obsidian-memos loaded');
   }
 
@@ -223,18 +221,18 @@ export default class MemosPlugin extends Plugin {
     }
   }
 
-  async initLocalization() {
-    i18next.init({
-      resources: {
-        en: {
-          translation: TRANSLATIONS_EN,
-        },
-        zh: {
-          translation: TRANSLATIONS_ZH,
-        },
-      },
-    });
+  // async initLocalization() {
+  //   i18next.init({
+  //     resources: {
+  //       en: {
+  //         translation: TRANSLATIONS_EN,
+  //       },
+  //       zh: {
+  //         translation: TRANSLATIONS_ZH,
+  //       },
+  //     },
+  //   });
 
-    i18next.changeLanguage(this.settings.Language);
-  }
+  //   i18next.changeLanguage(this.settings.Language);
+  // }
 }

@@ -24,12 +24,12 @@ const getCloneStyledElement = async (element: HTMLElement) => {
       } catch (error) {
         // do nth
       }
-    }else if (sourceElement.className === 'property-image') {
+    } else if (sourceElement.className === 'property-image') {
       try {
-        const imageUrl = sourceElement.style.backgroundImage
+        const imageUrl = sourceElement.style.backgroundImage;
         const url = await convertResourceToDataURL(imageUrl);
         (clonedElement as HTMLImageElement).style.backgroundImage = url;
-      }catch (error) {
+      } catch (error) {
         // do nth
       }
     }
