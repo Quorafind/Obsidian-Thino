@@ -520,7 +520,6 @@
   .theme-light div[data-type='memos_view'] .memo-editor-wrapper {
     width: calc(100% - 24px);
     margin: auto;
-    margin-right: 16px;
   }
   .theme-light img.memo-show-editor-button {
     position: fixed;
@@ -568,7 +567,6 @@
   .theme-dark div[data-type='memos_view'] .memo-editor-wrapper {
     width: calc(100% - 24px);
     margin: auto;
-    margin-right: 16px;
   }
   .theme-dark img.memo-show-editor-button {
     position: fixed;
@@ -3635,12 +3633,24 @@ div[data-type='memos_view'] .image-container > img {
   height: 24px;
   margin-bottom: 14px;
 }
-.theme-light div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .time-text {
+.theme-light div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .memo-top-left-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.theme-light div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .memo-top-left-wrapper > .time-text {
   font-size: 12px;
   line-height: 24px;
   color: #a8a8a8;
   flex-shrink: 0;
   cursor: pointer;
+}
+.theme-light div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .memo-top-left-wrapper > .memo-type-img {
+  width: 11%;
+  height: 20px;
+  margin-left: 3px;
+  filter: opacity(0.5) invert(80%);
 }
 .theme-light div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .btns-container {
   display: flex;
@@ -3817,12 +3827,24 @@ div[data-type='memos_view'] .image-container > img {
   height: 24px;
   margin-bottom: 14px;
 }
-.theme-dark div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .time-text {
+.theme-dark div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .memo-top-left-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.theme-dark div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .memo-top-left-wrapper > .time-text {
   font-size: 12px;
   line-height: 24px;
-  color: #d6d6d6;
+  color: #a8a8a8;
   flex-shrink: 0;
   cursor: pointer;
+}
+.theme-dark div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .memo-top-left-wrapper > .memo-type-img {
+  width: 11%;
+  height: 20px;
+  margin-left: 3px;
+  filter: invert(0.8);
 }
 .theme-dark div[data-type='memos_view'] .memo-wrapper > .memo-top-wrapper > .btns-container {
   display: flex;

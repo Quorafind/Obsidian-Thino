@@ -151,6 +151,7 @@ export class Memos extends ItemView {
     DefaultDarkBackgroundImage = this.plugin.settings.DefaultDarkBackgroundImage;
     DefaultLightBackgroundImage = this.plugin.settings.DefaultLightBackgroundImage;
     DefaultMemoComposition = this.plugin.settings.DefaultMemoComposition;
+    ShowTaskLabel = this.plugin.settings.ShowTaskLabel;
 
     this.memosComponent = React.createElement(App);
 
@@ -188,3 +189,4 @@ export let UseVaultTags: boolean;
 export let DefaultDarkBackgroundImage: string;
 export let DefaultLightBackgroundImage: string;
 export let DefaultMemoComposition: string;
+export let ShowTaskLabel: string;

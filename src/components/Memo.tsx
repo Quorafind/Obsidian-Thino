@@ -24,8 +24,10 @@ import {Notice, TFile, Vault} from 'obsidian';
 import appStore from '../stores/appStore';
 import {showMemoInDailyNotes} from '../obComponents/obShowMemo';
 import more from '../icons/more.svg';
-import {UseButtonToShowEditor, DefaultEditorLocation} from '../memos';
-import { t } from '../translations/helper';
+import task from '../icons/task.svg';
+import taskBlank from '../icons/task-blank.svg';
+import {UseButtonToShowEditor, DefaultEditorLocation, ShowTaskLabel} from '../memos';
+import {t} from '../translations/helper';
 
 interface Props {
   memo: Model.Memo;
@@ -220,13 +222,25 @@ const Memo: React.FC<Props> = (props: Props) => {
     showShareMemoImageDialog(memo);
   };
 
+  const handleMemoTypeShow = () => {
+    if(!ShowTaskLabel){
+      return;
+    }
+
+    if(memo.memoType === 'TASK-TODO') {
+      return taskBlank;
+    }else if(memo.memoType === 'TASK-DONE'){
+      return task;
+    }
+  };
+
   const handleMemoKeyDown = useCallback((event: React.MouseEvent) => {
     if (event.ctrlKey || event.metaKey) {
       handleSourceMemoClick();
     }
   }, []);
 
-  const handleMemoDoubleKeyDown = useCallback((event: React.MouseEvent) => {
+  const handleMemoDoubleClick = useCallback((event: React.MouseEvent) => {
     if (event) {
       handleEditMemoClick();
     }
@@ -255,11 +269,17 @@ const Memo: React.FC<Props> = (props: Props) => {
       className={`memo-wrapper ${'memos-' + memo.id} ${memo.memoType}`}
       onMouseLeave={handleMouseLeaveMemoWrapper}
       onMouseDown={handleMemoKeyDown}
-      onDoubleClick={handleMemoDoubleKeyDown}>
+      onDoubleClick={handleMemoDoubleClick}
+    >
       <div className="memo-top-wrapper">
-        <span className="time-text" onClick={handleShowMemoStoryDialog}>
-          {memo.createdAtStr}
-        </span>
+        <div className="memo-top-left-wrapper">
+          <span className="time-text" onClick={handleShowMemoStoryDialog}>
+            {memo.createdAtStr}
+          </span>
+          <div className={`memo-type-img ${(memo.memoType === 'TASK-TODO' || memo.memoType === 'TASK-DONE') && ShowTaskLabel ? '' : 'hidden'}`}>
+            <img src={handleMemoTypeShow() ?? ''} alt="memo-type" />
+          </div>
+        </div>
         <div className="btns-container">
           <span className="btn more-action-btn">
             <img className="icon-img" src={more} />
@@ -283,7 +303,8 @@ const Memo: React.FC<Props> = (props: Props) => {
               </span>
               <span
                 className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
-                onClick={handleDeleteMemoClick}>
+                onClick={handleDeleteMemoClick}
+              >
                 {showConfirmDeleteBtn ? t('CONFIRM！') : t('DELETE')}
               </span>
             </div>
@@ -293,7 +314,8 @@ const Memo: React.FC<Props> = (props: Props) => {
       <div
         className="memo-content-text"
         onClick={handleMemoContentClick}
-        dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content, memo.id)}}></div>
+        dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content, memo.id)}}
+      ></div>
       <Only when={externalImageUrls.length > 0}>
         <div className="images-wrapper">
           {externalImageUrls.map((imgUrl, idx) => (

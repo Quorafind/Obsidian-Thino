@@ -13,7 +13,7 @@ import {FocusOnEditor, SaveMemoButtonLabel} from '../../memos';
 import {getSuggestions} from '../../obComponents/obFileSuggester';
 import {TFile} from 'obsidian';
 import appStore from '../../stores/appStore';
-import { t } from '../../translations/helper';
+import {t} from '../../translations/helper';
 
 type ItemProps = {
   entity: {
@@ -79,8 +79,6 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   const refresh = useRefresh();
   // const [value, setValue] = useState("")
 
-  
-
   useEffect(() => {
     if (!editorRef.current) {
       return;
@@ -135,7 +133,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     () => ({
       element: editorRef.current as HTMLTextAreaElement,
       focus: () => {
-        if(FocusOnEditor){
+        if (FocusOnEditor) {
           editorRef.current?.focus();
         }
       },

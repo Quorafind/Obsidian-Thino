@@ -32,6 +32,7 @@ export interface MemosSettings {
   DefaultLightBackgroundImage: string;
   DefaultDarkBackgroundImage: string;
   DefaultMemoComposition: string;
+  ShowTaskLabel: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -50,6 +51,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   FocusOnEditor: true,
   OpenDailyMemosWithMemos: true,
   HideDoneTasks: false,
+  ShowTaskLabel: false,
   OpenMemosAutomatically: false,
   // EditorMaxHeight: '250',
   ShowTime: true,
@@ -200,6 +202,16 @@ export class MemosSettingTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.HideDoneTasks).onChange(async (value) => {
           this.plugin.settings.HideDoneTasks = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Show Tasks Label'))
+      .setDesc(t('Show tasks label near the time text. False by default'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.ShowTaskLabel).onChange(async (value) => {
+          this.plugin.settings.ShowTaskLabel = value;
           this.applySettingsUpdate();
         }),
       );

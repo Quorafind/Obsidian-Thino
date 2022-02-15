@@ -113,7 +113,6 @@ export default class MemosPlugin extends Plugin {
 
     this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
     console.log(t('welcome'));
-    console.log('obsidian-memos loaded');
   }
 
   public async loadSettings() {

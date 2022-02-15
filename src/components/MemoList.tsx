@@ -12,8 +12,8 @@ import dailyNotesService from '../services/dailyNotesService';
 import appStore from '../stores/appStore';
 import {Notice, Platform} from 'obsidian';
 import {HideDoneTasks} from '../memos';
-import {moment} from 'obsidian';
-import { t } from '../translations/helper';
+// import {moment} from 'obsidian';
+import {t} from '../translations/helper';
 // import { DefaultEditorLocation } from '../memos';
 
 interface Props {}
@@ -25,7 +25,7 @@ const MemoList: React.FC<Props> = () => {
     locationState: {query},
     memoState: {memos},
   } = useContext(appContext);
-  let reverseMemos: Model.Memo[];
+  // let reverseMemos: Model.Memo[];
   // if(DefaultEditorLocation === "Bottom" && window.innerWidth < 875 && Platform.isMobile){
   //   reverseMemos = memos.reverse();
   // }
