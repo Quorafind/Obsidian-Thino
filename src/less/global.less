@@ -22,6 +22,14 @@
   font-style: normal;
 }
 
+div[data-type='memos_view']  {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei UI", "Microsoft YaHei",
+  "WenQuanYi Micro Hei", sans-serif, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+  "Noto Color Emoji";
+  /*text-align: var();*/
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
 div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
   max-width: 100%;
   cursor: default;
@@ -33,8 +41,6 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
   box-sizing: border-box;
   color: @text-black;
   -webkit-tap-highlight-color: transparent;
-  font-family: 'DINPro', ui-sans-serif, -apple-system, 'system-ui', 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial,
-    sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 .theme-light div[data-type='memos_view'] body,
@@ -112,7 +118,6 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
 .theme-light div[data-type='memos_view'] .btn {
   border: unset;
   background-color: unset;
-  text-align: unset;
   font-size: unset;
   user-select: none;
   cursor: pointer;
@@ -130,14 +135,17 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
   }
 }
 
+.theme-light div[data-type='memos_view'].mobile-view body,
+.theme-light div[data-type='memos_view'].mobile-view html {
+  -webkit-overflow-scrolling: touch;
+}
+
 .theme-dark div[data-type='memos_view'] {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   color: @text-black;
   -webkit-tap-highlight-color: transparent;
-  font-family: 'DINPro', ui-sans-serif, -apple-system, 'system-ui', 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial,
-    sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 // .theme-dark .side-dock-ribbon-action[aria-label='Memos'] {
@@ -219,7 +227,6 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
 .theme-dark div[data-type='memos_view'] .btn {
   border: unset;
   background-color: unset;
-  text-align: unset;
   font-size: unset;
   user-select: none;
   cursor: pointer;
@@ -230,9 +237,15 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
   display: none !important;
 }
 
-@media only screen and (max-width: 875px) {
-  .theme-dark div[data-type='memos_view'] body,
-  .theme-dark div[data-type='memos_view'] html {
-    -webkit-overflow-scrolling: touch;
-  }
+//@media only screen and (max-width: 875px) {
+//  .theme-dark div[data-type='memos_view'] body,
+//  .theme-dark div[data-type='memos_view'] html {
+//    -webkit-overflow-scrolling: touch;
+//  }
+//}
+
+
+.theme-dark div[data-type='memos_view'].mobile-view body,
+.theme-dark div[data-type='memos_view'].mobile-view html {
+  -webkit-overflow-scrolling: touch;
 }

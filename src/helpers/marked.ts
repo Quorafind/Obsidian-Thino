@@ -1,5 +1,5 @@
 // import { getFile } from "../obComponents/obUpdateMemo";
-import {TFile} from 'obsidian';
+import { TFile } from 'obsidian';
 import appStore from '../stores/appStore';
 
 /**
@@ -75,7 +75,7 @@ const parseMarkedToHtml = (markedStr: string, memoid?: string): string => {
 };
 
 const replaceMd = (internalLink: string, label: string): string => {
-  const {metadataCache} = appStore.getState().dailyNotesState.app;
+  const { metadataCache } = appStore.getState().dailyNotesState.app;
 
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalLink), '');
 
@@ -121,4 +121,4 @@ const encodeHtml = (htmlStr: string): string => {
   return t.innerHTML;
 };
 
-export {encodeHtml, parseMarkedToHtml, parseHtmlToRawText, parseRawTextToHtml};
+export { encodeHtml, parseMarkedToHtml, parseHtmlToRawText, parseRawTextToHtml };

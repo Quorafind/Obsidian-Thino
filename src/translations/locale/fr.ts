@@ -165,4 +165,5 @@ export default {
   'Show Tasks Label': 'Afficher les étiquettes des tâches',
   'Show tasks label near the time text. False by default':
     'Afficher les étiquettes des tâches à côté du texte horaire. Désactivé par défaut.',
+  'Please Open Memos First': "Merci d'ouvrir les mémos en premier",
 };

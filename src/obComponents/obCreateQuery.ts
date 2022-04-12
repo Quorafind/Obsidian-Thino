@@ -1,10 +1,10 @@
-import {getDailyNotePath} from './obUpdateMemo';
-import {TFile, normalizePath, Notice} from 'obsidian';
-import {moment} from 'obsidian';
+import { getDailyNotePath } from './obUpdateMemo';
+import { TFile, normalizePath, Notice } from 'obsidian';
+import { moment } from 'obsidian';
 import appStore from '../stores/appStore';
 
 export const createObsidianQuery = async (title: string, querystring: string): Promise<any> => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
 
   const filePath = getDailyNotePath();
   const absolutePath = filePath + '/query.md';
@@ -72,7 +72,7 @@ export const createQueryInFile = async (
   title: string,
   queryString: string,
 ): Promise<any> => {
-  const {vault} = appStore.getState().dailyNotesState.app;
+  const { vault } = appStore.getState().dailyNotesState.app;
   let newContent;
   if (fileContent === '') {
     newContent = id + ' ' + title + ' ' + queryString;
@@ -86,7 +86,7 @@ export const createQueryInFile = async (
 };
 
 export const createQueryFile = async (path: string): Promise<TFile> => {
-  const {vault} = appStore.getState().dailyNotesState.app;
+  const { vault } = appStore.getState().dailyNotesState.app;
 
   try {
     const createdFile = await vault.create(path, '');

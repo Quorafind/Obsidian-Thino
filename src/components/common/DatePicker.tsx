@@ -1,10 +1,10 @@
 import React from 'react';
-import {useEffect, useState} from 'react';
-import {DAILY_TIMESTAMP} from '../../helpers/consts';
+import { useEffect, useState } from 'react';
+import { DAILY_TIMESTAMP } from '../../helpers/consts';
 import '../../less/common/date-picker.less';
 import arrowLeft from '../../icons/arrow-left.svg';
 import arrowRight from '../../icons/arrow-right.svg';
-import {t} from '../../translations/helper';
+import { t } from '../../translations/helper';
 
 interface DatePickerProps {
   className?: string;
@@ -13,7 +13,7 @@ interface DatePickerProps {
 }
 
 const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
-  const {className, datestamp, handleDateStampChange} = props;
+  const { className, datestamp, handleDateStampChange } = props;
   const [currentDateStamp, setCurrentDateStamp] = useState<DateStamp>(getMonthFirstDayDateStamp(datestamp));
 
   useEffect(() => {
@@ -62,7 +62,8 @@ const DatePicker: React.FC<DatePickerProps> = (props: DatePickerProps) => {
           <img className="icon-img" src={arrowLeft} />
         </span>
         <span className="normal-text">
-          {firstDate.getFullYear()} {t('year')} {t('monthsShort')[firstDate.getMonth()] ?? firstDate.getMonth() + 1} {t('month') ?? ''}
+          {firstDate.getFullYear()} {t('year')} {t('monthsShort')[firstDate.getMonth()] ?? firstDate.getMonth() + 1}{' '}
+          {t('month') ?? ''}
         </span>
         <span className="btn-text" onClick={() => handleChangeMonthBtnClick(1)}>
           <img className="icon-img" src={arrowRight} />

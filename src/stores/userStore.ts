@@ -32,4 +32,4 @@ export function reducer(state: State, action: Actions): State {
   }
 }
 
-export const defaultState: State = {user: null};
+export const defaultState: State = { user: null };

@@ -1,9 +1,10 @@
-import {t} from '../translations/helper';
-import {IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG} from './consts';
+import { t } from '../translations/helper';
+import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } from './consts';
+import { moment, Notice } from 'obsidian';
 
 export const relationConsts = [
-  {text: 'AND', value: 'AND'},
-  {text: 'OR', value: 'OR'},
+  { text: 'AND', value: 'AND' },
+  { text: 'OR', value: 'OR' },
 ];
 
 export const filterConsts = {
@@ -67,6 +68,20 @@ export const filterConsts = {
       },
     ],
   },
+  DATE: {
+    value: 'DATE',
+    text: t('DATE'),
+    operators: [
+      {
+        value: 'NOT_CONTAIN',
+        text: t('BEFORE'),
+      },
+      {
+        value: 'CONTAIN',
+        text: t('AFTER'),
+      },
+    ],
+  },
 };
 
 export const memoSpecialTypes = filterConsts['TYPE'].values;
@@ -95,7 +110,7 @@ export const checkShouldShowMemoWithFilters = (memo: Model.Memo, filters: Filter
   let shouldShow = true;
 
   for (const f of filters) {
-    const {relation} = f;
+    const { relation } = f;
     const r = checkShouldShowMemo(memo, f);
     if (relation === 'OR') {
       shouldShow = shouldShow || r;
@@ -110,7 +125,7 @@ export const checkShouldShowMemoWithFilters = (memo: Model.Memo, filters: Filter
 export const checkShouldShowMemo = (memo: Model.Memo, filter: Filter) => {
   const {
     type,
-    value: {operator, value},
+    value: { operator, value },
   } = filter;
 
   if (value === '') {
@@ -170,7 +185,25 @@ export const checkShouldShowMemo = (memo: Model.Memo, filter: Filter) => {
       contained = !contained;
     }
     shouldShow = contained;
+  } else if (type === 'DATE') {
+    if (!(app as any).plugins.enabledPlugins.has('nldates-obsidian')) {
+      new Notice(t('OBSIDIAN_NLDATES_PLUGIN_NOT_ENABLED'));
+    } else {
+      const nldatesPlugin = (app as any).plugins.getPlugin('nldates-obsidian');
+      const parsedResult = nldatesPlugin.parseDate(value);
+      let contained;
+      if (parsedResult.date !== null) {
+        contained = parsedResult.moment.isBefore(moment(memo.createdAt), 'day');
+      }
+
+      if (operator === 'NOT_CONTAIN') {
+        contained = !contained;
+      }
+      shouldShow = contained;
+    }
   }
+
+  shouldShow = memo.linkId === '' ? shouldShow : false;
 
   return shouldShow;
 };

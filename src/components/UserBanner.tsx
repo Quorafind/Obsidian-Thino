@@ -1,21 +1,21 @@
-import {useCallback, useContext, useState} from 'react';
+import { useCallback, useContext, useState } from 'react';
 import appContext from '../stores/appContext';
-import {locationService} from '../services';
+import { locationService } from '../services';
 import utils from '../helpers/utils';
 import MenuBtnsPopup from './MenuBtnsPopup';
 import showDailyMemoDiaryDialog from './DailyMemoDiaryDialog';
 import '../less/user-banner.less';
 import React from 'react';
-import {UserName} from '../memos';
+import { UserName } from '../memos';
 import more from '../icons/more.svg';
-import {t} from '../translations/helper';
+import { t } from '../translations/helper';
 
 interface Props {}
 
 const UserBanner: React.FC<Props> = () => {
   const {
-    memoState: {memos, tags},
-    userState: {user},
+    memoState: { memos, tags },
+    userState: { user },
   } = useContext(appContext);
   const username = user ? user.username : UserName;
   let memosLength;

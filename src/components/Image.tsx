@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Image: React.FC<Props> = (props: Props) => {
-  const {className, imgUrl, alt, referrerPolicy, filepath} = props;
+  const { className, imgUrl, alt, referrerPolicy, filepath } = props;
 
   const handleImageClick = () => {
     if (filepath) {

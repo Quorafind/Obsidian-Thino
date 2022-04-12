@@ -1,8 +1,8 @@
-import {App, DropdownComponent, PluginSettingTab, Setting} from 'obsidian';
+import { App, DropdownComponent, PluginSettingTab, Setting } from 'obsidian';
 import type MemosPlugin from './index';
-import {getDailyNotePath} from './obComponents/obUpdateMemo';
+import { getDailyNotePath } from './obComponents/obUpdateMemo';
 import memoService from './services/memoService';
-import {t} from './translations/helper';
+import { t } from './translations/helper';
 
 export interface MemosSettings {
   StartDate: string;
@@ -33,6 +33,7 @@ export interface MemosSettings {
   DefaultDarkBackgroundImage: string;
   DefaultMemoComposition: string;
   ShowTaskLabel: boolean;
+  CommentOnMemos: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -64,6 +65,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   DefaultLightBackgroundImage: '',
   DefaultDarkBackgroundImage: '',
   DefaultMemoComposition: '{TIME} {CONTENT}',
+  CommentOnMemos: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -100,10 +102,10 @@ export class MemosSettingTab extends PluginSettingTab {
   async display() {
     await this.plugin.loadSettings();
 
-    const {containerEl} = this;
+    const { containerEl } = this;
     this.containerEl.empty();
 
-    this.containerEl.createEl('h1', {text: t('Basic Options')});
+    this.containerEl.createEl('h1', { text: t('Basic Options') });
     // containerEl.createDiv("", (el) => {
     //   el.innerHTML = "Basic Options";
     // });
@@ -226,7 +228,7 @@ export class MemosSettingTab extends PluginSettingTab {
         }),
       );
 
-    this.containerEl.createEl('h1', {text: t('Advanced Options')});
+    this.containerEl.createEl('h1', { text: t('Advanced Options') });
 
     // new Setting(containerEl)
     //   .setName('Set The Max-Height for Editor')
@@ -340,7 +342,7 @@ export class MemosSettingTab extends PluginSettingTab {
           }),
       );
 
-    this.containerEl.createEl('h1', {text: t('Mobile Options')});
+    this.containerEl.createEl('h1', { text: t('Mobile Options') });
 
     new Setting(containerEl)
       .setName(t('Default editor position on mobile'))
@@ -365,7 +367,7 @@ export class MemosSettingTab extends PluginSettingTab {
         }),
       );
 
-    this.containerEl.createEl('h1', {text: t('Share Options')});
+    this.containerEl.createEl('h1', { text: t('Share Options') });
 
     new Setting(containerEl)
       .setName(t('Share Memos Image Footer Start'))
@@ -433,7 +435,7 @@ export class MemosSettingTab extends PluginSettingTab {
         }),
       );
 
-    this.containerEl.createEl('h1', {text: t('Experimental Options')});
+    this.containerEl.createEl('h1', { text: t('Experimental Options') });
 
     new Setting(containerEl)
       .setName(t('Default Memo Composition'))
@@ -452,7 +454,17 @@ export class MemosSettingTab extends PluginSettingTab {
           }),
       );
 
-    this.containerEl.createEl('h1', {text: t('Say Thank You')});
+    new Setting(containerEl)
+      .setName(t('Allow Comments On Memos'))
+      .setDesc(t('You can comment on memos. False by default'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.CommentOnMemos).onChange(async (value) => {
+          this.plugin.settings.CommentOnMemos = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    this.containerEl.createEl('h1', { text: t('Say Thank You') });
 
     new Setting(containerEl)
       .setName(t('Donate'))

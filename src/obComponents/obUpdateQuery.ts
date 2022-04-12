@@ -1,10 +1,9 @@
-import {moment} from 'obsidian';
-import {TFile} from 'obsidian';
+import { moment, TFile } from 'obsidian';
 import appStore from '../stores/appStore';
-import {getDailyNotePath} from './obUpdateMemo';
+import { getDailyNotePath } from './obUpdateMemo';
 
 export const updateObsidianQuery = async (queryId: string, title: string, queryString: string): Promise<any> => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
 
   const filePath = getDailyNotePath();
   const absolutePath = filePath + '/query.md';
@@ -80,6 +79,8 @@ const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
 //eslint-disable-next-line
 const getIDFromLine = (line: string) => /^(\d{14})(\d{1,})/.exec(line)?.[2];
 //eslint-disable-next-line
-const getPinnedStringFromLine = (line: string) =>/^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])\s(pinnedAt\: (\d{14})\d+)/.exec(line)?.[6];
+const getPinnedStringFromLine = (line: string) =>
+  /^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])\s(pinnedAt: (\d{14})\d+)/.exec(line)?.[6];
 //eslint-disable-next-line
-const getPinnedDateFromLine = (line: string) =>/^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])\s(pinnedAt\: (\d{14})\d+)/.exec(line)?.[7];
+const getPinnedDateFromLine = (line: string) =>
+  /^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])\s(pinnedAt: (\d{14})\d+)/.exec(line)?.[7];

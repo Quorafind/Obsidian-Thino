@@ -1,10 +1,9 @@
-import {getDailyNotePath} from './obUpdateMemo';
-import {TFile} from 'obsidian';
-import {moment} from 'obsidian';
+import { getDailyNotePath } from './obUpdateMemo';
+import { moment, TFile } from 'obsidian';
 import appStore from '../stores/appStore';
 
 export const findQuery = async (): Promise<any[]> => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
 
   const queryList = [];
 
@@ -75,4 +74,5 @@ const getStringFromLine = (line: string) => /^(\d{14})(\d{1,})\s(.+)\s(\[(.+)?\]
 //eslint-disable-next-line
 const getTitleFromLine = (line: string) => /^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])/.exec(line)?.[3];
 //eslint-disable-next-line
-const getPinnedDateFromLine = (line: string) =>/^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])\s(pinnedAt\: (\d{14}))/.exec(line)?.[7];
+const getPinnedDateFromLine = (line: string) =>
+  /^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])\s(pinnedAt: (\d{14}))/.exec(line)?.[7];

@@ -2,6 +2,7 @@ import utils from '../helpers/utils';
 
 export interface State {
   memos: Model.Memo[];
+  commentMemos: Model.Memo[];
   tags: string[];
 }
 
@@ -9,6 +10,13 @@ interface SetMemosAction {
   type: 'SET_MEMOS';
   payload: {
     memos: Model.Memo[];
+  };
+}
+
+interface SetCommentMemosAction {
+  type: 'SET_COMMENT_MEMOS';
+  payload: {
+    commentMemos: Model.Memo[];
   };
 }
 
@@ -38,7 +46,13 @@ interface EditMemoByIdAction {
   payload: Model.Memo;
 }
 
-export type Actions = SetMemosAction | SetTagsAction | InsertMemoAction | DeleteMemoByIdAction | EditMemoByIdAction;
+export type Actions =
+  | SetMemosAction
+  | SetCommentMemosAction
+  | SetTagsAction
+  | InsertMemoAction
+  | DeleteMemoByIdAction
+  | EditMemoByIdAction;
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
@@ -54,6 +68,20 @@ export function reducer(state: State, action: Actions): State {
       return {
         ...state,
         memos: [...memos],
+      };
+    }
+    case 'SET_COMMENT_MEMOS': {
+      const memos = utils.dedupeObjectWithId(
+        action.payload.commentMemos.sort(
+          (a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt),
+        ),
+      );
+
+      // const memos = action.payload.memos.sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt));
+
+      return {
+        ...state,
+        commentMemos: [...memos],
       };
     }
     case 'SET_TAGS': {
@@ -105,5 +133,6 @@ export function reducer(state: State, action: Actions): State {
 
 export const defaultState: State = {
   memos: [],
+  commentMemos: [],
   tags: [],
 };

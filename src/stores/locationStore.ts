@@ -32,7 +32,7 @@ interface SetTagQueryAction {
 interface SetFromAndToQueryAction {
   type: 'SET_DURATION_QUERY';
   payload: {
-    duration: Duration | null;
+    duration: TDuration | null;
   };
 }
 

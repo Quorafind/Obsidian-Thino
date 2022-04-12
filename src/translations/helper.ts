@@ -1,6 +1,6 @@
 // Code from https://github.com/valentine195/obsidian-admonition/blob/master/src/lang/helpers.ts
 
-import {moment} from 'obsidian';
+import { moment } from 'obsidian';
 
 import ar from './locale/ar';
 import cz from './locale/cz';
@@ -26,7 +26,7 @@ import tr from './locale/tr';
 import zhCN from './locale/zh-cn';
 import zhTW from './locale/zh-tw';
 
-const localeMap: {[k: string]: Partial<typeof en>} = {
+const localeMap: { [k: string]: Partial<typeof en> } = {
   ar,
   cs: cz,
   da,

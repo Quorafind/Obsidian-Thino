@@ -1,14 +1,13 @@
-import {useCallback, useContext, useEffect, useRef} from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import useState from 'react-usestateref';
 import appContext from '../stores/appContext';
-import {dailyNotesService, globalStateService, locationService} from '../services';
-import {DAILY_TIMESTAMP} from '../helpers/consts';
+import { dailyNotesService, globalStateService, locationService } from '../services';
+import { DAILY_TIMESTAMP } from '../helpers/consts';
 import utils from '../helpers/utils';
 import '../less/usage-heat-map.less';
-import React from 'react';
-import {moment, Platform} from 'obsidian';
-import {t} from '../translations/helper';
-import {getDailyNote} from 'obsidian-daily-notes-interface';
+import { moment, Platform } from 'obsidian';
+import { t } from '../translations/helper';
+import { getDailyNote } from 'obsidian-daily-notes-interface';
 
 const tableConfig = {
   width: 12,
@@ -50,21 +49,24 @@ const UsageHeatMap: React.FC<Props> = () => {
   const startDate = moment().startOf('day').subtract(usedDaysAmount, 'days');
 
   const {
-    memoState: {memos},
+    memoState: { memos },
   } = useContext(appContext);
+  // Remove Comment Memos
+  const newMemos = memos.filter((memo) => memo.linkId === '');
   const [allStat, setAllStat] = useState<DailyUsageStat[]>(getInitialUsageStat(usedDaysAmount, beginDayTimestamp));
   const [popupStat, setPopupStat] = useState<DailyUsageStat | null>(null);
   const [currentStat, setCurrentStat] = useState<DailyUsageStat | null>(null);
   const [fromTo, setFromTo, fromToRef] = useState('');
   const containerElRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
+
   // const newFromTo = {
   //   begin: "from",
   // } as FromTo;
 
   useEffect(() => {
     const newStat: DailyUsageStat[] = getInitialUsageStat(usedDaysAmount, beginDayTimestamp);
-    for (const m of memos) {
+    for (const m of newMemos) {
       const creationDate = moment(m.createdAt.replaceAll('/', '-')).startOf('day');
       const index = creationDate.diff(startDate, 'days');
       // const index = (utils.getDateStampByDate(m.createdAt) - beginDayTimestamp) / (1000 * 3600 * 24) - 1;
@@ -82,7 +84,7 @@ const UsageHeatMap: React.FC<Props> = () => {
       return;
     }
 
-    const {isMobileView} = globalStateService.getState();
+    const { isMobileView } = globalStateService.getState();
     const targetEl = event.target as HTMLElement;
     const sidebarEl = document.querySelector('.memos-sidebar-wrapper') as HTMLElement;
     popupRef.current.style.left = targetEl.offsetLeft - (containerElRef.current?.offsetLeft ?? 0) + 'px';
@@ -172,7 +174,7 @@ const UsageHeatMap: React.FC<Props> = () => {
     } else if (locationService.getState().query.duration?.from === 0 && event.shiftKey) {
       locationService.setFromAndToQuery(item.timestamp, parseInt(moment().endOf('day').format('x')));
     } else if (item.count > 0 && (event.ctrlKey || event.metaKey)) {
-      const {app, dailyNotes} = dailyNotesService.getState();
+      const { app, dailyNotes } = dailyNotesService.getState();
 
       const file = getDailyNote(moment(item.timestamp), dailyNotes);
       if (!Platform.isMobile) {

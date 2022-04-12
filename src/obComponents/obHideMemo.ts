@@ -1,16 +1,16 @@
-import {moment} from 'obsidian';
-import {getDailyNote} from 'obsidian-daily-notes-interface';
-import {DefaultMemoComposition} from '../memos';
+import { moment } from 'obsidian';
+import { getDailyNote } from 'obsidian-daily-notes-interface';
+import { DefaultMemoComposition } from '../memos';
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
 // import { TFile } from "obsidian";
 import appStore from '../stores/appStore';
-import {sendMemoToDelete} from './obDeleteMemo';
+import { sendMemoToDelete } from './obDeleteMemo';
 
 export async function obHideMemo(memoid: string): Promise<Model.Memo> {
-  const {dailyNotes} = dailyNotesService.getState();
+  const { dailyNotes } = dailyNotesService.getState();
   if (/\d{14,}/.test(memoid)) {
-    const {vault} = appStore.getState().dailyNotesState.app;
+    const { vault } = appStore.getState().dailyNotesState.app;
     const timeString = memoid.slice(0, 13);
     const idString = parseInt(memoid.slice(14));
     const changeDate = moment(timeString, 'YYYYMMDDHHmmSS');
@@ -36,7 +36,8 @@ const extractContentfromText = (line: string) => {
     /{CONTENT}/g.test(DefaultMemoComposition)
   ) {
     //eslint-disable-next-line
-    regexMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
+    regexMatch =
+      '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
       DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?').replace(
         /{CONTENT}/g,
         '(.*)$',

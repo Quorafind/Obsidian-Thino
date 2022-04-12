@@ -1,25 +1,16 @@
-import {useState, useEffect, useCallback} from 'react';
-import {
-  IMAGE_URL_REG,
-  MARKDOWN_URL_REG,
-  MARKDOWN_WEB_URL_REG,
-  MEMO_LINK_REG,
-  WIKI_IMAGE_URL_REG,
-} from '../helpers/consts';
+import React, { useCallback, useEffect, useState } from 'react';
+import { MEMO_LINK_REG } from '../helpers/consts';
 import utils from '../helpers/utils';
-import {globalStateService, memoService} from '../services';
-import {parseHtmlToRawText} from '../helpers/marked';
-import {formatMemoContent} from './Memo';
-import {showDialog} from './Dialog';
-import Only from './common/OnlyWhen';
-import Image from './Image';
+import { globalStateService, memoService } from '../services';
+import { parseHtmlToRawText } from '../helpers/marked';
+import { formatMemoContent } from './Memo';
+import { showDialog } from './Dialog';
 import '../less/memo-card-dialog.less';
-import React from 'react';
-import {Notice, TFile, Vault} from 'obsidian';
-import appStore from '../stores/appStore';
+import { Notice } from 'obsidian';
 import close from '../icons/close.svg';
 import edit from '../icons/edit.svg';
 import { t } from '../translations/helper';
+import MemoImage from './MemoImage';
 
 interface LinkedMemo extends FormattedMemo {
   dateStr: string;
@@ -29,83 +20,6 @@ interface Props extends DialogProps {
   memo: Model.Memo;
 }
 
-interface LinkMatch {
-  linkText: string;
-  altText: string;
-  path: string;
-  filepath?: string;
-}
-
-export const getPathOfImage = (vault: Vault, image: TFile) => {
-  return vault.getResourcePath(image);
-};
-
-const detectWikiInternalLink = (lineText: string): LinkMatch | null => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
-  const internalFileName = WIKI_IMAGE_URL_REG.exec(lineText)?.[1];
-  const internalAltName = WIKI_IMAGE_URL_REG.exec(lineText)?.[5];
-  const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  if (file === null) {
-    return {
-      linkText: internalFileName,
-      altText: internalAltName,
-      path: '',
-      filepath: '',
-    };
-  } else {
-    const imagePath = getPathOfImage(vault, file);
-    const filePath = file.path;
-    if (internalAltName) {
-      return {
-        linkText: internalFileName,
-        altText: internalAltName,
-        path: imagePath,
-        filepath: filePath,
-      };
-    } else {
-      return {
-        linkText: internalFileName,
-        altText: '',
-        path: imagePath,
-        filepath: filePath,
-      };
-    }
-  }
-};
-
-const detectMDInternalLink = (lineText: string): LinkMatch | null => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
-  const internalFileName = MARKDOWN_URL_REG.exec(lineText)?.[5];
-  const internalAltName = MARKDOWN_URL_REG.exec(lineText)?.[2];
-  const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  if (file === null) {
-    return {
-      linkText: internalFileName,
-      altText: internalAltName,
-      path: '',
-      filepath: '',
-    };
-  } else {
-    const imagePath = getPathOfImage(vault, file);
-    const filePath = file.path;
-    if (internalAltName) {
-      return {
-        linkText: internalFileName,
-        altText: internalAltName,
-        path: imagePath,
-        filepath: filePath,
-      };
-    } else {
-      return {
-        linkText: internalFileName,
-        altText: '',
-        path: imagePath,
-        filepath: filePath,
-      };
-    }
-  }
-};
-
 const MemoCardDialog: React.FC<Props> = (props: Props) => {
   const [memo, setMemo] = useState<FormattedMemo>({
     ...props.memo,
@@ -113,43 +27,6 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
   });
   const [linkMemos, setLinkMemos] = useState<LinkedMemo[]>([]);
   const [linkedMemos, setLinkedMemos] = useState<LinkedMemo[]>([]);
-
-  let externalImageUrls = [] as string[];
-  let internalImageUrls = [];
-  let allMarkdownLink: string | any[] = [];
-  let allInternalLink = [] as any[];
-  if (IMAGE_URL_REG.test(memo.content)) {
-    let allExternalImageUrls = [] as string[];
-    let anotherExternalImageUrls = [] as string[];
-    if (MARKDOWN_URL_REG.test(memo.content)) {
-      allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
-    }
-    if (WIKI_IMAGE_URL_REG.test(memo.content)) {
-      allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
-    }
-    // const allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
-    if (MARKDOWN_WEB_URL_REG.test(memo.content)) {
-      allExternalImageUrls = Array.from(memo.content.match(MARKDOWN_WEB_URL_REG));
-    }
-    if (allInternalLink.length) {
-      for (let i = 0; i < allInternalLink.length; i++) {
-        let one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one));
-      }
-    }
-    if (allMarkdownLink.length) {
-      for (let i = 0; i < allMarkdownLink.length; i++) {
-        let two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
-        } else {
-          internalImageUrls.push(detectMDInternalLink(two));
-        }
-      }
-    }
-    externalImageUrls = allExternalImageUrls.concat(anotherExternalImageUrls);
-    // externalImageUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
-  }
 
   useEffect(() => {
     const fetchLinkedMemos = async () => {
@@ -240,8 +117,10 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
           <div
             className="memo-content-text"
             onClick={handleMemoContentClick}
-            dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}></div>
-          <Only when={externalImageUrls.length > 0}>
+            dangerouslySetInnerHTML={{ __html: formatMemoContent(memo.content) }}
+          ></div>
+          <MemoImage memo={memo.content} />
+          {/* <Only when={externalImageUrls.length > 0}>
             <div className="images-wrapper">
               {externalImageUrls.map((imgUrl, idx) => (
                 <Image key={idx} className="memo-img" imgUrl={imgUrl} alt="" referrerPolicy="no-referrer" />
@@ -260,7 +139,7 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
                 />
               ))}
             </div>
-          </Only>
+          </Only> */}
           {/* <Only when={imageUrls.length > 0}>
             <div className="images-wrapper">
               {imageUrls.map((imgUrl, idx) => (
@@ -281,7 +160,8 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
                   left: (idx + 1) * 5 + 'px',
                   width: `calc(100% - ${(idx + 1) * 10}px)`,
                   zIndex: -idx - 1,
-                }}></div>
+                }}
+              ></div>
             );
           } else {
             return null;
@@ -290,7 +170,9 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
       </div>
       {linkMemos.length > 0 ? (
         <div className="linked-memos-wrapper">
-          <p className="normal-text">{t('LINKED')} {linkMemos.length} MEMO </p>
+          <p className="normal-text">
+            {t('LINKED')} {linkMemos.length} MEMO{' '}
+          </p>
           {linkMemos.map((m) => {
             const rawtext = parseHtmlToRawText(formatMemoContent(m.content)).replaceAll('\n', ' ');
             return (
@@ -304,7 +186,9 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
       ) : null}
       {linkedMemos.length > 0 ? (
         <div className="linked-memos-wrapper">
-          <p className="normal-text">{linkedMemos.length} MEMO {t('LINK TO THE')} MEMO</p>
+          <p className="normal-text">
+            {linkedMemos.length} MEMO {t('LINK TO THE')} MEMO
+          </p>
           {linkedMemos.map((m) => {
             const rawtext = parseHtmlToRawText(formatMemoContent(m.content)).replaceAll('\n', ' ');
             return (
@@ -326,6 +210,6 @@ export default function showMemoCardDialog(memo: Model.Memo): void {
       className: 'memo-card-dialog',
     },
     MemoCardDialog,
-    {memo},
+    { memo },
   );
 }

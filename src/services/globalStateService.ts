@@ -1,6 +1,6 @@
-import {storage} from '../helpers/storage';
+import { storage } from '../helpers/storage';
 import appStore from '../stores/appStore';
-import {AppSetting} from '../stores/globalStateStore';
+import { AppSetting } from '../stores/globalStateStore';
 
 class GlobalStateService {
   constructor() {
@@ -29,6 +29,15 @@ class GlobalStateService {
       type: 'SET_EDIT_MEMO_ID',
       payload: {
         editMemoId,
+      },
+    });
+  };
+
+  public setCommentMemoId = (commentMemoId: string) => {
+    appStore.dispatch({
+      type: 'SET_COMMENT_MEMO_ID',
+      payload: {
+        commentMemoId,
       },
     });
   };
