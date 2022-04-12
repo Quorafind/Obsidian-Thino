@@ -14,7 +14,7 @@ type Options = Partial<{
 }>;
 
 const getElementSize = (element: HTMLElement) => {
-  const {width, height} = window.getComputedStyle(element);
+  const { width, height } = window.getComputedStyle(element);
 
   return {
     width: parseInt(width.replace('px', '')),
@@ -51,7 +51,7 @@ const generateSVGElement = (width: number, height: number, element: HTMLElement)
 };
 
 export const toSVG = async (element: HTMLElement, options?: Options) => {
-  const {width, height} = getElementSize(element);
+  const { width, height } = getElementSize(element);
 
   const clonedElement = await getCloneStyledElement(element);
 
@@ -74,7 +74,7 @@ export const toCanvas = async (element: HTMLElement, options?: Options): Promise
   imageEl.src = url;
 
   const ratio = options?.pixelRatio || 1;
-  const {width, height} = getElementSize(element);
+  const { width, height } = getElementSize(element);
 
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');

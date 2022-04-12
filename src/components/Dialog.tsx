@@ -2,9 +2,9 @@ import ReactDOM from 'react-dom';
 import appContext from '../stores/appContext';
 import Provider from '../labs/Provider';
 import appStore from '../stores/appStore';
-import {ANIMATION_DURATION} from '../helpers/consts';
+import { ANIMATION_DURATION } from '../helpers/consts';
 import '../less/dialog.less';
-import React, {KeyboardEvent, useRef} from 'react';
+import React, { KeyboardEvent, useRef } from 'react';
 
 interface DialogConfig {
   className: string;
@@ -17,7 +17,7 @@ interface Props extends DialogConfig, DialogProps {
 }
 
 const BaseDialog: React.FC<Props> = (props: Props) => {
-  const {children, className, clickSpaceDestroy, destroy} = props;
+  const { children, className, clickSpaceDestroy, destroy } = props;
 
   const handleSpaceClicked = () => {
     if (clickSpaceDestroy) {
@@ -26,7 +26,7 @@ const BaseDialog: React.FC<Props> = (props: Props) => {
   };
 
   const handleEscClicked = (e: any) => {
-    const {key} = e; 
+    const { key } = e;
     if (key === 'Escape') {
       destroy();
     }

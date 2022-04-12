@@ -1,11 +1,11 @@
-import {showDialog} from './Dialog';
+import { showDialog } from './Dialog';
 import '../less/about-site-dialog.less';
 import React from 'react';
 import close from '../icons/close.svg';
 
 interface Props extends DialogProps {}
 
-const AboutSiteDialog: React.FC<Props> = ({destroy}: Props) => {
+const AboutSiteDialog: React.FC<Props> = ({ destroy }: Props) => {
   const handleCloseBtnClick = () => {
     destroy();
   };

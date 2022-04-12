@@ -10,6 +10,8 @@ export const TOAST_ANIMATION_DURATION = 400;
 // 一天的毫秒数
 export const DAILY_TIMESTAMP = 3600 * 24 * 1000;
 
+// 格式化时间
+
 // 标签 正则
 //eslint-disable-next-line
 export const TAG_REG = /\s#([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/gu;
@@ -22,7 +24,8 @@ export const ALL_TAG_REG = /([\p{Letter}\p{Emoji_Presentation}\p{Number}\/_-]+)/
 
 // URL 正则
 //eslint-disable-next-line
-export const LINK_REG = /(\s|：|>|^)((http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-]))/g;
+export const LINK_REG =
+  /(\s|：|>|^)((http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-]))/g;
 
 // export const CHECK_LINK_REG = /(\((\s*))(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/g;
 // export const LINK_REG = /(https?:\/\/[^\s<\\*>']+)/g;

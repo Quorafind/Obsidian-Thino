@@ -1,10 +1,9 @@
-import {getDailyNotePath} from './obUpdateMemo';
-import {TFile, Notice} from 'obsidian';
-import {moment} from 'obsidian';
+import { getDailyNotePath } from './obUpdateMemo';
+import { moment, Notice, TFile } from 'obsidian';
 import appStore from '../stores/appStore';
 
 export const pinQueryInFile = async (queryID: string): Promise<any> => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(queryID)) {
     const filePath = getDailyNotePath();
     const absolutePath = filePath + '/query.md';
@@ -35,7 +34,7 @@ export const pinQueryInFile = async (queryID: string): Promise<any> => {
 };
 
 export const unpinQueryInFile = async (queryID: string): Promise<any> => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
 
   const filePath = getDailyNotePath();
   const absolutePath = filePath + '/query.md';
@@ -60,7 +59,7 @@ export const createDeleteMemoInFile = async (
   memoContent: string,
   pinnedAtDateID: string,
 ): Promise<any> => {
-  const {vault} = appStore.getState().dailyNotesState.app;
+  const { vault } = appStore.getState().dailyNotesState.app;
   let newContent;
   if (fileContent === '') {
     newContent = memoContent + ' pinnedAt: ' + pinnedAtDateID;
@@ -74,7 +73,7 @@ export const createDeleteMemoInFile = async (
 };
 
 export const createqueryFile = async (path: string): Promise<TFile> => {
-  const {vault} = appStore.getState().dailyNotesState.app;
+  const { vault } = appStore.getState().dailyNotesState.app;
 
   try {
     const createdFile = await vault.create(path, '');
@@ -87,4 +86,5 @@ export const createqueryFile = async (path: string): Promise<TFile> => {
 
 const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
 //eslint-disable-next-line
-const extractPinnedAtfromText = (line: string) =>/^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])(\spinnedAt\: (\d{14,}))$/.exec(line)?.[6];
+const extractPinnedAtfromText = (line: string) =>
+  /^(\d{14})(\d{1,})\s(.+)\s(\[(.+)\])(\spinnedAt: (\d{14,}))$/.exec(line)?.[6];

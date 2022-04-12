@@ -1,25 +1,25 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import utils from '../helpers/utils';
-import {showDialog} from './Dialog';
+import { showDialog } from './Dialog';
 import '../less/preview-image-dialog.less';
 import React from 'react';
 import appStore from '../stores/appStore';
 import close from '../icons/close.svg';
-import {Notice} from 'obsidian';
-import {t} from '../translations/helper';
+import { Notice } from 'obsidian';
+import { t } from '../translations/helper';
 
 interface Props extends DialogProps {
   imgUrl: string;
   filepath?: string;
 }
 
-const PreviewImageDialog: React.FC<Props> = ({destroy, imgUrl, filepath}: Props) => {
+const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Props) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const [imgWidth, setImgWidth] = useState<number>(-1);
-  const {vault} = appStore.getState().dailyNotesState.app;
+  const { vault } = appStore.getState().dailyNotesState.app;
 
   useEffect(() => {
-    utils.getImageSize(imgUrl).then(({width}) => {
+    utils.getImageSize(imgUrl).then(({ width }) => {
       if (width !== 0) {
         setImgWidth(80);
       } else {
@@ -49,14 +49,14 @@ const PreviewImageDialog: React.FC<Props> = ({destroy, imgUrl, filepath}: Props)
     for (var i = 0; i < bytes.length; i++) {
       ia[i] = bytes.charCodeAt(i);
     }
-    return new Blob([ab], {type: type});
+    return new Blob([ab], { type: type });
   };
 
   const copyImageToClipboard = async () => {
     if ((filepath === null || filepath === undefined) && imgUrl !== null) {
       const myBase64 = imgUrl.split('base64,')[1];
       const blobInput = convertBase64ToBlob(myBase64, 'image/png');
-      const clipboardItemInput = new ClipboardItem({'image/png': blobInput});
+      const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
       // @ts-ignore
       window.navigator['clipboard'].write([clipboardItemInput]);
       new Notice('Send to clipboard successfully');
@@ -64,9 +64,9 @@ const PreviewImageDialog: React.FC<Props> = ({destroy, imgUrl, filepath}: Props)
       var buffer = await vault.adapter.readBinary(filepath);
       var arr = new Uint8Array(buffer);
 
-      var blob = new Blob([arr], {type: 'image/png'});
+      var blob = new Blob([arr], { type: 'image/png' });
       // @ts-ignore
-      const item = new ClipboardItem({'image/png': blob});
+      const item = new ClipboardItem({ 'image/png': blob });
       // @ts-ignore
       window.navigator['clipboard'].write([item]);
     }
@@ -111,7 +111,7 @@ export default function showPreviewImageDialog(imgUrl: string, filepath?: string
         className: 'preview-image-dialog',
       },
       PreviewImageDialog,
-      {imgUrl, filepath},
+      { imgUrl, filepath },
     );
   } else {
     showDialog(
@@ -119,7 +119,7 @@ export default function showPreviewImageDialog(imgUrl: string, filepath?: string
         className: 'preview-image-dialog',
       },
       PreviewImageDialog,
-      {imgUrl},
+      { imgUrl },
     );
   }
 

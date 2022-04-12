@@ -2,9 +2,9 @@
 // import userService from "./userService";
 // import api from "../helpers/api";
 import appStore from '../stores/appStore';
-import {getAllDailyNotes, getDailyNote} from 'obsidian-daily-notes-interface';
-import {App, TFile} from 'obsidian';
-import {Moment} from '_obsidian@0.13.11@obsidian/node_modules/moment';
+import { getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
+import { App, TFile } from 'obsidian';
+import { Moment } from '_obsidian@0.13.11@obsidian/node_modules/moment';
 // import { Moment}  from "obsidian";
 
 class DailyNotesService {
@@ -46,7 +46,7 @@ class DailyNotesService {
   // }
 
   public async getDailyNoteByMemo(date: Moment): Promise<TFile> {
-    const {dailyNotes} = this.getState();
+    const { dailyNotes } = this.getState();
     const dailyNote = getDailyNote(date, dailyNotes);
     return dailyNote;
   }

@@ -1,13 +1,13 @@
 // import utils from "./utils";
 
-import {findQuery} from '../obComponents/obGetQueries';
-import {createObsidianQuery} from '../obComponents/obCreateQuery';
-import {getMemos} from '../obComponents/obGetMemos';
-import {updateObsidianQuery} from '../obComponents/obUpdateQuery';
-import {obHideMemo} from '../obComponents/obHideMemo';
-import {deleteForever, getDeletedMemos, restoreDeletedMemo} from '../obComponents/obDeleteMemo';
-import {deleteQueryForever} from '../obComponents/obDeleteQuery';
-import {pinQueryInFile, unpinQueryInFile} from '../obComponents/obPinQuery';
+import { findQuery } from '../obComponents/obGetQueries';
+import { createObsidianQuery } from '../obComponents/obCreateQuery';
+import { getMemos } from '../obComponents/obGetMemos';
+import { updateObsidianQuery } from '../obComponents/obUpdateQuery';
+import { obHideMemo } from '../obComponents/obHideMemo';
+import { deleteForever, getDeletedMemos, restoreDeletedMemo } from '../obComponents/obDeleteMemo';
+import { deleteQueryForever } from '../obComponents/obDeleteQuery';
+import { pinQueryInFile, unpinQueryInFile } from '../obComponents/obPinQuery';
 
 // type ResponseType<T = unknown> = {
 //   succeed: boolean;
@@ -99,7 +99,7 @@ namespace api {
   }
 
   //eslint-disable-next-line
-  export function updateUserinfo(userinfo: Partial<{username: string; password: string; githubName: string}>) {
+  export function updateUserinfo(userinfo: Partial<{ username: string; password: string; githubName: string }>) {
     // return request({
     //   method: "PATCH",
     //   url: "/api/user/me",

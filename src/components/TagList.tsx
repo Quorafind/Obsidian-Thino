@@ -1,6 +1,6 @@
-import {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import appContext from '../stores/appContext';
-import {locationService, memoService} from '../services';
+import { locationService, memoService } from '../services';
 import useToggle from '../hooks/useToggle';
 import Only from './common/OnlyWhen';
 import utils from '../helpers/utils';
@@ -20,9 +20,9 @@ interface Props {}
 const TagList: React.FC<Props> = () => {
   const {
     locationState: {
-      query: {tag: tagQuery},
+      query: { tag: tagQuery },
     },
-    memoState: {tags: tagsText, memos},
+    memoState: { tags: tagsText, memos },
   } = useContext(appContext);
   const [tags, setTags] = useState<Tag[]>([]);
 
@@ -94,7 +94,7 @@ interface TagItemContainerProps {
 }
 
 const TagItemContainer: React.FC<TagItemContainerProps> = (props: TagItemContainerProps) => {
-  const {tag, tagQuery} = props;
+  const { tag, tagQuery } = props;
   const isActive = tagQuery === tag.text;
   const hasSubTags = tag.subTags.length > 0;
   const [showSubTags, toggleSubTags] = useToggle(false);

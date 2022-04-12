@@ -1,12 +1,13 @@
-import {useContext} from 'react';
+import React, { useContext } from 'react';
+import { moment } from 'obsidian';
 import appContext from '../stores/appContext';
-import {locationService} from '../services';
-import {memoSpecialTypes} from '../helpers/filter';
+import { locationService } from '../services';
+import { memoSpecialTypes } from '../helpers/filter';
 import '../less/search-bar.less';
-import React from 'react';
 import search from '../icons/search.svg';
 import { t } from '../translations/helper';
 import useToggle from '../hooks/useToggle';
+
 // import useToggle from "../hooks/useToggle";
 
 interface Props {}
@@ -17,13 +18,13 @@ export let searchBoxInput: HTMLInputElement;
 const SearchBar: React.FC<Props> = () => {
   const {
     locationState: {
-      query: {type: memoType},
+      query: { type: memoType },
     },
   } = useContext(appContext);
   const [isSearchBarShow, toggleSearchbar] = useToggle(false);
 
   const handleMemoTypeItemClick = (type: MemoSpecType | '') => {
-    const {type: prevType} = locationService.getState().query;
+    const { type: prevType } = locationService.getState().query;
     if (type === prevType) {
       type = '';
     }
@@ -32,7 +33,33 @@ const SearchBar: React.FC<Props> = () => {
 
   const handleTextQueryInput = (event: React.FormEvent<HTMLInputElement>) => {
     const text = event.currentTarget.value;
-    locationService.setTextQuery(text);
+    if (!text.contains(' -time: ')) {
+      locationService.setTextQuery(text);
+      return;
+    }
+
+    const time = text.split(' -time: ')[1];
+    const times = time.length > 10 ? time.match(/\d{4}-\d{2}-\d{2}/g) : null;
+    if (times === null || times === undefined) {
+      locationService.setTextQuery(text.split(' -time: ')[0]);
+      return;
+    }
+    if (times.length === 1) {
+      const startMoment = moment(times[0]);
+      locationService.setTimeQuery({
+        from: startMoment.startOf('day').valueOf(),
+        to: startMoment.endOf('day').valueOf(),
+      });
+    } else if (times.length === 2) {
+      const startMoment = moment(times[0]);
+      const endMoment = moment(times[1]);
+      locationService.setTimeQuery({
+        from: startMoment.startOf('day').valueOf(),
+        to: endMoment.endOf('day').valueOf(),
+      });
+    }
+    locationService.setTextQuery(text.split(' -time: ')[0]);
+    return;
   };
 
   const mouseIn = () => {
@@ -59,7 +86,14 @@ const SearchBar: React.FC<Props> = () => {
     <div className="search-bar-container">
       <div className="search-bar-inputer">
         <img className="icon-img" src={search} />
-        <input className="text-input" type="text" onMouseOver={mouseIn} onMouseOut={mouseOut} placeholder={isSearchBarShow ? "Type Here" : ""} onChange={handleTextQueryInput} />
+        <input
+          className="text-input"
+          type="text"
+          onMouseOver={mouseIn}
+          onMouseOut={mouseOut}
+          placeholder={isSearchBarShow ? 'Type Here' : ''}
+          onChange={handleTextQueryInput}
+        />
       </div>
       <div className="quickly-action-wrapper">
         <div className="quickly-action-container">
@@ -74,7 +108,8 @@ const SearchBar: React.FC<Props> = () => {
                       className={`type-item ${memoType === t.value ? 'selected' : ''}`}
                       onClick={() => {
                         handleMemoTypeItemClick(t.value as MemoSpecType);
-                      }}>
+                      }}
+                    >
                       {t.text}
                     </span>
                     {idx + 1 < memoSpecialTypes.length ? <span className="split-text">/</span> : null}

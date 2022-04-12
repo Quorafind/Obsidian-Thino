@@ -1,7 +1,7 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import appContext from '../stores/appContext';
 import SearchBar from './SearchBar';
-import {globalStateService, memoService, queryService} from '../services';
+import { globalStateService, memoService, queryService } from '../services';
 import Only from './common/OnlyWhen';
 import '../less/memos-header.less';
 import React from 'react';
@@ -14,10 +14,10 @@ interface Props {}
 const MemosHeader: React.FC<Props> = () => {
   const {
     locationState: {
-      query: {filter},
+      query: { filter },
     },
-    globalState: {isMobileView},
-    queryState: {queries},
+    globalState: { isMobileView },
+    queryState: { queries },
   } = useContext(appContext);
 
   const [titleText, setTitleText] = useState('MEMOS');

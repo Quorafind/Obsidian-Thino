@@ -1,10 +1,10 @@
-import {IMAGE_URL_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, WIKI_IMAGE_URL_REG} from '../helpers/consts';
+import { IMAGE_URL_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, WIKI_IMAGE_URL_REG } from '../helpers/consts';
 import utils from '../helpers/utils';
-import {formatMemoContent} from './Memo';
+import { formatMemoContent } from './Memo';
 import Only from './common/OnlyWhen';
 import '../less/daily-memo.less';
-import React, {useContext, useEffect} from 'react';
-import {TFile, Vault, App} from 'obsidian';
+import React from 'react';
+import { App, TFile, Vault } from 'obsidian';
 import appStore from '../stores/appStore';
 // import appContext from "../stores/appContext";
 // import appStore from "../stores/appStore";
@@ -25,89 +25,90 @@ interface LinkMatch {
   filePath?: string;
 }
 
-export const getPathOfImage = (vault: Vault, image: TFile) => {
-  return vault.getResourcePath(image);
-};
-
-const detectWikiInternalLink = (lineText: string, app: App): LinkMatch | null => {
-  const internalFileName = WIKI_IMAGE_URL_REG.exec(lineText)?.[1];
-  const internalAltName = WIKI_IMAGE_URL_REG.exec(lineText)?.[5];
-  const file = app.metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  if (file === null) {
-    return {
-      linkText: internalFileName,
-      altText: internalAltName,
-      path: '',
-      filePath: '',
-    };
-  } else {
-    const imagePath = getPathOfImage(app.vault, file);
-    if (internalAltName) {
-      return {
-        linkText: internalFileName,
-        altText: internalAltName,
-        path: imagePath,
-        filePath: file.path,
-      };
-    } else {
-      return {
-        linkText: internalFileName,
-        altText: '',
-        path: imagePath,
-        filePath: file.path,
-      };
-    }
-  }
-};
-
-const detectMDInternalLink = (lineText: string, app: App): LinkMatch | null => {
-  // const { metadataCache,vault } = appStore.getState().dailyNotesState.app;
-  const internalFileName = MARKDOWN_URL_REG.exec(lineText)?.[5];
-  const internalAltName = MARKDOWN_URL_REG.exec(lineText)?.[2];
-  const file = app.metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  if (file === null) {
-    return {
-      linkText: internalFileName,
-      altText: internalAltName,
-      path: '',
-      filePath: '',
-    };
-  } else {
-    const imagePath = getPathOfImage(app.vault, file);
-    if (internalAltName) {
-      return {
-        linkText: internalFileName,
-        altText: internalAltName,
-        path: imagePath,
-        filePath: file.path,
-      };
-    } else {
-      return {
-        linkText: internalFileName,
-        altText: '',
-        path: imagePath,
-        filePath: file.path,
-      };
-    }
-  }
-};
-
 const DailyMemo: React.FC<Props> = (props: Props) => {
   // const plugin = MemosPlugin;
-  const {app} = appStore.getState().dailyNotesState;
-  const {memo: propsMemo} = props;
+  const { app } = appStore.getState().dailyNotesState;
+  const { memo: propsMemo } = props;
   const memo: DailyMemo = {
     ...propsMemo,
     createdAtStr: utils.getDateTimeString(propsMemo.createdAt),
     timeStr: utils.getTimeString(propsMemo.createdAt),
   };
+
+  const getPathOfImage = (vault: Vault, image: TFile) => {
+    return vault.getResourcePath(image);
+  };
+
+  const detectWikiInternalLink = (lineText: string, app: App): LinkMatch | null => {
+    const internalFileName = WIKI_IMAGE_URL_REG.exec(lineText)?.[1];
+    const internalAltName = WIKI_IMAGE_URL_REG.exec(lineText)?.[5];
+    const file = app.metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
+    if (file === null) {
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: '',
+        filePath: '',
+      };
+    } else {
+      const imagePath = getPathOfImage(app.vault, file);
+      if (internalAltName) {
+        return {
+          linkText: internalFileName,
+          altText: internalAltName,
+          path: imagePath,
+          filePath: file.path,
+        };
+      } else {
+        return {
+          linkText: internalFileName,
+          altText: '',
+          path: imagePath,
+          filePath: file.path,
+        };
+      }
+    }
+  };
+
+  const detectMDInternalLink = (lineText: string, app: App): LinkMatch | null => {
+    // const { metadataCache,vault } = appStore.getState().dailyNotesState.app;
+    const internalFileName = MARKDOWN_URL_REG.exec(lineText)?.[5];
+    const internalAltName = MARKDOWN_URL_REG.exec(lineText)?.[2];
+    const file = app.metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
+    if (file === null) {
+      return {
+        linkText: internalFileName,
+        altText: internalAltName,
+        path: '',
+        filePath: '',
+      };
+    } else {
+      const imagePath = getPathOfImage(app.vault, file);
+      if (internalAltName) {
+        return {
+          linkText: internalFileName,
+          altText: internalAltName,
+          path: imagePath,
+          filePath: file.path,
+        };
+      } else {
+        return {
+          linkText: internalFileName,
+          altText: '',
+          path: imagePath,
+          filePath: file.path,
+        };
+      }
+    }
+  };
+
   let externalImageUrls = [] as string[];
-  let internalImageUrls = [];
+  const internalImageUrls = [];
   let allMarkdownLink: string | any[] = [];
   let allInternalLink = [] as any[];
   if (IMAGE_URL_REG.test(memo.content)) {
     let allExternalImageUrls = [] as string[];
-    let anotherExternalImageUrls = [] as string[];
+    const anotherExternalImageUrls = [] as string[];
     if (MARKDOWN_URL_REG.test(memo.content)) {
       allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
     }
@@ -120,17 +121,17 @@ const DailyMemo: React.FC<Props> = (props: Props) => {
     }
     if (allInternalLink.length) {
       for (let i = 0; i < allInternalLink.length; i++) {
-        let one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one, app));
+        const allInternalLinkElement = allInternalLink[i];
+        internalImageUrls.push(detectWikiInternalLink(allInternalLinkElement, app));
       }
     }
     if (allMarkdownLink.length) {
       for (let i = 0; i < allMarkdownLink.length; i++) {
-        let two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
+        const allMarkdownLinkElement = allMarkdownLink[i];
+        if (/(.*)http[s]?(.*)/.test(allMarkdownLinkElement)) {
+          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(allMarkdownLinkElement)?.[5]);
         } else {
-          internalImageUrls.push(detectMDInternalLink(two, app));
+          internalImageUrls.push(detectMDInternalLink(allMarkdownLinkElement, app));
         }
       }
     }
@@ -144,7 +145,7 @@ const DailyMemo: React.FC<Props> = (props: Props) => {
         <span className="normal-text">{memo.timeStr}</span>
       </div>
       <div className="memo-content-container">
-        <div className="memo-content-text" dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}></div>
+        <div className="memo-content-text" dangerouslySetInnerHTML={{ __html: formatMemoContent(memo.content) }}></div>
         <Only when={externalImageUrls.length > 0}>
           <div className="images-container">
             {externalImageUrls.map((imgUrl, idx) => (

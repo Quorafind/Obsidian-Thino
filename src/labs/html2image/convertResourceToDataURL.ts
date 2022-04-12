@@ -1,10 +1,10 @@
-import {dailyNotesService} from '../../services';
+import { dailyNotesService } from '../../services';
 // import {request} from 'obsidian';
 
 const cachedResourceMap = new Map<string, string>();
 
 const convertResourceToDataURL = async (url: string, useCache = true): Promise<string> => {
-  const {vault} = dailyNotesService.getState().app;
+  const { vault } = dailyNotesService.getState().app;
 
   if (useCache && cachedResourceMap.has(url)) {
     return Promise.resolve(cachedResourceMap.get(url) as string);
@@ -17,7 +17,7 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
       const buffer = await vault.adapter.readBinary(url);
       const arr = new Uint8Array(buffer);
 
-      const blob = new Blob([arr], {type: 'image/png'});
+      const blob = new Blob([arr], { type: 'image/png' });
       // var len = arr.byteLength;
       // for (var i = 0; i < len; i++) {
       //     binary += String.fromCharCode( arr[ i ] );
@@ -54,7 +54,7 @@ const convertResourceToDataURL = async (url: string, useCache = true): Promise<s
 
       // const enc = new TextEncoder().encode(download); // always utf-8
       // const bf = enc;
-      const blob = new Blob([buffer], {type: 'image/png'});
+      const blob = new Blob([buffer], { type: 'image/png' });
       return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onloadend = () => {

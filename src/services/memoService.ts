@@ -1,9 +1,10 @@
 import api from '../helpers/api';
-import {FIRST_TAG_REG, NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
+import { FIRST_TAG_REG, NOP_FIRST_TAG_REG, TAG_REG } from '../helpers/consts';
 import utils from '../helpers/utils';
 import appStore from '../stores/appStore';
-import {waitForInsert} from '../obComponents/obCreateMemo';
-import {changeMemo} from '../obComponents/obUpdateMemo';
+import { waitForInsert } from '../obComponents/obCreateMemo';
+import { changeMemo } from '../obComponents/obUpdateMemo';
+
 // import userService from "./userService";
 
 class MemoService {
@@ -21,13 +22,23 @@ class MemoService {
     // const { data } = await api.getMyMemos();
     const data = await api.getMyMemos();
     const memos = [] as any[];
-    for (const m of data) {
+    const commentMemos = [] as any[];
+    for (const m of data.memos) {
       memos.push(m);
+    }
+    for (const m of data.commentMemos) {
+      commentMemos.push(m);
     }
     appStore.dispatch({
       type: 'SET_MEMOS',
       payload: {
         memos,
+      },
+    });
+    appStore.dispatch({
+      type: 'SET_COMMENT_MEMOS',
+      payload: {
+        commentMemos,
       },
     });
 
@@ -45,7 +56,7 @@ class MemoService {
 
     const data = await api.getMyDeletedMemos();
     data.sort(
-      (a: {deletedAt: string | number | Date}, b: {deletedAt: string | number | Date}) =>
+      (a: { deletedAt: string | number | Date }, b: { deletedAt: string | number | Date }) =>
         utils.getTimeStampByDate(b.deletedAt) - utils.getTimeStampByDate(a.deletedAt),
     );
     return data;
@@ -100,7 +111,7 @@ class MemoService {
   }
 
   public updateTagsState() {
-    const {memos} = this.getState();
+    const { memos } = this.getState();
     const tagsSet = new Set<string>();
     for (const m of memos) {
       for (const t of Array.from(m.content.match(TAG_REG) ?? [])) {
@@ -132,12 +143,22 @@ class MemoService {
   }
 
   public async getLinkedMemos(memoId: string): Promise<Model.Memo[]> {
-    const {memos} = this.getState();
+    const { memos } = this.getState();
     return memos.filter((m) => m.content.includes(memoId));
+  }
+
+  public async getCommentMemos(memoId: string): Promise<Model.Memo[]> {
+    const { memos } = this.getState();
+    return memos.filter((m) => m.content.includes('comment: ' + memoId));
   }
 
   public async createMemo(text: string, isList: boolean): Promise<Model.Memo> {
     const memo = await waitForInsert(text, isList);
+    return memo;
+  }
+
+  public async importMemos(text: string, isList: boolean, date: any): Promise<Model.Memo> {
+    const memo = await waitForInsert(text, isList, date);
     return memo;
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {memo, useEffect, useRef} from 'react';
+import { memo, useEffect, useRef } from 'react';
 import useToggle from '../../hooks/useToggle';
 import '../../less/common/selector.less';
 // import arrowLeft from '../../icons/arrow-left.svg';
@@ -24,7 +24,7 @@ const nullItem = {
 };
 
 const Selector: React.FC<Props> = (props: Props) => {
-  const {className, dataSource, handleValueChanged, value} = props;
+  const { className, dataSource, handleValueChanged, value } = props;
   const [showSelector, toggleSelectorStatus] = useToggle(false);
 
   const seletorElRef = useRef<HTMLDivElement>(null);
@@ -80,7 +80,8 @@ const Selector: React.FC<Props> = (props: Props) => {
               key={d.value}
               onClick={() => {
                 handleItemClick(d);
-              }}>
+              }}
+            >
               {d.text}
             </div>
           );

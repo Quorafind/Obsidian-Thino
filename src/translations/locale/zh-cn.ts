@@ -142,4 +142,13 @@ export default {
   'Default Memo Composition': '默认 Memo 组成',
   'Show Tasks Label': '展示任务标签',
   'Show tasks label near the time text. False by default': '在 Memo 的时间旁展示任务标签。默认情况下不展示',
+  'Please Open Memos First': '请先打开 Memos',
+  'Comment it...': '评论...',
+  DATE: '日期',
+  OBSIDIAN_NLDATES_PLUGIN_NOT_ENABLED: 'Obsidian Natrual DATES language 插件没启动',
+  BEFORE: '在之前',
+  AFTER: '在之后',
+  'Allow Comments On Memos': '允许在 Memos 上评论',
+  'You can comment on memos. False by default': '你可以在 Memos 点击图标进行评论了。默认不开启',
+  Import: '导入',
 };

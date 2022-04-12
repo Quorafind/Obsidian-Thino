@@ -1,9 +1,9 @@
-import {moment} from 'obsidian';
-import {createDailyNote, getAllDailyNotes, getDailyNote} from 'obsidian-daily-notes-interface';
+import { moment } from 'obsidian';
+import { getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
-import {InsertAfter} from '../memos';
-import {dailyNotesService} from '../services';
-import {DefaultMemoComposition} from '../memos';
+import { DefaultMemoComposition, InsertAfter } from '../memos';
+import { dailyNotesService } from '../services';
+import utils from '../helpers/utils';
 
 interface MContent {
   content: string;
@@ -31,13 +31,21 @@ export function getLinesInString(input: string) {
   return lines;
 }
 
-export async function waitForInsert(MemoContent: string, isList: boolean): Promise<Model.Memo> {
+export async function waitForInsert(MemoContent: string, isList: boolean, insertDate?: any): Promise<Model.Memo> {
   // const plugin = window.plugin;
-  const {vault} = appStore.getState().dailyNotesState.app;
+  const { vault } = appStore.getState().dailyNotesState.app;
   const removeEnter = MemoContent.replace(/\n/g, '<br>');
-  const date = moment();
+  let date;
+
+  if (insertDate !== undefined) {
+    date = insertDate;
+  } else {
+    date = moment();
+  }
+
   const timeHour = date.format('HH');
   const timeMinute = date.format('mm');
+
   let newEvent;
   let lineNum;
   const timeText = String(timeHour) + `:` + String(timeMinute);
@@ -57,7 +65,7 @@ export async function waitForInsert(MemoContent: string, isList: boolean): Promi
   const dailyNotes = await getAllDailyNotes();
   const existingFile = getDailyNote(date, dailyNotes);
   if (!existingFile) {
-    const file = await createDailyNote(date);
+    const file = await utils.createDailyNote(date);
     await dailyNotesService.getMyAllDailyNotes();
     const fileContents = await vault.read(file);
     const newFileContent = await insertAfterHandler(InsertAfter, newEvent, fileContents);

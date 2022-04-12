@@ -1,12 +1,11 @@
-import {memo, useCallback, useEffect, useState} from 'react';
-import {memoService, queryService} from '../services';
-import {checkShouldShowMemoWithFilters, filterConsts, getDefaultFilter, relationConsts} from '../helpers/filter';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { memoService, queryService } from '../services';
+import { checkShouldShowMemoWithFilters, filterConsts, getDefaultFilter, relationConsts } from '../helpers/filter';
 import useLoading from '../hooks/useLoading';
-import {showDialog} from './Dialog';
+import { showDialog } from './Dialog';
 import Selector from './common/Selector';
 import '../less/create-query-dialog.less';
-import React from 'react';
-import {Notice} from 'obsidian';
+import { Notice } from 'obsidian';
 import close from '../icons/close.svg';
 import { t } from '../translations/helper';
 
@@ -15,7 +14,7 @@ interface Props extends DialogProps {
 }
 
 const CreateQueryDialog: React.FC<Props> = (props: Props) => {
-  const {destroy, queryId} = props;
+  const { destroy, queryId } = props;
 
   const [title, setTitle] = useState<string>('');
   const [filters, setFilters] = useState<Filter[]>([]);
@@ -45,7 +44,9 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
     if (!title) {
       new Notice('TITLE CANNOT BE NULL！');
       return;
-    } else if (filters.length === 0) {
+    }
+
+    if (filters.length === 0) {
       new Notice('FILTER CANNOT BE NULL！');
       return;
     }
@@ -152,8 +153,8 @@ interface MemoFilterInputerProps {
 }
 
 const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInputerProps) => {
-  const {index, filter, handleFilterChange, handleFilterRemove} = props;
-  const {type} = filter;
+  const { index, filter, handleFilterChange, handleFilterRemove } = props;
+  const { type } = filter;
   const [inputElements, setInputElements] = useState<JSX.Element>(<></>);
 
   useEffect(() => {
@@ -190,7 +191,7 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
               .getState()
               .tags.sort()
               .map((t) => {
-                return {text: t, value: t};
+                return { text: t, value: t };
               })}
             value={filter.value.value}
             handleValueChanged={handleValueChange}
@@ -199,6 +200,20 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
         break;
       }
       case 'TEXT': {
+        valueElement = (
+          <input
+            type="text"
+            className="value-inputer"
+            value={filter.value.value}
+            onChange={(event) => {
+              handleValueChange(event.target.value);
+              event.target.focus();
+            }}
+          />
+        );
+        break;
+      }
+      case 'DATE': {
         valueElement = (
           <input
             type="text"
@@ -312,6 +327,6 @@ export default function showCreateQueryDialog(queryId?: string): void {
       className: 'create-query-dialog',
     },
     CreateQueryDialog,
-    {queryId},
+    { queryId },
   );
 }

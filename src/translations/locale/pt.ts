@@ -170,4 +170,5 @@ export default {
   'Show Tasks Label': 'Mostrar Etiquetas de Tarefas',
   'Show tasks label near the time text. False by default':
     'Mostrar etiquetas de tarefas próximo ao texto de tempo. Desactivado por padrão',
+  'Please Open Memos First': 'Por favor, abra os Memos primeiro',
 };

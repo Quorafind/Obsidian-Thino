@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactNode} from 'react';
+import { ReactNode } from 'react';
 
 interface OnlyWhenProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface OnlyWhenProps {
 }
 
 const OnlyWhen: React.FC<OnlyWhenProps> = (props: OnlyWhenProps) => {
-  const {children, when} = props;
+  const { children, when } = props;
   return when ? <>{children}</> : null;
 };
 

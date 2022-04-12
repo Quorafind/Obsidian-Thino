@@ -1,9 +1,9 @@
-import {getDailyNotePath} from './obUpdateMemo';
-import {TFile} from 'obsidian';
+import { getDailyNotePath } from './obUpdateMemo';
+import { TFile } from 'obsidian';
 import appStore from '../stores/appStore';
 
 export async function deleteQueryForever(queryID: string): Promise<void> {
-  const {vault, metadataCache} = appStore.getState().dailyNotesState.app;
+  const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(queryID)) {
     const filePath = getDailyNotePath();
     const absolutePath = filePath + '/query.md';

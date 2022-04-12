@@ -1,13 +1,15 @@
-import {useContext, useEffect} from 'react';
-import Home from './pages/Home';
-import {globalStateService} from './services';
+import React, { useContext, useEffect } from 'react';
+// import Home from './pages/Home';
+import { globalStateService } from './services';
 import './less/app.less';
 import Provider from './labs/Provider';
 import appContext from './stores/appContext';
 import appStore from './stores/appStore';
 import './helpers/polyfill';
 import './less/global.less';
-import React from 'react';
+import { appHasDailyNotesPluginLoaded } from 'obsidian-daily-notes-interface';
+import { Notice } from 'obsidian';
+import { appRouterSwitch } from './routers';
 
 function StrictApp() {
   return (
@@ -19,8 +21,12 @@ function StrictApp() {
 
 function App() {
   const {
-    locationState: {pathname},
+    locationState: { pathname },
   } = useContext(appContext);
+
+  if (!appHasDailyNotesPluginLoaded() && !window.app.plugins.getPlugin('periodic-notes')) {
+    new Notice('Check if you opened Daily Notes Plugin Or Periodic Notes Plugin');
+  }
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -37,9 +43,9 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Home />
-    </>
+    // <>
+    <>{appRouterSwitch(pathname)}</>
+    // </>
   );
 }
 

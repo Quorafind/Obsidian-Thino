@@ -1,11 +1,11 @@
-import {useContext, useEffect, useRef, useState} from 'react';
-import {memoService} from '../services';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { memoService } from '../services';
 import toImage from '../labs/html2image';
 import useToggle from '../hooks/useToggle';
 import useLoading from '../hooks/useLoading';
-import {DAILY_TIMESTAMP} from '../helpers/consts';
+import { DAILY_TIMESTAMP } from '../helpers/consts';
 import utils from '../helpers/utils';
-import {showDialog} from './Dialog';
+import { showDialog } from './Dialog';
 import showPreviewImageDialog from './PreviewImageDialog';
 import DailyMemo from './DailyMemo';
 import DatePicker from './common/DatePicker';
@@ -15,11 +15,11 @@ import close from '../icons/close.svg';
 import arrowLeft from '../icons/arrow-left.svg';
 import arrowRight from '../icons/arrow-right.svg';
 import share from '../icons/share.svg';
-import {AutoSaveWhenOnMobile} from '../memos';
-import {Platform, TFile, moment} from 'obsidian';
-import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
+import { AutoSaveWhenOnMobile } from '../memos';
+import { Platform, TFile, moment } from 'obsidian';
+import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
-import {t} from '../translations/helper';
+import { t } from '../translations/helper';
 
 interface Props extends DialogProps {
   currentDateStamp: DateStamp;
@@ -34,7 +34,7 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
   const [showDatePicker, toggleShowDatePicker] = useToggle(false);
   const memosElRef = useRef<HTMLDivElement>(null);
   const currentDate = new Date(currentDateStamp);
-  const {vault} = appStore.getState().dailyNotesState.app;
+  const { vault } = appStore.getState().dailyNotesState.app;
 
   useEffect(() => {
     const setDailyMemos = () => {
@@ -60,7 +60,7 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
     for (var i = 0; i < bytes.length; i++) {
       ia[i] = bytes.charCodeAt(i);
     }
-    return new Blob([ab], {type: type});
+    return new Blob([ab], { type: type });
   };
 
   const handleShareBtnClick = async () => {
@@ -177,6 +177,6 @@ export default function showDailyMemoDiaryDialog(datestamp: DateStamp = Date.now
       className: 'daily-memo-diary-dialog',
     },
     DailyMemoDiaryDialog,
-    {currentDateStamp: datestamp},
+    { currentDateStamp: datestamp },
   );
 }
