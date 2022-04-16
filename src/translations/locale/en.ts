@@ -173,4 +173,11 @@ export default {
   'Allow Comments On Memos': 'Allow Comments On Memos',
   'You can comment on memos. False by default': 'You can comment on memos. False by default',
   Import: 'Import',
+  'TITLE CANNOT BE NULL!': 'TITLE CANNOT BE NULL!',
+  'FILTER CANNOT BE NULL!': 'FILTER CANNOT BE NULL!',
+  'Comments In Original DailyNotes/Notes': 'Comments In Original DailyNotes/Notes',
+  'You should install Dataview Plugin ver 0.5.9 or later to use this feature.':
+    'You should install Dataview Plugin ver 0.5.9 or later to use this feature.',
+  'Open Memos Successfully': 'Open Memos Successfully',
+  'Fetch Error': '😭 Fetch Error',
 };

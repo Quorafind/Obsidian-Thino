@@ -151,4 +151,11 @@ export default {
   'Allow Comments On Memos': '允许在 Memos 上评论',
   'You can comment on memos. False by default': '你可以在 Memos 点击图标进行评论了。默认不开启',
   Import: '导入',
+  'TITLE CANNOT BE NULL!': '标题不可以为空！',
+  'FILTER CANNOT BE NULL!': '筛选器不可以为空！',
+  'Comments In Original DailyNotes/Notes': '在原文件中进行评论',
+  'You should install Dataview Plugin ver 0.5.9 or later to use this feature.':
+    '你需要安装 0.5.9 版本以上的 Dataview 插件来使用该功能',
+  'Open Memos Successfully': '成功打开 Memos ',
+  'Fetch Error': '😭 Memos 获取失败',
 };

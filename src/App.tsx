@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 // import Home from './pages/Home';
-import { globalStateService } from './services';
 import './less/app.less';
 import Provider from './labs/Provider';
 import appContext from './stores/appContext';
@@ -28,19 +27,19 @@ function App() {
     new Notice('Check if you opened Daily Notes Plugin Or Periodic Notes Plugin');
   }
 
-  useEffect(() => {
-    const handleWindowResize = () => {
-      globalStateService.setIsMobileView(document.body.clientWidth <= 875);
-    };
-
-    handleWindowResize();
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleWindowResize = () => {
+  //     globalStateService.setIsMobileView(document.body.clientWidth <= 875);
+  //   };
+  //
+  //   handleWindowResize();
+  //
+  //   window.addEventListener('resize', handleWindowResize);
+  //
+  //   return () => {
+  //     window.removeEventListener('resize', handleWindowResize);
+  //   };
+  // }, []);
 
   return (
     // <>

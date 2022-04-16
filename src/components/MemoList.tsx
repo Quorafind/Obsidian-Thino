@@ -131,14 +131,16 @@ const MemoList: React.FC<Props> = () => {
   copyShownMemos = shownMemos;
 
   useEffect(() => {
-    memoService
-      .fetchAllMemos()
-      .then(() => {
-        setFetchStatus(false);
-      })
-      .catch(() => {
-        new Notice('😭 Fetch Error');
-      });
+    setTimeout(() => {
+      memoService
+        .fetchAllMemos()
+        .then(() => {
+          setFetchStatus(false);
+        })
+        .catch(() => {
+          new Notice(t('Fetch Error'));
+        });
+    }, 400);
     dailyNotesService
       .getMyAllDailyNotes()
       .then(() => {
@@ -148,6 +150,7 @@ const MemoList: React.FC<Props> = () => {
         new Notice('😭 Fetch DailyNotes Error');
       });
     dailyNotesService.getState();
+    memoService.getState();
   }, []);
 
   useEffect(() => {

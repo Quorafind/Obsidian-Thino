@@ -5,7 +5,7 @@ import addIcons from './obComponents/customIcons';
 import { DEFAULT_SETTINGS, MemosSettings, MemosSettingTab } from './setting';
 import showDailyMemoDiaryDialog from './components/DailyMemoDiaryDialog';
 import { t } from './translations/helper';
-import { memoService, resourceService } from './services';
+import { memoService } from './services';
 
 export default class MemosPlugin extends Plugin {
   public settings: MemosSettings;
@@ -53,12 +53,12 @@ export default class MemosPlugin extends Plugin {
         menu.addItem((item) => {
           item
             .setIcon('popup-open')
-            .setTitle('Insert File as Memo')
+            .setTitle('Insert file as memo content')
             .onClick(async () => {
-              const t = source.map(async (file: TFile) => {
-                return await resourceService.upload(file);
+              const fileName = source.map((file: TFile) => {
+                return this.app.fileManager.generateMarkdownLink(file, file.path);
               });
-              const newMemo = await memoService.createMemo(t.join('\n'), true);
+              const newMemo = await memoService.createMemo(fileName.join('\n'), true);
               memoService.pushMemo(newMemo);
               // console.log(source, 'hello world');
             });
@@ -112,12 +112,19 @@ export default class MemosPlugin extends Plugin {
       hotkeys: [],
     });
 
+    this.addCommand({
+      id: 'show-memos-in-popover',
+      name: 'Show Memos in Popover',
+      callback: () => this.showInPopover(),
+      hotkeys: [],
+    });
+
     if (Platform.isMobile) {
       this.registerMobileEvent();
     }
 
     this.addRibbonIcon('Memos', t('ribbonIconTitle'), () => {
-      new Notice('Open Memos Successfully');
+      new Notice(t('Open Memos Successfully'));
       this.openMemos();
     });
 
@@ -227,18 +234,20 @@ export default class MemosPlugin extends Plugin {
     leaf.view.containerEl.querySelector('.list-or-task').click();
   }
 
-  // async initLocalization() {
-  //   i18next.init({
-  //     resources: {
-  //       en: {
-  //         translation: TRANSLATIONS_EN,
-  //       },
-  //       zh: {
-  //         translation: TRANSLATIONS_ZH,
-  //       },
-  //     },
-  //   });
+  async showInPopover() {
+    const workspace = this.app.workspace;
+    workspace.detachLeavesOfType(MEMOS_VIEW_TYPE);
+    const leaf = await window.app.plugins.getPlugin('obsidian-hover-editor')?.spawnPopover();
 
-  //   i18next.changeLanguage(this.settings.Language);
-  // }
+    await leaf.setViewState({ type: MEMOS_VIEW_TYPE });
+    workspace.revealLeaf(leaf);
+    leaf.view.containerEl.classList.add('mobile-view');
+    if (!FocusOnEditor) {
+      return;
+    }
+
+    if (leaf.view.containerEl.querySelector('textarea') !== undefined) {
+      leaf.view.containerEl.querySelector('textarea').focus();
+    }
+  }
 }

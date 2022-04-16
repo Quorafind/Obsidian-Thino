@@ -4,6 +4,7 @@ export interface State {
   memos: Model.Memo[];
   commentMemos: Model.Memo[];
   tags: string[];
+  tagsNum: object;
 }
 
 interface SetMemosAction {
@@ -24,11 +25,19 @@ interface SetTagsAction {
   type: 'SET_TAGS';
   payload: {
     tags: string[];
+    tagsNum: object;
   };
 }
 
 interface InsertMemoAction {
   type: 'INSERT_MEMO';
+  payload: {
+    memo: Model.Memo;
+  };
+}
+
+interface InsertCommentMemoAction {
+  type: 'INSERT_COMMENT_MEMO';
   payload: {
     memo: Model.Memo;
   };
@@ -46,13 +55,20 @@ interface EditMemoByIdAction {
   payload: Model.Memo;
 }
 
+interface EditCommentMemoByIdAction {
+  type: 'EDIT_COMMENT_MEMO';
+  payload: Model.Memo;
+}
+
 export type Actions =
   | SetMemosAction
   | SetCommentMemosAction
   | SetTagsAction
   | InsertMemoAction
+  | InsertCommentMemoAction
   | DeleteMemoByIdAction
-  | EditMemoByIdAction;
+  | EditMemoByIdAction
+  | EditCommentMemoByIdAction;
 
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
@@ -88,6 +104,7 @@ export function reducer(state: State, action: Actions): State {
       return {
         ...state,
         tags: action.payload.tags,
+        tagsNum: action.payload.tagsNum,
       };
     }
     case 'INSERT_MEMO': {
@@ -100,6 +117,18 @@ export function reducer(state: State, action: Actions): State {
       return {
         ...state,
         memos,
+      };
+    }
+    case 'INSERT_COMMENT_MEMO': {
+      const memos = utils.dedupeObjectWithId(
+        [action.payload.memo, ...state.commentMemos].sort(
+          (a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt),
+        ),
+      );
+
+      return {
+        ...state,
+        commentMemos: [...memos],
       };
     }
     case 'DELETE_MEMO_BY_ID': {
@@ -125,6 +154,23 @@ export function reducer(state: State, action: Actions): State {
         memos,
       };
     }
+    case 'EDIT_COMMENT_MEMO': {
+      const memos = state.commentMemos.map((m) => {
+        if (m.id === action.payload.id) {
+          return {
+            ...m,
+            ...action.payload,
+          };
+        } else {
+          return m;
+        }
+      });
+
+      return {
+        ...state,
+        commentMemos: [...memos],
+      };
+    }
     default: {
       return state;
     }
@@ -135,4 +181,5 @@ export const defaultState: State = {
   memos: [],
   commentMemos: [],
   tags: [],
+  tagsNum: {} as { [key: string]: number },
 };
