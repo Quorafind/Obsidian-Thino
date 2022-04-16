@@ -4,6 +4,7 @@ import utils from '../helpers/utils';
 import appStore from '../stores/appStore';
 import { waitForInsert } from '../obComponents/obCreateMemo';
 import { changeMemo } from '../obComponents/obUpdateMemo';
+import { commentMemo } from '../obComponents/obCommentMemo';
 
 // import userService from "./userService";
 
@@ -73,8 +74,29 @@ class MemoService {
     });
   }
 
+  public pushCommentMemo(memo: Model.Memo) {
+    appStore.dispatch({
+      type: 'INSERT_COMMENT_MEMO',
+      payload: {
+        memo: {
+          ...memo,
+        },
+      },
+    });
+  }
+
   public getMemoById(id: string) {
     for (const m of this.getState().memos) {
+      if (m.id === id) {
+        return m;
+      }
+    }
+
+    return null;
+  }
+
+  public getCommentMemoById(id: string) {
+    for (const m of this.getState().commentMemos) {
       if (m.id === id) {
         return m;
       }
@@ -110,25 +132,47 @@ class MemoService {
     });
   }
 
+  public editCommentMemo(memo: Model.Memo) {
+    appStore.dispatch({
+      type: 'EDIT_COMMENT_MEMO',
+      payload: memo,
+    });
+  }
+
   public updateTagsState() {
     const { memos } = this.getState();
     const tagsSet = new Set<string>();
+    const tempTags = new Set<string>();
+    const tags = [] as string[];
     for (const m of memos) {
       for (const t of Array.from(m.content.match(TAG_REG) ?? [])) {
         tagsSet.add(t.replace(TAG_REG, '$1').trim());
+        tempTags.add(t.replace(TAG_REG, '$1').trim());
       }
       for (const t of Array.from(m.content.match(NOP_FIRST_TAG_REG) ?? [])) {
         tagsSet.add(t.replace(NOP_FIRST_TAG_REG, '$1').trim());
+        tempTags.add(t.replace(NOP_FIRST_TAG_REG, '$1').trim());
       }
       for (const t of Array.from(m.content.match(FIRST_TAG_REG) ?? [])) {
         tagsSet.add(t.replace(FIRST_TAG_REG, '$2').trim());
+        tempTags.add(t.replace(FIRST_TAG_REG, '$2').trim());
       }
+      Array.from(tempTags).forEach((t) => {
+        tags.push(t);
+      });
+      tempTags.clear();
     }
+
+    const counts = {} as { [key: string]: number };
+    tags.forEach(function (x) {
+      counts[x] = (counts[x] || 0) + 1;
+    });
 
     appStore.dispatch({
       type: 'SET_TAGS',
       payload: {
         tags: Array.from(tagsSet),
+        tagsNum: counts,
       },
     });
   }
@@ -157,13 +201,24 @@ class MemoService {
     return memo;
   }
 
+  public async createCommentMemo(text: string, isList: boolean, path: string, ID: string): Promise<Model.Memo> {
+    const memo = await commentMemo(text, isList, path, ID);
+    return memo;
+  }
+
   public async importMemos(text: string, isList: boolean, date: any): Promise<Model.Memo> {
     const memo = await waitForInsert(text, isList, date);
     return memo;
   }
 
-  public async updateMemo(memoId: string, originalText: string, text: string, type: string): Promise<Model.Memo> {
-    const memo = await changeMemo(memoId, originalText, text, type);
+  public async updateMemo(
+    memoId: string,
+    originalText: string,
+    text: string,
+    type?: string,
+    path?: string,
+  ): Promise<Model.Memo> {
+    const memo = await changeMemo(memoId, originalText, text, type, path);
     return memo;
   }
 }

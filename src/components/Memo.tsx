@@ -23,7 +23,13 @@ import more from '../icons/more.svg';
 import task from '../icons/task.svg';
 import taskBlank from '../icons/task-blank.svg';
 import comment from '../icons/comment.svg';
-import { CommentOnMemos, DefaultEditorLocation, ShowTaskLabel, UseButtonToShowEditor } from '../memos';
+import {
+  CommentOnMemos,
+  CommentsInOriginalNotes,
+  DefaultEditorLocation,
+  ShowTaskLabel,
+  UseButtonToShowEditor,
+} from '../memos';
 import { t } from '../translations/helper';
 import Editor, { EditorRefActions } from './Editor/Editor';
 import MemoImage from './MemoImage';
@@ -70,11 +76,13 @@ const Memo: React.FC<Props> = (props: Props) => {
           createdAtStr: utils.getDateTimeString(m.createdAt),
           dateStr: utils.getDateString(m.createdAt),
         }));
+      // if (allCommentMemos !== memoState.commentMemos) {
       setCommentMemos(allCommentMemos);
+      // }
     };
 
     fetchCommentMemos();
-  }, [memo.id]);
+  }, [memo.id, memo.content]);
 
   useEffect(() => {
     if (!memoCommentRef.current) {
@@ -157,12 +165,33 @@ const Memo: React.FC<Props> = (props: Props) => {
     try {
       if (commentMemoId) {
         memoCommentRef.current?.setContent('');
-        const prevMemo = memoService.getMemoById(commentMemoId);
-        content = prevMemo.content.replace(/^(.*) comment:/g, content + ' comment:');
+        let prevMemo;
+        if (CommentOnMemos && CommentsInOriginalNotes) {
+          prevMemo = memoService.getCommentMemoById(commentMemoId);
+        } else {
+          prevMemo = memoService.getMemoById(commentMemoId);
+          content = prevMemo.content.replace(/^(.*) comment:/g, content + ' comment:');
+        }
+
         if (prevMemo && prevMemo.content !== content) {
-          const editedMemo = await memoService.updateMemo(prevMemo.id, prevMemo.content, content, prevMemo.memoType);
+          let editedMemo: Model.Memo;
+          if (CommentOnMemos && CommentsInOriginalNotes) {
+            editedMemo = await memoService.updateMemo(
+              prevMemo.id,
+              prevMemo.content,
+              content,
+              prevMemo.memoType,
+              prevMemo.path,
+            );
+          } else {
+            editedMemo = await memoService.updateMemo(prevMemo.id, prevMemo.content, content, prevMemo.memoType);
+          }
           editedMemo.updatedAt = utils.getDateTimeString(Date.now());
-          memoService.editMemo(editedMemo);
+          if (CommentOnMemos && CommentsInOriginalNotes) {
+            memoService.editCommentMemo(editedMemo);
+          } else {
+            memoService.editMemo(editedMemo);
+          }
           setCommentMemos((commentMemos) => {
             return commentMemos.map((m) => {
               if (m.id === commentMemoId) {
@@ -189,18 +218,26 @@ const Memo: React.FC<Props> = (props: Props) => {
         let randomId: string;
         if (memo.hasId.length > 0) {
           randomId = memo.hasId;
-        } else {
+        } else if (!CommentsInOriginalNotes) {
           randomId = Math.random().toString(36).slice(-6);
           setAddRandomIDflag(true);
         }
 
-        content = content + ' comment: [[' + moment(memo.id.slice(0, 8)).format(dailyFormat) + '#^' + randomId + ']]';
+        if (!CommentsInOriginalNotes) {
+          content = content + ' comment: [[' + moment(memo.id.slice(0, 8)).format(dailyFormat) + '#^' + randomId + ']]';
+        }
 
         // setEditorContentCache('');
         memoCommentRef.current?.setContent('');
 
-        const newMemo = await memoService.createMemo(content, true);
-        memoService.pushMemo(newMemo);
+        let newMemo: Model.Memo;
+        if (CommentsInOriginalNotes) {
+          newMemo = await memoService.createCommentMemo(content, true, memo.path, memo.id);
+          memoService.pushCommentMemo(newMemo);
+        } else {
+          newMemo = await memoService.createMemo(content, true);
+          memoService.pushMemo(newMemo);
+        }
         console.log(commentMemosRef.current);
         const newCommentMemos = commentMemosRef.current.concat({
           ...newMemo,

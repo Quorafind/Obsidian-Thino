@@ -34,6 +34,7 @@ export interface MemosSettings {
   DefaultMemoComposition: string;
   ShowTaskLabel: boolean;
   CommentOnMemos: boolean;
+  CommentsInOriginalNotes: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -66,6 +67,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   DefaultDarkBackgroundImage: '',
   DefaultMemoComposition: '{TIME} {CONTENT}',
   CommentOnMemos: false,
+  CommentsInOriginalNotes: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -460,6 +462,16 @@ export class MemosSettingTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.CommentOnMemos).onChange(async (value) => {
           this.plugin.settings.CommentOnMemos = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Comments In Original DailyNotes/Notes'))
+      .setDesc(t('You should install Dataview Plugin ver 0.5.9 or later to use this feature.'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.CommentsInOriginalNotes).onChange(async (value) => {
+          this.plugin.settings.CommentsInOriginalNotes = value;
           this.applySettingsUpdate();
         }),
       );

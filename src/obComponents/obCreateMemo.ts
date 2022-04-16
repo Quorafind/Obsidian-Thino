@@ -33,7 +33,8 @@ export function getLinesInString(input: string) {
 
 export async function waitForInsert(MemoContent: string, isList: boolean, insertDate?: any): Promise<Model.Memo> {
   // const plugin = window.plugin;
-  const { vault } = appStore.getState().dailyNotesState.app;
+  const { vault } =
+    appStore.getState().dailyNotesState.app === undefined ? app : appStore.getState().dailyNotesState.app;
   const removeEnter = MemoContent.replace(/\n/g, '<br>');
   let date;
 

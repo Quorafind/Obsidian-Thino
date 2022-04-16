@@ -42,12 +42,12 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
 
   const handleSaveBtnClick = async () => {
     if (!title) {
-      new Notice('TITLE CANNOT BE NULL！');
+      new Notice(t('TITLE CANNOT BE NULL!'));
       return;
     }
 
     if (filters.length === 0) {
-      new Notice('FILTER CANNOT BE NULL！');
+      new Notice(t('FILTER CANNOT BE NULL!'));
       return;
     }
 
