@@ -2782,7 +2782,7 @@ div[data-type='memos_view'] .image-container > img {
   width: 100%;
 }
 .theme-dark div[data-type='memos_view'] .memo-wrapper > .memo-comment-wrapper > .memo-comment-list {
-  border-top: 1px solid #353535;
+  border-top: 1px solid #7a7a7a;
   margin-top: 8px;
   overflow-y: auto;
   max-height: 400px;
