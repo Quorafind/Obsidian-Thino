@@ -7096,341 +7096,6 @@ const defaultState$4 = {
     filter: ""
   }
 };
-var utils;
-((utils2) => {
-  function getNowTimeStamp() {
-    return parseInt(require$$0.moment().format("x"));
-  }
-  utils2.getNowTimeStamp = getNowTimeStamp;
-  function getOSVersion() {
-    const appVersion = navigator.userAgent;
-    let detectedOS = "Unknown";
-    if (appVersion.indexOf("Win") != -1) {
-      detectedOS = "Windows";
-    } else if (appVersion.indexOf("Mac") != -1) {
-      detectedOS = "MacOS";
-    } else if (appVersion.indexOf("Linux") != -1) {
-      detectedOS = "Linux";
-    }
-    return detectedOS;
-  }
-  utils2.getOSVersion = getOSVersion;
-  function getTimeStampByDate(t2) {
-    if (typeof t2 === "string") {
-      t2 = t2.replaceAll("-", "/");
-    }
-    return new Date(t2).getTime();
-  }
-  utils2.getTimeStampByDate = getTimeStampByDate;
-  function getDateStampByDate(t2) {
-    const d = new Date(getTimeStampByDate(t2));
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
-  }
-  utils2.getDateStampByDate = getDateStampByDate;
-  function getDateString(t2) {
-    const d = new Date(getTimeStampByDate(t2));
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    const date = d.getDate();
-    return `${year}/${month}/${date}`;
-  }
-  utils2.getDateString = getDateString;
-  function getTimeString(t2) {
-    const d = new Date(getTimeStampByDate(t2));
-    const hours = d.getHours();
-    const mins = d.getMinutes();
-    const hoursStr = hours < 10 ? "0" + hours : hours;
-    const minsStr = mins < 10 ? "0" + mins : mins;
-    return `${hoursStr}:${minsStr}`;
-  }
-  utils2.getTimeString = getTimeString;
-  function getDateTimeString(t2) {
-    const d = new Date(getTimeStampByDate(t2));
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    const date = d.getDate();
-    const hours = d.getHours();
-    const mins = d.getMinutes();
-    const secs = d.getSeconds();
-    const monthStr = month < 10 ? "0" + month : month;
-    const dateStr = date < 10 ? "0" + date : date;
-    const hoursStr = hours < 10 ? "0" + hours : hours;
-    const minsStr = mins < 10 ? "0" + mins : mins;
-    const secsStr = secs < 10 ? "0" + secs : secs;
-    return `${year}/${monthStr}/${dateStr} ${hoursStr}:${minsStr}:${secsStr}`;
-  }
-  utils2.getDateTimeString = getDateTimeString;
-  function dedupe(data) {
-    return Array.from(new Set(data));
-  }
-  utils2.dedupe = dedupe;
-  function dedupeObjectWithId(data) {
-    const idSet = /* @__PURE__ */ new Set();
-    const result = [];
-    for (const d of data) {
-      if (!idSet.has(d.id)) {
-        idSet.add(d.id);
-        result.push(d);
-      }
-    }
-    return result;
-  }
-  utils2.dedupeObjectWithId = dedupeObjectWithId;
-  function debounce2(fn2, delay) {
-    let timer = null;
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-        timer = setTimeout(fn2, delay);
-      } else {
-        timer = setTimeout(fn2, delay);
-      }
-    };
-  }
-  utils2.debounce = debounce2;
-  function throttle(fn2, delay) {
-    let valid = true;
-    return () => {
-      if (!valid) {
-        return false;
-      }
-      valid = false;
-      setTimeout(() => {
-        fn2();
-        valid = true;
-      }, delay);
-    };
-  }
-  utils2.throttle = throttle;
-  function transformObjectToParamsString(object) {
-    const params = [];
-    const keys = Object.keys(object).sort();
-    for (const key of keys) {
-      const val = object[key];
-      if (val) {
-        if (typeof val === "object") {
-          params.push(...transformObjectToParamsString(val).split("&"));
-        } else {
-          params.push(`${key}=${val}`);
-        }
-      }
-    }
-    return params.join("&");
-  }
-  utils2.transformObjectToParamsString = transformObjectToParamsString;
-  function transformParamsStringToObject(paramsString) {
-    const object = {};
-    const params = paramsString.split("&");
-    for (const p2 of params) {
-      const [key, val] = p2.split("=");
-      if (key && val) {
-        object[key] = val;
-      }
-    }
-    return object;
-  }
-  utils2.transformParamsStringToObject = transformParamsStringToObject;
-  function filterObjectNullKeys(object) {
-    if (!object) {
-      return {};
-    }
-    const finalObject = {};
-    const keys = Object.keys(object).sort();
-    for (const key of keys) {
-      const val = object[key];
-      if (typeof val === "object") {
-        const temp = filterObjectNullKeys(JSON.parse(JSON.stringify(val)));
-        if (temp && Object.keys(temp).length > 0) {
-          finalObject[key] = temp;
-        }
-      } else {
-        if (val) {
-          finalObject[key] = val;
-        }
-      }
-    }
-    return finalObject;
-  }
-  utils2.filterObjectNullKeys = filterObjectNullKeys;
-  async function copyTextToClipboard(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (error) {
-        console.warn("Copy to clipboard failed.", error);
-      }
-    } else {
-      console.warn("Copy to clipboard failed, methods not supports.");
-    }
-  }
-  utils2.copyTextToClipboard = copyTextToClipboard;
-  function getImageSize(src) {
-    return new Promise((resolve) => {
-      const imgEl = new Image();
-      imgEl.onload = () => {
-        const { width, height } = imgEl;
-        if (width > 0 && height > 0) {
-          resolve({ width, height });
-        } else {
-          resolve({ width: 0, height: 0 });
-        }
-      };
-      imgEl.onerror = () => {
-        resolve({ width: 0, height: 0 });
-      };
-      imgEl.className = "hidden";
-      imgEl.src = src;
-      document.body.appendChild(imgEl);
-      imgEl.remove();
-    });
-  }
-  utils2.getImageSize = getImageSize;
-  async function createDailyNote2(date) {
-    var _a;
-    let file;
-    if ((_a = window.app.plugins.getPlugin("periodic-notes")) == null ? void 0 : _a.calendarSetManager.getActiveConfig("day").enabled) {
-      const periodicNotes = window.app.plugins.getPlugin("periodic-notes");
-      file = await periodicNotes.createPeriodicNote("day", date);
-      return file;
-    }
-    file = await createDailyNote2(date);
-    return file;
-  }
-  utils2.createDailyNote = createDailyNote2;
-})(utils || (utils = {}));
-var utils$1 = utils;
-function reducer$3(state, action) {
-  switch (action.type) {
-    case "SET_MEMOS": {
-      const memos = utils$1.dedupeObjectWithId(action.payload.memos.sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
-      return __spreadProps(__spreadValues({}, state), {
-        memos: [...memos]
-      });
-    }
-    case "SET_COMMENT_MEMOS": {
-      const memos = utils$1.dedupeObjectWithId(action.payload.commentMemos.sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
-      return __spreadProps(__spreadValues({}, state), {
-        commentMemos: [...memos]
-      });
-    }
-    case "SET_TAGS": {
-      return __spreadProps(__spreadValues({}, state), {
-        tags: action.payload.tags,
-        tagsNum: action.payload.tagsNum
-      });
-    }
-    case "INSERT_MEMO": {
-      const memos = utils$1.dedupeObjectWithId([action.payload.memo, ...state.memos].sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
-      return __spreadProps(__spreadValues({}, state), {
-        memos
-      });
-    }
-    case "INSERT_COMMENT_MEMO": {
-      const memos = utils$1.dedupeObjectWithId([action.payload.memo, ...state.commentMemos].sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
-      return __spreadProps(__spreadValues({}, state), {
-        commentMemos: [...memos]
-      });
-    }
-    case "DELETE_MEMO_BY_ID": {
-      return __spreadProps(__spreadValues({}, state), {
-        memos: [...state.memos].filter((memo2) => memo2.id !== action.payload.id)
-      });
-    }
-    case "EDIT_MEMO": {
-      const memos = state.memos.map((m2) => {
-        if (m2.id === action.payload.id) {
-          return __spreadValues(__spreadValues({}, m2), action.payload);
-        } else {
-          return m2;
-        }
-      });
-      return __spreadProps(__spreadValues({}, state), {
-        memos
-      });
-    }
-    case "EDIT_COMMENT_MEMO": {
-      const memos = state.commentMemos.map((m2) => {
-        if (m2.id === action.payload.id) {
-          return __spreadValues(__spreadValues({}, m2), action.payload);
-        } else {
-          return m2;
-        }
-      });
-      return __spreadProps(__spreadValues({}, state), {
-        commentMemos: [...memos]
-      });
-    }
-    default: {
-      return state;
-    }
-  }
-}
-const defaultState$3 = {
-  memos: [],
-  commentMemos: [],
-  tags: [],
-  tagsNum: {}
-};
-function reducer$2(state, action) {
-  switch (action.type) {
-    case "SIGN_IN": {
-      return {
-        user: action.payload.user
-      };
-    }
-    case "SIGN_OUT": {
-      return {
-        user: null
-      };
-    }
-    default: {
-      return state;
-    }
-  }
-}
-const defaultState$2 = { user: null };
-function reducer$1(state, action) {
-  switch (action.type) {
-    case "SET_QUERIES": {
-      const queries = utils$1.dedupeObjectWithId(action.payload.queries.sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)).sort((a, b) => {
-        var _a, _b;
-        return utils$1.getTimeStampByDate((_a = b.pinnedAt) != null ? _a : 0) - utils$1.getTimeStampByDate((_b = a.pinnedAt) != null ? _b : 0);
-      }));
-      return __spreadProps(__spreadValues({}, state), {
-        queries
-      });
-    }
-    case "INSERT_QUERY": {
-      const queries = utils$1.dedupeObjectWithId([action.payload.query, ...state.queries].sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
-      return __spreadProps(__spreadValues({}, state), {
-        queries
-      });
-    }
-    case "DELETE_QUERY_BY_ID": {
-      return __spreadProps(__spreadValues({}, state), {
-        queries: [...state.queries].filter((query) => query.id !== action.payload.id)
-      });
-    }
-    case "UPDATE_QUERY": {
-      const queries = state.queries.map((m2) => {
-        if (m2.id === action.payload.id) {
-          return __spreadValues(__spreadValues({}, m2), action.payload);
-        } else {
-          return m2;
-        }
-      });
-      return __spreadProps(__spreadValues({}, state), {
-        queries
-      });
-    }
-    default: {
-      return state;
-    }
-  }
-}
-const defaultState$1 = {
-  queries: []
-};
 var main$1 = {};
 Object.defineProperty(main$1, "__esModule", { value: true });
 var obsidian = require$$0__default["default"];
@@ -8031,6 +7696,341 @@ main$1.getWeeklyNote = getWeeklyNote;
 main$1.getWeeklyNoteSettings = getWeeklyNoteSettings;
 main$1.getYearlyNote = getYearlyNote;
 main$1.getYearlyNoteSettings = getYearlyNoteSettings;
+var utils;
+((utils2) => {
+  function getNowTimeStamp() {
+    return parseInt(require$$0.moment().format("x"));
+  }
+  utils2.getNowTimeStamp = getNowTimeStamp;
+  function getOSVersion() {
+    const appVersion = navigator.userAgent;
+    let detectedOS = "Unknown";
+    if (appVersion.indexOf("Win") != -1) {
+      detectedOS = "Windows";
+    } else if (appVersion.indexOf("Mac") != -1) {
+      detectedOS = "MacOS";
+    } else if (appVersion.indexOf("Linux") != -1) {
+      detectedOS = "Linux";
+    }
+    return detectedOS;
+  }
+  utils2.getOSVersion = getOSVersion;
+  function getTimeStampByDate(t2) {
+    if (typeof t2 === "string") {
+      t2 = t2.replaceAll("-", "/");
+    }
+    return new Date(t2).getTime();
+  }
+  utils2.getTimeStampByDate = getTimeStampByDate;
+  function getDateStampByDate(t2) {
+    const d = new Date(getTimeStampByDate(t2));
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  }
+  utils2.getDateStampByDate = getDateStampByDate;
+  function getDateString(t2) {
+    const d = new Date(getTimeStampByDate(t2));
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const date = d.getDate();
+    return `${year}/${month}/${date}`;
+  }
+  utils2.getDateString = getDateString;
+  function getTimeString(t2) {
+    const d = new Date(getTimeStampByDate(t2));
+    const hours = d.getHours();
+    const mins = d.getMinutes();
+    const hoursStr = hours < 10 ? "0" + hours : hours;
+    const minsStr = mins < 10 ? "0" + mins : mins;
+    return `${hoursStr}:${minsStr}`;
+  }
+  utils2.getTimeString = getTimeString;
+  function getDateTimeString(t2) {
+    const d = new Date(getTimeStampByDate(t2));
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const date = d.getDate();
+    const hours = d.getHours();
+    const mins = d.getMinutes();
+    const secs = d.getSeconds();
+    const monthStr = month < 10 ? "0" + month : month;
+    const dateStr = date < 10 ? "0" + date : date;
+    const hoursStr = hours < 10 ? "0" + hours : hours;
+    const minsStr = mins < 10 ? "0" + mins : mins;
+    const secsStr = secs < 10 ? "0" + secs : secs;
+    return `${year}/${monthStr}/${dateStr} ${hoursStr}:${minsStr}:${secsStr}`;
+  }
+  utils2.getDateTimeString = getDateTimeString;
+  function dedupe(data) {
+    return Array.from(new Set(data));
+  }
+  utils2.dedupe = dedupe;
+  function dedupeObjectWithId(data) {
+    const idSet = /* @__PURE__ */ new Set();
+    const result = [];
+    for (const d of data) {
+      if (!idSet.has(d.id)) {
+        idSet.add(d.id);
+        result.push(d);
+      }
+    }
+    return result;
+  }
+  utils2.dedupeObjectWithId = dedupeObjectWithId;
+  function debounce2(fn2, delay) {
+    let timer = null;
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = setTimeout(fn2, delay);
+      } else {
+        timer = setTimeout(fn2, delay);
+      }
+    };
+  }
+  utils2.debounce = debounce2;
+  function throttle(fn2, delay) {
+    let valid = true;
+    return () => {
+      if (!valid) {
+        return false;
+      }
+      valid = false;
+      setTimeout(() => {
+        fn2();
+        valid = true;
+      }, delay);
+    };
+  }
+  utils2.throttle = throttle;
+  function transformObjectToParamsString(object) {
+    const params = [];
+    const keys = Object.keys(object).sort();
+    for (const key of keys) {
+      const val = object[key];
+      if (val) {
+        if (typeof val === "object") {
+          params.push(...transformObjectToParamsString(val).split("&"));
+        } else {
+          params.push(`${key}=${val}`);
+        }
+      }
+    }
+    return params.join("&");
+  }
+  utils2.transformObjectToParamsString = transformObjectToParamsString;
+  function transformParamsStringToObject(paramsString) {
+    const object = {};
+    const params = paramsString.split("&");
+    for (const p2 of params) {
+      const [key, val] = p2.split("=");
+      if (key && val) {
+        object[key] = val;
+      }
+    }
+    return object;
+  }
+  utils2.transformParamsStringToObject = transformParamsStringToObject;
+  function filterObjectNullKeys(object) {
+    if (!object) {
+      return {};
+    }
+    const finalObject = {};
+    const keys = Object.keys(object).sort();
+    for (const key of keys) {
+      const val = object[key];
+      if (typeof val === "object") {
+        const temp = filterObjectNullKeys(JSON.parse(JSON.stringify(val)));
+        if (temp && Object.keys(temp).length > 0) {
+          finalObject[key] = temp;
+        }
+      } else {
+        if (val) {
+          finalObject[key] = val;
+        }
+      }
+    }
+    return finalObject;
+  }
+  utils2.filterObjectNullKeys = filterObjectNullKeys;
+  async function copyTextToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        console.warn("Copy to clipboard failed.", error);
+      }
+    } else {
+      console.warn("Copy to clipboard failed, methods not supports.");
+    }
+  }
+  utils2.copyTextToClipboard = copyTextToClipboard;
+  function getImageSize(src) {
+    return new Promise((resolve) => {
+      const imgEl = new Image();
+      imgEl.onload = () => {
+        const { width, height } = imgEl;
+        if (width > 0 && height > 0) {
+          resolve({ width, height });
+        } else {
+          resolve({ width: 0, height: 0 });
+        }
+      };
+      imgEl.onerror = () => {
+        resolve({ width: 0, height: 0 });
+      };
+      imgEl.className = "hidden";
+      imgEl.src = src;
+      document.body.appendChild(imgEl);
+      imgEl.remove();
+    });
+  }
+  utils2.getImageSize = getImageSize;
+  async function createDailyNoteCheck(date) {
+    var _a, _b, _c;
+    let file;
+    if ((_c = (_b = (_a = window.app.plugins) == null ? void 0 : _a.getPlugin("periodic-notes")) == null ? void 0 : _b.calendarSetManager.getActiveConfig("day")) == null ? void 0 : _c.enabled) {
+      const periodicNotes = window.app.plugins.getPlugin("periodic-notes");
+      file = await periodicNotes.createPeriodicNote("day", date);
+      return file;
+    }
+    file = await createDailyNote_1(date);
+    return file;
+  }
+  utils2.createDailyNoteCheck = createDailyNoteCheck;
+})(utils || (utils = {}));
+var utils$1 = utils;
+function reducer$3(state, action) {
+  switch (action.type) {
+    case "SET_MEMOS": {
+      const memos = utils$1.dedupeObjectWithId(action.payload.memos.sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
+      return __spreadProps(__spreadValues({}, state), {
+        memos: [...memos]
+      });
+    }
+    case "SET_COMMENT_MEMOS": {
+      const memos = utils$1.dedupeObjectWithId(action.payload.commentMemos.sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
+      return __spreadProps(__spreadValues({}, state), {
+        commentMemos: [...memos]
+      });
+    }
+    case "SET_TAGS": {
+      return __spreadProps(__spreadValues({}, state), {
+        tags: action.payload.tags,
+        tagsNum: action.payload.tagsNum
+      });
+    }
+    case "INSERT_MEMO": {
+      const memos = utils$1.dedupeObjectWithId([action.payload.memo, ...state.memos].sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
+      return __spreadProps(__spreadValues({}, state), {
+        memos
+      });
+    }
+    case "INSERT_COMMENT_MEMO": {
+      const memos = utils$1.dedupeObjectWithId([action.payload.memo, ...state.commentMemos].sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
+      return __spreadProps(__spreadValues({}, state), {
+        commentMemos: [...memos]
+      });
+    }
+    case "DELETE_MEMO_BY_ID": {
+      return __spreadProps(__spreadValues({}, state), {
+        memos: [...state.memos].filter((memo2) => memo2.id !== action.payload.id)
+      });
+    }
+    case "EDIT_MEMO": {
+      const memos = state.memos.map((m2) => {
+        if (m2.id === action.payload.id) {
+          return __spreadValues(__spreadValues({}, m2), action.payload);
+        } else {
+          return m2;
+        }
+      });
+      return __spreadProps(__spreadValues({}, state), {
+        memos
+      });
+    }
+    case "EDIT_COMMENT_MEMO": {
+      const memos = state.commentMemos.map((m2) => {
+        if (m2.id === action.payload.id) {
+          return __spreadValues(__spreadValues({}, m2), action.payload);
+        } else {
+          return m2;
+        }
+      });
+      return __spreadProps(__spreadValues({}, state), {
+        commentMemos: [...memos]
+      });
+    }
+    default: {
+      return state;
+    }
+  }
+}
+const defaultState$3 = {
+  memos: [],
+  commentMemos: [],
+  tags: [],
+  tagsNum: {}
+};
+function reducer$2(state, action) {
+  switch (action.type) {
+    case "SIGN_IN": {
+      return {
+        user: action.payload.user
+      };
+    }
+    case "SIGN_OUT": {
+      return {
+        user: null
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+}
+const defaultState$2 = { user: null };
+function reducer$1(state, action) {
+  switch (action.type) {
+    case "SET_QUERIES": {
+      const queries = utils$1.dedupeObjectWithId(action.payload.queries.sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)).sort((a, b) => {
+        var _a, _b;
+        return utils$1.getTimeStampByDate((_a = b.pinnedAt) != null ? _a : 0) - utils$1.getTimeStampByDate((_b = a.pinnedAt) != null ? _b : 0);
+      }));
+      return __spreadProps(__spreadValues({}, state), {
+        queries
+      });
+    }
+    case "INSERT_QUERY": {
+      const queries = utils$1.dedupeObjectWithId([action.payload.query, ...state.queries].sort((a, b) => utils$1.getTimeStampByDate(b.createdAt) - utils$1.getTimeStampByDate(a.createdAt)));
+      return __spreadProps(__spreadValues({}, state), {
+        queries
+      });
+    }
+    case "DELETE_QUERY_BY_ID": {
+      return __spreadProps(__spreadValues({}, state), {
+        queries: [...state.queries].filter((query) => query.id !== action.payload.id)
+      });
+    }
+    case "UPDATE_QUERY": {
+      const queries = state.queries.map((m2) => {
+        if (m2.id === action.payload.id) {
+          return __spreadValues(__spreadValues({}, m2), action.payload);
+        } else {
+          return m2;
+        }
+      });
+      return __spreadProps(__spreadValues({}, state), {
+        queries
+      });
+    }
+    default: {
+      return state;
+    }
+  }
+}
+const defaultState$1 = {
+  queries: []
+};
 function reducer(state, action) {
   switch (action.type) {
     case "SET_DAILYNOTES": {
@@ -9077,7 +9077,7 @@ async function waitForInsert(MemoContent, isList2, insertDate) {
   const dailyNotes = await getAllDailyNotes_1();
   const existingFile = getDailyNote_1(date, dailyNotes);
   if (!existingFile) {
-    const file = await utils$1.createDailyNote(date);
+    const file = await utils$1.createDailyNoteCheck(date);
     await dailyNotesService.getMyAllDailyNotes();
     const fileContents = await vault.read(file);
     const newFileContent = await insertAfterHandler(InsertAfter, newEvent, fileContents);
@@ -9871,7 +9871,6 @@ class ResourceService {
     const elementsByClassName = el.getElementsByClassName("memo");
     for (let i = 0; i < elementsByClassName.length; i++) {
       const source = elementsByClassName[i].getElementsByClassName("content")[0].innerHTML.replace(/\s{16}?<p><\/p>/g, "").replace(/\s{16}?<p>/g, "").replace(/<\/p>/g, "").replace(/<strong>/g, "**").replace(/<\/strong>/g, "**").replace(/^\s{16}/g, "");
-      console.log(elementsByClassName[i].getElementsByClassName("content")[0].innerHTML);
       const importedMemo = await memoService.importMemos(source, true, require$$0.moment(elementsByClassName[i].getElementsByClassName("time")[0].innerHTML));
       memoService.pushMemo(importedMemo);
     }
@@ -13924,10 +13923,8 @@ const Memo = (props) => {
           content = require$$0.moment().format("YYYYMMDDHHmmss") + " " + content;
         } else {
           prevMemo = memoService.getMemoById(commentMemoId);
-          console.log(prevMemo);
           content = prevMemo.content.replace(/^(.*) comment:/g, content + " comment:");
         }
-        console.log(content);
         if (prevMemo && prevMemo.content !== content) {
           let editedMemo;
           if (CommentOnMemos && CommentsInOriginalNotes) {
@@ -13942,7 +13939,6 @@ const Memo = (props) => {
             memoService.editMemo(editedMemo);
           }
           setCommentMemos(commentMemosRef.current.map((m2) => {
-            console.log(m2);
             if (m2.id.slice(14) === commentMemoId.slice(14) && m2.path === prevMemo.path) {
               return editedMemo;
             }
@@ -18549,7 +18545,6 @@ const transferMemosIntoText = (memosArray) => {
             if (commentMemos.length > 0) {
               commentMemos.map((cm) => {
                 let memoType = "- ";
-                console.log(cm.memoType);
                 if (cm.memoType === "TASK-TODO") {
                   memoType = "- [ ] ";
                 } else if (cm.memoType === "TASK-DONE") {
@@ -19147,7 +19142,6 @@ class Memos extends require$$0.ItemView {
   }
   async onFileModified(file) {
     const date = getDateFromFile_1(file, "day");
-    console.log(globalStateService.getState().changedByMemos);
     if (globalStateService.getState().changedByMemos) {
       globalStateService.setChangedByMemos(false);
       return;

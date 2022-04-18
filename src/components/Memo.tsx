@@ -169,11 +169,11 @@ const Memo: React.FC<Props> = (props: Props) => {
           content = moment().format('YYYYMMDDHHmmss') + ' ' + content;
         } else {
           prevMemo = memoService.getMemoById(commentMemoId);
-          console.log(prevMemo);
+          // console.log(prevMemo);
           content = prevMemo.content.replace(/^(.*) comment:/g, content + ' comment:');
         }
 
-        console.log(content);
+        // console.log(content);
 
         // console.log(m);
 
@@ -199,7 +199,7 @@ const Memo: React.FC<Props> = (props: Props) => {
 
           setCommentMemos(
             commentMemosRef.current.map((m) => {
-              console.log(m);
+              // console.log(m);
               if (m.id.slice(14) === commentMemoId.slice(14) && m.path === prevMemo.path) {
                 return editedMemo;
               }

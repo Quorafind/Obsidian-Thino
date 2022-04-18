@@ -82,7 +82,7 @@ export const transferMemosIntoText = (memosArray: Array<any>): string => {
             if (commentMemos.length > 0) {
               commentMemos.map((cm) => {
                 let memoType = '- ';
-                console.log(cm.memoType);
+                // console.log(cm.memoType);
                 if (cm.memoType === 'TASK-TODO') {
                   memoType = '- [ ] ';
                 } else if (cm.memoType === 'TASK-DONE') {

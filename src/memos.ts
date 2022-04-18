@@ -56,7 +56,6 @@ export class Memos extends ItemView {
   private async onFileModified(file: TFile): Promise<void> {
     const date = getDateFromFile(file, 'day');
 
-    console.log(globalStateService.getState().changedByMemos);
     if (globalStateService.getState().changedByMemos) {
       globalStateService.setChangedByMemos(false);
       return;

@@ -1,4 +1,5 @@
 import { moment, TFile } from 'obsidian';
+import { createDailyNote } from 'obsidian-daily-notes-interface';
 
 namespace utils {
   export function getNowTimeStamp(): number {
@@ -215,15 +216,16 @@ namespace utils {
     });
   }
 
-  export async function createDailyNote(date: any): Promise<TFile> {
+  export async function createDailyNoteCheck(date: any): Promise<TFile> {
     let file;
-    if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day').enabled) {
+
+    if (window.app.plugins?.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day')?.enabled) {
       const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
       file = await periodicNotes.createPeriodicNote('day', date);
       return file;
     }
-    file = await createDailyNote(date);
 
+    file = await createDailyNote(date);
     return file;
   }
 }
