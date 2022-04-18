@@ -211,18 +211,32 @@
   background: #af487b;
 }
 
-@media only screen and (max-width: 875px) {
-  .theme-light {
-    .rta__textarea{
-      max-height: 140px;
-      overflow-y: scroll;
-    }
-  }
+//@media only screen and (max-width: 875px) {
+//  .theme-light {
+//    .rta__textarea {
+//      max-height: 140px;
+//      overflow-y: scroll;
+//    }
+//  }
+//
+//  .theme-dark {
+//    .rta__textarea {
+//      max-height: 140px;
+//      overflow-y: scroll;
+//    }
+//  }
+//}
 
-  .theme-dark {
-    .rta__textarea{
-      max-height: 140px;
-      overflow-y: scroll;
-    }
+.theme-light div[data-type='memos_view'].mobile-view {
+  .rta__textarea {
+    max-height: 140px;
+    overflow-y: scroll;
+  }
+}
+
+.theme-dark div[data-type='memos_view'].mobile-view {
+  .rta__textarea {
+    max-height: 140px;
+    overflow-y: scroll;
   }
 }

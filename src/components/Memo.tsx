@@ -1,160 +1,287 @@
-import {memo, useCallback} from 'react';
+import React, { memo, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import {
   FIRST_TAG_REG,
   IMAGE_URL_REG,
   LINK_REG,
   MARKDOWN_URL_REG,
-  MARKDOWN_WEB_URL_REG,
   MD_LINK_REG,
   MEMO_LINK_REG,
   TAG_REG,
   WIKI_IMAGE_URL_REG,
 } from '../helpers/consts';
-import {encodeHtml, parseMarkedToHtml, parseRawTextToHtml} from '../helpers/marked';
+import useState from 'react-usestateref';
+import { encodeHtml, parseMarkedToHtml, parseRawTextToHtml } from '../helpers/marked';
 import utils from '../helpers/utils';
 import useToggle from '../hooks/useToggle';
-import {globalStateService, memoService} from '../services';
-import Only from './common/OnlyWhen';
-import Image from './Image';
+import { globalStateService, memoService, resourceService } from '../services';
 import showMemoCardDialog from './MemoCardDialog';
 import showShareMemoImageDialog from './ShareMemoImageDialog';
 import '../less/memo.less';
-import React from 'react';
-import {Notice, TFile, Vault} from 'obsidian';
-import appStore from '../stores/appStore';
-import {showMemoInDailyNotes} from '../obComponents/obShowMemo';
+import { moment, Notice, Platform } from 'obsidian';
+import { showMemoInDailyNotes } from '../obComponents/obShowMemo';
 import more from '../icons/more.svg';
-import {UseButtonToShowEditor, DefaultEditorLocation} from '../memos';
+import task from '../icons/task.svg';
+import taskBlank from '../icons/task-blank.svg';
+import comment from '../icons/comment.svg';
+import {
+  CommentOnMemos,
+  CommentsInOriginalNotes,
+  DefaultEditorLocation,
+  ShowTaskLabel,
+  UseButtonToShowEditor,
+} from '../memos';
 import { t } from '../translations/helper';
+import Editor, { EditorRefActions } from './Editor/Editor';
+import MemoImage from './MemoImage';
+import appContext from '../stores/appContext';
+import { getDailyNoteFormat } from '../obComponents/obUpdateMemo';
+
+interface LinkedMemo extends FormattedMemo {
+  dateStr: string;
+}
 
 interface Props {
   memo: Model.Memo;
 }
 
-interface LinkMatch {
-  linkText: string;
-  altText: string;
-  path: string;
-  filepath?: string;
-}
-
-export const getPathOfImage = (vault: Vault, image: TFile) => {
-  return vault.getResourcePath(image);
-};
-
-const detectWikiInternalLink = (lineText: string): LinkMatch | null => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
-  const internalFileName = WIKI_IMAGE_URL_REG.exec(lineText)?.[1];
-  const internalAltName = WIKI_IMAGE_URL_REG.exec(lineText)?.[5];
-  const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  // console.log(file.path);
-  if (file === null) {
-    return {
-      linkText: internalFileName,
-      altText: internalAltName,
-      path: '',
-      filepath: '',
-    };
-  } else {
-    const imagePath = getPathOfImage(vault, file);
-    const filePath = file.path;
-    if (internalAltName) {
-      return {
-        linkText: internalFileName,
-        altText: internalAltName,
-        path: imagePath,
-        filepath: filePath,
-      };
-    } else {
-      return {
-        linkText: internalFileName,
-        altText: '',
-        path: imagePath,
-        filepath: filePath,
-      };
-    }
-  }
-};
-
-const detectMDInternalLink = (lineText: string): LinkMatch | null => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
-  const internalFileName = MARKDOWN_URL_REG.exec(lineText)?.[5];
-  const internalAltName = MARKDOWN_URL_REG.exec(lineText)?.[2];
-  const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
-  if (file === null) {
-    return {
-      linkText: internalFileName,
-      altText: internalAltName,
-      path: '',
-      filepath: '',
-    };
-  } else {
-    const imagePath = getPathOfImage(vault, file);
-    const filePath = file.path;
-    if (internalAltName) {
-      return {
-        linkText: internalFileName,
-        altText: internalAltName,
-        path: imagePath,
-        filepath: filePath,
-      };
-    } else {
-      return {
-        linkText: internalFileName,
-        altText: '',
-        path: imagePath,
-        filepath: filePath,
-      };
-    }
-  }
-};
-
 const Memo: React.FC<Props> = (props: Props) => {
-  const {memo: propsMemo} = props;
+  const { globalState } = useContext(appContext);
+  const { memo: propsMemo } = props;
   const memo: FormattedMemo = {
     ...propsMemo,
     createdAtStr: utils.getDateTimeString(propsMemo.createdAt),
   };
   const [showConfirmDeleteBtn, toggleConfirmDeleteBtn] = useToggle(false);
-
+  const memoCommentRef = useRef<EditorRefActions>(null);
+  const [isCommentShown, toggleComment] = useToggle(false);
+  const [commentMemos, setCommentMemos, commentMemosRef] = useState<LinkedMemo[]>([]);
+  const [, setAddRandomIDflag, RandomIDRef] = useState(false);
   // const imageUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
 
-  let externalImageUrls = [] as string[];
-  let internalImageUrls = [];
-  let allMarkdownLink: string | any[] = [];
-  let allInternalLink = [] as any[];
-  if (IMAGE_URL_REG.test(memo.content)) {
-    let allExternalImageUrls = [] as string[];
-    let anotherExternalImageUrls = [] as string[];
-    if (MARKDOWN_URL_REG.test(memo.content)) {
-      allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
+  useEffect(() => {
+    if (!memoCommentRef.current) {
+      return;
     }
-    if (WIKI_IMAGE_URL_REG.test(memo.content)) {
-      allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
+    if (!CommentOnMemos) {
+      return;
     }
-    // const allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
-    if (MARKDOWN_WEB_URL_REG.test(memo.content)) {
-      allExternalImageUrls = Array.from(memo.content.match(MARKDOWN_WEB_URL_REG));
+
+    const fetchCommentMemos = async () => {
+      const allCommentMemos = memoService
+        .getState()
+        .commentMemos.filter((m) => m.linkId === propsMemo.hasId)
+        .sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt))
+        .map((m) => ({
+          ...m,
+          createdAtStr: utils.getDateTimeString(m.createdAt),
+          dateStr: utils.getDateString(m.createdAt),
+        }));
+      // if (allCommentMemos !== memoState.commentMemos) {
+      setCommentMemos(allCommentMemos);
+      // }
+    };
+
+    fetchCommentMemos();
+  }, [memo.id, memo.content]);
+
+  useEffect(() => {
+    if (!memoCommentRef.current) {
+      return;
     }
-    if (allInternalLink.length) {
-      for (let i = 0; i < allInternalLink.length; i++) {
-        let one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one));
-      }
-    }
-    if (allMarkdownLink.length) {
-      for (let i = 0; i < allMarkdownLink.length; i++) {
-        let two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
-        } else {
-          internalImageUrls.push(detectMDInternalLink(two));
+
+    // new TagsSuggest(app, memoCommentRef.current.element);
+
+    const handlePasteEvent = async (event: ClipboardEvent) => {
+      if (event.clipboardData && event.clipboardData.files.length > 0) {
+        event.preventDefault();
+        const file = event.clipboardData.files[0];
+        const url = await handleUploadFile(file);
+        if (url) {
+          memoCommentRef.current?.insertText(url);
         }
       }
+    };
+
+    const handleDropEvent = async (event: DragEvent) => {
+      if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        const url = await handleUploadFile(file);
+        if (url) {
+          memoCommentRef.current?.insertText(url);
+        }
+      }
+    };
+
+    const handleClickEvent = () => {
+      handleContentChange(memoCommentRef.current?.element.value ?? '');
+    };
+
+    const handleKeyDownEvent = () => {
+      setTimeout(() => {
+        handleContentChange(memoCommentRef.current?.element.value ?? '');
+      });
+    };
+
+    memoCommentRef.current.element.addEventListener('paste', handlePasteEvent);
+    memoCommentRef.current.element.addEventListener('drop', handleDropEvent);
+    memoCommentRef.current.element.addEventListener('click', handleClickEvent);
+    memoCommentRef.current.element.addEventListener('keydown', handleKeyDownEvent);
+
+    return () => {
+      memoCommentRef.current?.element.removeEventListener('paste', handlePasteEvent);
+      memoCommentRef.current?.element.removeEventListener('drop', handleDropEvent);
+    };
+  }, []);
+
+  const handleCancelBtnClick = useCallback(() => {
+    globalStateService.setCommentMemoId('');
+    memoCommentRef.current?.setContent('');
+    toggleComment(false);
+    // setEditorContentCache('');
+  }, []);
+
+  const handleContentChange = useCallback((content: string) => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    if (tempDiv.innerText.trim() === '') {
+      content = '';
     }
-    externalImageUrls = allExternalImageUrls.concat(anotherExternalImageUrls);
-    // externalImageUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
-  }
+    // setEditorContentCache(content);
+
+    setTimeout(() => {
+      memoCommentRef.current?.focus();
+    });
+  }, []);
+
+  const handleSaveBtnClick = useCallback(async (content: string) => {
+    if (content === '') {
+      new Notice('内容不能为空呀');
+      return;
+    }
+
+    const { commentMemoId } = globalStateService.getState();
+    content = content.replaceAll('&nbsp;', ' ');
+    try {
+      if (commentMemoId) {
+        memoCommentRef.current?.setContent('');
+        let prevMemo;
+        if (CommentOnMemos && CommentsInOriginalNotes) {
+          prevMemo = memoService.getCommentMemoById(commentMemoId);
+        } else {
+          prevMemo = memoService.getMemoById(commentMemoId);
+          content = prevMemo.content.replace(/^(.*) comment:/g, content + ' comment:');
+        }
+
+        if (prevMemo && prevMemo.content !== content) {
+          let editedMemo: Model.Memo;
+          if (CommentOnMemos && CommentsInOriginalNotes) {
+            editedMemo = await memoService.updateMemo(
+              prevMemo.id,
+              prevMemo.content,
+              content,
+              prevMemo.memoType,
+              prevMemo.path,
+            );
+          } else {
+            editedMemo = await memoService.updateMemo(prevMemo.id, prevMemo.content, content, prevMemo.memoType);
+          }
+          editedMemo.updatedAt = utils.getDateTimeString(Date.now());
+          if (CommentOnMemos && CommentsInOriginalNotes) {
+            memoService.editCommentMemo(editedMemo);
+          } else {
+            memoService.editMemo(editedMemo);
+          }
+          setCommentMemos((commentMemos) => {
+            return commentMemos.map((m) => {
+              if (m.id === commentMemoId) {
+                return {
+                  ...editedMemo,
+                  createdAtStr: utils.getDateTimeString(m.createdAt),
+                  dateStr: utils.getDateString(m.createdAt),
+                };
+              } else {
+                return {
+                  ...m,
+                  createdAtStr: utils.getDateTimeString(m.createdAt),
+                  dateStr: utils.getDateString(m.createdAt),
+                };
+              }
+            });
+          });
+        }
+
+        globalStateService.setCommentMemoId('');
+        toggleComment(false);
+      } else {
+        const dailyFormat = getDailyNoteFormat();
+        let randomId: string;
+        if (memo.hasId.length > 0) {
+          randomId = memo.hasId;
+        } else if (!CommentsInOriginalNotes) {
+          randomId = Math.random().toString(36).slice(-6);
+          setAddRandomIDflag(true);
+        }
+
+        if (!CommentsInOriginalNotes) {
+          content = content + ' comment: [[' + moment(memo.id.slice(0, 8)).format(dailyFormat) + '#^' + randomId + ']]';
+        }
+
+        // setEditorContentCache('');
+        memoCommentRef.current?.setContent('');
+
+        let newMemo: Model.Memo;
+        if (CommentsInOriginalNotes) {
+          newMemo = await memoService.createCommentMemo(content, true, memo.path, memo.id);
+          memoService.pushCommentMemo(newMemo);
+        } else {
+          newMemo = await memoService.createMemo(content, true);
+          memoService.pushMemo(newMemo);
+        }
+        console.log(commentMemosRef.current);
+        const newCommentMemos = commentMemosRef.current.concat({
+          ...newMemo,
+          createdAtStr: utils.getDateTimeString(newMemo.createdAt),
+          dateStr: utils.getDateString(newMemo.createdAt),
+        });
+        setCommentMemos(
+          newCommentMemos.sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt)),
+        );
+        if (RandomIDRef.current) {
+          const editedMemo = await memoService.updateMemo(
+            memo.id,
+            memo.content,
+            memo.content + ' ^' + randomId,
+            memo.memoType,
+          );
+          editedMemo.updatedAt = utils.getDateTimeString(Date.now());
+          memoService.editMemo(editedMemo);
+          setAddRandomIDflag(false);
+        }
+      }
+    } catch (error: any) {
+      new Notice(error.message);
+    }
+
+    // setEditorContentCache('');
+  }, []);
+
+  const handleUploadFile = useCallback(async (file: File) => {
+    const { type } = file;
+
+    if (!type.startsWith('image')) {
+      return;
+    }
+
+    try {
+      const image = await resourceService.upload(file);
+      const url = `${image}`;
+
+      return url;
+    } catch (error: any) {
+      new Notice(error);
+    }
+  }, []);
 
   const handleShowMemoStoryDialog = () => {
     showMemoCardDialog(memo);
@@ -162,10 +289,10 @@ const Memo: React.FC<Props> = (props: Props) => {
 
   const handleMarkMemoClick = () => {
     if (UseButtonToShowEditor && DefaultEditorLocation === 'Bottom') {
-      let elem = document.querySelector(
+      const elem = document.querySelector(
         "div[data-type='memos_view'] .view-content .memo-show-editor-button",
       ) as HTMLElement;
-      if (typeof elem.onclick == 'function' && elem !== undefined) {
+      if (typeof elem.onclick == 'function') {
         elem.onclick.apply(elem);
       }
     }
@@ -174,11 +301,11 @@ const Memo: React.FC<Props> = (props: Props) => {
   };
 
   const handleEditMemoClick = () => {
-    if (UseButtonToShowEditor && DefaultEditorLocation === 'Bottom') {
-      let elem = document.querySelector(
+    if (UseButtonToShowEditor && DefaultEditorLocation === 'Bottom' && Platform.isMobile) {
+      const elem = document.querySelector(
         "div[data-type='memos_view'] .view-content .memo-show-editor-button",
       ) as HTMLElement;
-      if (typeof elem.onclick == 'function' && elem !== undefined) {
+      if (typeof elem.onclick == 'function') {
         elem.onclick.apply(elem);
       }
     }
@@ -220,13 +347,25 @@ const Memo: React.FC<Props> = (props: Props) => {
     showShareMemoImageDialog(memo);
   };
 
+  const handleMemoTypeShow = () => {
+    if (!ShowTaskLabel) {
+      return;
+    }
+
+    if (memo.memoType === 'TASK-TODO') {
+      return taskBlank;
+    } else if (memo.memoType === 'TASK-DONE') {
+      return task;
+    }
+  };
+
   const handleMemoKeyDown = useCallback((event: React.MouseEvent) => {
     if (event.ctrlKey || event.metaKey) {
       handleSourceMemoClick();
     }
   }, []);
 
-  const handleMemoDoubleKeyDown = useCallback((event: React.MouseEvent) => {
+  const handleMemoDoubleClick = useCallback((event: React.MouseEvent) => {
     if (event) {
       handleEditMemoClick();
     }
@@ -250,42 +389,106 @@ const Memo: React.FC<Props> = (props: Props) => {
     }
   };
 
+  const handleCommentBlock = () => {
+    if (!isCommentShown) {
+      toggleComment(true);
+    } else {
+      toggleComment(false);
+    }
+  };
+
+  const handleEditCommentClick = useCallback((memo: Model.Memo) => {
+    if (!CommentOnMemos) {
+      return;
+    }
+
+    globalStateService.setCommentMemoId(memo.id);
+
+    if (!isCommentShown) {
+      toggleComment(true);
+    }
+    memoCommentRef.current?.focus();
+    memoCommentRef.current?.setContent(memo.content.replace(/ comment: (.*)$/g, ''));
+  }, []);
+
+  const showEditStatus = Boolean(globalState.commentMemoId);
+
+  const editorConfig = useMemo(
+    () => ({
+      className: 'memo-editor',
+      inputerType: 'commentMemo',
+      initialContent: '',
+      placeholder: t('Comment it...'),
+      showConfirmBtn: true,
+      showCancelBtn: showEditStatus,
+      showTools: true,
+      onConfirmBtnClick: handleSaveBtnClick,
+      onCancelBtnClick: handleCancelBtnClick,
+      onContentChange: handleContentChange,
+    }),
+    [memo],
+  );
+
+  const imageProps = {
+    memo: memo.content,
+  };
+
   return (
     <div
       className={`memo-wrapper ${'memos-' + memo.id} ${memo.memoType}`}
       onMouseLeave={handleMouseLeaveMemoWrapper}
       onMouseDown={handleMemoKeyDown}
-      onDoubleClick={handleMemoDoubleKeyDown}>
+    >
       <div className="memo-top-wrapper">
-        <span className="time-text" onClick={handleShowMemoStoryDialog}>
-          {memo.createdAtStr}
-        </span>
-        <div className="btns-container">
-          <span className="btn more-action-btn">
-            <img className="icon-img" src={more} />
+        <div className="memo-top-left-wrapper">
+          <span className="time-text" onClick={handleShowMemoStoryDialog}>
+            {memo.createdAtStr}
           </span>
-          <div className="more-action-btns-wrapper">
-            <div className="more-action-btns-container">
-              <span className="btn" onClick={handleShowMemoStoryDialog}>
-                {t('READ')}
-              </span>
-              <span className="btn" onClick={handleMarkMemoClick}>
-                {t('MARK')}
-              </span>
-              <span className="btn" onClick={handleGenMemoImageBtnClick}>
-                {t('SHARE')}
-              </span>
-              <span className="btn" onClick={handleEditMemoClick}>
-                {t('EDIT')}
-              </span>
-              <span className="btn" onClick={handleSourceMemoClick}>
-                {t('SOURCE')}
-              </span>
-              <span
-                className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
-                onClick={handleDeleteMemoClick}>
-                {showConfirmDeleteBtn ? t('CONFIRM！') : t('DELETE')}
-              </span>
+          <div
+            className={`memo-type-img ${
+              (memo.memoType === 'TASK-TODO' || memo.memoType === 'TASK-DONE') && ShowTaskLabel ? '' : 'hidden'
+            }`}
+          >
+            <img src={handleMemoTypeShow() ?? ''} alt="memo-type" />
+          </div>
+        </div>
+        <div className="memo-top-right-wrapper">
+          {CommentOnMemos ? (
+            <div className="comment-button-wrapper">
+              <img className="comment-logo" onClick={handleCommentBlock} src={comment} alt="memo-comment" />
+              {commentMemos.length > 0 ? <div className="comment-text-count">{commentMemos.length}</div> : null}
+            </div>
+          ) : (
+            ''
+          )}
+          <div className="btns-container">
+            <span className="btn more-action-btn">
+              <img className="icon-img" src={more} />
+            </span>
+            <div className="more-action-btns-wrapper">
+              <div className="more-action-btns-container">
+                <span className="btn" onClick={handleShowMemoStoryDialog}>
+                  {t('READ')}
+                </span>
+                <span className="btn" onClick={handleMarkMemoClick}>
+                  {t('MARK')}
+                </span>
+                <span className="btn" onClick={handleGenMemoImageBtnClick}>
+                  {t('SHARE')}
+                </span>
+                <span className="btn" onClick={handleEditMemoClick}>
+                  {t('EDIT')}
+                </span>
+                <span className="btn" onClick={handleSourceMemoClick}>
+                  {t('SOURCE')}
+                </span>
+                <span
+                  className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
+                  onClick={handleDeleteMemoClick}
+                >
+                  {showConfirmDeleteBtn ? t('CONFIRM！') : t('DELETE')}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -293,27 +496,52 @@ const Memo: React.FC<Props> = (props: Props) => {
       <div
         className="memo-content-text"
         onClick={handleMemoContentClick}
-        dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content, memo.id)}}></div>
-      <Only when={externalImageUrls.length > 0}>
-        <div className="images-wrapper">
-          {externalImageUrls.map((imgUrl, idx) => (
-            <Image alt="" key={idx} className="memo-img" imgUrl={imgUrl} referrerPolicy="no-referrer" />
-          ))}
+        onDoubleClick={handleMemoDoubleClick}
+        dangerouslySetInnerHTML={{ __html: formatMemoContent(memo.content, memo.id) }}
+      ></div>
+      <MemoImage {...imageProps} />
+      {/*<Only when={externalImageUrls.length > 0}>*/}
+      {/*  <div className="images-wrapper">*/}
+      {/*    {externalImageUrls.map((imgUrl, idx) => (*/}
+      {/*      <Image alt="" key={idx} className="memo-img" imgUrl={imgUrl} referrerPolicy="no-referrer" />*/}
+      {/*    ))}*/}
+      {/*  </div>*/}
+      {/*</Only>*/}
+      {/*<Only when={internalImageUrls.length > 0}>*/}
+      {/*  <div className="images-wrapper internal-embed image-embed is-loaded">*/}
+      {/*    {internalImageUrls.map((imgUrl, idx) => (*/}
+      {/*      <Image*/}
+      {/*        key={idx}*/}
+      {/*        className="memo-img"*/}
+      {/*        imgUrl={imgUrl.path}*/}
+      {/*        alt={imgUrl.altText}*/}
+      {/*        filepath={imgUrl.filepath}*/}
+      {/*      />*/}
+      {/*    ))}*/}
+      {/*  </div>*/}
+      {/*</Only>*/}
+      {CommentOnMemos ? (
+        <div className={`memo-comment-wrapper`}>
+          {commentMemos.length > 0 ? (
+            <div className={`memo-comment-list`}>
+              {/*// TODO*/}
+              {commentMemos.map((m, idx) => (
+                <div key={idx} className="memo-comment">
+                  <div className="memo-comment-time">{m.createdAt}</div>
+                  <div className="memo-comment-text" onDoubleClick={() => handleEditCommentClick(m)}>
+                    {m.content.replace(/comment:(.*)]]/g, '')}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <div className={`memo-comment-inputer ${isCommentShown ? '' : 'hidden'}`}>
+            <Editor ref={memoCommentRef} {...editorConfig} />
+          </div>
         </div>
-      </Only>
-      <Only when={internalImageUrls.length > 0}>
-        <div className="images-wrapper internal-embed image-embed is-loaded">
-          {internalImageUrls.map((imgUrl, idx) => (
-            <Image
-              key={idx}
-              className="memo-img"
-              imgUrl={imgUrl.path}
-              alt={imgUrl.altText}
-              filepath={imgUrl.filepath}
-            />
-          ))}
-        </div>
-      </Only>
+      ) : (
+        ''
+      )}
       {/* <Only when={imageUrls.length > 0}>
         <div className="images-wrapper">
           {imageUrls.map((imgUrl, idx) => (
@@ -334,7 +562,7 @@ export function formatMemoContent(content: string, memoid?: string) {
     })
     .join('');
 
-  const {shouldUseMarkdownParser, shouldHideImageUrl} = globalStateService.getState();
+  const { shouldUseMarkdownParser, shouldHideImageUrl } = globalStateService.getState();
 
   if (shouldUseMarkdownParser) {
     content = parseMarkedToHtml(content, memoid);
@@ -358,7 +586,8 @@ export function formatMemoContent(content: string, memoid?: string) {
     .replace(FIRST_TAG_REG, "<p><span class='tag-span'>#$2</span>")
     .replace(LINK_REG, "$1<a class='link' target='_blank' rel='noreferrer' href='$2'>$2</a>")
     .replace(MD_LINK_REG, "<a class='link' target='_blank' rel='noreferrer' href='$2'>$1</a>")
-    .replace(MEMO_LINK_REG, "<span class='memo-link-text' data-value='$2'>$1</span>");
+    .replace(MEMO_LINK_REG, "<span class='memo-link-text' data-value='$2'>$1</span>")
+    .replace(/\^\S{6}/g, '');
 
   // const contentMark = content.split('');
 

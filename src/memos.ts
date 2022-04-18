@@ -1,12 +1,11 @@
-import {WorkspaceLeaf, ItemView, HoverPopover, TFile} from 'obsidian';
-import {MEMOS_VIEW_TYPE} from './constants';
+import { HoverPopover, ItemView, TFile, WorkspaceLeaf } from 'obsidian';
+import { MEMOS_VIEW_TYPE } from './constants';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import App from './App';
 import type MemosPlugin from './index';
-import {dailyNotesService, memoService} from './services';
-import {getDateFromFile} from 'obsidian-daily-notes-interface';
+import { dailyNotesService, globalStateService, memoService } from './services';
+import { getDateFromFile } from 'obsidian-daily-notes-interface';
 
 export class Memos extends ItemView {
   plugin: MemosPlugin;
@@ -59,7 +58,7 @@ export class Memos extends ItemView {
 
     if (date && this.memosComponent) {
       // memoService.clearMemos();
-      memoService.fetchAllMemos();
+      await memoService.fetchAllMemos();
     }
   }
 
@@ -73,48 +72,28 @@ export class Memos extends ItemView {
     }
   }
 
+  async handleResize() {
+    const leaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+    if (leaves.length > 0) {
+      const leaf = leaves[0];
+      if (leaf.width <= 875) {
+        // hide the sidebar
+        globalStateService.setIsMobileView(true);
+        leaf.view.containerEl.classList.add('mobile-view');
+        globalStateService.setIsMobileView(leaf.width <= 875);
+      } else {
+        globalStateService.setIsMobileView(false);
+        leaf.view.containerEl.classList.remove('mobile-view');
+        globalStateService.setIsMobileView(leaf.width <= 875);
+      }
+    }
+  }
+
   async onOpen(): Promise<void> {
     this.onMemosSettingsUpdate = this.onMemosSettingsUpdate.bind(this);
     this.onFileCreated = this.onFileCreated.bind(this);
     this.onFileDeleted = this.onFileDeleted.bind(this);
     this.onFileModified = this.onFileModified.bind(this);
-
-    this.registerEvent(
-      this.plugin.app.workspace.on('layout-change', () => {
-        if (!this.memosComponent) return;
-        const leaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
-        if (!(leaves.length > 0)) {
-          return;
-        }
-        const leaf = leaves[0];
-        //@ts-expect-error, private method
-        const side = leaf.getRoot().side;
-        let sidebar: HTMLElement;
-        let page: HTMLElement;
-        if (leaf.view.containerEl.querySelector('.memos-sidebar-wrapper')) {
-          sidebar = leaf.view.containerEl.querySelector('.memos-sidebar-wrapper') as HTMLElement;
-        } else {
-          sidebar = leaf.view.containerEl.querySelector('.memos-sidebar-wrapper-display') as HTMLElement;
-        }
-        if (leaf.view.containerEl.querySelector('.content-wrapper')) {
-          page = leaf.view.containerEl.querySelector('.content-wrapper') as HTMLElement;
-        } else {
-          page = leaf.view.containerEl.querySelector('.content-wrapper-padding-fix') as HTMLElement;
-        }
-        // const page = leaf.view.containerEl.querySelector('.content-wrapper') as HTMLElement;
-        if (side !== undefined && (side === 'left' || side === 'right')) {
-          if (!sidebar?.className.contains('memos-sidebar-wrapper-display') && page !== undefined) {
-            sidebar.className = 'memos-sidebar-wrapper-display';
-            page.className = 'content-wrapper-padding-fix';
-          }
-        } else {
-          if (sidebar?.classList.contains('memos-sidebar-wrapper-display') && page !== undefined) {
-            sidebar.className = 'memos-sidebar-wrapper';
-            page.className = 'content-wrapper';
-          }
-        }
-      }),
-    );
 
     this.registerEvent(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -124,8 +103,24 @@ export class Memos extends ItemView {
     this.registerEvent(this.app.vault.on('create', this.onFileCreated));
     this.registerEvent(this.app.vault.on('delete', this.onFileDeleted));
     this.registerEvent(this.app.vault.on('modify', this.onFileModified));
+    this.registerEvent(
+      this.app.workspace.on('resize', () => {
+        this.handleResize();
+      }),
+    );
+    this.registerEvent(
+      this.app.metadataCache.on('dataview:api-ready', () => {
+        console.log('Dataview API ready');
+      }),
+    );
+    // this.registerEvent(
+    //   this.app.metadataCache.on('dataview:metadata-change', (_, file) => {
+    //     getAPI().index.reload(file);
+    //   }),
+    // );
 
     dailyNotesService.getApp(this.app);
+
     InsertAfter = this.plugin.settings.InsertAfter;
     UserName = this.plugin.settings.UserName;
     ProcessEntriesBelow = this.plugin.settings.ProcessEntriesBelow;
@@ -151,6 +146,9 @@ export class Memos extends ItemView {
     DefaultDarkBackgroundImage = this.plugin.settings.DefaultDarkBackgroundImage;
     DefaultLightBackgroundImage = this.plugin.settings.DefaultLightBackgroundImage;
     DefaultMemoComposition = this.plugin.settings.DefaultMemoComposition;
+    ShowTaskLabel = this.plugin.settings.ShowTaskLabel;
+    CommentOnMemos = this.plugin.settings.CommentOnMemos;
+    CommentsInOriginalNotes = this.plugin.settings.CommentsInOriginalNotes;
 
     this.memosComponent = React.createElement(App);
 
@@ -188,3 +186,6 @@ export let UseVaultTags: boolean;
 export let DefaultDarkBackgroundImage: string;
 export let DefaultLightBackgroundImage: string;
 export let DefaultMemoComposition: string;
+export let ShowTaskLabel: boolean;
+export let CommentOnMemos: boolean;
+export let CommentsInOriginalNotes: boolean;

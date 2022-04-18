@@ -1,4 +1,4 @@
-import {moment} from 'obsidian';
+import { moment, TFile } from 'obsidian';
 
 namespace utils {
   export function getNowTimeStamp(): number {
@@ -79,7 +79,7 @@ namespace utils {
     return Array.from(new Set(data));
   }
 
-  export function dedupeObjectWithId<T extends {id: string}>(data: T[]): T[] {
+  export function dedupeObjectWithId<T extends { id: string }>(data: T[]): T[] {
     const idSet = new Set<string>();
     const result = [];
 
@@ -190,22 +190,22 @@ namespace utils {
     }
   }
 
-  export function getImageSize(src: string): Promise<{width: number; height: number}> {
+  export function getImageSize(src: string): Promise<{ width: number; height: number }> {
     return new Promise((resolve) => {
       const imgEl = new Image();
 
       imgEl.onload = () => {
-        const {width, height} = imgEl;
+        const { width, height } = imgEl;
 
         if (width > 0 && height > 0) {
-          resolve({width, height});
+          resolve({ width, height });
         } else {
-          resolve({width: 0, height: 0});
+          resolve({ width: 0, height: 0 });
         }
       };
 
       imgEl.onerror = () => {
-        resolve({width: 0, height: 0});
+        resolve({ width: 0, height: 0 });
       };
 
       imgEl.className = 'hidden';
@@ -213,6 +213,18 @@ namespace utils {
       document.body.appendChild(imgEl);
       imgEl.remove();
     });
+  }
+
+  export async function createDailyNote(date: any): Promise<TFile> {
+    let file;
+    if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day').enabled) {
+      const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+      file = await periodicNotes.createPeriodicNote('day', date);
+      return file;
+    }
+    file = await createDailyNote(date);
+
+    return file;
   }
 }
 

@@ -19,8 +19,8 @@ export default {
     'Décembre',
   ],
   monthsShort: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
-  weekDays: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-  weekDaysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+  weekDays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+  weekDaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
   to: 'à',
   year: null,
   month: null,
@@ -62,7 +62,7 @@ export default {
   "Set the default editor position on Mobile, 'Top' by default.":
     "Position par défaut de l'éditeur sur le mobile. Défaut : 'Haut'.",
   'Use button to show editor on mobile': "Utilisation du bouton pour afficher l'éditeur sur le mobile.",
-  'Show Time When Copy Results': "Aficher l'heure quand les résultats sont copiés"
+  'Show Time When Copy Results': "Aficher l'heure quand les résultats sont copiés",
   'Set a float button to call editor on mobile. Only when editor located at the bottom works.':
     "Place un bouton flottant pour appeler l'éditeur sur mobile. Fonctionne uniquement quand l'éditeur est placé en bas.",
   'Show time when you copy results, like 12:00. Copy time by default.':
@@ -162,4 +162,8 @@ export default {
   'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
     'Définir la composition par défaut du mémo, vous devez utiliser {TIME} comme "HH:mm" et {CONTENT} comme contenu. "{TIME} {CONTENT}" par défaut',
   'Default Memo Composition': 'Composition par défaut du mémo',
+  'Show Tasks Label': 'Afficher les étiquettes des tâches',
+  'Show tasks label near the time text. False by default':
+    'Afficher les étiquettes des tâches à côté du texte horaire. Désactivé par défaut.',
+  'Please Open Memos First': "Merci d'ouvrir les mémos en premier",
 };

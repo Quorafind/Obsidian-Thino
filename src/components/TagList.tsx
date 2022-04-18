@@ -1,17 +1,17 @@
-import {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import appContext from '../stores/appContext';
-import {locationService, memoService} from '../services';
+import { locationService, memoService } from '../services';
 import useToggle from '../hooks/useToggle';
 import Only from './common/OnlyWhen';
 import utils from '../helpers/utils';
 import '../less/tag-list.less';
-import React from 'react';
 import arrowRight from '../icons/arrow-right.svg';
 import { t } from '../translations/helper';
 
 interface Tag {
   key: string;
   text: string;
+  count: { [key: string]: number };
   subTags: Tag[];
 }
 
@@ -20,9 +20,9 @@ interface Props {}
 const TagList: React.FC<Props> = () => {
   const {
     locationState: {
-      query: {tag: tagQuery},
+      query: { tag: tagQuery },
     },
-    memoState: {tags: tagsText, memos},
+    memoState: { tags: tagsText, tagsNum: tagsCount, memos },
   } = useContext(appContext);
   const [tags, setTags] = useState<Tag[]>([]);
 
@@ -47,7 +47,7 @@ const TagList: React.FC<Props> = () => {
           tagText += '/' + key;
         }
 
-        let obj = null;
+        let obj = null as Tag;
 
         for (const t of tempObj.subTags) {
           if (t.text === tagText) {
@@ -60,6 +60,7 @@ const TagList: React.FC<Props> = () => {
           obj = {
             key,
             text: tagText,
+            count: tagsCount[tagText],
             subTags: [],
           };
           tempObj.subTags.push(obj);
@@ -94,7 +95,7 @@ interface TagItemContainerProps {
 }
 
 const TagItemContainer: React.FC<TagItemContainerProps> = (props: TagItemContainerProps) => {
-  const {tag, tagQuery} = props;
+  const { tag, tagQuery } = props;
   const isActive = tagQuery === tag.text;
   const hasSubTags = tag.subTags.length > 0;
   const [showSubTags, toggleSubTags] = useToggle(false);
@@ -124,6 +125,7 @@ const TagItemContainer: React.FC<TagItemContainerProps> = (props: TagItemContain
           <span className="tag-text">{tag.key}</span>
         </div>
         <div className="btns-container">
+          <span className="tag-count">{tag.count}</span>
           {hasSubTags ? (
             <span className={`action-btn toggle-btn ${showSubTags ? 'shown' : ''}`} onClick={handleToggleBtnClick}>
               <img className="icon-img" src={arrowRight} />

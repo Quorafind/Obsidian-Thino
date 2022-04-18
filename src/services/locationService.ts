@@ -26,7 +26,7 @@ class LocationService {
   }
 
   public updateStateWithLocation = () => {
-    const {pathname, search, hash} = window.location;
+    const { pathname, search, hash } = window.location;
     const urlParams = new URLSearchParams(search);
     const state: AppLocation = {
       pathname: '/',
@@ -162,6 +162,17 @@ class LocationService {
     // updateLocationUrl();
   };
 
+  public setTimeQuery = (duration: TDuration) => {
+    appStore.dispatch({
+      type: 'SET_DURATION_QUERY',
+      payload: {
+        duration,
+      },
+    });
+
+    // updateLocationUrl();
+  };
+
   public setTagQuery = (tag: string) => {
     appStore.dispatch({
       type: 'SET_TAG_QUERY',
@@ -177,7 +188,7 @@ class LocationService {
     appStore.dispatch({
       type: 'SET_DURATION_QUERY',
       payload: {
-        duration: {from, to},
+        duration: { from, to },
       },
     });
 
@@ -185,7 +196,7 @@ class LocationService {
   };
 
   public getValidPathname = (pathname: string): AppRouter => {
-    if (['/', '/recycle', '/setting'].includes(pathname)) {
+    if (['/', '/homeboard', '/recycle', '/setting'].includes(pathname)) {
       return pathname as AppRouter;
     } else {
       return '/';

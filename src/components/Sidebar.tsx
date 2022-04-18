@@ -1,7 +1,7 @@
-import {useContext, useEffect, useMemo, useRef} from 'react';
+import { useContext, useEffect, useMemo, useRef } from 'react';
 import appContext from '../stores/appContext';
-import {SHOW_SIDERBAR_MOBILE_CLASSNAME} from '../helpers/consts';
-import {globalStateService} from '../services';
+import { SHOW_SIDERBAR_MOBILE_CLASSNAME } from '../helpers/consts';
+import { globalStateService } from '../services';
 import UserBanner from './UserBanner';
 import QueryList from './QueryList';
 import TagList from './TagList';
@@ -14,7 +14,7 @@ interface Props {}
 const Sidebar: React.FC<Props> = () => {
   const {
     locationState,
-    globalState: {isMobileView, showSiderbarInMobileView},
+    globalState: { isMobileView, showSiderbarInMobileView },
   } = useContext(appContext);
   const wrapperElRef = useRef<HTMLElement>(null);
 

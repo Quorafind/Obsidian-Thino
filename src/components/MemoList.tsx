@@ -1,19 +1,19 @@
-import {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import appContext from '../stores/appContext';
-import {locationService, memoService, queryService} from '../services';
-import {FIRST_TAG_REG, IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
+import { locationService, memoService, queryService } from '../services';
+import { FIRST_TAG_REG, IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } from '../helpers/consts';
 import utils from '../helpers/utils';
-import {checkShouldShowMemoWithFilters} from '../helpers/filter';
+import { checkShouldShowMemoWithFilters } from '../helpers/filter';
 import Memo from './Memo';
 // import toastHelper from "./Toast";
 import '../less/memolist.less';
-import React from 'react';
 import dailyNotesService from '../services/dailyNotesService';
 import appStore from '../stores/appStore';
-import {Notice, Platform} from 'obsidian';
-import {HideDoneTasks} from '../memos';
-import {moment} from 'obsidian';
+import { Notice, Platform } from 'obsidian';
+import { HideDoneTasks } from '../memos';
+// import {moment} from 'obsidian';
 import { t } from '../translations/helper';
+
 // import { DefaultEditorLocation } from '../memos';
 
 interface Props {}
@@ -22,16 +22,16 @@ export let copyShownMemos: Model.Memo[];
 
 const MemoList: React.FC<Props> = () => {
   const {
-    locationState: {query},
-    memoState: {memos},
+    locationState: { query },
+    memoState: { memos },
   } = useContext(appContext);
-  let reverseMemos: Model.Memo[];
+  // let reverseMemos: Model.Memo[];
   // if(DefaultEditorLocation === "Bottom" && window.innerWidth < 875 && Platform.isMobile){
   //   reverseMemos = memos.reverse();
   // }
   const [isFetching, setFetchStatus] = useState(true);
   const wrapperElement = useRef<HTMLDivElement>(null);
-  const {tag: tagQuery, duration, type: memoContentType, text: textQuery, filter: queryId} = query;
+  const { tag: tagQuery, duration, type: memoContentType, text: textQuery, filter: queryId } = query;
   // const showMemoFilter = Boolean(tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryId);
   const queryFilter = queryService.getQueryById(queryId);
   const showMemoFilter = Boolean(
@@ -47,6 +47,10 @@ const MemoList: React.FC<Props> = () => {
             if (HideDoneTasks && memo.memoType === 'TASK-DONE') {
               shouldShow = false;
             }
+          }
+
+          if (memo.content.contains('comment:')) {
+            shouldShow = false;
           }
 
           if (queryFilter) {
@@ -120,19 +124,23 @@ const MemoList: React.FC<Props> = () => {
 
           return shouldShow;
         })
-      : memos;
+      : memos.filter((memo) => {
+          return !memo.content.contains('comment:');
+        });
 
   copyShownMemos = shownMemos;
 
   useEffect(() => {
-    memoService
-      .fetchAllMemos()
-      .then(() => {
-        setFetchStatus(false);
-      })
-      .catch(() => {
-        new Notice('😭 Fetch Error');
-      });
+    setTimeout(() => {
+      memoService
+        .fetchAllMemos()
+        .then(() => {
+          setFetchStatus(false);
+        })
+        .catch(() => {
+          new Notice(t('Fetch Error'));
+        });
+    }, 400);
     dailyNotesService
       .getMyAllDailyNotes()
       .then(() => {
@@ -142,14 +150,15 @@ const MemoList: React.FC<Props> = () => {
         new Notice('😭 Fetch DailyNotes Error');
       });
     dailyNotesService.getState();
+    memoService.getState();
   }, []);
 
   useEffect(() => {
-    wrapperElement.current?.scrollTo({top: 0});
+    wrapperElement.current?.scrollTo({ top: 0 });
   }, [query]);
 
   const handleMemoListClick = useCallback((event: React.MouseEvent) => {
-    const {workspace} = appStore.getState().dailyNotesState.app;
+    const { workspace } = appStore.getState().dailyNotesState.app;
 
     const targetEl = event.target as HTMLElement;
     if (targetEl.tagName === 'SPAN' && targetEl.className === 'tag-span') {

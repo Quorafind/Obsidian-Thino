@@ -108,34 +108,64 @@
   }
 }
 
-@media only screen and (max-width: 875px) {
-  .theme-light {
-    div[data-type='memos_view'] .search-bar-container {
-      width: 120px;
+//@media only screen and (max-width: 875px) {
+//  .theme-light {
+//    div[data-type='memos_view'] .search-bar-container {
+//      width: 120px;
+//
+//      > .search-bar-inputer {
+//        .flex(row, flex-start, center);
+//        background-color: @bg-Searchbar-lightgray;
+//        // width: 100%;
+//        height: 40px;
+//        padding: 4px 16px;
+//        border-radius: 8px;
+//        width: 120%;
+//        margin-left: -35px;
+//      }
+//
+//      > .quickly-action-wrapper {
+//        display: none;
+//        position: absolute;
+//        top: 42px;
+//        right: -2px;
+//        z-index: 12;
+//        padding-right: 20px;
+//        padding-left: 8px;
+//        padding-top: 8px;
+//        padding-bottom: 8px;
+//        width: 320px;
+//      }
+//    }
+//  }
+//}
 
-      > .search-bar-inputer {
-        .flex(row, flex-start, center);
-        background-color: @bg-Searchbar-lightgray;
-        // width: 100%;
-        height: 40px;
-        padding: 4px 16px;
-        border-radius: 8px;
-        width: 120%;
-        margin-left: -35px;
-      }
+.theme-light {
+  div[data-type='memos_view'].mobile-view .search-bar-container {
+    width: 120px;
 
-      > .quickly-action-wrapper {
-        display: none;
-        position: absolute;
-        top: 42px;
-        right: -2px;
-        z-index: 12;
-        padding-right: 20px;
-        padding-left: 8px;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        width: 320px;
-      }
+    > .search-bar-inputer {
+      .flex(row, flex-start, center);
+      background-color: @bg-Searchbar-lightgray;
+      // width: 100%;
+      height: 40px;
+      padding: 4px 16px;
+      border-radius: 8px;
+      width: 120%;
+      margin-left: -35px;
+    }
+
+    > .quickly-action-wrapper {
+      display: none;
+      position: absolute;
+      top: 42px;
+      right: -2px;
+      z-index: 12;
+      padding-right: 20px;
+      padding-left: 8px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      width: 320px;
     }
   }
 }
@@ -248,39 +278,74 @@
   }
 }
 
-@media only screen and (max-width: 875px) {
-  .theme-dark {
-    div[data-type='memos_view'] .search-bar-container {
-      width: 120px;
+//@media only screen and (max-width: 875px) {
+//  .theme-dark {
+//    div[data-type='memos_view'] .search-bar-container {
+//      width: 120px;
+//
+//      > .search-bar-inputer {
+//        .flex(row, flex-start, center);
+//        background-color: @bg-dark-Search-lightgray;
+//        // width: 100%;
+//        height: 40px;
+//        padding: 8px 16px;
+//        border-radius: 8px;
+//        width: 120%;
+//        margin-left: -35px;
+//
+//        > .icon-img {
+//          margin-right: 8px;
+//          width: 14px;
+//          height: auto;
+//          opacity: 0.8;
+//          filter: invert(1);
+//        }
+//      }
+//
+//      > .quickly-action-wrapper {
+//        display: none;
+//        position: absolute;
+//        top: 42px;
+//        right: -2px;
+//        z-index: 2;
+//        padding: 8px;
+//        width: 320px;
+//      }
+//    }
+//  }
+//}
 
-      > .search-bar-inputer {
-        .flex(row, flex-start, center);
-        background-color: @bg-dark-Search-lightgray;
-        // width: 100%;
-        height: 40px;
-        padding: 8px 16px;
-        border-radius: 8px;
-        width: 120%;
-        margin-left: -35px;
+.theme-dark {
+  div[data-type='memos_view'].mobile-view .search-bar-container {
+    width: 120px;
 
-        > .icon-img {
-          margin-right: 8px;
-          width: 14px;
-          height: auto;
-          opacity: 0.8;
-          filter: invert(1);
-        }
+    > .search-bar-inputer {
+      .flex(row, flex-start, center);
+      background-color: @bg-dark-Search-lightgray;
+      // width: 100%;
+      height: 40px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      width: 120%;
+      margin-left: -35px;
+
+      > .icon-img {
+        margin-right: 8px;
+        width: 14px;
+        height: auto;
+        opacity: 0.8;
+        filter: invert(1);
       }
+    }
 
-      > .quickly-action-wrapper {
-        display: none;
-        position: absolute;
-        top: 42px;
-        right: -2px;
-        z-index: 2;
-        padding: 8px;
-        width: 320px;
-      }
+    > .quickly-action-wrapper {
+      display: none;
+      position: absolute;
+      top: 42px;
+      right: -2px;
+      z-index: 2;
+      padding: 8px;
+      width: 320px;
     }
   }
 }

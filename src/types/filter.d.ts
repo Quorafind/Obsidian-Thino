@@ -33,6 +33,14 @@ interface TextFilter extends BaseFilter {
   };
 }
 
-type FilterType = 'TEXT' | 'TYPE' | 'TAG';
+interface DateFilter extends BaseFilter {
+  type: 'DATE';
+  value: {
+    operator: 'CONTAIN' | 'NOT_CONTAIN';
+    value: string;
+  };
+}
 
-type Filter = BaseFilter | TagFilter | TypeFilter | TextFilter;
+type FilterType = 'TEXT' | 'TYPE' | 'TAG' | 'DATE';
+
+type Filter = BaseFilter | TagFilter | TypeFilter | TextFilter | DateFilter;

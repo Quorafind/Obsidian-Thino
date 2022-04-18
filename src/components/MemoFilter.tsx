@@ -1,24 +1,23 @@
-import {useContext} from 'react';
+import React, { useContext } from 'react';
 import appContext from '../stores/appContext';
-import {locationService, queryService} from '../services';
+import { locationService, queryService } from '../services';
 import utils from '../helpers/utils';
-import {getTextWithMemoType} from '../helpers/filter';
+import { getTextWithMemoType } from '../helpers/filter';
 import '../less/memo-filter.less';
-import React from 'react';
-import {moment} from 'obsidian';
+import { moment } from 'obsidian';
 import copy from '../icons/copy.svg';
-import {copyShownMemos} from './MemoList';
-import {getMemosByDate, transferMemosIntoText} from '../obComponents/obCopyMemos';
-import {t} from '../translations/helper';
+import { copyShownMemos } from './MemoList';
+import { getMemosByDate, transferMemosIntoText } from '../obComponents/obCopyMemos';
+import { t } from '../translations/helper';
 
 interface FilterProps {}
 
 const MemoFilter: React.FC<FilterProps> = () => {
   const {
-    locationState: {query},
+    locationState: { query },
   } = useContext(appContext);
 
-  const {tag: tagQuery, duration, type: memoType, text: textQuery, filter} = query;
+  const { tag: tagQuery, duration, type: memoType, text: textQuery, filter } = query;
 
   const queryFilter = queryService.getQueryById(filter);
   const showFilter = Boolean(
@@ -26,11 +25,13 @@ const MemoFilter: React.FC<FilterProps> = () => {
   );
 
   const handleCopyClick = async () => {
-    if (copyShownMemos.length > 0) {
-      const memosByDate = getMemosByDate(copyShownMemos);
-      const queryDailyMemos = transferMemosIntoText(memosByDate);
-      await utils.copyTextToClipboard(queryDailyMemos);
+    if (!(copyShownMemos.length > 0)) {
+      return;
     }
+
+    const memosByDate = getMemosByDate(copyShownMemos);
+    const queryDailyMemos = transferMemosIntoText(memosByDate);
+    await utils.copyTextToClipboard(queryDailyMemos);
   };
 
   return (

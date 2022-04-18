@@ -1,10 +1,10 @@
-import {Notice} from 'obsidian';
-import {t} from '../translations/helper';
-import {IMAGE_URL_REG} from '../helpers/consts';
-import {dailyNotesService} from '../services';
+import { Notice } from 'obsidian';
+import { t } from '../translations/helper';
+import { IMAGE_URL_REG } from '../helpers/consts';
+import { dailyNotesService } from '../services';
 
 export const getBackgroundFile = async (path: string) => {
-  const {app} = dailyNotesService.getState();
+  const { app } = dailyNotesService.getState();
   if (/(https|http)/g.test(path)) {
     new Notice(t("Don't support web image yet, please input image path in vault"));
     return;
@@ -13,7 +13,7 @@ export const getBackgroundFile = async (path: string) => {
     new Notice(t('Ready to convert image into background'));
     const buffer = await app.vault.adapter.readBinary(path);
     const arr = new Uint8Array(buffer);
-    const blob = new Blob([arr], {type: 'image/png'});
+    const blob = new Blob([arr], { type: 'image/png' });
     return blob;
   }
 };

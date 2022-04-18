@@ -1,19 +1,20 @@
-import {forwardRef, ReactNode, useCallback, useContext, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import React, { forwardRef, ReactNode, useCallback, useContext, useEffect, useImperativeHandle, useRef } from 'react';
 import TinyUndo from 'tiny-undo';
 import appContext from '../../stores/appContext';
-import {storage, remove} from '../../helpers/storage';
+import { storage } from '../../helpers/storage';
 import useRefresh from '../../hooks/useRefresh';
 import Only from '../common/OnlyWhen';
 import '../../less/editor.less';
-import React from 'react';
 import ReactTextareaAutocomplete from '@webscopeio/react-textarea-autocomplete';
-import {usedTags} from '../../obComponents/obTagSuggester';
+import { usedTags } from '../../obComponents/obTagSuggester';
 import '../../less/suggest.less';
-import {FocusOnEditor, SaveMemoButtonLabel} from '../../memos';
-import {getSuggestions} from '../../obComponents/obFileSuggester';
-import {TFile} from 'obsidian';
+import { FocusOnEditor, SaveMemoButtonLabel } from '../../memos';
+import { getSuggestions } from '../../obComponents/obFileSuggester';
+import { TFile } from 'obsidian';
 import appStore from '../../stores/appStore';
 import { t } from '../../translations/helper';
+import useState from 'react-usestateref';
+import { MEMOS_VIEW_TYPE } from '../../constants';
 
 type ItemProps = {
   entity: {
@@ -24,7 +25,7 @@ type ItemProps = {
 };
 
 type LoadingProps = {
-  data: Array<{name: string; char: string}>;
+  data: Array<{ name: string; char: string }>;
 };
 
 export interface EditorRefActions {
@@ -37,6 +38,7 @@ export interface EditorRefActions {
 
 interface EditorProps {
   className: string;
+  inputerType: string;
   initialContent: string;
   placeholder: string;
   showConfirmBtn: boolean;
@@ -48,11 +50,11 @@ interface EditorProps {
 }
 
 //eslint-disable-next-line
-const TItem = ({entity: {name, char, file}}: ItemProps) => {
+const TItem = ({ entity: { name, char, file } }: ItemProps) => {
   return <div>{`${char}`}</div>;
 };
 //eslint-disable-next-line
-const Loading = ({data}: LoadingProps) => {
+const Loading = ({ data }: LoadingProps) => {
   return <div>Loading</div>;
 };
 
@@ -62,10 +64,11 @@ let actualToken: string;
 // eslint-disable-next-line react/display-name
 const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRefActions>) => {
   const {
-    globalState: {useTinyUndoHistoryCache},
+    globalState: { useTinyUndoHistoryCache },
   } = useContext(appContext);
   const {
     className,
+    inputerType,
     initialContent,
     placeholder,
     showConfirmBtn,
@@ -79,7 +82,25 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
   const refresh = useRefresh();
   // const [value, setValue] = useState("")
 
-  
+  const [, setHeight, currentHeightRef] = useState(0);
+  // const [showDatePicker, toggleShowDatePicker] = useToggle(false);
+
+  useEffect(() => {
+    const leaves = app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+    let memosHeight;
+    let leafView;
+
+    if (leaves.length > 0) {
+      const leaf = leaves[0];
+      leafView = leaf.view.containerEl;
+      memosHeight = leafView.offsetHeight;
+    } else {
+      leafView = document;
+      memosHeight = window.outerHeight;
+    }
+
+    setHeight(memosHeight);
+  }, []);
 
   useEffect(() => {
     if (!editorRef.current) {
@@ -98,7 +119,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
         return;
       }
 
-      const {tinyUndoActionsCache, tinyUndoIndexCache} = storage.get(['tinyUndoActionsCache', 'tinyUndoIndexCache']);
+      const { tinyUndoActionsCache, tinyUndoIndexCache } = storage.get(['tinyUndoActionsCache', 'tinyUndoIndexCache']);
 
       tinyUndoRef.current = new TinyUndo(editorRef.current, {
         interval: 5000,
@@ -135,7 +156,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     () => ({
       element: editorRef.current as HTMLTextAreaElement,
       focus: () => {
-        if(FocusOnEditor){
+        if (FocusOnEditor) {
           editorRef.current?.focus();
         }
       },
@@ -166,12 +187,12 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
     [],
   );
 
-  const handleInsertTrigger = (event: {currentTrigger: string; item: any}) => {
+  const handleInsertTrigger = (event: { currentTrigger: string; item: any }) => {
     if (!editorRef.current) {
       return;
     }
 
-    const {fileManager} = appStore.getState().dailyNotesState.app;
+    const { fileManager } = appStore.getState().dailyNotesState.app;
 
     if (event.currentTrigger === '#') {
       const prevValue = editorRef.current.value;
@@ -249,7 +270,9 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
       return;
     }
 
-    editorRef.current.value = getEditorContentCache();
+    if (inputerType === 'memo') {
+      editorRef.current.value = getEditorContentCache();
+    }
 
     handleConfirmBtnClickCallback(editorRef.current.value);
     editorRef.current.value = '';
@@ -282,71 +305,69 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
 
   return (
     <div className={'common-editor-wrapper ' + className}>
-      <ReactTextareaAutocomplete
-        // autoFocus
-        className="common-editor-inputer scroll"
-        loadingComponent={Loading}
-        placeholder={placeholder}
-        movePopupAsYouType={true}
-        // renderToBody={true}
+      {inputerType === 'memo' ? (
+        <ReactTextareaAutocomplete
+          className="common-editor-inputer scroll"
+          loadingComponent={Loading}
+          placeholder={placeholder}
+          movePopupAsYouType={true}
+          value={getEditorContent()}
+          innerRef={(textarea) => {
+            editorRef.current = textarea;
+          }}
+          onInput={handleEditorInput}
+          onKeyDown={handleEditorKeyDown}
+          style={{
+            minHeight: 48,
+            maxHeight: `${currentHeightRef.current > 400 ? currentHeightRef.current - 400 : 100}px`,
+          }}
+          dropdownStyle={{
+            minWidth: 180,
+            maxHeight: 250,
+            overflowY: 'auto',
+          }}
+          minChar={0}
+          onItemSelected={handleInsertTrigger}
+          scrollToItem={true}
+          trigger={{
+            '#': {
+              dataProvider: (token) => {
+                actualToken = token;
+                return usedTags(token).map(({ name, char }) => ({ name, char }));
+              },
+              //eslint-disable-next-line
+              component: TItem,
+              afterWhitespace: true,
+              output: (item) => item.char,
+            },
+            '[[': {
+              dataProvider: (token) => {
+                actualToken = token;
+                return getSuggestions(token)
+                  .slice(0, 10)
+                  .map(({ name, char, file }) => ({ name, char, file }));
+              },
+              //eslint-disable-next-line
+              component: TItem,
+              afterWhitespace: true,
+              output: (item: string) => item.char,
+            },
+          }}
+        />
+      ) : (
+        <textarea
+          style={{
+            minHeight: 48,
+          }}
+          className="common-editor-inputer scroll"
+          rows={1}
+          placeholder={placeholder}
+          ref={editorRef}
+          onInput={handleEditorInput}
+          onKeyDown={handleEditorKeyDown}
+        ></textarea>
+      )}
 
-        ref={(rta) => {
-          rta = rta;
-        }}
-        value={getEditorContent()}
-        innerRef={(textarea) => {
-          editorRef.current = textarea;
-        }}
-        onInput={handleEditorInput}
-        onKeyDown={handleEditorKeyDown}
-        style={{
-          minHeight: 48,
-        }}
-        dropdownStyle={{
-          minWidth: 180,
-          maxHeight: 250,
-          overflowY: 'auto',
-        }}
-        minChar={0}
-        onItemSelected={handleInsertTrigger}
-        scrollToItem={true}
-        trigger={{
-          '#': {
-            dataProvider: (token) => {
-              actualToken = token;
-              return usedTags(token).map(({name, char}) => ({name, char}));
-            },
-            //eslint-disable-next-line
-            component: TItem,
-            afterWhitespace: true,
-            output: (item) => item.char,
-          },
-          '[[': {
-            dataProvider: (token) => {
-              actualToken = token;
-              return getSuggestions(token)
-                .slice(0, 10)
-                .map(({name, char, file}) => ({name, char, file}));
-            },
-            //eslint-disable-next-line
-            component: TItem,
-            afterWhitespace: true,
-            output: (item) => item.char,
-          },
-          // "[[": {
-          //   dataProvider: token => {
-          //     actualToken = token;
-          //     return usedTags(token)
-          //       .slice(0, 10)
-          //       .map(({ name, char }) => ({ name, char }));
-          //   },
-          //   //eslint-disable-next-line
-          //   component: Item,
-          //   afterWhitespace: true,
-          //   output: (item, trigger) => item.char,
-          // }
-        }}
-      />
       <div className="common-tools-wrapper">
         <div className="common-tools-container">
           <Only when={props.tools !== undefined}>{props.tools}</Only>

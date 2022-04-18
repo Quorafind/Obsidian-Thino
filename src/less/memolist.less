@@ -33,10 +33,14 @@
   }
 }
 
-@media only screen and (max-width: 875px) {
-  div[data-type='memos_view'] .memolist-wrapper {
-    padding: 0 12px;
-  }
+//@media only screen and (max-width: 875px) {
+//  div[data-type='memos_view'] .memolist-wrapper {
+//    padding: 0 12px;
+//  }
+//}
+
+div[data-type='memos_view'].mobile-view .memolist-wrapper {
+  padding: 0 12px;
 }
 
 .theme-dark div[data-type='memos_view'] .memolist-wrapper {
@@ -72,10 +76,16 @@
   }
 }
 
-@media only screen and (max-width: 875px) {
-  .theme-dark {
-    div[data-type='memos_view'] .memolist-wrapper {
-      padding: 0 12px;
-    }
+//@media only screen and (max-width: 875px) {
+//  .theme-dark {
+//    div[data-type='memos_view'] .memolist-wrapper {
+//      padding: 0 12px;
+//    }
+//  }
+//}
+
+.theme-dark {
+  div[data-type='memos_view'].mobile-view .memolist-wrapper {
+    padding: 0 12px;
   }
 }

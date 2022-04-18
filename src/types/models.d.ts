@@ -14,6 +14,9 @@ declare namespace Model {
     content: string;
     deletedAt: string;
     memoType?: string;
+    linkId?: string;
+    hasId?: string;
+    path?: string;
   }
 
   interface Query extends BaseModel {

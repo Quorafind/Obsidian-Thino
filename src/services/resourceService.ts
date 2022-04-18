@@ -1,9 +1,9 @@
 // import api from "../helpers/api";
 
-import {moment} from 'obsidian';
-import {TFile} from 'obsidian';
-import {createDailyNote, getAllDailyNotes, getDailyNote} from 'obsidian-daily-notes-interface';
+import { moment, TFile } from 'obsidian';
+import { createDailyNote, getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
+import { memoService } from './index';
 // import dailyNotesService from './dailyNotesService';
 
 // interface FileData {
@@ -19,16 +19,11 @@ class ResourceService {
    * @returns resource: id, filename
    */
   public async upload(file: File) {
-    // const { name: filename, size } = file;
-
-    const {vault, fileManager} = appStore.getState().dailyNotesState.app;
+    const { vault, fileManager } = appStore.getState().dailyNotesState.app;
 
     const fileArray = await file.arrayBuffer();
     const ext = getExt(file.type);
 
-    // console.log(newOne);
-
-    // const fileName = "Paste Image " + moment().format("YYYYMMDDHHmmss");
     const dailyNotes = getAllDailyNotes();
     const date = moment();
     const existingFile = getDailyNote(date, dailyNotes);
@@ -51,29 +46,37 @@ class ResourceService {
         fileArray,
       );
     }
-    const newFilePath = fileManager.generateMarkdownLink(newFile, newFile.path, '', '');
+    return fileManager.generateMarkdownLink(newFile, newFile.path, '', '');
+  }
 
-    return newFilePath;
-
-    // const filePath = await vault.getAvailablePathForAttachments(fileName, "png", "");
-
-    // const  reader = new FileReader();
-    // reader.readAsArrayBuffer(file.arrayBuffer);
-    // reader.onload = () =>{
-    //   // console.log('RESULT', reader.result)
-    //   fileArrary = reader.result;
-    //   console.log(fileArrary);
-    // }
-
-    // if (size > 5 << 20) {
-    //   return Promise.reject("超过最大文件大小 5Mb");
-    // }
-
-    // const formData = new FormData();
-
-    // formData.append("file", file, filename);
-
-    // const { data } = await api.uploadFile(formData);
+  /**
+   * Parse Html File to Array,
+   * @param file file
+   * @returns memo: Model.Memo[]
+   */
+  public async parseHtml(html: File) {
+    const output = await html.text();
+    const el = document.createElement('html');
+    el.innerHTML = output;
+    const elementsByClassName = el.getElementsByClassName('memo');
+    for (let i = 0; i < elementsByClassName.length; i++) {
+      const source = elementsByClassName[i]
+        .getElementsByClassName('content')[0]
+        .innerHTML.replace(/\s{16}?<p><\/p>/g, '')
+        .replace(/\s{16}?<p>/g, '')
+        .replace(/<\/p>/g, '')
+        .replace(/<strong>/g, '**')
+        .replace(/<\/strong>/g, '**')
+        .replace(/^\s{16}/g, '');
+      console.log(elementsByClassName[i].getElementsByClassName('content')[0].innerHTML);
+      const importedMemo = await memoService.importMemos(
+        source,
+        true,
+        moment(elementsByClassName[i].getElementsByClassName('time')[0].innerHTML),
+      );
+      memoService.pushMemo(importedMemo);
+    }
+    // return fileData;
   }
 }
 

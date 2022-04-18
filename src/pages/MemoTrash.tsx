@@ -1,30 +1,30 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import appContext from '../stores/appContext';
 import useLoading from '../hooks/useLoading';
-import {globalStateService, locationService, memoService, queryService} from '../services';
-import {IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG} from '../helpers/consts';
+import { globalStateService, locationService, memoService, queryService } from '../services';
+import { IMAGE_URL_REG, LINK_REG, MEMO_LINK_REG, NOP_FIRST_TAG_REG, TAG_REG } from '../helpers/consts';
 import utils from '../helpers/utils';
-import {checkShouldShowMemoWithFilters} from '../helpers/filter';
+import { checkShouldShowMemoWithFilters } from '../helpers/filter';
 import Only from '../components/common/OnlyWhen';
 import DeletedMemo from '../components/DeletedMemo';
 import MemoFilter from '../components/MemoFilter';
 import '../less/memo-trash.less';
 import React from 'react';
 import menuSvg from '../icons/menu.svg';
-import {Notice} from 'obsidian';
+import { Notice } from 'obsidian';
 import { t } from '../translations/helper';
 
 interface Props {}
 
 const MemoTrash: React.FC<Props> = () => {
   const {
-    locationState: {query},
-    globalState: {isMobileView},
+    locationState: { query },
+    globalState: { isMobileView },
   } = useContext(appContext);
   const loadingState = useLoading();
   const [deletedMemos, setDeletedMemos] = useState<Model.Memo[]>([]);
 
-  const {tag: tagQuery, duration, type: memoType, text: textQuery, filter: queryId} = query;
+  const { tag: tagQuery, duration, type: memoType, text: textQuery, filter: queryId } = query;
   const queryFilter = queryService.getQueryById(queryId);
   const showMemoFilter = Boolean(
     tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter,

@@ -140,4 +140,22 @@ export default {
   'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
     '设置默认 Memo 组成，你必须要使用 {TIME} 作为 "HH:mm" 而且要设置 {CONTENT} 作为内容识别。默认情况下， Memo 基于 "{TIME} {CONTENT}" 识别',
   'Default Memo Composition': '默认 Memo 组成',
+  'Show Tasks Label': '展示任务标签',
+  'Show tasks label near the time text. False by default': '在 Memo 的时间旁展示任务标签。默认情况下不展示',
+  'Please Open Memos First': '请先打开 Memos',
+  'Comment it...': '评论...',
+  DATE: '日期',
+  OBSIDIAN_NLDATES_PLUGIN_NOT_ENABLED: 'Obsidian Natrual DATES language 插件没启动',
+  BEFORE: '在之前',
+  AFTER: '在之后',
+  'Allow Comments On Memos': '允许在 Memos 上评论',
+  'You can comment on memos. False by default': '你可以在 Memos 点击图标进行评论了。默认不开启',
+  Import: '导入',
+  'TITLE CANNOT BE NULL!': '标题不可以为空！',
+  'FILTER CANNOT BE NULL!': '筛选器不可以为空！',
+  'Comments In Original DailyNotes/Notes': '在原文件中进行评论',
+  'You should install Dataview Plugin ver 0.5.9 or later to use this feature.':
+    '你需要安装 0.5.9 版本以上的 Dataview 插件来使用该功能',
+  'Open Memos Successfully': '成功打开 Memos ',
+  'Fetch Error': '😭 Memos 获取失败',
 };

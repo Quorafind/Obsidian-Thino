@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import {Store} from './createStore';
+import { useEffect, useState } from 'react';
+import { Store } from './createStore';
 
 interface Props {
   children: React.ReactElement;
@@ -12,7 +12,7 @@ interface Props {
  * Just for debug with the app store
  */
 const Provider: React.FC<Props> = (props: Props) => {
-  const {children, store, context: Context} = props;
+  const { children, store, context: Context } = props;
   const [appState, setAppState] = useState(store.getState());
 
   useEffect(() => {

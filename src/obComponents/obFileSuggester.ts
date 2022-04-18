@@ -1,9 +1,9 @@
 // Credits go to Liam's Periodic Notes Plugin: https://github.com/liamcain/obsidian-periodic-notes
-import {TAbstractFile, TFile} from 'obsidian';
+import { TAbstractFile, TFile } from 'obsidian';
 import dailyNotesService from '../services/dailyNotesService';
 
 export const getSuggestions = (inputStr: string) => {
-  const {app} = dailyNotesService.getState();
+  const { app } = dailyNotesService.getState();
 
   const abstractFiles = app.vault.getAllLoadedFiles();
   // const files: TFile[] = [];

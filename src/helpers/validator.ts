@@ -13,7 +13,7 @@ export interface ValidatorConfig {
   noChinese: boolean;
 }
 
-export function validate(text: string, config: Partial<ValidatorConfig>): {result: boolean; reason?: string} {
+export function validate(text: string, config: Partial<ValidatorConfig>): { result: boolean; reason?: string } {
   if (config.minLength !== undefined) {
     if (text.length < config.minLength) {
       return {

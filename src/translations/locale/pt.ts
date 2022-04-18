@@ -19,8 +19,8 @@ export default {
     'Dezembro',
   ],
   monthsShort: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
-  weekDays: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-  weekDaysShort: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+  weekDays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+  weekDaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
   to: 'para',
   year: null,
   month: null,
@@ -167,4 +167,8 @@ export default {
   'Set default memo composition, you should use {TIME} as "HH:mm" and {CONTENT} as content. "{TIME} {CONTENT}" by default':
     'Defina a composição padrão do Memo, deve usar {TIME} como "HH:mm" e {CONTENT} como conteúdo. Padrão: "{TIME} {CONTENT}"',
   'Default Memo Composition': 'Composição Padrão do Memo',
+  'Show Tasks Label': 'Mostrar Etiquetas de Tarefas',
+  'Show tasks label near the time text. False by default':
+    'Mostrar etiquetas de tarefas próximo ao texto de tempo. Desactivado por padrão',
+  'Please Open Memos First': 'Por favor, abra os Memos primeiro',
 };

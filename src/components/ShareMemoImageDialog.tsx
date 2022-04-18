@@ -1,4 +1,4 @@
-import {useContext, useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // import { userService } from "../services";
 import toImage from '../labs/html2image';
 import {
@@ -9,28 +9,27 @@ import {
   WIKI_IMAGE_URL_REG,
 } from '../helpers/consts';
 import utils from '../helpers/utils';
-import {showDialog} from './Dialog';
-import {formatMemoContent} from './Memo';
+import { showDialog } from './Dialog';
+import { formatMemoContent } from './Memo';
 import Only from './common/OnlyWhen';
 import '../less/share-memo-image-dialog.less';
-import React from 'react';
-import {Notice, TFile, Vault, moment, Platform} from 'obsidian';
+import { moment, Notice, Platform, TFile, Vault } from 'obsidian';
 import appStore from '../stores/appStore';
 import {
-  ShareFooterEnd,
-  UserName,
-  ShareFooterStart,
   AutoSaveWhenOnMobile,
-  DefaultLightBackgroundImage,
   DefaultDarkBackgroundImage,
+  DefaultLightBackgroundImage,
+  ShareFooterEnd,
+  ShareFooterStart,
+  UserName,
 } from '../memos';
 import close from '../icons/close.svg';
 import share from '../icons/share.svg';
 import lightBackground from '../icons/lightBackground.svg';
 import darkBackground from '../icons/darkBackground.svg';
-import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
-import {t} from '../translations/helper';
-import {dailyNotesService} from '../services';
+import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
+import { t } from '../translations/helper';
+import { dailyNotesService } from '../services';
 
 interface Props extends DialogProps {
   memo: Model.Memo;
@@ -48,7 +47,7 @@ export const getPathOfImage = (vault: Vault, image: TFile) => {
 };
 
 const detectWikiInternalLink = (lineText: string): LinkMatch | null => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   const internalFileName = WIKI_IMAGE_URL_REG.exec(lineText)?.[1];
   const internalAltName = WIKI_IMAGE_URL_REG.exec(lineText)?.[5];
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
@@ -81,7 +80,7 @@ const detectWikiInternalLink = (lineText: string): LinkMatch | null => {
 };
 
 const detectMDInternalLink = (lineText: string): LinkMatch | null => {
-  const {metadataCache, vault} = appStore.getState().dailyNotesState.app;
+  const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   const internalFileName = MARKDOWN_URL_REG.exec(lineText)?.[5];
   const internalAltName = MARKDOWN_URL_REG.exec(lineText)?.[2];
   const file = metadataCache.getFirstLinkpathDest(decodeURIComponent(internalFileName), '');
@@ -114,8 +113,8 @@ const detectMDInternalLink = (lineText: string): LinkMatch | null => {
 };
 
 const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
-  const {memo: propsMemo, destroy} = props;
-  const {memos} = appStore.getState().memoState;
+  const { memo: propsMemo, destroy } = props;
+  const { memos } = appStore.getState().memoState;
   let memosLength;
   let createdDays;
   if (memos.length) {
@@ -139,12 +138,12 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
   );
 
   let externalImageUrls = [] as string[];
-  let internalImageUrls = [];
+  const internalImageUrls = [];
   let allMarkdownLink: string | any[] = [];
   let allInternalLink = [] as any[];
   if (IMAGE_URL_REG.test(memo.content)) {
     let allExternalImageUrls = [] as string[];
-    let anotherExternalImageUrls = [] as string[];
+    const anotherExternalImageUrls = [] as string[];
     if (MARKDOWN_URL_REG.test(memo.content)) {
       allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
     }
@@ -223,15 +222,15 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     for (var i = 0; i < bytes.length; i++) {
       ia[i] = bytes.charCodeAt(i);
     }
-    return new Blob([ab], {type: type});
+    return new Blob([ab], { type: type });
   };
 
   const convertBackgroundToBase64 = async (path: string): Promise<string> => {
-    const {vault} = dailyNotesService.getState().app;
+    const { vault } = dailyNotesService.getState().app;
     const buffer = await vault.adapter.readBinary(path);
     const arr = new Uint8Array(buffer);
 
-    const blob = new Blob([arr], {type: 'image/png'});
+    const blob = new Blob([arr], { type: 'image/png' });
 
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -245,7 +244,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
   };
 
   const changeBackgroundImage = async () => {
-    const {app} = dailyNotesService.getState();
+    const { app } = dailyNotesService.getState();
     let imageUrl;
     let imagePath;
     const lightBackgroundImage = encodeURI(lightBackground);
@@ -279,7 +278,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
   };
 
   const handleCopytoClipboardBtnClick = async () => {
-    const {vault} = appStore.getState().dailyNotesState.app;
+    const { vault } = appStore.getState().dailyNotesState.app;
     const divs = document.querySelector('.memo-shortcut-img') as HTMLElement;
     const myBase64 = divs.getAttribute('src').split('base64,')[1];
     const blobInput = convertBase64ToBlob(myBase64, 'image/png');
@@ -304,7 +303,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
         }
       });
     }
-    const clipboardItemInput = new ClipboardItem({'image/png': blobInput});
+    const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
     // @ts-ignore
     window.navigator['clipboard'].write([clipboardItemInput]);
     new Notice('Send to clipboard successfully');
@@ -354,7 +353,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
             <span className="background-container"></span>
             <div
               className="memo-content-text"
-              dangerouslySetInnerHTML={{__html: formatMemoContent(memo.content)}}
+              dangerouslySetInnerHTML={{ __html: formatMemoContent(memo.content) }}
             ></div>
             <Only when={externalImageUrls.length > 0}>
               <div className="images-container">
@@ -401,6 +400,6 @@ export default function showShareMemoImageDialog(memo: Model.Memo): void {
       className: 'share-memo-image-dialog',
     },
     ShareMemoImageDialog,
-    {memo},
+    { memo },
   );
 }

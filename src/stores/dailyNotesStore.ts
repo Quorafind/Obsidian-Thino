@@ -1,5 +1,5 @@
-import {App, TFile} from 'obsidian';
-import {getAllDailyNotes} from 'obsidian-daily-notes-interface';
+import { App, TFile } from 'obsidian';
+import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 
 export interface State {
   dailyNotes: Record<string, TFile>;

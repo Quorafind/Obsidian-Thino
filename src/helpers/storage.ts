@@ -1,4 +1,4 @@
-import {InputAction} from 'tiny-undo';
+import { InputAction } from 'tiny-undo';
 
 /**
  * Define storage data type

@@ -1,6 +1,6 @@
-import {useCallback, useContext, useEffect} from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import appContext from '../stores/appContext';
-import {globalStateService, memoService} from '../services';
+import { globalStateService, memoService } from '../services';
 import PreferencesSection from '../components/PreferencesSection';
 import Only from '../components/common/OnlyWhen';
 import '../less/setting.less';
@@ -11,7 +11,7 @@ interface Props {}
 
 const Setting: React.FC<Props> = () => {
   const {
-    globalState: {isMobileView},
+    globalState: { isMobileView },
   } = useContext(appContext);
 
   useEffect(() => {
