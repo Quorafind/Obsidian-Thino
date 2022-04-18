@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import appContext from '../stores/appContext';
 import useLoading from '../hooks/useLoading';
 import { globalStateService, locationService, memoService, queryService } from '../services';
@@ -9,8 +9,7 @@ import Only from '../components/common/OnlyWhen';
 import DeletedMemo from '../components/DeletedMemo';
 import MemoFilter from '../components/MemoFilter';
 import '../less/memo-trash.less';
-import React from 'react';
-import menuSvg from '../icons/menu.svg';
+import MenuSvg from '../icons/menu.svg?component';
 import { Notice } from 'obsidian';
 import { t } from '../translations/helper';
 
@@ -105,7 +104,7 @@ const MemoTrash: React.FC<Props> = () => {
         }
       })
       .catch((error) => {
-        new Notice('Failed to fetch deleted memos: ', error);
+        new Notice(t('Failed to fetch deleted memos: ') + error);
       })
       .finally(() => {
         loadingState.setFinish();
@@ -127,7 +126,8 @@ const MemoTrash: React.FC<Props> = () => {
         <div className="title-text">
           <Only when={isMobileView}>
             <button className="action-btn" onClick={handleShowSidebarBtnClick}>
-              <img className="icon-img" src={menuSvg} alt="menu" />
+              {/*<img className="icon-img" src={menuSvg} alt="menu" />*/}
+              <MenuSvg className="icon-img" />
             </button>
           </Only>
           <span className="normal-text">{t('Recycle bin')}</span>

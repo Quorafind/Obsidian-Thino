@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { memoService } from '../services';
 import toImage from '../labs/html2image';
 import useToggle from '../hooks/useToggle';
@@ -10,13 +10,12 @@ import showPreviewImageDialog from './PreviewImageDialog';
 import DailyMemo from './DailyMemo';
 import DatePicker from './common/DatePicker';
 import '../less/daily-memo-diary-dialog.less';
-import React from 'react';
-import close from '../icons/close.svg';
-import arrowLeft from '../icons/arrow-left.svg';
-import arrowRight from '../icons/arrow-right.svg';
-import share from '../icons/share.svg';
+import Close from '../icons/close.svg?component';
+import Share from '../icons/share.svg?component';
+import ArrowRight from '../icons/arrow-right.svg?component';
+import ArrowLeft from '../icons/arrow-left.svg?component';
 import { AutoSaveWhenOnMobile } from '../memos';
-import { Platform, TFile, moment } from 'obsidian';
+import { moment, Platform, TFile } from 'obsidian';
 import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
 import { t } from '../translations/helper';
@@ -123,16 +122,20 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
           <p className="title-text">{t('Daily Memos')}</p>
           <div className="btns-container">
             <span className="btn-text" onClick={() => setCurrentDateStamp(currentDateStamp - DAILY_TIMESTAMP)}>
-              <img className="icon-img" src={arrowLeft} />
+              {/*<img className="icon-img" src={arrowLeft} />*/}
+              <ArrowLeft className="icon-img" />
             </span>
             <span className="btn-text" onClick={() => setCurrentDateStamp(currentDateStamp + DAILY_TIMESTAMP)}>
-              <img className="icon-img" src={arrowRight} />
+              {/*<img className="icon-img" src={arrowRight} />*/}
+              <ArrowRight className="icon-img" />
             </span>
             <span className="btn-text share-btn" onClick={handleShareBtnClick}>
-              <img className="icon-img" src={share} />
+              {/*<img className="icon-img" src={share} />*/}
+              <Share className="icon-img" />
             </span>
             <span className="btn-text" onClick={() => props.destroy()}>
-              <img className="icon-img" src={close} />
+              {/*<img className="icon-img" src={close} />*/}
+              <Close className="icon-img" />
             </span>
           </div>
         </div>

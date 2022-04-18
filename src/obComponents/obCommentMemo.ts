@@ -34,6 +34,7 @@ export async function commentMemo(
   isList: boolean,
   path?: any,
   oriID?: string,
+  hasID?: string,
 ): Promise<Model.Memo> {
   // const plugin = window.plugin;
   const { vault, metadataCache } =
@@ -57,13 +58,11 @@ export async function commentMemo(
     let underComments;
     if (CommentOnMemos && CommentsInOriginalNotes) {
       const dataviewAPI = getAPI();
-      console.log(dataviewAPI);
       if (dataviewAPI !== undefined) {
         try {
           underComments = dataviewAPI
             .page(file.path)
             ?.file.lists.values?.filter((item: object) => item.line === parseInt(ID));
-          console.log(underComments);
         } catch (e) {
           console.error(e);
         }
@@ -82,12 +81,15 @@ export async function commentMemo(
     await vault.modify(file, newFileContent.content);
     if (isList) {
       return {
-        id: formatTime + endLine,
+        id: formatTime + (endLine + 1),
         content: newContent,
         deletedAt: '',
         createdAt: time.format('YYYY/MM/DD HH:mm:ss'),
         updatedAt: time.format('YYYY/MM/DD HH:mm:ss'),
-        memoType: 'TASK-TODO',
+        memoType: 'JOURNAL',
+        path: file.path,
+        hasId: '',
+        linkId: hasID,
       };
     }
   }

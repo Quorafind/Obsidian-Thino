@@ -30,7 +30,7 @@ export default class MemosPlugin extends Plugin {
 
   onunload() {
     this.app.workspace.detachLeavesOfType(MEMOS_VIEW_TYPE);
-    new Notice('Close Memos Successfully');
+    new Notice(t('Close Memos Successfully'));
   }
 
   registerMobileEvent() {
@@ -39,9 +39,9 @@ export default class MemosPlugin extends Plugin {
         menu.addItem((item: any) => {
           item
             .setIcon('popup-open')
-            .setTitle('Insert as Memo')
+            .setTitle(t('Insert as Memo'))
             .onClick(async () => {
-              const newMemo = await memoService.createMemo(source, true);
+              const newMemo = await memoService.createMemo(source, false);
               memoService.pushMemo(newMemo);
             });
         });
@@ -53,12 +53,12 @@ export default class MemosPlugin extends Plugin {
         menu.addItem((item) => {
           item
             .setIcon('popup-open')
-            .setTitle('Insert file as memo content')
+            .setTitle(t('Insert file as memo content'))
             .onClick(async () => {
               const fileName = source.map((file: TFile) => {
                 return this.app.fileManager.generateMarkdownLink(file, file.path);
               });
-              const newMemo = await memoService.createMemo(fileName.join('\n'), true);
+              const newMemo = await memoService.createMemo(fileName.join('\n'), false);
               memoService.pushMemo(newMemo);
               // console.log(source, 'hello world');
             });

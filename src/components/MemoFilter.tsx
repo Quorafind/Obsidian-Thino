@@ -4,8 +4,8 @@ import { locationService, queryService } from '../services';
 import utils from '../helpers/utils';
 import { getTextWithMemoType } from '../helpers/filter';
 import '../less/memo-filter.less';
-import { moment } from 'obsidian';
-import copy from '../icons/copy.svg';
+import { moment, Notice } from 'obsidian';
+import Copy from '../icons/copy.svg?component';
 import { copyShownMemos } from './MemoList';
 import { getMemosByDate, transferMemosIntoText } from '../obComponents/obCopyMemos';
 import { t } from '../translations/helper';
@@ -32,6 +32,7 @@ const MemoFilter: React.FC<FilterProps> = () => {
     const memosByDate = getMemosByDate(copyShownMemos);
     const queryDailyMemos = transferMemosIntoText(memosByDate);
     await utils.copyTextToClipboard(queryDailyMemos);
+    new Notice(t('Copied to clipboard Successfully'));
   };
 
   return (
@@ -82,8 +83,9 @@ const MemoFilter: React.FC<FilterProps> = () => {
           <span className="icon-text">🔍</span> {textQuery}
         </div>
       </div>
-      <div className="copy-memo">
-        <img className="icon-img" src={copy} onClick={handleCopyClick} />
+      <div className="copy-memo" onClick={handleCopyClick}>
+        {/*<img className="icon-img" src={copy} onClick={handleCopyClick} />*/}
+        <Copy className="icon-img" />
       </div>
     </div>
   );

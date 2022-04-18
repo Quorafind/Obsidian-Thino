@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import utils from '../helpers/utils';
 import { showDialog } from './Dialog';
 import '../less/preview-image-dialog.less';
-import React from 'react';
 import appStore from '../stores/appStore';
-import close from '../icons/close.svg';
+import Close from '../icons/close.svg?component';
 import { Notice } from 'obsidian';
 import { t } from '../translations/helper';
 
@@ -57,17 +56,15 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Prop
       const myBase64 = imgUrl.split('base64,')[1];
       const blobInput = convertBase64ToBlob(myBase64, 'image/png');
       const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
-      // @ts-ignore
       window.navigator['clipboard'].write([clipboardItemInput]);
       new Notice('Send to clipboard successfully');
     } else {
-      var buffer = await vault.adapter.readBinary(filepath);
-      var arr = new Uint8Array(buffer);
+      const buffer = await vault.adapter.readBinary(filepath);
+      const arr = new Uint8Array(buffer);
 
-      var blob = new Blob([arr], { type: 'image/png' });
-      // @ts-ignore
+      const blob = new Blob([arr], { type: 'image/png' });
+
       const item = new ClipboardItem({ 'image/png': blob });
-      // @ts-ignore
       window.navigator['clipboard'].write([item]);
     }
   };
@@ -75,7 +72,8 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrl, filepath }: Prop
   return (
     <>
       <button className="btn close-btn" onClick={handleCloseBtnClick}>
-        <img className="icon-img" src={close} />
+        {/*<img className="icon-img" src={close} />*/}
+        <Close className="icon-img" />
       </button>
 
       <div className="img-container internal-embed image-embed is-loaded">

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import appContext from '../stores/appContext';
 import useToggle from '../hooks/useToggle';
 import useLoading from '../hooks/useLoading';
@@ -7,9 +7,8 @@ import utils from '../helpers/utils';
 import { locationService, queryService } from '../services';
 import showCreateQueryDialog from './CreateQueryDialog';
 import '../less/query-list.less';
-import React from 'react';
-import more from '../icons/more.svg';
-import moreWhite from '../icons/more-white.svg';
+import More from '../icons/more.svg?component';
+import MoreWhite from '../icons/more-white.svg?component';
 import { Notice } from 'obsidian';
 import { t } from '../translations/helper';
 
@@ -146,7 +145,8 @@ const QueryItemContainer: React.FC<QueryItemContainerProps> = (props: QueryItemC
         </div>
         <div className="btns-container">
           <span className="action-btn toggle-btn" onClick={handleShowActionBtnClick}>
-            <img className="icon-img" src={isActive ? moreWhite : more} />
+            {/*<img className="icon-img" src={isActive ? moreWhite : more} />*/}
+            {isActive ? <MoreWhite /> : <More />}
           </span>
           <div
             className={`action-btns-wrapper ${showActionBtns ? '' : 'hidden'}`}

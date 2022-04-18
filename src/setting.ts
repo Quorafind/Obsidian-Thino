@@ -11,6 +11,7 @@ export interface MemosSettings {
   ProcessEntriesBelow: string;
   Language: string;
   SaveMemoButtonLabel: string;
+  SaveMemoButtonIcon: string;
   ShareFooterStart: string;
   ShareFooterEnd: string;
   DefaultPrefix: string;
@@ -35,6 +36,9 @@ export interface MemosSettings {
   ShowTaskLabel: boolean;
   CommentOnMemos: boolean;
   CommentsInOriginalNotes: boolean;
+  FetchMemosMark: string;
+  FetchMemosFromNote: boolean;
+  ShowCommentOnMemos: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -44,6 +48,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ProcessEntriesBelow: '',
   Language: 'en',
   SaveMemoButtonLabel: 'NOTEIT',
+  SaveMemoButtonIcon: '✍️',
   ShareFooterStart: '{MemosNum} Memos {UsedDay} Day',
   ShareFooterEnd: '✍️ by {UserName}',
   DefaultPrefix: 'List',
@@ -68,6 +73,9 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   DefaultMemoComposition: '{TIME} {CONTENT}',
   CommentOnMemos: false,
   CommentsInOriginalNotes: false,
+  FetchMemosMark: '#memo',
+  FetchMemosFromNote: false,
+  ShowCommentOnMemos: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -166,6 +174,19 @@ export class MemosSettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.SaveMemoButtonLabel)
           .onChange(async (value) => {
             this.plugin.settings.SaveMemoButtonLabel = value;
+            this.applySettingsUpdate();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Save Memo button icon'))
+      .setDesc(t('The icon shown on the save Memo button in the UI.'))
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.SaveMemoButtonIcon)
+          .setValue(this.plugin.settings.SaveMemoButtonIcon)
+          .onChange(async (value) => {
+            this.plugin.settings.SaveMemoButtonIcon = value;
             this.applySettingsUpdate();
           }),
       );
@@ -467,6 +488,16 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
+      .setName(t('Always Show Memo Comments'))
+      .setDesc(t('Always show memo comments on memos. False by default'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.ShowCommentOnMemos).onChange(async (value) => {
+          this.plugin.settings.ShowCommentOnMemos = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
       .setName(t('Comments In Original DailyNotes/Notes'))
       .setDesc(t('You should install Dataview Plugin ver 0.5.9 or later to use this feature.'))
       .addToggle((toggle) =>
@@ -474,6 +505,36 @@ export class MemosSettingTab extends PluginSettingTab {
           this.plugin.settings.CommentsInOriginalNotes = value;
           this.applySettingsUpdate();
         }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Allow Memos to Fetch Memo from Notes'))
+      .setDesc(t('Use Memos to manage all memos in your notes, not only in daily notes. False by default'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.FetchMemosFromNote).onChange(async (value) => {
+          this.plugin.settings.FetchMemosFromNote = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Fetch Memos From Particular Notes'))
+      .setDesc(
+        t(
+          'You can set any Dataview Query for memos to fetch it. All memos in those notes will show on list. "#memo" by default',
+        ),
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_SETTINGS.FetchMemosMark)
+          .setValue(this.plugin.settings.FetchMemosMark)
+          .onChange(async (value) => {
+            this.plugin.settings.FetchMemosMark = value;
+            if (value === '') {
+              this.plugin.settings.FetchMemosMark = DEFAULT_SETTINGS.FetchMemosMark;
+            }
+            this.applySettingsUpdate();
+          }),
       );
 
     this.containerEl.createEl('h1', { text: t('Say Thank You') });

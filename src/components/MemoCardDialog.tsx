@@ -7,10 +7,12 @@ import { formatMemoContent } from './Memo';
 import { showDialog } from './Dialog';
 import '../less/memo-card-dialog.less';
 import { Notice } from 'obsidian';
-import close from '../icons/close.svg';
-import edit from '../icons/edit.svg';
+import Close from '../icons/close.svg?component';
+import Edit from '../icons/edit.svg?component';
 import { t } from '../translations/helper';
 import MemoImage from './MemoImage';
+
+// import Share from "*.svg?component";
 
 interface LinkedMemo extends FormattedMemo {
   dateStr: string;
@@ -106,10 +108,10 @@ const MemoCardDialog: React.FC<Props> = (props: Props) => {
           <p className="time-text">{memo.createdAtStr}</p>
           <div className="btns-container">
             <button className="btn edit-btn" onClick={handleEditMemoBtnClick}>
-              <img className="icon-img" src={edit} />
+              <Edit className="icon-img" />
             </button>
             <button className="btn close-btn" onClick={props.destroy}>
-              <img className="icon-img" src={close} />
+              <Close className="icon-img" />
             </button>
           </div>
         </div>

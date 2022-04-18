@@ -1,13 +1,12 @@
-import { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import appContext from '../stores/appContext';
 import { locationService } from '../services';
 import utils from '../helpers/utils';
 import MenuBtnsPopup from './MenuBtnsPopup';
 import showDailyMemoDiaryDialog from './DailyMemoDiaryDialog';
 import '../less/user-banner.less';
-import React from 'react';
 import { UserName } from '../memos';
-import more from '../icons/more.svg';
+import More from '../icons/more.svg?component';
 import { t } from '../translations/helper';
 
 interface Props {}
@@ -49,7 +48,8 @@ const UserBanner: React.FC<Props> = () => {
           {username}
         </p>
         <span className="action-btn menu-popup-btn" onClick={handlePopupBtnClick}>
-          <img src={more} className="icon-img" />
+          {/*<img src={more} className="icon-img" />*/}
+          <More className="icon-img" />
         </span>
         <MenuBtnsPopup shownStatus={shouldShowPopupBtns} setShownStatus={setShouldShowPopupBtns} />
       </div>

@@ -13,8 +13,8 @@ const CODE_BLOCK_REG = /```([\s\S]*?)```/g;
 const BOLD_TEXT_REG = /\*\*(.+?)\*\*/g;
 const EM_TEXT_REG = /\*(.+?)\*/g;
 const TODO_BLOCK_REG = /\[ \] /g;
-const DONE_BLOCK_REG = /\[x\] /g;
-const DOT_LI_REG = /[*] /g;
+const DONE_BLOCK_REG = /\[.{1}\] /g;
+const DOT_LI_REG = /^[*-]/g;
 const NUM_LI_REG = /(\d+)\. /g;
 // const BR_REG = /\<br\>/g;
 
