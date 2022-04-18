@@ -8,7 +8,7 @@ import '../../less/editor.less';
 import ReactTextareaAutocomplete from '@webscopeio/react-textarea-autocomplete';
 import { usedTags } from '../../obComponents/obTagSuggester';
 import '../../less/suggest.less';
-import { FocusOnEditor, SaveMemoButtonLabel } from '../../memos';
+import { FocusOnEditor, SaveMemoButtonIcon, SaveMemoButtonLabel } from '../../memos';
 import { getSuggestions } from '../../obComponents/obFileSuggester';
 import { TFile } from 'obsidian';
 import appStore from '../../stores/appStore';
@@ -385,7 +385,7 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
               onClick={handleCommonConfirmBtnClick}
             >
               {SaveMemoButtonLabel}
-              <span className="icon-text">✍️</span>
+              <span className="icon-text">{SaveMemoButtonIcon}️</span>
             </button>
           </Only>
         </div>

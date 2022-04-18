@@ -201,8 +201,14 @@ class MemoService {
     return memo;
   }
 
-  public async createCommentMemo(text: string, isList: boolean, path: string, ID: string): Promise<Model.Memo> {
-    const memo = await commentMemo(text, isList, path, ID);
+  public async createCommentMemo(
+    text: string,
+    isList: boolean,
+    path: string,
+    ID: string,
+    hasID: string,
+  ): Promise<Model.Memo> {
+    const memo = await commentMemo(text, isList, path, ID, hasID);
     return memo;
   }
 

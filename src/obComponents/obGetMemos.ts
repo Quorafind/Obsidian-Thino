@@ -1,7 +1,16 @@
 import { moment, normalizePath, TFile, TFolder } from 'obsidian';
 import { getAllDailyNotes, getDateFromFile } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
-import { CommentOnMemos, CommentsInOriginalNotes, DefaultMemoComposition, ProcessEntriesBelow } from '../memos';
+import {
+  CommentOnMemos,
+  CommentsInOriginalNotes,
+  DefaultMemoComposition,
+  DeleteFileName,
+  FetchMemosFromNote,
+  FetchMemosMark,
+  ProcessEntriesBelow,
+  QueryFileName,
+} from '../memos';
 import { getDailyNotePath } from './obUpdateMemo';
 import { getAPI } from 'obsidian-dataview';
 
@@ -11,6 +20,20 @@ interface allKindsofMemos {
   memos: Model.Memo[];
   commentMemos: Model.Memo[];
 }
+
+const getTaskType = (memoTaskType: string): string => {
+  let memoType;
+  if (memoTaskType === ' ') {
+    memoType = 'TASK-TODO';
+    return memoType;
+  } else if (memoTaskType === 'x' || memoTaskType === 'X') {
+    memoType = 'TASK-DONE';
+    return memoType;
+  } else {
+    memoType = 'TASK-' + memoTaskType;
+    return memoType;
+  }
+};
 
 export async function getRemainingMemos(note: TFile): Promise<number> {
   if (!note) {
@@ -62,7 +85,7 @@ export async function getMemosFromDailyNote(
   // Get Comments Near the Original Memos. Maybe use Dataview to fetch all memos in the near future.
   if (CommentOnMemos && CommentsInOriginalNotes) {
     const dataviewAPI = getAPI();
-    if (dataviewAPI !== undefined) {
+    if (dataviewAPI !== undefined && ProcessEntriesBelow !== '') {
       try {
         underComments = dataviewAPI
           .page(dailyNote.path)
@@ -70,6 +93,14 @@ export async function getMemosFromDailyNote(
             (item: object) =>
               item.header.subpath === ProcessEntriesBelow?.replace(/#{1,} /g, '').trim() && item.children.length > 0,
           );
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      try {
+        underComments = dataviewAPI
+          .page(dailyNote.path)
+          ?.file.lists.values?.filter((item: object) => item.children.length > 0);
       } catch (e) {
         console.error(e);
       }
@@ -92,9 +123,6 @@ export async function getMemosFromDailyNote(
     }
     if (processHeaderFound == true && !lineContainsParseBelowToken(line) && /^#{1,} /g.test(line)) {
       processHeaderFound = false;
-    }
-    if (processHeaderFound == false) {
-      continue;
     }
 
     if (lineContainsTime(line) && processHeaderFound) {
@@ -154,11 +182,18 @@ export async function getMemosFromDailyNote(
         });
         continue;
       }
-      if (rawText !== '' && underComments !== null && underComments !== undefined && underComments.length > 0) {
+      if (
+        rawText !== '' &&
+        !rawText.contains(' comment') &&
+        underComments !== null &&
+        underComments !== undefined &&
+        underComments.length > 0
+      ) {
         // console.log(underComments.map((item) => console.log(item.text.replace(/^\d{2}:\d{2}/, ''))));
         const originalText = line.replace(/^[-*]\s(\[(.{1})\]\s?)?/, '')?.trim();
-        const commentsInMemos = underComments.filter((item) => item.text === originalText || item.line === i);
-        // console.log(commentsInMemos);
+        const commentsInMemos = underComments.filter(
+          (item) => item.text === originalText || item.line === i || item.blockId === originId,
+        );
 
         if (commentsInMemos.length === 0) continue;
 
@@ -169,7 +204,7 @@ export async function getMemosFromDailyNote(
             const hasId = '';
             let commentTime;
             if (/^\d{12}/.test(commentsInMemos[0].children.values[j].text)) {
-              commentTime = commentsInMemos[0].children.values[j].text?.match(/^\d{12}/)[0] + '00';
+              commentTime = commentsInMemos[0].children.values[j].text?.match(/^\d{14}/)[0];
             } else {
               commentTime = startDate.format('YYYYMMDDHHmmSS');
             }
@@ -197,6 +232,113 @@ export async function getMemosFromDailyNote(
   fileContents = null;
 }
 
+export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Promise<void> {
+  const notes = getAPI().pages(FetchMemosMark);
+  const dailyNotesPath = getDailyNotePath();
+  let files = notes?.values;
+  if (files.length === 0) return;
+
+  files = files.filter(
+    (item) =>
+      item.file.name !== QueryFileName &&
+      item.file.name !== DeleteFileName &&
+      item['excalidraw-plugin'] === undefined &&
+      item['kanban-plugin'] === undefined &&
+      item.file.folder !== dailyNotesPath,
+    // item.file.
+  );
+  // Get Memos from Note
+  for (let i = 0; i < files.length; i++) {
+    const createDate = files[i]['creation-date'];
+    // console.log(files[i]);
+    const list = files[i].file.lists?.filter((item) => item.parent === undefined);
+    if (list.length === 0) continue;
+    for (let j = 0; j < list.length; j++) {
+      const content = list[j].text;
+      const header = list[j].header.subpath;
+      const path = list[j].path;
+      const line = list[j].line;
+      let memoType = 'JOURNAL';
+      let hasId;
+      let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
+      if (/\^\S{6}$/g.test(content)) {
+        hasId = content.slice(-6);
+        // originId = hasId;
+      } else {
+        hasId = Math.random().toString(36).slice(-6);
+      }
+      if (list[j].task === true) {
+        memoType = getTaskType(list[j].status);
+      }
+      if (header !== undefined) {
+        if (moment(header).isValid()) {
+          realCreateDate = moment(header);
+          // realCreateDate = momentDate.format('YYYYMMDDHHmmSS');
+        }
+      }
+
+      if (/^\d{2}:\d{2}/g.test(content)) {
+        const time = content.match(/^\d{2}:\d{2}/)[0];
+        const timeArr = time.split(':');
+        const hour = parseInt(timeArr[0], 10);
+        const minute = parseInt(timeArr[1], 10);
+        realCreateDate = moment(createDate, 'YYYYMMDDHHmmSS').hours(hour).minutes(minute);
+        // createDate = date.format('YYYYMMDDHHmmSS');
+      }
+      allMemos.push({
+        id: realCreateDate.format('YYYYMMDDHHmmSS') + line,
+        content: content,
+        user_id: 1,
+        createdAt: realCreateDate.format('YYYY/MM/DD HH:mm:SS'),
+        updatedAt: realCreateDate.format('YYYY/MM/DD HH:mm:SS'),
+        memoType: memoType,
+        hasId: hasId,
+        linkId: '',
+        path: path,
+      });
+      // Get Comment Memos From Note
+      if (list[j].children?.values.length > 0) {
+        for (let k = 0; k < list[j].children.values.length; k++) {
+          const childContent = list[j].children.values[k].text;
+          const childLine = list[j].children.values[k].line;
+          let childMemoType = 'JOURNAL';
+          let childRealCreateDate = realCreateDate;
+          let commentTime;
+          if (list[j].children.values[k].task === true) {
+            childMemoType = getTaskType(list[j].children.values[k].status);
+          }
+          if (/^\d{12}/.test(childContent)) {
+            commentTime = childContent?.match(/^\d{14}/)[0];
+            childRealCreateDate = moment(commentTime, 'YYYYMMDDHHmmSS');
+          }
+
+          if (/^\d{2}:\d{2}/g.test(childContent)) {
+            const time = childContent.match(/^\d{2}:\d{2}/)[0];
+            const timeArr = time.split(':');
+            const hour = parseInt(timeArr[0], 10);
+            const minute = parseInt(timeArr[1], 10);
+            childRealCreateDate = childRealCreateDate.hours(hour).minutes(minute);
+            // createDate = date.format('YYYYMMDDHHmmSS');
+          }
+          commentMemos.push({
+            id: childRealCreateDate.format('YYYYMMDDHHmmSS') + childLine,
+            content: childContent,
+            user_id: 1,
+            createdAt: childRealCreateDate.format('YYYY/MM/DD HH:mm:SS'),
+            updatedAt: childRealCreateDate.format('YYYY/MM/DD HH:mm:SS'),
+            memoType: childMemoType,
+            hasId: '',
+            linkId: hasId,
+            path: path,
+          });
+          // if()
+        }
+      }
+    }
+  }
+  return;
+}
+
 export async function getMemos(): Promise<allKindsofMemos> {
   const memos: any[] | PromiseLike<any[]> = [];
   const commentMemos: any[] | PromiseLike<any[]> = [];
@@ -217,22 +359,12 @@ export async function getMemos(): Promise<allKindsofMemos> {
     }
   }
 
+  if (FetchMemosFromNote) {
+    await getMemosFromNote(memos, commentMemos);
+  }
+
   return { memos, commentMemos };
 }
-
-const getTaskType = (memoTaskType: string): string => {
-  let memoType;
-  if (memoTaskType === ' ') {
-    memoType = 'TASK-TODO';
-    return memoType;
-  } else if (memoTaskType === 'x' || memoTaskType === 'X') {
-    memoType = 'TASK-DONE';
-    return memoType;
-  } else {
-    memoType = 'TASK-' + memoTaskType;
-    return memoType;
-  }
-};
 
 const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
 // const lineIsValidTodo = (line: string) => {

@@ -66,7 +66,7 @@ export async function waitForInsert(MemoContent: string, isList: boolean, insert
   const dailyNotes = await getAllDailyNotes();
   const existingFile = getDailyNote(date, dailyNotes);
   if (!existingFile) {
-    const file = await utils.createDailyNote(date);
+    const file = await utils.createDailyNoteCheck(date);
     await dailyNotesService.getMyAllDailyNotes();
     const fileContents = await vault.read(file);
     const newFileContent = await insertAfterHandler(InsertAfter, newEvent, fileContents);

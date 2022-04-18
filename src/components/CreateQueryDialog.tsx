@@ -6,7 +6,7 @@ import { showDialog } from './Dialog';
 import Selector from './common/Selector';
 import '../less/create-query-dialog.less';
 import { Notice } from 'obsidian';
-import close from '../icons/close.svg';
+import Close from '../icons/close.svg?component';
 import { t } from '../translations/helper';
 
 interface Props extends DialogProps {
@@ -71,7 +71,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
     if (filters.length > 0) {
       const lastFilter = filters[filters.length - 1];
       if (lastFilter.value.value === '') {
-        new Notice('先完善上一个过滤器吧');
+        new Notice(t('Please finish the last filter setting first'));
         return;
       }
     }
@@ -102,7 +102,7 @@ const CreateQueryDialog: React.FC<Props> = (props: Props) => {
           {queryId ? t('EDIT QUERY') : t('CREATE QUERY')}
         </p>
         <button className="btn close-btn" onClick={destroy}>
-          <img className="icon-img" src={close} />
+          <Close className="icon-img" />
         </button>
       </div>
       <div className="dialog-content-container">
@@ -314,7 +314,8 @@ const FilterInputer: React.FC<MemoFilterInputerProps> = (props: MemoFilterInpute
       />
 
       {inputElements}
-      <img className="remove-btn" src={close} onClick={handleRemoveBtnClick} />
+      {/*<img className="remove-btn" src={close} onClick={handleRemoveBtnClick} />*/}
+      <Close className="remove-btn" onClick={handleRemoveBtnClick} />
     </div>
   );
 };

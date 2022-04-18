@@ -1,13 +1,10 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import appContext from '../stores/appContext';
 import SearchBar from './SearchBar';
 import { globalStateService, memoService, queryService } from '../services';
 import Only from './common/OnlyWhen';
 import '../less/memos-header.less';
-import React from 'react';
-import menuSvg from '../icons/menu.svg';
-
-let prevRequestTimestamp = Date.now();
+import MenuSvg from '../icons/menu.svg?component';
 
 interface Props {}
 
@@ -32,14 +29,16 @@ const MemosHeader: React.FC<Props> = () => {
   }, [filter, queries]);
 
   const handleMemoTextClick = useCallback(() => {
-    const now = Date.now();
-    if (now - prevRequestTimestamp > 10 * 1000) {
-      prevRequestTimestamp = now;
-      memoService.fetchAllMemos().catch(() => {
-        // do nth
-      });
-    }
+    memoService.fetchAllMemos().catch(() => {
+      // do nth
+    });
   }, []);
+
+  // const handleRefreshClick = useCallback(() => {
+  //   memoService.fetchAllMemos().catch(() => {
+  //     // do nth
+  //   });
+  // }, []);
 
   const handleShowSidebarBtnClick = useCallback(() => {
     globalStateService.setShowSiderbarInMobileView(true);
@@ -50,10 +49,14 @@ const MemosHeader: React.FC<Props> = () => {
       <div className="title-text" onClick={handleMemoTextClick}>
         <Only when={isMobileView}>
           <button className="action-btn" onClick={handleShowSidebarBtnClick}>
-            <img className="icon-img" src={menuSvg} alt="menu" />
+            {/*<img className="icon-img" src={menuSvg} alt="menu" />*/}
+            <MenuSvg className="icon-img" />
           </button>
         </Only>
         <span className="normal-text">{titleText}</span>
+        {/*<span className="refresh-icon" onClick={handleRefreshClick}>*/}
+        {/*  🔄*/}
+        {/*</span>*/}
       </div>
       <SearchBar />
     </div>

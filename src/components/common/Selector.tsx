@@ -1,10 +1,9 @@
-import React from 'react';
-import { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import useToggle from '../../hooks/useToggle';
 import '../../less/common/selector.less';
 // import arrowLeft from '../../icons/arrow-left.svg';
-import arrowRight from '../../icons/arrow-right.svg';
 import { t } from '../../translations/helper';
+import ArrowRight from '../../icons/arrow-right.svg?component';
 
 interface TVObject {
   text: string;
@@ -68,7 +67,7 @@ const Selector: React.FC<Props> = (props: Props) => {
       <div className={`current-value-container ${showSelector ? 'active' : ''}`} onClick={handleCurrentValueClick}>
         <span className="value-text">{currentItem.text}</span>
         <span className="arrow-text">
-          <img className="icon-img" src={arrowRight} />
+          <ArrowRight className="icon-img" />
         </span>
       </div>
 

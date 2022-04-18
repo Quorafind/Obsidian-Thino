@@ -81,13 +81,24 @@ export const transferMemosIntoText = (memosArray: Array<any>): string => {
             const commentMemos = getCommentMemos(dataArr[i]);
             if (commentMemos.length > 0) {
               commentMemos.map((cm) => {
+                let memoType = '- ';
+                // console.log(cm.memoType);
+                if (cm.memoType === 'TASK-TODO') {
+                  memoType = '- [ ] ';
+                } else if (cm.memoType === 'TASK-DONE') {
+                  memoType = '- [x] ';
+                } else if (cm.memoType.match(/TASK-(.*)?/g)) {
+                  memoType = '- [' + cm.memoType.match(/TASK-(.*)?/g)[1] + '] ';
+                }
                 outputText =
                   outputText +
                   indent +
-                  (ShowDate ? '    - [[' + moment(cm.createdAt).format(dailyNotesformat) + ']] ' : '    - ') +
+                  (ShowDate
+                    ? '    ' + memoType + '[[' + moment(cm.createdAt).format(dailyNotesformat) + ']] '
+                    : '    ' + memoType) +
                   moment(cm.createdAt).format('HH:mm') +
                   ' ' +
-                  cm.content.replace(/comment:(.*)$/g, '') +
+                  cm.content.replace(/comment:(.*)$/g, '').replace(/^\d{14}/g, '') +
                   '\n';
               });
             }
@@ -114,7 +125,21 @@ export const transferMemosIntoText = (memosArray: Array<any>): string => {
             const commentMemos = getCommentMemos(dataArr[i]);
             if (commentMemos.length > 0) {
               commentMemos.map((cm) => {
-                outputText = outputText + indent + '    - ' + cm.content.replace(/comment:(.*)$/g, '') + '\n';
+                let memoType = '- ';
+                if (cm.memoType === 'TASK-TODO') {
+                  memoType = '- [ ] ';
+                } else if (cm.memoType === 'TASK-DONE') {
+                  memoType = '- [x] ';
+                } else if (cm.memoType.match(/TASK-(.*)?/g)) {
+                  memoType = '- [' + cm.memoType.match(/TASK-(.*)?/g)[1] + '] ';
+                }
+                outputText =
+                  outputText +
+                  indent +
+                  '    ' +
+                  memoType +
+                  cm.content.replace(/comment:(.*)$/g, '').replace(/^\d{14}/g, '') +
+                  '\n';
               });
             }
           }

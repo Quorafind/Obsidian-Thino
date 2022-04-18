@@ -68,7 +68,7 @@ class ResourceService {
         .replace(/<strong>/g, '**')
         .replace(/<\/strong>/g, '**')
         .replace(/^\s{16}/g, '');
-      console.log(elementsByClassName[i].getElementsByClassName('content')[0].innerHTML);
+      // console.log(elementsByClassName[i].getElementsByClassName('content')[0].innerHTML);
       const importedMemo = await memoService.importMemos(
         source,
         true,

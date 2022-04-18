@@ -5,7 +5,7 @@ import useToggle from '../hooks/useToggle';
 import Only from './common/OnlyWhen';
 import utils from '../helpers/utils';
 import '../less/tag-list.less';
-import arrowRight from '../icons/arrow-right.svg';
+import ArrowRight from '../icons/arrow-right.svg?component';
 import { t } from '../translations/helper';
 
 interface Tag {
@@ -128,7 +128,8 @@ const TagItemContainer: React.FC<TagItemContainerProps> = (props: TagItemContain
           <span className="tag-count">{tag.count}</span>
           {hasSubTags ? (
             <span className={`action-btn toggle-btn ${showSubTags ? 'shown' : ''}`} onClick={handleToggleBtnClick}>
-              <img className="icon-img" src={arrowRight} />
+              {/*<img className="icon-img" src={arrowRight} />*/}
+              <ArrowRight className="icon-img" />
             </span>
           ) : null}
         </div>

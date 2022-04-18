@@ -1,6 +1,5 @@
 import { getDailyNotePath } from './obUpdateMemo';
-import { TFile, normalizePath, Notice } from 'obsidian';
-import { moment } from 'obsidian';
+import { moment, normalizePath, Notice, TFile } from 'obsidian';
 import appStore from '../stores/appStore';
 
 export const createObsidianQuery = async (title: string, querystring: string): Promise<any> => {
@@ -93,7 +92,7 @@ export const createQueryFile = async (path: string): Promise<TFile> => {
     return createdFile;
   } catch (err) {
     console.error(`Failed to create file: '${path}'`, err);
-    new Notice('Unable to create new file.');
+    new Notice(t('Unable to create new file.'));
   }
 };
 

@@ -19,14 +19,15 @@ import showShareMemoImageDialog from './ShareMemoImageDialog';
 import '../less/memo.less';
 import { moment, Notice, Platform } from 'obsidian';
 import { showMemoInDailyNotes } from '../obComponents/obShowMemo';
-import more from '../icons/more.svg';
-import task from '../icons/task.svg';
-import taskBlank from '../icons/task-blank.svg';
-import comment from '../icons/comment.svg';
+import More from '../icons/more.svg?component';
+import Comment from '../icons/comment.svg?component';
+import TaskBlank from '../icons/task-blank.svg?component';
+import Task from '../icons/task.svg?component';
 import {
   CommentOnMemos,
   CommentsInOriginalNotes,
   DefaultEditorLocation,
+  ShowCommentOnMemos,
   ShowTaskLabel,
   UseButtonToShowEditor,
 } from '../memos';
@@ -36,25 +37,24 @@ import MemoImage from './MemoImage';
 import appContext from '../stores/appContext';
 import { getDailyNoteFormat } from '../obComponents/obUpdateMemo';
 
-interface LinkedMemo extends FormattedMemo {
-  dateStr: string;
-}
+// interface LinkedMemo extends FormattedMemo {
+//   dateStr: string;
+// }
 
 interface Props {
   memo: Model.Memo;
 }
 
+// Get Current Memos And Change it
+
 const Memo: React.FC<Props> = (props: Props) => {
   const { globalState } = useContext(appContext);
   const { memo: propsMemo } = props;
-  const memo: FormattedMemo = {
-    ...propsMemo,
-    createdAtStr: utils.getDateTimeString(propsMemo.createdAt),
-  };
   const [showConfirmDeleteBtn, toggleConfirmDeleteBtn] = useToggle(false);
   const memoCommentRef = useRef<EditorRefActions>(null);
   const [isCommentShown, toggleComment] = useToggle(false);
-  const [commentMemos, setCommentMemos, commentMemosRef] = useState<LinkedMemo[]>([]);
+  const [isCommentListShown, toggleCommentList] = useToggle(ShowCommentOnMemos);
+  const [commentMemos, setCommentMemos, commentMemosRef] = useState<Model.Memo[]>([]);
   const [, setAddRandomIDflag, RandomIDRef] = useState(false);
   // const imageUrls = Array.from(memo.content.match(IMAGE_URL_REG) ?? []);
 
@@ -67,22 +67,18 @@ const Memo: React.FC<Props> = (props: Props) => {
     }
 
     const fetchCommentMemos = async () => {
+      // console.log(memoService.getState().commentMemos);
       const allCommentMemos = memoService
         .getState()
         .commentMemos.filter((m) => m.linkId === propsMemo.hasId)
-        .sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt))
-        .map((m) => ({
-          ...m,
-          createdAtStr: utils.getDateTimeString(m.createdAt),
-          dateStr: utils.getDateString(m.createdAt),
-        }));
+        .sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt));
       // if (allCommentMemos !== memoState.commentMemos) {
       setCommentMemos(allCommentMemos);
       // }
     };
 
     fetchCommentMemos();
-  }, [memo.id, memo.content]);
+  }, [propsMemo.content, propsMemo.id]);
 
   useEffect(() => {
     if (!memoCommentRef.current) {
@@ -156,22 +152,30 @@ const Memo: React.FC<Props> = (props: Props) => {
 
   const handleSaveBtnClick = useCallback(async (content: string) => {
     if (content === '') {
-      new Notice('内容不能为空呀');
+      new Notice(t('Content cannot be empty'));
       return;
     }
 
     const { commentMemoId } = globalStateService.getState();
     content = content.replaceAll('&nbsp;', ' ');
+    globalStateService.setChangedByMemos(true);
     try {
       if (commentMemoId) {
         memoCommentRef.current?.setContent('');
-        let prevMemo;
+        let prevMemo: Model.Memo;
         if (CommentOnMemos && CommentsInOriginalNotes) {
           prevMemo = memoService.getCommentMemoById(commentMemoId);
+          // console.log(prevMemo);
+          content = moment().format('YYYYMMDDHHmmss') + ' ' + content;
         } else {
           prevMemo = memoService.getMemoById(commentMemoId);
+          // console.log(prevMemo);
           content = prevMemo.content.replace(/^(.*) comment:/g, content + ' comment:');
         }
+
+        // console.log(content);
+
+        // console.log(m);
 
         if (prevMemo && prevMemo.content !== content) {
           let editedMemo: Model.Memo;
@@ -186,29 +190,22 @@ const Memo: React.FC<Props> = (props: Props) => {
           } else {
             editedMemo = await memoService.updateMemo(prevMemo.id, prevMemo.content, content, prevMemo.memoType);
           }
-          editedMemo.updatedAt = utils.getDateTimeString(Date.now());
           if (CommentOnMemos && CommentsInOriginalNotes) {
             memoService.editCommentMemo(editedMemo);
           } else {
+            editedMemo.updatedAt = utils.getDateTimeString(Date.now());
             memoService.editMemo(editedMemo);
           }
-          setCommentMemos((commentMemos) => {
-            return commentMemos.map((m) => {
-              if (m.id === commentMemoId) {
-                return {
-                  ...editedMemo,
-                  createdAtStr: utils.getDateTimeString(m.createdAt),
-                  dateStr: utils.getDateString(m.createdAt),
-                };
-              } else {
-                return {
-                  ...m,
-                  createdAtStr: utils.getDateTimeString(m.createdAt),
-                  dateStr: utils.getDateString(m.createdAt),
-                };
+
+          setCommentMemos(
+            commentMemosRef.current.map((m) => {
+              // console.log(m);
+              if (m.id.slice(14) === commentMemoId.slice(14) && m.path === prevMemo.path) {
+                return editedMemo;
               }
-            });
-          });
+              return m;
+            }),
+          );
         }
 
         globalStateService.setCommentMemoId('');
@@ -216,15 +213,16 @@ const Memo: React.FC<Props> = (props: Props) => {
       } else {
         const dailyFormat = getDailyNoteFormat();
         let randomId: string;
-        if (memo.hasId.length > 0) {
-          randomId = memo.hasId;
+        if (propsMemo.hasId.length > 0) {
+          randomId = propsMemo.hasId;
         } else if (!CommentsInOriginalNotes) {
           randomId = Math.random().toString(36).slice(-6);
           setAddRandomIDflag(true);
         }
 
         if (!CommentsInOriginalNotes) {
-          content = content + ' comment: [[' + moment(memo.id.slice(0, 8)).format(dailyFormat) + '#^' + randomId + ']]';
+          content =
+            content + ' comment: [[' + moment(propsMemo.id.slice(0, 8)).format(dailyFormat) + '#^' + randomId + ']]';
         }
 
         // setEditorContentCache('');
@@ -232,27 +230,31 @@ const Memo: React.FC<Props> = (props: Props) => {
 
         let newMemo: Model.Memo;
         if (CommentsInOriginalNotes) {
-          newMemo = await memoService.createCommentMemo(content, true, memo.path, memo.id);
+          newMemo = await memoService.createCommentMemo(content, true, propsMemo.path, propsMemo.id, randomId);
           memoService.pushCommentMemo(newMemo);
         } else {
           newMemo = await memoService.createMemo(content, true);
           memoService.pushMemo(newMemo);
         }
-        console.log(commentMemosRef.current);
-        const newCommentMemos = commentMemosRef.current.concat({
-          ...newMemo,
-          createdAtStr: utils.getDateTimeString(newMemo.createdAt),
-          dateStr: utils.getDateString(newMemo.createdAt),
-        });
+        // const newCommentMemos = commentMemosRef.current;
+        // newCommentMemos.push(newMemo);
+        // console.log(newCommentMemos.current);
         setCommentMemos(
-          newCommentMemos.sort((a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt)),
+          [...commentMemosRef.current, newMemo].sort(
+            (a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt),
+          ),
         );
+        // setCommentMemos(
+        //   newCommentMemos.current.sort(
+        //     (a, b) => utils.getTimeStampByDate(b.createdAt) - utils.getTimeStampByDate(a.createdAt),
+        //   ),
+        // );
         if (RandomIDRef.current) {
           const editedMemo = await memoService.updateMemo(
-            memo.id,
-            memo.content,
-            memo.content + ' ^' + randomId,
-            memo.memoType,
+            propsMemo.id,
+            propsMemo.content,
+            propsMemo.content + ' ^' + randomId,
+            propsMemo.memoType,
           );
           editedMemo.updatedAt = utils.getDateTimeString(Date.now());
           memoService.editMemo(editedMemo);
@@ -263,6 +265,7 @@ const Memo: React.FC<Props> = (props: Props) => {
       new Notice(error.message);
     }
 
+    // globalStateService.setChangedByMemos(false);
     // setEditorContentCache('');
   }, []);
 
@@ -284,7 +287,7 @@ const Memo: React.FC<Props> = (props: Props) => {
   }, []);
 
   const handleShowMemoStoryDialog = () => {
-    showMemoCardDialog(memo);
+    showMemoCardDialog(propsMemo);
   };
 
   const handleMarkMemoClick = () => {
@@ -297,7 +300,7 @@ const Memo: React.FC<Props> = (props: Props) => {
       }
     }
 
-    globalStateService.setMarkMemoId(memo.id);
+    globalStateService.setMarkMemoId(propsMemo.id);
   };
 
   const handleEditMemoClick = () => {
@@ -310,11 +313,11 @@ const Memo: React.FC<Props> = (props: Props) => {
       }
     }
 
-    globalStateService.setEditMemoId(memo.id);
+    globalStateService.setEditMemoId(propsMemo.id);
   };
 
-  const handleSourceMemoClick = () => {
-    showMemoInDailyNotes(memo.id);
+  const handleSourceMemoClick = (m: Model.Memo) => {
+    showMemoInDailyNotes(m.id, m.path);
   };
 
   // const handleCreateNewNoteClick = () => {
@@ -324,12 +327,12 @@ const Memo: React.FC<Props> = (props: Props) => {
   const handleDeleteMemoClick = async () => {
     if (showConfirmDeleteBtn) {
       try {
-        await memoService.hideMemoById(memo.id);
+        await memoService.hideMemoById(propsMemo.id);
       } catch (error: any) {
         new Notice(error.message);
       }
 
-      if (globalStateService.getState().editMemoId === memo.id) {
+      if (globalStateService.getState().editMemoId === propsMemo.id) {
         globalStateService.setEditMemoId('');
       }
     } else {
@@ -344,7 +347,7 @@ const Memo: React.FC<Props> = (props: Props) => {
   };
 
   const handleGenMemoImageBtnClick = () => {
-    showShareMemoImageDialog(memo);
+    showShareMemoImageDialog(propsMemo);
   };
 
   const handleMemoTypeShow = () => {
@@ -352,18 +355,18 @@ const Memo: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    if (memo.memoType === 'TASK-TODO') {
-      return taskBlank;
-    } else if (memo.memoType === 'TASK-DONE') {
-      return task;
+    if (propsMemo.memoType === 'TASK-TODO') {
+      return <TaskBlank />;
+    } else if (propsMemo.memoType === 'TASK-DONE') {
+      return <Task />;
     }
   };
 
-  const handleMemoKeyDown = useCallback((event: React.MouseEvent) => {
-    if (event.ctrlKey || event.metaKey) {
-      handleSourceMemoClick();
-    }
-  }, []);
+  // const handleMemoKeyDown = useCallback((event: React.MouseEvent, m) => {
+  //   if (event.ctrlKey || event.metaKey) {
+  //     handleSourceMemoClick(m);
+  //   }
+  // }, []);
 
   const handleMemoDoubleClick = useCallback((event: React.MouseEvent) => {
     if (event) {
@@ -371,8 +374,12 @@ const Memo: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const handleMemoContentClick = async (e: React.MouseEvent) => {
+  const handleMemoContentClick = async (e: React.MouseEvent, m: Model.Memo) => {
     const targetEl = e.target as HTMLElement;
+
+    if (e.ctrlKey || e.metaKey) {
+      handleSourceMemoClick(m);
+    }
 
     if (targetEl.className === 'memo-link-text') {
       const memoId = targetEl.dataset?.value;
@@ -395,6 +402,11 @@ const Memo: React.FC<Props> = (props: Props) => {
     } else {
       toggleComment(false);
     }
+    if (!isCommentListShown) {
+      toggleCommentList(true);
+    } else if (!ShowCommentOnMemos && isCommentListShown) {
+      toggleCommentList(false);
+    }
   };
 
   const handleEditCommentClick = useCallback((memo: Model.Memo) => {
@@ -403,12 +415,14 @@ const Memo: React.FC<Props> = (props: Props) => {
     }
 
     globalStateService.setCommentMemoId(memo.id);
+    // console.log(Boolean(globalStateService.getState().commentMemoId));
+    // console.log(globalStateService.getState().commentMemoId);
 
     if (!isCommentShown) {
       toggleComment(true);
     }
     memoCommentRef.current?.focus();
-    memoCommentRef.current?.setContent(memo.content.replace(/ comment: (.*)$/g, ''));
+    memoCommentRef.current?.setContent(memo.content.replace(/ comment: (.*)$/g, '').replace(/^\d{14} /g, ''));
   }, []);
 
   const showEditStatus = Boolean(globalState.commentMemoId);
@@ -426,36 +440,38 @@ const Memo: React.FC<Props> = (props: Props) => {
       onCancelBtnClick: handleCancelBtnClick,
       onContentChange: handleContentChange,
     }),
-    [memo],
+    [globalState.commentMemoId],
   );
 
   const imageProps = {
-    memo: memo.content,
+    memo: propsMemo.content,
   };
 
   return (
     <div
-      className={`memo-wrapper ${'memos-' + memo.id} ${memo.memoType}`}
+      className={`memo-wrapper ${'memos-' + propsMemo.id} ${propsMemo.memoType}`}
       onMouseLeave={handleMouseLeaveMemoWrapper}
-      onMouseDown={handleMemoKeyDown}
     >
       <div className="memo-top-wrapper">
         <div className="memo-top-left-wrapper">
           <span className="time-text" onClick={handleShowMemoStoryDialog}>
-            {memo.createdAtStr}
+            {propsMemo.createdAt}
           </span>
           <div
             className={`memo-type-img ${
-              (memo.memoType === 'TASK-TODO' || memo.memoType === 'TASK-DONE') && ShowTaskLabel ? '' : 'hidden'
+              (propsMemo.memoType === 'TASK-TODO' || propsMemo.memoType === 'TASK-DONE') && ShowTaskLabel
+                ? ''
+                : 'hidden'
             }`}
           >
-            <img src={handleMemoTypeShow() ?? ''} alt="memo-type" />
+            {handleMemoTypeShow() ?? ''}
           </div>
         </div>
         <div className="memo-top-right-wrapper">
           {CommentOnMemos ? (
             <div className="comment-button-wrapper">
-              <img className="comment-logo" onClick={handleCommentBlock} src={comment} alt="memo-comment" />
+              {/*<img className="comment-logo" onClick={handleCommentBlock} src={} alt="memo-comment" />*/}
+              <Comment onClick={handleCommentBlock} />
               {commentMemos.length > 0 ? <div className="comment-text-count">{commentMemos.length}</div> : null}
             </div>
           ) : (
@@ -463,7 +479,8 @@ const Memo: React.FC<Props> = (props: Props) => {
           )}
           <div className="btns-container">
             <span className="btn more-action-btn">
-              <img className="icon-img" src={more} />
+              {/*<img className="icon-img" src={more} />*/}
+              <More />
             </span>
             <div className="more-action-btns-wrapper">
               <div className="more-action-btns-container">
@@ -479,7 +496,7 @@ const Memo: React.FC<Props> = (props: Props) => {
                 <span className="btn" onClick={handleEditMemoClick}>
                   {t('EDIT')}
                 </span>
-                <span className="btn" onClick={handleSourceMemoClick}>
+                <span className="btn" onClick={() => handleSourceMemoClick(propsMemo)}>
                   {t('SOURCE')}
                 </span>
                 <span
@@ -495,9 +512,9 @@ const Memo: React.FC<Props> = (props: Props) => {
       </div>
       <div
         className="memo-content-text"
-        onClick={handleMemoContentClick}
+        onClick={(e) => handleMemoContentClick(e, propsMemo)}
         onDoubleClick={handleMemoDoubleClick}
-        dangerouslySetInnerHTML={{ __html: formatMemoContent(memo.content, memo.id) }}
+        dangerouslySetInnerHTML={{ __html: formatMemoContent(propsMemo.content, propsMemo.id) }}
       ></div>
       <MemoImage {...imageProps} />
       {/*<Only when={externalImageUrls.length > 0}>*/}
@@ -522,15 +539,29 @@ const Memo: React.FC<Props> = (props: Props) => {
       {/*</Only>*/}
       {CommentOnMemos ? (
         <div className={`memo-comment-wrapper`}>
-          {commentMemos.length > 0 ? (
+          {commentMemos.length > 0 && isCommentListShown ? (
             <div className={`memo-comment-list`}>
               {/*// TODO*/}
               {commentMemos.map((m, idx) => (
                 <div key={idx} className="memo-comment">
                   <div className="memo-comment-time">{m.createdAt}</div>
-                  <div className="memo-comment-text" onDoubleClick={() => handleEditCommentClick(m)}>
-                    {m.content.replace(/comment:(.*)]]/g, '')}
-                  </div>
+                  {/*<div className="memo-comment-text" onDoubleClick={() => handleEditCommentClick(m)}>*/}
+                  {/*  {m.content.replace(/comment:(.*)]]/g, '').replace(/^\d{14} /g, '')}*/}
+                  {/*</div>*/}
+                  <div
+                    className="memo-comment-text"
+                    onClick={(e) => handleMemoContentClick(e, m)}
+                    onDoubleClick={() => handleEditCommentClick(m)}
+                    dangerouslySetInnerHTML={{
+                      __html: formatMemoContent(
+                        m.content
+                          .replace(/comment:(.*)]]/g, '')
+                          .replace(/^\d{14} /g, '')
+                          .trim(),
+                        m.id,
+                      ),
+                    }}
+                  ></div>
                 </div>
               ))}
             </div>
