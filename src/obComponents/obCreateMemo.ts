@@ -31,7 +31,7 @@ export function getLinesInString(input: string) {
   return lines;
 }
 
-export async function waitForInsert(MemoContent: string, isList: boolean, insertDate?: any): Promise<Model.Memo> {
+export async function waitForInsert(MemoContent: string, isTASK: boolean, insertDate?: any): Promise<Model.Memo> {
   // const plugin = window.plugin;
   const { vault } =
     appStore.getState().dailyNotesState.app === undefined ? app : appStore.getState().dailyNotesState.app;
@@ -51,15 +51,15 @@ export async function waitForInsert(MemoContent: string, isList: boolean, insert
   let lineNum;
   const timeText = String(timeHour) + `:` + String(timeMinute);
 
-  if (isList && DefaultMemoComposition === '') {
+  if (isTASK && DefaultMemoComposition === '') {
     newEvent = `- [ ] ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
-  } else if (!isList && DefaultMemoComposition === '') {
+  } else if (!isTASK && DefaultMemoComposition === '') {
     newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + removeEnter;
   }
 
-  if (isList && DefaultMemoComposition != '') {
+  if (isTASK && DefaultMemoComposition != '') {
     newEvent = `- [ ] ` + DefaultMemoComposition.replace(/{TIME}/g, timeText).replace(/{CONTENT}/g, removeEnter);
-  } else if (!isList && DefaultMemoComposition != '') {
+  } else if (!isTASK && DefaultMemoComposition != '') {
     newEvent = `- ` + DefaultMemoComposition.replace(/{TIME}/g, timeText).replace(/{CONTENT}/g, removeEnter);
   }
 
@@ -77,7 +77,7 @@ export async function waitForInsert(MemoContent: string, isList: boolean, insert
     } else {
       lineNum = newFileContent.posNum + 1;
     }
-    if (isList) {
+    if (isTASK) {
       return {
         id: date.format('YYYYMMDDHHmm') + '00' + lineNum,
         content: MemoContent,
@@ -85,6 +85,9 @@ export async function waitForInsert(MemoContent: string, isList: boolean, insert
         createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
         updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
         memoType: 'TASK-TODO',
+        path: file.path,
+        hasId: '',
+        linkId: '',
       };
     } else {
       return {
@@ -94,6 +97,9 @@ export async function waitForInsert(MemoContent: string, isList: boolean, insert
         createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
         updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
         memoType: 'JOURNAL',
+        path: file.path,
+        hasId: '',
+        linkId: '',
       };
     }
   } else {
@@ -106,14 +112,17 @@ export async function waitForInsert(MemoContent: string, isList: boolean, insert
     } else {
       lineNum = newFileContent.posNum + 1;
     }
-    if (isList) {
+    if (isTASK) {
       return {
         id: date.format('YYYYMMDDHHmm') + '00' + lineNum,
         content: MemoContent,
         deletedAt: '',
         createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
         updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
-        memoType: 'TODO-Blank',
+        memoType: 'TASK-TODO',
+        path: existingFile.path,
+        hasId: '',
+        linkId: '',
       };
     } else {
       return {
@@ -123,6 +132,9 @@ export async function waitForInsert(MemoContent: string, isList: boolean, insert
         createdAt: date.format('YYYY/MM/DD HH:mm:ss'),
         updatedAt: date.format('YYYY/MM/DD HH:mm:ss'),
         memoType: 'JOURNAL',
+        path: existingFile.path,
+        hasId: '',
+        linkId: '',
       };
     }
   }

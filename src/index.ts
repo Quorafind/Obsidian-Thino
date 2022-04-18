@@ -41,7 +41,7 @@ export default class MemosPlugin extends Plugin {
             .setIcon('popup-open')
             .setTitle(t('Insert as Memo'))
             .onClick(async () => {
-              const newMemo = await memoService.createMemo(source, true);
+              const newMemo = await memoService.createMemo(source, false);
               memoService.pushMemo(newMemo);
             });
         });
@@ -58,7 +58,7 @@ export default class MemosPlugin extends Plugin {
               const fileName = source.map((file: TFile) => {
                 return this.app.fileManager.generateMarkdownLink(file, file.path);
               });
-              const newMemo = await memoService.createMemo(fileName.join('\n'), true);
+              const newMemo = await memoService.createMemo(fileName.join('\n'), false);
               memoService.pushMemo(newMemo);
               // console.log(source, 'hello world');
             });

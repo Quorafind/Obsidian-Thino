@@ -25,10 +25,12 @@ import {
 } from '../memos';
 import lightBackground from '../icons/lightBackground.svg';
 import darkBackground from '../icons/darkBackground.svg';
+
 import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import { t } from '../translations/helper';
 import { dailyNotesService } from '../services';
 import Share from '../icons/share.svg?component';
+import Close from '../icons/close.svg?component';
 
 interface Props extends DialogProps {
   memo: Model.Memo;

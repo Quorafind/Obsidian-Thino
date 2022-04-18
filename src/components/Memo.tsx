@@ -295,7 +295,7 @@ const Memo: React.FC<Props> = (props: Props) => {
       const elem = document.querySelector(
         "div[data-type='memos_view'] .view-content .memo-show-editor-button",
       ) as HTMLElement;
-      if (typeof elem.onclick == 'function') {
+      if (typeof elem?.onclick == 'function') {
         elem.onclick.apply(elem);
       }
     }
@@ -471,7 +471,7 @@ const Memo: React.FC<Props> = (props: Props) => {
           {CommentOnMemos ? (
             <div className="comment-button-wrapper">
               {/*<img className="comment-logo" onClick={handleCommentBlock} src={} alt="memo-comment" />*/}
-              <Comment onClick={handleCommentBlock} />
+              <Comment className="icon-img" onClick={handleCommentBlock} />
               {commentMemos.length > 0 ? <div className="comment-text-count">{commentMemos.length}</div> : null}
             </div>
           ) : (
@@ -480,7 +480,7 @@ const Memo: React.FC<Props> = (props: Props) => {
           <div className="btns-container">
             <span className="btn more-action-btn">
               {/*<img className="icon-img" src={more} />*/}
-              <More />
+              <More className="icon-img" />
             </span>
             <div className="more-action-btns-wrapper">
               <div className="more-action-btns-container">
