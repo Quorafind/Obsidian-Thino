@@ -13,7 +13,8 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "noEmit": true,
-    "lib": ["dom", "esnext", "DOM.Iterable", "scripthost", "es2015"]
+    "lib": ["dom", "esnext", "DOM.Iterable", "scripthost", "es2015"],
+    "types": [ "@honkhonk/vite-plugin-svgr/client" ]
   },
   "include": ["**/*.ts", "**/*.tsx"]
 }
