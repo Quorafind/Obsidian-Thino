@@ -6,11 +6,11 @@ import { storage } from '../helpers/storage';
 import Editor, { EditorRefActions } from './Editor/Editor';
 import '../less/memo-editor.less';
 import '../less/select-date-picker.less';
-import tag from '../icons/tag.svg';
-import imageSvg from '../icons/image.svg';
-import taskSvg from '../icons/task.svg';
-import showEditorSvg from '../icons/show-editor.svg';
-import journalSvg from '../icons/journal.svg';
+import Tag from '../icons/tag.svg?component';
+import ImageSvg from '../icons/image.svg?component';
+import JournalSvg from '../icons/journal.svg?component';
+import TaskSvg from '../icons/checkbox-active.svg?component';
+import ShowEditrSvg from '../icons/show-editor.svg';
 import { usePopper } from 'react-popper';
 import useState from 'react-usestateref';
 import DatePicker from './common/DatePicker';
@@ -155,7 +155,7 @@ const MemoEditor: React.FC<Props> = () => {
     const memoEditorDiv = leafView.querySelector(
       "div[data-type='memos_view'] .view-content .memo-editor-wrapper",
     ) as HTMLElement;
-    imageElement.src = `${showEditorSvg}`;
+    imageElement.src = `${ShowEditrSvg}`;
     const buttonTop = memosHeight - 200;
     const buttonLeft = memosWidth / 2 - 20;
 
@@ -509,7 +509,7 @@ const MemoEditor: React.FC<Props> = () => {
 
   const handleSaveBtnClick = useCallback(async (content: string) => {
     if (content === '') {
-      new Notice('内容不能为空呀');
+      new Notice(t('Content cannot be empty'));
       return;
     }
 
@@ -522,7 +522,13 @@ const MemoEditor: React.FC<Props> = () => {
         const prevMemo = memoService.getMemoById(editMemoId);
         content = content + (prevMemo.hasId === '' ? '' : ' ^' + prevMemo.hasId);
         if (prevMemo && prevMemo.content !== content) {
-          const editedMemo = await memoService.updateMemo(prevMemo.id, prevMemo.content, content, prevMemo.memoType);
+          const editedMemo = await memoService.updateMemo(
+            prevMemo.id,
+            prevMemo.content,
+            content,
+            prevMemo.memoType,
+            prevMemo.path,
+          );
           editedMemo.updatedAt = utils.getDateTimeString(Date.now());
           memoService.editMemo(editedMemo);
         }
@@ -780,13 +786,20 @@ const MemoEditor: React.FC<Props> = () => {
         {...editorConfig}
         tools={
           <>
-            <img className="action-btn add-tag" src={tag} onClick={handleTagTextBtnClick} />
-            <img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />
-            <img
-              className="action-btn list-or-task"
-              src={`${!isListShown ? journalSvg : taskSvg}`}
-              onClick={handleChangeStatus}
-            />
+            {/*<img className="action-btn add-tag" src={tag}  />*/}
+            <Tag className="action-btn add-tag" onClick={handleTagTextBtnClick} />
+            {/*<img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />*/}
+            <ImageSvg className="action-btn file-upload" onClick={handleUploadFileBtnClick} />
+            {/*<img*/}
+            {/*  className="action-btn list-or-task"*/}
+            {/*  src={`${!isListShown ? journalSvg : taskSvg}`}*/}
+            {/*  onClick={handleChangeStatus}*/}
+            {/*/>*/}
+            {!isListShown ? (
+              <JournalSvg className="action-btn list-or-task" onClick={handleChangeStatus} />
+            ) : (
+              <TaskSvg className="action-btn list-or-task" onClick={handleChangeStatus} />
+            )}
             {/* <img className={`action-btn ${isListShown ? "" : "hidden"}`} src={taskSvg} onClick={handleChangeStatus} /> */}
           </>
         }

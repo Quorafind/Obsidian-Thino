@@ -60,6 +60,15 @@ class GlobalStateService {
     });
   };
 
+  public setChangedByMemos = (changedByMemos: boolean) => {
+    appStore.dispatch({
+      type: 'SET_CHANGED_BY_MEMOS',
+      payload: {
+        changedByMemos,
+      },
+    });
+  };
+
   public setShowSiderbarInMobileView = (showSiderbarInMobileView: boolean) => {
     appStore.dispatch({
       type: 'SET_SHOW_SIDEBAR_IN_MOBILE_VIEW',

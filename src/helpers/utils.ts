@@ -63,14 +63,14 @@ namespace utils {
     const date = d.getDate();
     const hours = d.getHours();
     const mins = d.getMinutes();
-    // const secs = d.getSeconds();
+    const secs = d.getSeconds();
 
     const monthStr = month < 10 ? '0' + month : month;
     const dateStr = date < 10 ? '0' + date : date;
     const hoursStr = hours < 10 ? '0' + hours : hours;
     const minsStr = mins < 10 ? '0' + mins : mins;
-    // const secsStr = secs < 10 ? "0" + secs : secs;
-    const secsStr = '00';
+    const secsStr = secs < 10 ? '0' + secs : secs;
+    // const secsStr = '00';
 
     return `${year}/${monthStr}/${dateStr} ${hoursStr}:${minsStr}:${secsStr}`;
   }

@@ -158,4 +158,26 @@ export default {
     '你需要安装 0.5.9 版本以上的 Dataview 插件来使用该功能',
   'Open Memos Successfully': '成功打开 Memos ',
   'Fetch Error': '😭 Memos 获取失败',
+  'Copied to clipboard Successfully': '复制成功',
+  'Check if you opened Daily Notes Plugin Or Periodic Notes Plugin':
+    '请检查你有没有开启日记插件或者 Periodic Notes 插件且启用了日记模式',
+  'Please finish the last filter setting first': '先完善上一个过滤器吧',
+  'Close Memos Successfully': '成功关闭 Memos ',
+  'Insert as Memo': '插入内容为 Memo',
+  'Insert file as memo content': '插入文件为 Memo',
+  'Image load failed': '有个图片加载失败了😟',
+  'Content cannot be empty': '内容不能为空呀',
+  'Unable to create new file.': '无法新建文件',
+  'Failed to fetch deleted memos: ': '无法获取已删除的 Memos ：',
+  'RESTORE SUCCEED': '成功恢复 Memo',
+  'Save Memo button icon': '保存按钮上的图标',
+  'The icon shown on the save Memo button in the UI.': '你可以设置保存按钮上的图标',
+  'Fetch Memos From Particular Notes': '从指定的文件中获取 Memos',
+  'You can set any Dataview Query for memos to fetch it. All memos in those notes will show on list. "#memo" by default':
+    '你可以给笔记设置指定检索式来让 Memos 可以索引到它。默认为 "#memo" ',
+  'Allow Memos to Fetch Memo from Notes': '允许 Memos 从笔记中获取 Memo',
+  'Use Memos to manage all memos in your notes, not only in daily notes. False by default':
+    '使用 Memos 来管理你笔记中的 Memos，不单只 DailyNotes 中的内容。默认为关闭',
+  'Always Show Memo Comments': '评论将总是可见',
+  'Always show memo comments on memos. False by default': '当开启后评论总是会在 Memo 的下方展示。默认为关闭',
 };

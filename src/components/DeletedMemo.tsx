@@ -1,15 +1,11 @@
-import { IMAGE_URL_REG, MARKDOWN_URL_REG, MARKDOWN_WEB_URL_REG, WIKI_IMAGE_URL_REG } from '../helpers/consts';
 import utils from '../helpers/utils';
 import useToggle from '../hooks/useToggle';
 import { memoService } from '../services';
-import Only from './common/OnlyWhen';
-import Image from './Image';
 import { formatMemoContent } from './Memo';
 import '../less/memo.less';
 import React from 'react';
-import { Notice, TFile, Vault } from 'obsidian';
-import appStore from '../stores/appStore';
-import more from '../icons/more.svg';
+import { Notice } from 'obsidian';
+import More from '../icons/more.svg?component';
 import { t } from '../translations/helper';
 import MemoImage from './MemoImage';
 
@@ -47,7 +43,7 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
     try {
       await memoService.restoreMemoById(memo.id);
       handleDeletedMemoAction(memo.id);
-      new Notice('RESTORE SUCCEED');
+      new Notice(t('RESTORE SUCCEED'));
     } catch (error: any) {
       new Notice(error.message);
     }
@@ -67,7 +63,8 @@ const DeletedMemo: React.FC<Props> = (props: Props) => {
         </span>
         <div className="btns-container">
           <span className="btn more-action-btn">
-            <img className="icon-img" src={more} />
+            {/*<img className="icon-img" src={more} />*/}
+            <More className="icon-img" />
           </span>
           <div className="more-action-btns-wrapper">
             <div className="more-action-btns-container">

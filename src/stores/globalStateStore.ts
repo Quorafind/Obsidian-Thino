@@ -11,6 +11,7 @@ export interface State extends AppSetting {
   commentMemoId: string;
   isMobileView: boolean;
   showSiderbarInMobileView: boolean;
+  changedByMemos: boolean;
 }
 
 interface SetMarkMemoIdAction {
@@ -41,6 +42,13 @@ interface SetMobileViewAction {
   };
 }
 
+interface SetChangedByMemosAction {
+  type: 'SET_CHANGED_BY_MEMOS';
+  payload: {
+    changedByMemos: boolean;
+  };
+}
+
 interface SetShowSidebarAction {
   type: 'SET_SHOW_SIDEBAR_IN_MOBILE_VIEW';
   payload: {
@@ -59,6 +67,7 @@ export type Actions =
   | SetEditMemoIdAction
   | SetCommentMemoIdAction
   | SetMarkMemoIdAction
+  | SetChangedByMemosAction
   | SetAppSettingAction;
 
 export function reducer(state: State, action: Actions) {
@@ -103,6 +112,16 @@ export function reducer(state: State, action: Actions) {
         isMobileView: action.payload.isMobileView,
       };
     }
+    case 'SET_CHANGED_BY_MEMOS': {
+      if (action.payload.changedByMemos === state.changedByMemos) {
+        return state;
+      }
+
+      return {
+        ...state,
+        changedByMemos: action.payload.changedByMemos,
+      };
+    }
     case 'SET_SHOW_SIDEBAR_IN_MOBILE_VIEW': {
       if (action.payload.showSiderbarInMobileView === state.showSiderbarInMobileView) {
         return state;
@@ -135,4 +154,5 @@ export const defaultState: State = {
   useTinyUndoHistoryCache: false,
   isMobileView: false,
   showSiderbarInMobileView: false,
+  changedByMemos: false,
 };

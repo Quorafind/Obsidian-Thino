@@ -23,13 +23,12 @@ import {
   ShareFooterStart,
   UserName,
 } from '../memos';
-import close from '../icons/close.svg';
-import share from '../icons/share.svg';
 import lightBackground from '../icons/lightBackground.svg';
 import darkBackground from '../icons/darkBackground.svg';
 import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import { t } from '../translations/helper';
 import { dailyNotesService } from '../services';
+import Share from '../icons/share.svg?component';
 
 interface Props extends DialogProps {
   memo: Model.Memo;
@@ -311,7 +310,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
 
   const handleImageOnLoad = (ev: React.SyntheticEvent<HTMLImageElement>) => {
     if (ev.type === 'error') {
-      new Notice('有个图片加载失败了😟');
+      new Notice(t('Image load failed'));
       (ev.target as HTMLImageElement).remove();
     }
     setImgAmount(imgAmount - 1);
@@ -326,10 +325,10 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
         </p>
         <div className="btn-group">
           <button className="btn copy-btn" onClick={handleCopytoClipboardBtnClick}>
-            <img className="icon-img" src={share} />
+            <Share className="icon-img" />
           </button>
           <button className="btn close-btn" onClick={handleCloseBtnClick}>
-            <img className="icon-img" src={close} />
+            <Close className="icon-img" />
           </button>
         </div>
       </div>

@@ -13,9 +13,15 @@ export async function changeMemo(
 ): Promise<Model.Memo> {
   const { dailyNotes } = dailyNotesService.getState();
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
-  const timeString = memoid.slice(0, 11) + '00';
+  const timeString = memoid.slice(0, 14);
   const idString = parseInt(memoid.slice(14));
-  const changeDate = moment(timeString, 'YYYYMMDDHHmmSS');
+  let changeDate: moment.Moment;
+  if (/^\d{14}/g.test(content)) {
+    changeDate = moment(content.slice(0, 14), 'YYYYMMDDHHmmss');
+  } else {
+    changeDate = moment(timeString, 'YYYYMMDDHHmmss');
+  }
+
   let file;
   if (path !== undefined) {
     file = metadataCache.getFirstLinkpathDest('', path);
@@ -33,15 +39,16 @@ export async function changeMemo(
     id: memoid,
     content: removeEnter,
     deletedAt: '',
-    createdAt: changeDate.format('YYYY/MM/DD HH:mm:SS'),
-    updatedAt: changeDate.format('YYYY/MM/DD HH:mm:SS'),
+    createdAt: changeDate.format('YYYY/MM/DD HH:mm:ss'),
+    updatedAt: changeDate.format('YYYY/MM/DD HH:mm:ss'),
     memoType: memoType,
+    path: file.path,
   };
 }
 
 export function getFile(memoid: string): TFile {
   const { dailyNotes } = dailyNotesService.getState();
-  const timeString = memoid.slice(0, 13);
+  const timeString = memoid.slice(0, 14);
   const changeDate = moment(timeString, 'YYYYMMDDHHmmSS');
   const dailyNote = getDailyNote(changeDate, dailyNotes);
   return dailyNote;

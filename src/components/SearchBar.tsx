@@ -4,7 +4,7 @@ import appContext from '../stores/appContext';
 import { locationService } from '../services';
 import { memoSpecialTypes } from '../helpers/filter';
 import '../less/search-bar.less';
-import search from '../icons/search.svg';
+import Search from '../icons/search.svg?component';
 import { t } from '../translations/helper';
 import useToggle from '../hooks/useToggle';
 
@@ -85,7 +85,8 @@ const SearchBar: React.FC<Props> = () => {
     //   <div className={`${isSearchBarShown ? "search-bar-inputer-long" : "search-bar-inputer-short"}`}>
     <div className="search-bar-container">
       <div className="search-bar-inputer">
-        <img className="icon-img" src={search} />
+        {/*<img className="icon-img" src={search} />*/}
+        <Search className="icon-img" />
         <input
           className="text-input"
           type="text"

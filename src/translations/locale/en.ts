@@ -180,4 +180,26 @@ export default {
     'You should install Dataview Plugin ver 0.5.9 or later to use this feature.',
   'Open Memos Successfully': 'Open Memos Successfully',
   'Fetch Error': '😭 Fetch Error',
+  'Copied to clipboard Successfully': 'Copied to clipboard Successfully',
+  'Check if you opened Daily Notes Plugin Or Periodic Notes Plugin':
+    'Check if you opened Daily Notes Plugin Or Periodic Notes Plugin',
+  'Please finish the last filter setting first': 'Please finish the last filter setting first',
+  'Close Memos Successfully': 'Close Memos Successfully',
+  'Insert as Memo': 'Insert as Memo',
+  'Insert file as memo content': 'Insert file as memo content',
+  'Image load failed': 'Image load failed',
+  'Content cannot be empty': 'Content cannot be empty',
+  'Unable to create new file.': 'Unable to create new file.',
+  'Failed to fetch deleted memos: ': 'Failed to fetch deleted memos: ',
+  'RESTORE SUCCEED': 'RESTORE SUCCEED',
+  'Save Memo button icon': 'Save Memo button icon',
+  'The icon shown on the save Memo button in the UI.': 'The icon shown on the save Memo button in the UI.',
+  'Fetch Memos From Particular Notes': 'Fetch Memos From Particular Notes',
+  'You can set any Dataview Query for memos to fetch it. All memos in those notes will show on list. "#memo" by default':
+    'You can set any Dataview Query for memos to fetch it. All memos in those notes will show on list. "#memo" by default',
+  'Allow Memos to Fetch Memo from Notes': 'Allow Memos to Fetch Memo from Notes',
+  'Use Memos to manage all memos in your notes, not only in daily notes. False by default':
+    'Use Memos to manage all memos in your notes, not only in daily notes. False by default',
+  'Always Show Memo Comments': 'Always Show Memo Comments',
+  'Always show memo comments on memos. False by default': 'Always show memo comments on memos. False by default',
 };

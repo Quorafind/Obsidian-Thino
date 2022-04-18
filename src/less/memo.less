@@ -7,7 +7,7 @@
   padding: 12px 18px;
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #f1f1f1;
 
   // &:not(:first-child) {
   //   margin-top: 8px;
@@ -38,7 +38,7 @@
         width: 11%;
         height: 20px;
         margin-left: 3px;
-        filter: opacity(0.5) invert(80%);
+        filter: opacity(0.9) invert(80%);
       }
     }
 
@@ -46,11 +46,10 @@
       .flex(row, flex-end, center);
       > .comment-button-wrapper {
         .flex(row, center, center);
-        font-size: 10px;
-        width: 30%;
+        font-size: 12px;
+        width: 40%;
         height: 21px;
-        margin-right: 0;
-        filter: opacity(1) invert(80%);
+        margin-right: 4px;
       }
       > .btns-container {
         .flex(row, flex-end, center);
@@ -182,10 +181,13 @@
     > .memo-comment-list {
       border-top: 1px solid @bg-gray;
       margin-top: 8px;
+      overflow-y: auto;
+      max-height: 300px;
+      .hide-scroll-bar();
 
       .memo-comment {
         .flex(column, flex-start, flex-start);
-        line-height: 2;
+        //line-height: 2;
 
         .memo-comment-time {
           font-size: 12px;
@@ -197,7 +199,8 @@
 
         .memo-comment-text {
           width: 100%;
-          font-size: 13px;
+          font-size: 12px;
+
         }
       }
     }
@@ -205,11 +208,21 @@
     > .memo-comment-inputer {
 
       > .common-editor-wrapper {
-        border-top: 1px solid @bg-gray;
+        border: 1px solid @bg-gray;
         margin-top: 8px;
+        border-radius: 8px;
+        padding-bottom: 10px;
+        padding-top: 8px;
+
+        > .common-editor-inputer {
+          font-size: 12px;
+        }
       }
     }
 
+    .confirm-btn {
+      transform: scale(0.9);
+    }
 
   }
 }
@@ -250,7 +263,7 @@
   padding: 12px 18px;
   background-color: #303030;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #818181;
 
   // &:not(:first-child) {
   //   margin-top: 8px;
@@ -281,7 +294,7 @@
         width: 11%;
         height: 20px;
         margin-left: 3px;
-        filter: invert(0.8);
+        filter: invert(0.9);
       }
     }
 
@@ -289,11 +302,10 @@
       .flex(row, flex-end, center);
       > .comment-button-wrapper {
         .flex(row, center, center);
-        font-size: 10px;
-        width: 30%;
+        font-size: 12px;
+        width: 40%;
         height: 21px;
-        margin-right: 0;
-        filter: opacity(1) invert(80%);
+        margin-right: 4px;
       }
        > .btns-container {
       .flex(row, flex-end, center);
@@ -419,6 +431,67 @@
         border-radius: 8px;
       }
     }
+  }
+
+  > .memo-comment-wrapper {
+    width: 100%;
+
+    > .memo-comment-list {
+      border-top: 1px solid @bg-dark-gray;
+      margin-top: 8px;
+      overflow-y: auto;
+      max-height: 400px;
+      .hide-scroll-bar();
+
+      .memo-comment {
+        .flex(column, flex-start, flex-start);
+        //line-height: 2;
+
+        .memo-comment-time {
+          font-size: 12px;
+          line-height: 24px;
+          color: rgb(168, 168, 168);
+          flex-shrink: 0;
+          cursor: pointer;
+        }
+
+        .memo-comment-text {
+          width: 100%;
+          font-size: 12px;
+          color: @text-dark-black;
+        }
+      }
+    }
+
+    > .memo-comment-inputer {
+
+      > .common-editor-wrapper {
+        border: 1px solid @bg-dark-gray;
+        margin-top: 8px;
+        border-radius: 8px;
+        padding-bottom: 10px;
+        padding-top: 8px;
+
+        > .common-editor-inputer {
+          font-size: 12px;
+
+           .textarea {
+            margin-left: 5px;
+          }
+
+           .textarea:focus {
+            margin-left: 8px;
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+
+    .confirm-btn {
+      transform: scale(0.9);
+  }
+
+
   }
 }
 

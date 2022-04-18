@@ -1,6 +1,6 @@
 @import './mixin.less';
 
-.theme-light div[data-type='memos_view'] .daily-memo-wrapper .memo-content-text {
+.theme-light div[data-type='memos_view'] .daily-memo-wrapper .memo-content-text, .theme-light div[data-type='memos_view'] .daily-memo-wrapper .memo-comment-text {
   .flex(column, flex-start, flex-start);
   width: 400px;
   word-wrap: break-word;
@@ -260,7 +260,7 @@
   }
 }
 
-.theme-dark div[data-type='memos_view'] .memolist-wrapper .memo-content-text {
+.theme-dark div[data-type='memos_view'] .memolist-wrapper .memo-content-text, .theme-dark div[data-type='memos_view'] .daily-memo-wrapper .memo-comment-text {
   .flex(column, flex-start, flex-start);
   width: 100%;
   word-wrap: break-word;

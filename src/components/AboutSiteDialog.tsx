@@ -1,7 +1,7 @@
 import { showDialog } from './Dialog';
 import '../less/about-site-dialog.less';
 import React from 'react';
-import close from '../icons/close.svg';
+import Close from '../icons/close.svg?component';
 
 interface Props extends DialogProps {}
 
@@ -17,7 +17,8 @@ const AboutSiteDialog: React.FC<Props> = ({ destroy }: Props) => {
           <span className="icon-text">🤠</span>About <b>Obsidian-Memos</b>
         </p>
         <button className="btn close-btn" onClick={handleCloseBtnClick}>
-          <img className="icon-img" src={close} />
+          {/*<img className="icon-img" src={close} />*/}
+          <Close className="icon-img" />
         </button>
       </div>
       <div className="dialog-content-container">

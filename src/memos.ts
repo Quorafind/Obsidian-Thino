@@ -56,8 +56,14 @@ export class Memos extends ItemView {
   private async onFileModified(file: TFile): Promise<void> {
     const date = getDateFromFile(file, 'day');
 
+    console.log(globalStateService.getState().changedByMemos);
+    if (globalStateService.getState().changedByMemos) {
+      globalStateService.setChangedByMemos(false);
+      return;
+    }
     if (date && this.memosComponent) {
       // memoService.clearMemos();
+
       await memoService.fetchAllMemos();
     }
   }
@@ -115,7 +121,15 @@ export class Memos extends ItemView {
     );
     // this.registerEvent(
     //   this.app.metadataCache.on('dataview:metadata-change', (_, file) => {
+    //     if (!(file instanceof TFile)) {
+    //       return;
+    //     }
+    //     const dataviewAPI = getAPI();
+    //     if (getDateFromFile(file, 'day') === undefined || dataviewAPI.page(file.path) === undefined) {
+    //       return;
+    //     }
     //     getAPI().index.reload(file);
+    //     memoService.fetchAllMemos();
     //   }),
     // );
 
@@ -125,6 +139,7 @@ export class Memos extends ItemView {
     UserName = this.plugin.settings.UserName;
     ProcessEntriesBelow = this.plugin.settings.ProcessEntriesBelow;
     SaveMemoButtonLabel = this.plugin.settings.SaveMemoButtonLabel;
+    SaveMemoButtonIcon = this.plugin.settings.SaveMemoButtonIcon;
     DefaultPrefix = this.plugin.settings.DefaultPrefix;
     InsertDateFormat = this.plugin.settings.InsertDateFormat;
     DefaultEditorLocation = this.plugin.settings.DefaultEditorLocation;
@@ -149,6 +164,9 @@ export class Memos extends ItemView {
     ShowTaskLabel = this.plugin.settings.ShowTaskLabel;
     CommentOnMemos = this.plugin.settings.CommentOnMemos;
     CommentsInOriginalNotes = this.plugin.settings.CommentsInOriginalNotes;
+    FetchMemosMark = this.plugin.settings.FetchMemosMark;
+    FetchMemosFromNote = this.plugin.settings.FetchMemosFromNote;
+    ShowCommentOnMemos = this.plugin.settings.ShowCommentOnMemos;
 
     this.memosComponent = React.createElement(App);
 
@@ -165,6 +183,7 @@ export let InsertAfter: string;
 export let UserName: string;
 export let ProcessEntriesBelow: string;
 export let SaveMemoButtonLabel: string;
+export let SaveMemoButtonIcon: string;
 export let DefaultPrefix: string;
 export let InsertDateFormat: string;
 export let DefaultEditorLocation: string;
@@ -189,3 +208,6 @@ export let DefaultMemoComposition: string;
 export let ShowTaskLabel: boolean;
 export let CommentOnMemos: boolean;
 export let CommentsInOriginalNotes: boolean;
+export let FetchMemosMark: string;
+export let FetchMemosFromNote: boolean;
+export let ShowCommentOnMemos: boolean;

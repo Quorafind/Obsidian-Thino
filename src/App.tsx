@@ -24,7 +24,7 @@ function App() {
   } = useContext(appContext);
 
   if (!appHasDailyNotesPluginLoaded() && !window.app.plugins.getPlugin('periodic-notes')) {
-    new Notice('Check if you opened Daily Notes Plugin Or Periodic Notes Plugin');
+    new Notice(t('Check if you opened Daily Notes Plugin Or Periodic Notes Plugin'));
   }
 
   // useEffect(() => {
