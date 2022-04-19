@@ -1,8 +1,9 @@
-import { moment, TFile } from 'obsidian';
+import { moment, Notice, TFile } from 'obsidian';
 import { getDailyNote, getDailyNoteSettings } from 'obsidian-daily-notes-interface';
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
 import appStore from '../stores/appStore';
+import { t } from '../translations/helper';
 
 export async function changeMemo(
   memoid: string,
@@ -56,9 +57,14 @@ export function getFile(memoid: string): TFile {
 
 export function getDailyNoteFormat(): string {
   let dailyNoteFormat = '';
-  if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day').enabled) {
+  if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager?.getActiveConfig('day').enabled) {
     const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
     dailyNoteFormat = periodicNotes.calendarSetManager.getActiveConfig('day').format || 'YYYY-MM-DD';
+    return dailyNoteFormat;
+  }
+  if (window.app.plugins.getPlugin('periodic-notes')?.settings?.daily) {
+    const dailyNotes = window.app.plugins.getPlugin('periodic-notes');
+    dailyNoteFormat = dailyNotes.settings.daily.format || 'YYYY-MM-DD';
     return dailyNoteFormat;
   }
   const dailyNotesSetting = getDailyNoteSettings();
@@ -68,15 +74,28 @@ export function getDailyNoteFormat(): string {
 
 export function getDailyNotePath(): string {
   let dailyNotePath = '';
+  const folderFromPeriodicNotesNew = window.app.plugins
+    .getPlugin('periodic-notes')
+    ?.calendarSetManager?.getActiveConfig('day')?.folder;
+  const folderFromPeriodicNotes = window.app.plugins.getPlugin('periodic-notes')?.settings?.daily.folder;
   // console.log(window.app.plugins.getPlugin('periodic-notes'));
   // const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-  if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day').enabled) {
-    const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-    dailyNotePath = periodicNotes.calendarSetManager.getActiveConfig('day').folder;
+  if (folderFromPeriodicNotesNew !== '' && folderFromPeriodicNotesNew !== undefined) {
+    // const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+    dailyNotePath = window.app.plugins.getPlugin('periodic-notes').calendarSetManager.getActiveConfig('day').folder;
+    return dailyNotePath;
+  }
+  if (folderFromPeriodicNotes !== undefined && folderFromPeriodicNotes !== '') {
+    // const dailyNotes = window.app.plugins.getPlugin('periodic-notes');
+    dailyNotePath = window.app.plugins.getPlugin('periodic-notes').settings.daily.folder;
+    // console.log(dailyNotePath);
     return dailyNotePath;
   }
   const dailyNotesSetting = getDailyNoteSettings();
   dailyNotePath = dailyNotesSetting.folder;
+  if (dailyNotePath === '' || dailyNotePath === undefined) {
+    new Notice(t("You didn't set folder for daily notes in both periodic-notes and daily-notes plugins."));
+  }
   return dailyNotePath;
 }
 

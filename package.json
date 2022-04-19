@@ -1,6 +1,6 @@
 {
   "name": "obsidian-memos",
-  "version": "1.9.0",
+  "version": "1.9.2",
   "description": "A Quick Capture Plugin For Obsidian Daily Notes",
   "author": "boninall",
   "main": "main.js",
@@ -43,7 +43,7 @@
     "eslint-plugin-react-hooks": "1.7.0",
     "focus-trap-react": "^8.9.2",
     "less": "^4.1.2",
-    "obsidian-dataview": "0.5.9",
+    "obsidian-dataview": "0.5.13",
     "prettier": "2.6.0",
     "react-rnd": "^10.3.5",
     "react-usestateref": "^1.0.8",

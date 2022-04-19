@@ -1,4 +1,4 @@
-import { moment, normalizePath, TFile, TFolder } from 'obsidian';
+import { moment, normalizePath, Notice, TFile, TFolder } from 'obsidian';
 import { getAllDailyNotes, getDateFromFile } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
 import {
@@ -13,6 +13,7 @@ import {
 } from '../memos';
 import { getDailyNotePath } from './obUpdateMemo';
 import { getAPI } from 'obsidian-dataview';
+import { t } from '../translations/helper';
 
 export class DailyNotesFolderMissingError extends Error {}
 
@@ -68,6 +69,12 @@ export async function getRemainingMemos(note: TFile): Promise<number> {
   return 0;
 }
 
+export async function getCommentMemosFromDailyNote(dailyNote: TFile | null, commentMemos: any[]): Promise<any[]> {
+  if (!dailyNote) {
+    return commentMemos;
+  }
+}
+
 export async function getMemosFromDailyNote(
   dailyNote: TFile | null,
   allMemos: any[],
@@ -82,8 +89,10 @@ export async function getMemosFromDailyNote(
 
   if (Memos === 0) return;
 
+  // console.log(getAPI().version.compare('>=', '0.5.9'));
+
   // Get Comments Near the Original Memos. Maybe use Dataview to fetch all memos in the near future.
-  if (CommentOnMemos && CommentsInOriginalNotes) {
+  if (CommentOnMemos && CommentsInOriginalNotes && getAPI().version.compare('>=', '0.5.9') === true) {
     const dataviewAPI = getAPI();
     if (dataviewAPI !== undefined && ProcessEntriesBelow !== '') {
       try {
@@ -345,6 +354,10 @@ export async function getMemos(): Promise<allKindsofMemos> {
   const { vault } = appStore.getState().dailyNotesState.app;
   const folder = getDailyNotePath();
 
+  if (folder === '' || folder === undefined) {
+    new Notice(t('Please check your daily note plugin OR periodic notes plugin settings'));
+    return;
+  }
   const dailyNotesFolder = vault.getAbstractFileByPath(normalizePath(folder)) as TFolder;
 
   if (!dailyNotesFolder) {

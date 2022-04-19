@@ -9,6 +9,7 @@ import './less/global.less';
 import { appHasDailyNotesPluginLoaded } from 'obsidian-daily-notes-interface';
 import { Notice } from 'obsidian';
 import { appRouterSwitch } from './routers';
+import { t } from './translations/helper';
 
 function StrictApp() {
   return (
@@ -23,6 +24,8 @@ function App() {
     locationState: { pathname },
   } = useContext(appContext);
 
+  // console.log(window.app.plugins?.getPlugin('periodic-notes'));
+  // console.log(window.app.plugins?.getPlugin('periodic-notes'));
   if (!appHasDailyNotesPluginLoaded() && !window.app.plugins.getPlugin('periodic-notes')) {
     new Notice(t('Check if you opened Daily Notes Plugin Or Periodic Notes Plugin'));
   }
