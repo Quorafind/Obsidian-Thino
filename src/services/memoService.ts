@@ -5,6 +5,7 @@ import appStore from '../stores/appStore';
 import { waitForInsert } from '../obComponents/obCreateMemo';
 import { changeMemo } from '../obComponents/obUpdateMemo';
 import { commentMemo } from '../obComponents/obCommentMemo';
+// import { TFile } from 'obsidian';
 
 // import userService from "./userService";
 
@@ -50,6 +51,30 @@ class MemoService {
     return memos;
   }
 
+  // TODO
+  // public async fetchAllCommentsMemos() {
+  //   const data = await api.getMyCommentMemos();
+  //   const commentMemos = [] as any[];
+  //   for (const m of data.commentMemos) {
+  //     commentMemos.push(m);
+  //   }
+  //   appStore.dispatch({
+  //     type: 'SET_COMMENT_MEMOS',
+  //     payload: {
+  //       commentMemos,
+  //     },
+  //   });
+  // }
+
+  // TODO
+  // public async fetchFileMemos(file: TFile) {
+  //   const data = await api.getFileMemos(file);
+  //   const memos = [] as any[];
+  //   for (const m of data.memos) {
+  //     memos.push(m);
+  //   }
+  // }
+
   public async fetchDeletedMemos() {
     // if (!userService.getState().user) {
     //   return false;
@@ -62,6 +87,16 @@ class MemoService {
     );
     return data;
   }
+
+  // TODO
+  // public async deletePageMemo(file: TFile) {
+  //   appStore.dispatch({
+  //     type: 'DELETED_MEMO_BY_FILE',
+  //     payload: {
+  //       file,
+  //     },
+  //   });
+  // }
 
   public pushMemo(memo: Model.Memo) {
     appStore.dispatch({

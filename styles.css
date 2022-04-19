@@ -249,6 +249,10 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
 .theme-dark div[data-type='memos_view'] svg {
   fill: #cdcdcd;
 }
+.theme-dark .dialog-wrapper .btn-group,
+.theme-dark .dialog-wrapper .btns-container {
+  fill: #cdcdcd;
+}
 .mono-font-family {
   font-family: 'ubuntu-mono', SFMono-Regular, Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace;
 }
@@ -337,8 +341,10 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
 .theme-light .dialog-wrapper > .dialog-container > .dialog-header-container .btn {
   width: 24px;
   height: 24px;
-  padding: 2px;
+  padding: 0;
+  margin-right: 0;
   border-radius: 4px;
+  background-color: transparent;
 }
 .theme-light .dialog-wrapper > .dialog-container > .dialog-header-container .btn > .icon-img {
   width: 20px;
@@ -436,9 +442,10 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
 .theme-dark .dialog-wrapper > .dialog-container > .dialog-header-container .btn {
   width: 24px;
   height: 24px;
-  padding: 2px;
   border-radius: 4px;
-  background-color: black;
+  background-color: transparent;
+  padding: 0;
+  margin-right: 0;
 }
 .theme-dark .dialog-wrapper > .dialog-container > .dialog-header-container .btn > .icon-img {
   width: 20px;
@@ -951,14 +958,8 @@ div[data-type='memos_view'].mobile-view .menu-btns-popup {
   align-items: center;
 }
 .theme-light .dialog-wrapper.memo-card-dialog > .dialog-container > .memo-card-container > .header-container > .btns-container > .btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  margin-left: 4px;
-  border-radius: 4px;
+  background-color: transparent;
+  padding: 0;
 }
 .theme-light .dialog-wrapper.memo-card-dialog > .dialog-container > .memo-card-container > .header-container > .btns-container > .btn:hover {
   background-color: white;
@@ -1172,15 +1173,8 @@ div[data-type='memos_view'].mobile-view .menu-btns-popup {
   align-items: center;
 }
 .theme-dark .dialog-wrapper.memo-card-dialog > .dialog-container > .memo-card-container > .header-container > .btns-container > .btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  margin-left: 4px;
-  border-radius: 4px;
-  background-color: #5f5f5f;
+  background-color: transparent;
+  padding: 0;
 }
 .theme-dark .dialog-wrapper.memo-card-dialog > .dialog-container > .memo-card-container > .header-container > .btns-container > .btn:hover {
   background-color: #444444;
@@ -2580,7 +2574,7 @@ div[data-type='memos_view'] .image-container > img {
   padding: 12px 18px;
   background-color: #303030;
   border-radius: 8px;
-  border: 1px solid #818181;
+  border: 1px solid #4a4a4a;
 }
 .theme-dark div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #353535;
@@ -4723,6 +4717,7 @@ div[data-type='memos_view'] .memo-editor-wrapper .confirm-btn {
   height: auto;
   opacity: 0.6;
   transform: rotate(90deg);
+  fill: #cdcdcd;
 }
 .theme-dark .selector-wrapper > .items-wrapper {
   display: flex;

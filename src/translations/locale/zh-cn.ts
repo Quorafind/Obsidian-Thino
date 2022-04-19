@@ -180,4 +180,8 @@ export default {
     '使用 Memos 来管理你笔记中的 Memos，不单只 DailyNotes 中的内容。默认为关闭',
   'Always Show Memo Comments': '评论将总是可见',
   'Always show memo comments on memos. False by default': '当开启后评论总是会在 Memo 的下方展示。默认为关闭',
+  "You didn't set folder for daily notes in both periodic-notes and daily-notes plugins.":
+    '你在 Periodic Notes 插件和日记插件都没设置日记的所在文件夹',
+  'Please check your daily note plugin OR periodic notes plugin settings':
+    '请检查你的日记插件和/或 Periodic Notes 插件的设置',
 };

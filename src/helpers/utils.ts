@@ -107,6 +107,36 @@ namespace utils {
     };
   }
 
+  export function debouncePlus(fn: FunctionType, delay: number, immdiate = false, resultCallback) {
+    let timer: number = null;
+    let isInvoke = false;
+    function _debounce(...arg: any[]) {
+      if (timer) clearTimeout(timer);
+      if (immdiate && !isInvoke) {
+        const result = fn.apply(this, arg);
+        if (resultCallback && typeof resultCallback === 'function') resultCallback(result);
+        isInvoke = true;
+      } else {
+        timer = setTimeout(() => {
+          const result = fn.apply(this, arg);
+          if (resultCallback && typeof resultCallback === 'function') resultCallback(result);
+          isInvoke = false;
+          timer = null;
+        }, delay);
+      }
+    }
+
+    console.log('hi');
+
+    _debounce.cancel = function () {
+      if (timer) clearTimeout(timer);
+      timer = null;
+      isInvoke = false;
+    };
+
+    return _debounce;
+  }
+
   export function throttle(fn: FunctionType, delay: number) {
     let valid = true;
 
@@ -219,7 +249,15 @@ namespace utils {
   export async function createDailyNoteCheck(date: any): Promise<TFile> {
     let file;
 
-    if (window.app.plugins?.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day')?.enabled) {
+    // console.log(window.app.plugins?.getPlugin('periodic-notes'));
+
+    if (window.app.plugins?.getPlugin('periodic-notes')?.calendarSetManager?.getActiveConfig('day')?.enabled) {
+      const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+      file = await periodicNotes.createPeriodicNote('day', date);
+      return file;
+    }
+
+    if (window.app.plugins?.getPlugin('periodic-notes')?.settings?.daily) {
       const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
       file = await periodicNotes.createPeriodicNote('day', date);
       return file;

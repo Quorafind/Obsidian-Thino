@@ -1,4 +1,4 @@
-import { HoverPopover, ItemView, TFile, WorkspaceLeaf } from 'obsidian';
+import { debounce, HoverPopover, ItemView, TFile, WorkspaceLeaf } from 'obsidian';
 import { MEMOS_VIEW_TYPE } from './constants';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -56,6 +56,7 @@ export class Memos extends ItemView {
   private async onFileModified(file: TFile): Promise<void> {
     const date = getDateFromFile(file, 'day');
 
+    console.log('debounce');
     if (globalStateService.getState().changedByMemos) {
       globalStateService.setChangedByMemos(false);
       return;
@@ -63,7 +64,7 @@ export class Memos extends ItemView {
     if (date && this.memosComponent) {
       // memoService.clearMemos();
 
-      await memoService.fetchAllMemos();
+      memoService.fetchAllMemos();
     }
   }
 
@@ -107,7 +108,7 @@ export class Memos extends ItemView {
 
     this.registerEvent(this.app.vault.on('create', this.onFileCreated));
     this.registerEvent(this.app.vault.on('delete', this.onFileDeleted));
-    this.registerEvent(this.app.vault.on('modify', this.onFileModified));
+    this.registerEvent(this.app.vault.on('modify', debounce(this.onFileModified, 2000, true)));
     this.registerEvent(
       this.app.workspace.on('resize', () => {
         this.handleResize();

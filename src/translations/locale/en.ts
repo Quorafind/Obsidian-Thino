@@ -202,4 +202,8 @@ export default {
     'Use Memos to manage all memos in your notes, not only in daily notes. False by default',
   'Always Show Memo Comments': 'Always Show Memo Comments',
   'Always show memo comments on memos. False by default': 'Always show memo comments on memos. False by default',
+  "You didn't set folder for daily notes in both periodic-notes and daily-notes plugins.":
+    "You didn't set folder for daily notes in both periodic-notes and daily-notes plugins.",
+  'Please check your daily note plugin OR periodic notes plugin settings':
+    'Please check your daily note plugin OR periodic notes plugin settings',
 };
