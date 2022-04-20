@@ -1,8 +1,8 @@
 import { App, DropdownComponent, PluginSettingTab, Setting } from 'obsidian';
 import type MemosPlugin from './index';
-import { getDailyNotePath } from './obComponents/obUpdateMemo';
 import memoService from './services/memoService';
 import { t } from './translations/helper';
+import { getDailyNotePath } from './helpers/utils';
 
 export interface MemosSettings {
   StartDate: string;
@@ -14,6 +14,7 @@ export interface MemosSettings {
   SaveMemoButtonIcon: string;
   ShareFooterStart: string;
   ShareFooterEnd: string;
+  UseDailyOrPeriodic: string;
   DefaultPrefix: string;
   InsertDateFormat: string;
   DefaultEditorLocation: string;
@@ -52,6 +53,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ShareFooterStart: '{MemosNum} Memos {UsedDay} Day',
   ShareFooterEnd: '✍️ by {UserName}',
   DefaultPrefix: 'List',
+  UseDailyOrPeriodic: 'Daily',
   InsertDateFormat: 'Tasks',
   DefaultEditorLocation: 'Top',
   UseButtonToShowEditor: false,
@@ -459,6 +461,19 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     this.containerEl.createEl('h1', { text: t('Experimental Options') });
+
+    new Setting(containerEl)
+      .setName(t("Use Which Plugin's Default Configuration"))
+      .setDesc(t("Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default."))
+      .addDropdown(async (d: DropdownComponent) => {
+        dropdown = d;
+        dropdown.addOption('Daily', t('Daily'));
+        dropdown.addOption('Periodic', 'Periodic');
+        dropdown.setValue(this.plugin.settings.UseDailyOrPeriodic).onChange(async (value) => {
+          this.plugin.settings.UseDailyOrPeriodic = value;
+          this.applySettingsUpdate();
+        });
+      });
 
     new Setting(containerEl)
       .setName(t('Default Memo Composition'))

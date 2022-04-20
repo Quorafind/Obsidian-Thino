@@ -206,4 +206,8 @@ export default {
     "You didn't set folder for daily notes in both periodic-notes and daily-notes plugins.",
   'Please check your daily note plugin OR periodic notes plugin settings':
     'Please check your daily note plugin OR periodic notes plugin settings',
+  "Use Which Plugin's Default Configuration": "Use Which Plugin's Default Configuration",
+  "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.":
+    "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.",
+  Daily: 'Daily',
 };

@@ -11,9 +11,9 @@ import {
   ProcessEntriesBelow,
   QueryFileName,
 } from '../memos';
-import { getDailyNotePath } from './obUpdateMemo';
 import { getAPI } from 'obsidian-dataview';
 import { t } from '../translations/helper';
+import { getDailyNotePath } from '../helpers/utils';
 
 export class DailyNotesFolderMissingError extends Error {}
 

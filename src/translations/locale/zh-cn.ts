@@ -184,4 +184,8 @@ export default {
     '你在 Periodic Notes 插件和日记插件都没设置日记的所在文件夹',
   'Please check your daily note plugin OR periodic notes plugin settings':
     '请检查你的日记插件和/或 Periodic Notes 插件的设置',
+  "Use Which Plugin's Default Configuration": '使用哪个插件的默认日记配置',
+  "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.":
+    'Memos 采用指定插件的默认配置来获取 Memos。默认为日记插件。',
+  Daily: '日记插件',
 };
