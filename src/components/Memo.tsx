@@ -11,7 +11,7 @@ import {
 } from '../helpers/consts';
 import useState from 'react-usestateref';
 import { encodeHtml, parseMarkedToHtml, parseRawTextToHtml } from '../helpers/marked';
-import utils from '../helpers/utils';
+import utils, { getDailyNoteFormat } from '../helpers/utils';
 import useToggle from '../hooks/useToggle';
 import { globalStateService, memoService, resourceService } from '../services';
 import showMemoCardDialog from './MemoCardDialog';
@@ -35,7 +35,6 @@ import { t } from '../translations/helper';
 import Editor, { EditorRefActions } from './Editor/Editor';
 import MemoImage from './MemoImage';
 import appContext from '../stores/appContext';
-import { getDailyNoteFormat } from '../obComponents/obUpdateMemo';
 
 // interface LinkedMemo extends FormattedMemo {
 //   dateStr: string;

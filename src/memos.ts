@@ -167,6 +167,7 @@ export class Memos extends ItemView {
     FetchMemosMark = this.plugin.settings.FetchMemosMark;
     FetchMemosFromNote = this.plugin.settings.FetchMemosFromNote;
     ShowCommentOnMemos = this.plugin.settings.ShowCommentOnMemos;
+    UseDailyOrPeriodic = this.plugin.settings.UseDailyOrPeriodic;
 
     this.memosComponent = React.createElement(App);
 
@@ -211,3 +212,4 @@ export let CommentsInOriginalNotes: boolean;
 export let FetchMemosMark: string;
 export let FetchMemosFromNote: boolean;
 export let ShowCommentOnMemos: boolean;
+export let UseDailyOrPeriodic: string;
