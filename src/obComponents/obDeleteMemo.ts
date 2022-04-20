@@ -9,7 +9,7 @@ export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> 
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(deletedMemoid)) {
     const filePath = getDailyNotePath();
-    const absolutePath = filePath + '/' + DeleteFileName;
+    const absolutePath = filePath + '/' + DeleteFileName + '.md';
     const deleteFile = metadataCache.getFirstLinkpathDest('', absolutePath);
 
     if (deleteFile instanceof TFile) {
@@ -63,7 +63,7 @@ export async function deleteForever(deletedMemoid: string): Promise<void> {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(deletedMemoid)) {
     const filePath = getDailyNotePath();
-    const absolutePath = filePath + '/' + DeleteFileName;
+    const absolutePath = filePath + '/' + DeleteFileName + '.md';
     const deleteFile = metadataCache.getFirstLinkpathDest('', absolutePath);
 
     if (deleteFile instanceof TFile) {
@@ -91,7 +91,7 @@ export async function getDeletedMemos(): Promise<any[]> {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
 
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + '/' + DeleteFileName;
+  const absolutePath = filePath + '/' + DeleteFileName + '.md';
   const deletedMemos: any[] | PromiseLike<any[]> = [];
   const deleteFile = metadataCache.getFirstLinkpathDest('', absolutePath);
   if (deleteFile instanceof TFile) {
@@ -134,7 +134,7 @@ export const sendMemoToDelete = async (memoContent: string): Promise<any> => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
 
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + '/' + DeleteFileName;
+  const absolutePath = filePath + '/' + DeleteFileName + '.md';
 
   const deleteFile = metadataCache.getFirstLinkpathDest('', absolutePath);
 

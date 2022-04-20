@@ -9166,7 +9166,7 @@ const findQuery = async () => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   const queryList2 = [];
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + "/" + QueryFileName;
+  const absolutePath = filePath + "/" + QueryFileName + ".md";
   const queryFile = metadataCache.getFirstLinkpathDest("", absolutePath);
   if (queryFile instanceof require$$0.TFile) {
     const fileContents = await vault.read(queryFile);
@@ -9243,7 +9243,7 @@ const getPinnedDateFromLine$1 = (line) => {
 const createObsidianQuery = async (title, querystring) => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + "/" + QueryFileName;
+  const absolutePath = filePath + "/" + QueryFileName + ".md";
   const queryFile = metadataCache.getFirstLinkpathDest("", absolutePath);
   if (queryFile instanceof require$$0.TFile) {
     const fileContents = await vault.read(queryFile);
@@ -9676,7 +9676,7 @@ const extractCommentFromLine = (line) => {
 const updateObsidianQuery = async (queryId, title, queryString) => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + "/" + QueryFileName;
+  const absolutePath = filePath + "/" + QueryFileName + ".md";
   const queryFile = metadataCache.getFirstLinkpathDest("", absolutePath);
   if (queryFile instanceof require$$0.TFile) {
     const fileContents = await vault.read(queryFile);
@@ -9926,7 +9926,7 @@ async function restoreDeletedMemo(deletedMemoid) {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(deletedMemoid)) {
     const filePath = getDailyNotePath();
-    const absolutePath = filePath + "/" + DeleteFileName;
+    const absolutePath = filePath + "/" + DeleteFileName + ".md";
     const deleteFile = metadataCache.getFirstLinkpathDest("", absolutePath);
     if (deleteFile instanceof require$$0.TFile) {
       let fileContents = await vault.read(deleteFile);
@@ -9977,7 +9977,7 @@ async function deleteForever(deletedMemoid) {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(deletedMemoid)) {
     const filePath = getDailyNotePath();
-    const absolutePath = filePath + "/" + DeleteFileName;
+    const absolutePath = filePath + "/" + DeleteFileName + ".md";
     const deleteFile = metadataCache.getFirstLinkpathDest("", absolutePath);
     if (deleteFile instanceof require$$0.TFile) {
       let fileContents = await vault.read(deleteFile);
@@ -10000,7 +10000,7 @@ async function deleteForever(deletedMemoid) {
 async function getDeletedMemos() {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + "/" + DeleteFileName;
+  const absolutePath = filePath + "/" + DeleteFileName + ".md";
   const deletedMemos = [];
   const deleteFile = metadataCache.getFirstLinkpathDest("", absolutePath);
   if (deleteFile instanceof require$$0.TFile) {
@@ -10039,7 +10039,7 @@ async function getDeletedMemos() {
 const sendMemoToDelete = async (memoContent) => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + "/" + DeleteFileName;
+  const absolutePath = filePath + "/" + DeleteFileName + ".md";
   const deleteFile = metadataCache.getFirstLinkpathDest("", absolutePath);
   if (deleteFile instanceof require$$0.TFile) {
     const fileContents = await vault.read(deleteFile);
@@ -10135,7 +10135,7 @@ async function deleteQueryForever(queryID) {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(queryID)) {
     const filePath = getDailyNotePath();
-    const absolutePath = filePath + "/" + QueryFileName;
+    const absolutePath = filePath + "/" + QueryFileName + ".md";
     const queryFile = metadataCache.getFirstLinkpathDest("", absolutePath);
     if (queryFile instanceof require$$0.TFile) {
       let fileContents = await vault.read(queryFile);
@@ -10160,7 +10160,7 @@ const pinQueryInFile = async (queryID) => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(queryID)) {
     const filePath = getDailyNotePath();
-    const absolutePath = filePath + "/" + QueryFileName;
+    const absolutePath = filePath + "/" + QueryFileName + ".md";
     const queryFile = metadataCache.getFirstLinkpathDest("", absolutePath);
     if (!(queryFile instanceof require$$0.TFile)) {
       return;
@@ -10187,7 +10187,7 @@ const pinQueryInFile = async (queryID) => {
 const unpinQueryInFile = async (queryID) => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + "/" + QueryFileName;
+  const absolutePath = filePath + "/" + QueryFileName + ".md";
   const queryFile = metadataCache.getFirstLinkpathDest("", absolutePath);
   if (!(queryFile instanceof require$$0.TFile)) {
     return;

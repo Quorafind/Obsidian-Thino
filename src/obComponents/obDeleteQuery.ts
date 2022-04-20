@@ -7,7 +7,7 @@ export async function deleteQueryForever(queryID: string): Promise<void> {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   if (/\d{14,}/.test(queryID)) {
     const filePath = getDailyNotePath();
-    const absolutePath = filePath + '/' + QueryFileName;
+    const absolutePath = filePath + '/' + QueryFileName + '.md';
     const queryFile = metadataCache.getFirstLinkpathDest('', absolutePath);
 
     if (queryFile instanceof TFile) {
