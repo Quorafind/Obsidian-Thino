@@ -7,7 +7,7 @@ export const createObsidianQuery = async (title: string, querystring: string): P
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
 
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + '/' + QueryFileName;
+  const absolutePath = filePath + '/' + QueryFileName + '.md';
 
   const queryFile = metadataCache.getFirstLinkpathDest('', absolutePath);
 

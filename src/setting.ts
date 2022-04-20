@@ -349,6 +349,7 @@ export class MemosSettingTab extends PluginSettingTab {
           .onChange(async (value) => {
             await this.changeFileName(this.plugin.settings.DeleteFileName, value);
             this.plugin.settings.DeleteFileName = value;
+
             this.applySettingsUpdate();
           }),
       );
@@ -363,6 +364,7 @@ export class MemosSettingTab extends PluginSettingTab {
           .onChange(async (value) => {
             await this.changeFileName(this.plugin.settings.QueryFileName, value);
             this.plugin.settings.QueryFileName = value;
+
             this.applySettingsUpdate();
           }),
       );
