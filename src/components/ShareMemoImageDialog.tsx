@@ -142,17 +142,17 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
   const internalImageUrls = [];
   let allMarkdownLink: string | any[] = [];
   let allInternalLink = [] as any[];
-  if (IMAGE_URL_REG.test(memo.content)) {
+  if (new RegExp(IMAGE_URL_REG).test(memo.content)) {
     let allExternalImageUrls = [] as string[];
     const anotherExternalImageUrls = [] as string[];
-    if (MARKDOWN_URL_REG.test(memo.content)) {
+    if (new RegExp(MARKDOWN_URL_REG).test(memo.content)) {
       allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
     }
-    if (WIKI_IMAGE_URL_REG.test(memo.content)) {
+    if (new RegExp(WIKI_IMAGE_URL_REG).test(memo.content)) {
       allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
     }
     // const allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
-    if (MARKDOWN_WEB_URL_REG.test(memo.content)) {
+    if (new RegExp(MARKDOWN_WEB_URL_REG).test(memo.content)) {
       allExternalImageUrls = Array.from(memo.content.match(MARKDOWN_WEB_URL_REG));
     }
     if (allInternalLink.length) {
