@@ -157,17 +157,17 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     }
     if (allInternalLink.length) {
       for (let i = 0; i < allInternalLink.length; i++) {
-        let one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one));
+        const allInternalLinkElement = allInternalLink[i];
+        internalImageUrls.push(detectWikiInternalLink(allInternalLinkElement));
       }
     }
     if (allMarkdownLink.length) {
       for (let i = 0; i < allMarkdownLink.length; i++) {
-        let two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
+        const allMarkdownLinkElement = allMarkdownLink[i];
+        if (/(.*)http[s]?(.*)/.test(allMarkdownLinkElement)) {
+          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(allMarkdownLinkElement)?.[5]);
         } else {
-          internalImageUrls.push(detectMDInternalLink(two));
+          internalImageUrls.push(detectMDInternalLink(allMarkdownLinkElement));
         }
       }
     }
@@ -210,7 +210,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
           // do nth
         });
     }, ANIMATION_DURATION);
-  }, [imgAmount]);
+  }, [changeBackgroundImage, imgAmount]);
 
   const handleCloseBtnClick = () => {
     destroy();
@@ -220,7 +220,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     const bytes = window.atob(base64);
     const ab = new ArrayBuffer(bytes.length);
     const ia = new Uint8Array(ab);
-    for (var i = 0; i < bytes.length; i++) {
+    for (let i = 0; i < bytes.length; i++) {
       ia[i] = bytes.charCodeAt(i);
     }
     return new Blob([ab], { type: type });
