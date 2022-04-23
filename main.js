@@ -11479,17 +11479,17 @@ const MemoImage = (props) => {
     }
     if (allInternalLink.length) {
       for (let i = 0; i < allInternalLink.length; i++) {
-        const one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink2(one));
+        const allInternalLinkElement = allInternalLink[i];
+        internalImageUrls.push(detectWikiInternalLink2(allInternalLinkElement));
       }
     }
     if (allMarkdownLink.length) {
       for (let i = 0; i < allMarkdownLink.length; i++) {
-        const two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push((_a = MARKDOWN_URL_REG.exec(two)) == null ? void 0 : _a[5]);
+        const allMarkdownLinkElement = allMarkdownLink[i];
+        if (/(.*)http[s]?(.*)/.test(allMarkdownLinkElement)) {
+          anotherExternalImageUrls.push((_a = MARKDOWN_URL_REG.exec(allMarkdownLinkElement)) == null ? void 0 : _a[5]);
         } else {
-          internalImageUrls.push(detectMDInternalLink2(two));
+          internalImageUrls.push(detectMDInternalLink2(allMarkdownLinkElement));
         }
       }
     }
@@ -11793,31 +11793,31 @@ const ShareMemoImageDialog = (props) => {
   const internalImageUrls = [];
   let allMarkdownLink = [];
   let allInternalLink = [];
-  if (IMAGE_URL_REG.test(memo2.content)) {
+  if (new RegExp(IMAGE_URL_REG).test(memo2.content)) {
     let allExternalImageUrls = [];
     const anotherExternalImageUrls = [];
-    if (MARKDOWN_URL_REG.test(memo2.content)) {
+    if (new RegExp(MARKDOWN_URL_REG).test(memo2.content)) {
       allMarkdownLink = Array.from(memo2.content.match(MARKDOWN_URL_REG));
     }
-    if (WIKI_IMAGE_URL_REG.test(memo2.content)) {
+    if (new RegExp(WIKI_IMAGE_URL_REG).test(memo2.content)) {
       allInternalLink = Array.from(memo2.content.match(WIKI_IMAGE_URL_REG));
     }
-    if (MARKDOWN_WEB_URL_REG.test(memo2.content)) {
+    if (new RegExp(MARKDOWN_WEB_URL_REG).test(memo2.content)) {
       allExternalImageUrls = Array.from(memo2.content.match(MARKDOWN_WEB_URL_REG));
     }
     if (allInternalLink.length) {
       for (let i = 0; i < allInternalLink.length; i++) {
-        let one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one));
+        const allInternalLinkElement = allInternalLink[i];
+        internalImageUrls.push(detectWikiInternalLink(allInternalLinkElement));
       }
     }
     if (allMarkdownLink.length) {
       for (let i = 0; i < allMarkdownLink.length; i++) {
-        let two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push((_a = MARKDOWN_URL_REG.exec(two)) == null ? void 0 : _a[5]);
+        const allMarkdownLinkElement = allMarkdownLink[i];
+        if (/(.*)http[s]?(.*)/.test(allMarkdownLinkElement)) {
+          anotherExternalImageUrls.push((_a = MARKDOWN_URL_REG.exec(allMarkdownLinkElement)) == null ? void 0 : _a[5]);
         } else {
-          internalImageUrls.push(detectMDInternalLink(two));
+          internalImageUrls.push(detectMDInternalLink(allMarkdownLinkElement));
         }
       }
     }
@@ -11849,7 +11849,7 @@ const ShareMemoImageDialog = (props) => {
       }).catch(() => {
       });
     }, ANIMATION_DURATION);
-  }, [imgAmount]);
+  }, [changeBackgroundImage, imgAmount]);
   const handleCloseBtnClick = () => {
     destroy();
   };
@@ -11857,7 +11857,7 @@ const ShareMemoImageDialog = (props) => {
     const bytes = window.atob(base64);
     const ab2 = new ArrayBuffer(bytes.length);
     const ia2 = new Uint8Array(ab2);
-    for (var i = 0; i < bytes.length; i++) {
+    for (let i = 0; i < bytes.length; i++) {
       ia2[i] = bytes.charCodeAt(i);
     }
     return new Blob([ab2], {
@@ -16045,7 +16045,7 @@ function SvgCheckboxActive(props) {
     d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z"
   }));
 }
-var ShowEditrSvg = "data:image/svg+xml;base64,PHN2ZyB0PSIxNjQyNTY0NDUyMjA4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjYxOTQiIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiI+PHBhdGggZD0iTTUxMiAzMkMyNDggMzIgMzIgMjQ4IDMyIDUxMnMyMTYgNDgwIDQ4MCA0ODAgNDgwLTIxNiA0ODAtNDgwUzc3NiAzMiA1MTIgMzJ6IiBmaWxsPSIjRkZGRkZGIiBwLWlkPSI2MTk1Ij48L3BhdGg+PHBhdGggZD0iTTUxMiAwQzIyOC44IDAgMCAyMjguOCAwIDUxMnMyMjguOCA1MTIgNTEyIDUxMiA1MTItMjI4LjggNTEyLTUxMlM3OTUuMiAwIDUxMiAweiBtMCA5OTJDMjQ4IDk5MiAzMiA3NzYgMzIgNTEyUzI0OCAzMiA1MTIgMzJzNDgwIDIxNiA0ODAgNDgwLTIxNiA0ODAtNDgwIDQ4MHoiIGZpbGw9IiIgcC1pZD0iNjE5NiI+PC9wYXRoPjxwYXRoIGQ9Ik01MTIgNTEybS0zOTIgMGEzOTIgMzkyIDAgMSAwIDc4NCAwIDM5MiAzOTIgMCAxIDAtNzg0IDBaIiBmaWxsPSIjOURFOEY3IiBwLWlkPSI2MTk3Ij48L3BhdGg+PHBhdGggZD0iTTc4NCA0OTZINTI4VjI0MGgtMzJ2MjU2SDI0MHYzMmgyNTZ2MjU2aDMyVjUyOGgyNTZ6IiBmaWxsPSIjMUExNzE4IiBwLWlkPSI2MTk4Ij48L3BhdGg+PC9zdmc+";
+var showEditorSvg = "data:image/svg+xml;base64,PHN2ZyB0PSIxNjQyNTY0NDUyMjA4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjYxOTQiIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiI+PHBhdGggZD0iTTUxMiAzMkMyNDggMzIgMzIgMjQ4IDMyIDUxMnMyMTYgNDgwIDQ4MCA0ODAgNDgwLTIxNiA0ODAtNDgwUzc3NiAzMiA1MTIgMzJ6IiBmaWxsPSIjRkZGRkZGIiBwLWlkPSI2MTk1Ij48L3BhdGg+PHBhdGggZD0iTTUxMiAwQzIyOC44IDAgMCAyMjguOCAwIDUxMnMyMjguOCA1MTIgNTEyIDUxMiA1MTItMjI4LjggNTEyLTUxMlM3OTUuMiAwIDUxMiAweiBtMCA5OTJDMjQ4IDk5MiAzMiA3NzYgMzIgNTEyUzI0OCAzMiA1MTIgMzJzNDgwIDIxNiA0ODAgNDgwLTIxNiA0ODAtNDgwIDQ4MHoiIGZpbGw9IiIgcC1pZD0iNjE5NiI+PC9wYXRoPjxwYXRoIGQ9Ik01MTIgNTEybS0zOTIgMGEzOTIgMzkyIDAgMSAwIDc4NCAwIDM5MiAzOTIgMCAxIDAtNzg0IDBaIiBmaWxsPSIjOURFOEY3IiBwLWlkPSI2MTk3Ij48L3BhdGg+PHBhdGggZD0iTTc4NCA0OTZINTI4VjI0MGgtMzJ2MjU2SDI0MHYzMmgyNTZ2MjU2aDMyVjUyOGgyNTZ6IiBmaWxsPSIjMUExNzE4IiBwLWlkPSI2MTk4Ij48L3BhdGg+PC9zdmc+";
 var fromEntries = function fromEntries2(entries) {
   return entries.reduce(function(acc, _ref) {
     var key = _ref[0], value = _ref[1];
@@ -17584,7 +17584,7 @@ const MemoEditor = () => {
     app: app2
   } = dailyNotesService.getState();
   const [isListShown, toggleList] = useToggle(false);
-  const [isEditorShown, toggleEditor] = useToggle(false);
+  const [isEditorShown, toggleEditor] = dist(false);
   const editorRef = _react_17_0_2_react.exports.useRef(null);
   const prevGlobalStateRef = _react_17_0_2_react.exports.useRef(globalState);
   const [isDatePickerOpen, setIsDatePickerOpen] = dist(false);
@@ -17613,7 +17613,7 @@ const MemoEditor = () => {
     let memosWidth;
     if (leaves.length > 0) {
       const leaf = leaves[0];
-      memosWidth = leaf.width;
+      memosWidth = leaf.width > 0 ? leaf.width : window.outerWidth;
     } else {
       memosWidth = window.outerWidth;
     }
@@ -17629,60 +17629,32 @@ const MemoEditor = () => {
     if (!editorRef.current) {
       return;
     }
-    const leaves = app2.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
-    let memosHeight;
-    let memosWidth;
-    let leafView;
-    if (leaves.length > 0) {
-      const leaf = leaves[0];
-      leafView = leaf.view.containerEl;
-      memosHeight = leafView.offsetHeight;
-      memosWidth = leafView.offsetWidth;
-    } else {
-      leafView = document;
-      memosHeight = window.outerHeight;
-      memosWidth = window.outerWidth;
-    }
-    const imageElement = document.createElement("img");
-    const memoEditorDiv = leafView.querySelector("div[data-type='memos_view'] .view-content .memo-editor-wrapper");
-    imageElement.src = `${ShowEditrSvg}`;
-    const buttonTop = memosHeight - 200;
-    const buttonLeft = memosWidth / 2 - 20;
-    if (memosWidth > 875) {
-      imageElement.className = "memo-show-editor-button hidden";
-      handleShowEditor(false);
-      return;
-    }
-    if (!isEditor) {
-      handleShowEditor(false);
-    }
-    if (FocusOnEditor) {
-      (_a = editorRef.current) == null ? void 0 : _a.focus();
-      return;
-    }
-    if (DefaultEditorLocation !== "Bottom") {
-      return;
-    }
-    if (require$$0.Platform.isMobile !== true) {
-      return;
-    }
-    if (UseButtonToShowEditor !== true) {
-      handleShowEditor(false);
-    }
-    if (FocusOnEditor) {
-      (_b = editorRef.current) == null ? void 0 : _b.focus();
-      return;
-    }
-    if (UseButtonToShowEditor === true) {
-      if (isEditorShown) {
-        imageElement.className = "memo-show-editor-button hidden";
+    if (UseButtonToShowEditor === true && DefaultEditorLocation === "Bottom" && require$$0.Platform.isMobile === true && window.innerWidth < 875) {
+      const leaves = app2.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+      let memosHeight;
+      let leafView;
+      if (leaves.length > 0) {
+        const leaf = leaves[0];
+        leafView = leaf.view.containerEl;
+        memosHeight = leafView.offsetHeight;
       } else {
-        imageElement.className = "memo-show-editor-button";
+        leafView = document;
+        memosHeight = window.innerHeight;
       }
-      imageElement.style.top = `${buttonTop}px`;
-      imageElement.style.left = `${buttonLeft}px`;
-      imageElement.onclick = function() {
-        const scaleElementAni = imageElement.animate([
+      const divThis = document.createElement("img");
+      const memoEditorDiv = leafView.querySelector("div[data-type='memos_view'] .view-content .memo-editor-wrapper");
+      divThis.src = `${showEditorSvg}`;
+      if (isEditorShown) {
+        divThis.className = "memo-show-editor-button hidden";
+      } else {
+        divThis.className = "memo-show-editor-button";
+      }
+      const buttonTop = memosHeight - 200;
+      const buttonLeft = window.innerWidth / 2 - 25;
+      divThis.style.top = buttonTop + "px";
+      divThis.style.left = buttonLeft + "px";
+      divThis.onclick = function() {
+        const scaleElementAni = divThis.animate([
           {
             transform: "rotate(0deg) scale(1)"
           },
@@ -17694,14 +17666,20 @@ const MemoEditor = () => {
           iterations: Infinity
         });
         setTimeout(() => {
-          var _a2;
-          imageElement.className = "memo-show-editor-button hidden";
-          handleShowEditor();
-          (_a2 = editorRef.current) == null ? void 0 : _a2.focus();
-          scaleElementAni.reverse();
+          var _a2, _b2;
+          divThis.className = "memo-show-editor-button hidden";
+          if (isEditor) {
+            handleShowEditor(false);
+            (_a2 = editorRef.current) == null ? void 0 : _a2.focus();
+            scaleElementAni.reverse();
+          } else {
+            handleShowEditor();
+            (_b2 = editorRef.current) == null ? void 0 : _b2.focus();
+            scaleElementAni.reverse();
+          }
         }, 300);
       };
-      leafView.querySelector(".content-wrapper").prepend(imageElement);
+      leafView.querySelector(".content-wrapper").prepend(divThis);
       const memolistScroll = leafView.querySelector(".memolist-wrapper");
       memolistScroll.onscroll = function() {
         if (isEditor && !isEditorGo) {
@@ -17721,7 +17699,7 @@ const MemoEditor = () => {
           });
           let scaleOneElementAni;
           setTimeout(() => {
-            scaleOneElementAni = imageElement.animate([
+            scaleOneElementAni = divThis.animate([
               {
                 transform: "rotate(20deg) scale(1.5)"
               },
@@ -17735,7 +17713,7 @@ const MemoEditor = () => {
           }, 300);
           setTimeout(() => {
             handleShowEditor(true);
-            imageElement.className = "memo-show-editor-button";
+            divThis.className = "memo-show-editor-button";
           }, 300);
           setTimeout(() => {
             scaleOneElementAni.cancel();
@@ -17743,6 +17721,18 @@ const MemoEditor = () => {
           }, 700);
         }
       };
+    } else if (UseButtonToShowEditor === false && DefaultEditorLocation === "Bottom" && require$$0.Platform.isMobile === true && window.innerWidth < 875) {
+      handleShowEditor(false);
+      if (FocusOnEditor) {
+        (_a = editorRef.current) == null ? void 0 : _a.focus();
+      }
+    } else {
+      if (!isEditor) {
+        handleShowEditor(false);
+      }
+      if (FocusOnEditor) {
+        (_b = editorRef.current) == null ? void 0 : _b.focus();
+      }
     }
   }, []);
   const setPopper = () => {

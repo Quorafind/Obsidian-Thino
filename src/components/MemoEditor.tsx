@@ -10,7 +10,7 @@ import Tag from '../icons/tag.svg?component';
 import ImageSvg from '../icons/image.svg?component';
 import JournalSvg from '../icons/journal.svg?component';
 import TaskSvg from '../icons/checkbox-active.svg?component';
-import ShowEditrSvg from '../icons/show-editor.svg';
+import showEditorSvg from '../icons/show-editor.svg';
 import { usePopper } from 'react-popper';
 import useState from 'react-usestateref';
 import DatePicker from './common/DatePicker';
@@ -72,7 +72,7 @@ const MemoEditor: React.FC<Props> = () => {
   const { app } = dailyNotesService.getState();
 
   const [isListShown, toggleList] = useToggle(false);
-  const [isEditorShown, toggleEditor] = useToggle(false);
+  const [isEditorShown, toggleEditor] = useState(false);
 
   const editorRef = useRef<EditorRefActions>(null);
   const prevGlobalStateRef = useRef(globalState);
@@ -116,15 +116,18 @@ const MemoEditor: React.FC<Props> = () => {
     if (leaves.length > 0) {
       const leaf = leaves[0];
       // leafView = leaf.view.containerEl;
-      memosWidth = leaf.width;
+      memosWidth = leaf.width > 0 ? leaf.width : window.outerWidth;
     } else {
       // leafView = document;
       memosWidth = window.outerWidth;
     }
 
     if ((Platform.isMobile === true || memosWidth < 875) && UseButtonToShowEditor) {
+      // if (isEditorGo === false) {
       toggleEditor(true);
+      // }
     }
+
     if (FocusOnEditor) {
       editorRef.current?.focus();
     }
@@ -135,72 +138,41 @@ const MemoEditor: React.FC<Props> = () => {
       return;
     }
 
-    const leaves = app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
-    let memosHeight;
-    let memosWidth;
-    let leafView;
-
-    if (leaves.length > 0) {
-      const leaf = leaves[0];
-      leafView = leaf.view.containerEl;
-      memosHeight = leafView.offsetHeight;
-      memosWidth = leafView.offsetWidth;
-    } else {
-      leafView = document;
-      memosHeight = window.outerHeight;
-      memosWidth = window.outerWidth;
-    }
-
-    const imageElement = document.createElement('img');
-    const memoEditorDiv = leafView.querySelector(
-      "div[data-type='memos_view'] .view-content .memo-editor-wrapper",
-    ) as HTMLElement;
-    imageElement.src = `${ShowEditrSvg}`;
-    const buttonTop = memosHeight - 200;
-    const buttonLeft = memosWidth / 2 - 20;
-
-    if (memosWidth > 875) {
-      imageElement.className = 'memo-show-editor-button hidden';
-      handleShowEditor(false);
-      return;
-    }
-
-    if (!isEditor) {
-      handleShowEditor(false);
-    }
-    if (FocusOnEditor) {
-      editorRef.current?.focus();
-      return;
-    }
-
-    if (DefaultEditorLocation !== 'Bottom') {
-      return;
-    }
-
-    if (Platform.isMobile !== true) {
-      return;
-    }
-
-    if (UseButtonToShowEditor !== true) {
-      handleShowEditor(false);
-    }
-
-    if (FocusOnEditor) {
-      editorRef.current?.focus();
-      return;
-    }
-
-    if (UseButtonToShowEditor === true) {
-      if (isEditorShown) {
-        imageElement.className = 'memo-show-editor-button hidden';
+    if (
+      UseButtonToShowEditor === true &&
+      DefaultEditorLocation === 'Bottom' &&
+      Platform.isMobile === true &&
+      window.innerWidth < 875
+    ) {
+      const leaves = app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
+      let memosHeight;
+      let leafView;
+      if (leaves.length > 0) {
+        const leaf = leaves[0];
+        leafView = leaf.view.containerEl;
+        memosHeight = leafView.offsetHeight;
       } else {
-        imageElement.className = 'memo-show-editor-button';
+        leafView = document;
+        memosHeight = window.innerHeight;
       }
 
-      imageElement.style.top = `${buttonTop}px`;
-      imageElement.style.left = `${buttonLeft}px`;
-      imageElement.onclick = function () {
-        const scaleElementAni = imageElement.animate(
+      const divThis = document.createElement('img');
+      const memoEditorDiv = leafView.querySelector(
+        "div[data-type='memos_view'] .view-content .memo-editor-wrapper",
+      ) as HTMLElement;
+      divThis.src = `${showEditorSvg}`;
+      if (isEditorShown) {
+        divThis.className = 'memo-show-editor-button hidden';
+      } else {
+        divThis.className = 'memo-show-editor-button';
+      }
+      const buttonTop = memosHeight - 200;
+      const buttonLeft = window.innerWidth / 2 - 25;
+      divThis.style.top = buttonTop + 'px';
+      divThis.style.left = buttonLeft + 'px';
+
+      divThis.onclick = function () {
+        const scaleElementAni = divThis.animate(
           [
             // keyframes
             { transform: 'rotate(0deg) scale(1)' },
@@ -214,14 +186,22 @@ const MemoEditor: React.FC<Props> = () => {
         );
 
         setTimeout(() => {
-          imageElement.className = 'memo-show-editor-button hidden';
-          handleShowEditor();
-          editorRef.current?.focus();
-          scaleElementAni.reverse();
+          divThis.className = 'memo-show-editor-button hidden';
+          if (isEditor) {
+            handleShowEditor(false);
+            editorRef.current?.focus();
+            scaleElementAni.reverse();
+            // return;
+          } else {
+            handleShowEditor();
+            editorRef.current?.focus();
+            scaleElementAni.reverse();
+          }
+
           // rotateElementAni.pause();
         }, 300);
       };
-      leafView.querySelector('.content-wrapper').prepend(imageElement);
+      leafView.querySelector('.content-wrapper').prepend(divThis);
 
       const memolistScroll = leafView.querySelector('.memolist-wrapper') as HTMLElement;
       memolistScroll.onscroll = function () {
@@ -241,7 +221,7 @@ const MemoEditor: React.FC<Props> = () => {
           );
           let scaleOneElementAni: Animation;
           setTimeout(() => {
-            scaleOneElementAni = imageElement.animate(
+            scaleOneElementAni = divThis.animate(
               [
                 // keyframes
                 { transform: 'rotate(20deg) scale(1.5)' },
@@ -256,7 +236,7 @@ const MemoEditor: React.FC<Props> = () => {
           }, 300);
           setTimeout(() => {
             handleShowEditor(true);
-            imageElement.className = 'memo-show-editor-button';
+            divThis.className = 'memo-show-editor-button';
           }, 300);
           setTimeout(() => {
             scaleOneElementAni.cancel();
@@ -264,15 +244,24 @@ const MemoEditor: React.FC<Props> = () => {
           }, 700);
         }
       };
+    } else if (
+      UseButtonToShowEditor === false &&
+      DefaultEditorLocation === 'Bottom' &&
+      Platform.isMobile === true &&
+      window.innerWidth < 875
+    ) {
+      handleShowEditor(false);
+      if (FocusOnEditor) {
+        editorRef.current?.focus();
+      }
+    } else {
+      if (!isEditor) {
+        handleShowEditor(false);
+      }
+      if (FocusOnEditor) {
+        editorRef.current?.focus();
+      }
     }
-    // else {
-    // if (!isEditor) {
-    //   handleShowEditor(false);
-    // }
-    // if (FocusOnEditor) {
-    //   editorRef.current?.focus();
-    // }
-    // }
   }, []);
 
   // Change Date Picker Popper Position
@@ -641,6 +630,7 @@ const MemoEditor: React.FC<Props> = () => {
     }
   };
 
+  // Toggle List OR TASK
   const handleChangeStatus = () => {
     if (!editorRef.current) {
       return;
@@ -660,6 +650,7 @@ const MemoEditor: React.FC<Props> = () => {
       return;
     }
 
+    // Use flag to toggle editor show/hide
     if (isEditor || flag === true) {
       isEditor = false;
       toggleEditor(true);

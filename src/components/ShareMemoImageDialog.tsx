@@ -142,32 +142,32 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
   const internalImageUrls = [];
   let allMarkdownLink: string | any[] = [];
   let allInternalLink = [] as any[];
-  if (IMAGE_URL_REG.test(memo.content)) {
+  if (new RegExp(IMAGE_URL_REG).test(memo.content)) {
     let allExternalImageUrls = [] as string[];
     const anotherExternalImageUrls = [] as string[];
-    if (MARKDOWN_URL_REG.test(memo.content)) {
+    if (new RegExp(MARKDOWN_URL_REG).test(memo.content)) {
       allMarkdownLink = Array.from(memo.content.match(MARKDOWN_URL_REG));
     }
-    if (WIKI_IMAGE_URL_REG.test(memo.content)) {
+    if (new RegExp(WIKI_IMAGE_URL_REG).test(memo.content)) {
       allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
     }
     // const allInternalLink = Array.from(memo.content.match(WIKI_IMAGE_URL_REG));
-    if (MARKDOWN_WEB_URL_REG.test(memo.content)) {
+    if (new RegExp(MARKDOWN_WEB_URL_REG).test(memo.content)) {
       allExternalImageUrls = Array.from(memo.content.match(MARKDOWN_WEB_URL_REG));
     }
     if (allInternalLink.length) {
       for (let i = 0; i < allInternalLink.length; i++) {
-        let one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one));
+        const allInternalLinkElement = allInternalLink[i];
+        internalImageUrls.push(detectWikiInternalLink(allInternalLinkElement));
       }
     }
     if (allMarkdownLink.length) {
       for (let i = 0; i < allMarkdownLink.length; i++) {
-        let two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
+        const allMarkdownLinkElement = allMarkdownLink[i];
+        if (/(.*)http[s]?(.*)/.test(allMarkdownLinkElement)) {
+          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(allMarkdownLinkElement)?.[5]);
         } else {
-          internalImageUrls.push(detectMDInternalLink(two));
+          internalImageUrls.push(detectMDInternalLink(allMarkdownLinkElement));
         }
       }
     }
@@ -210,7 +210,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
           // do nth
         });
     }, ANIMATION_DURATION);
-  }, [imgAmount]);
+  }, [changeBackgroundImage, imgAmount]);
 
   const handleCloseBtnClick = () => {
     destroy();
@@ -220,7 +220,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     const bytes = window.atob(base64);
     const ab = new ArrayBuffer(bytes.length);
     const ia = new Uint8Array(ab);
-    for (var i = 0; i < bytes.length; i++) {
+    for (let i = 0; i < bytes.length; i++) {
       ia[i] = bytes.charCodeAt(i);
     }
     return new Blob([ab], { type: type });
