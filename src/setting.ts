@@ -40,6 +40,7 @@ export interface MemosSettings {
   FetchMemosMark: string;
   FetchMemosFromNote: boolean;
   ShowCommentOnMemos: boolean;
+  ShowLeftSideBar: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -78,6 +79,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   FetchMemosMark: '#memo',
   FetchMemosFromNote: false,
   ShowCommentOnMemos: false,
+  ShowLeftSideBar: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -249,6 +251,16 @@ export class MemosSettingTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.UseVaultTags).onChange(async (value) => {
           this.plugin.settings.UseVaultTags = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName(t('Always Show Leaf Sidebar on PC'))
+      .setDesc(t('Show left sidebar on PC even when the leaf width is less than 875px. False by default.'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.ShowLeftSideBar).onChange(async (value) => {
+          this.plugin.settings.ShowLeftSideBar = value;
           this.applySettingsUpdate();
         }),
       );

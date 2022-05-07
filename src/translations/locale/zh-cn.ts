@@ -188,4 +188,9 @@ export default {
   "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.":
     'Memos 采用指定插件的默认配置来获取 Memos。默认为日记插件。',
   Daily: '日记插件',
+  'Always Show Leaf Sidebar on PC': '在 PC 上总是展示左侧栏',
+  'Show left sidebar on PC even when the leaf width is less than 875px. False by default.':
+    '在 PC 上即使页面宽度小于 875px 时都展示左侧栏。默认为关闭',
+  "You didn't set format for daily notes in both periodic-notes and daily-notes plugins.":
+    '你在 Periodic Notes 插件和日记插件都没设置日记的格式',
 };

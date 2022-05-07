@@ -1,4 +1,4 @@
-import { debounce, HoverPopover, ItemView, TFile, WorkspaceLeaf } from 'obsidian';
+import { debounce, HoverPopover, ItemView, Platform, TFile, WorkspaceLeaf } from 'obsidian';
 import { MEMOS_VIEW_TYPE } from './constants';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -82,16 +82,22 @@ export class Memos extends ItemView {
     const leaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
     if (leaves.length > 0) {
       const leaf = leaves[0];
-      if (leaf.width <= 875) {
+      if (leaf.width > 875) {
         // hide the sidebar
-        globalStateService.setIsMobileView(true);
-        leaf.view.containerEl.classList.add('mobile-view');
-        globalStateService.setIsMobileView(leaf.width <= 875);
-      } else {
+
         globalStateService.setIsMobileView(false);
         leaf.view.containerEl.classList.remove('mobile-view');
         globalStateService.setIsMobileView(leaf.width <= 875);
+        return;
       }
+
+      if (ShowLeftSideBar && !Platform.isMobile) {
+        return;
+      }
+
+      globalStateService.setIsMobileView(true);
+      leaf.view.containerEl.classList.add('mobile-view');
+      globalStateService.setIsMobileView(leaf.width <= 875);
     }
   }
 
@@ -168,6 +174,7 @@ export class Memos extends ItemView {
     FetchMemosFromNote = this.plugin.settings.FetchMemosFromNote;
     ShowCommentOnMemos = this.plugin.settings.ShowCommentOnMemos;
     UseDailyOrPeriodic = this.plugin.settings.UseDailyOrPeriodic;
+    ShowLeftSideBar = this.plugin.settings.ShowLeftSideBar;
 
     this.memosComponent = React.createElement(App);
 
@@ -213,3 +220,4 @@ export let FetchMemosMark: string;
 export let FetchMemosFromNote: boolean;
 export let ShowCommentOnMemos: boolean;
 export let UseDailyOrPeriodic: string;
+export let ShowLeftSideBar: boolean;

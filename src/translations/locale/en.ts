@@ -210,4 +210,9 @@ export default {
   "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.":
     "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.",
   Daily: 'Daily',
+  'Always Show Leaf Sidebar on PC': 'Always Show Leaf Sidebar on PC',
+  'Show left sidebar on PC even when the leaf width is less than 875px. False by default.':
+    'Show left sidebar on PC even when the leaf width is less than 875px. False by default.',
+  "You didn't set format for daily notes in both periodic-notes and daily-notes plugins.":
+    "You didn't set format for daily notes in both periodic-notes and daily-notes plugins.",
 };
