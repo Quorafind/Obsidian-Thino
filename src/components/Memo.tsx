@@ -450,6 +450,10 @@ const Memo: React.FC<Props> = (props: Props) => {
     <div
       className={`memo-wrapper ${'memos-' + propsMemo.id} ${propsMemo.memoType}`}
       onMouseLeave={handleMouseLeaveMemoWrapper}
+      draggable="true"
+      onDragStart={(e) => {
+        e.dataTransfer.setData('text/plain', propsMemo.content.replace(/<br>/g, '\n'));
+      }}
     >
       <div className="memo-top-wrapper">
         <div className="memo-top-left-wrapper">

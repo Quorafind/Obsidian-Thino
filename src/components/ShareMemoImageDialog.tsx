@@ -210,7 +210,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
           // do nth
         });
     }, ANIMATION_DURATION);
-  }, [changeBackgroundImage, imgAmount]);
+  }, [imgAmount]);
 
   const handleCloseBtnClick = () => {
     destroy();
@@ -305,7 +305,6 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
       });
     }
     const clipboardItemInput = new ClipboardItem({ 'image/png': blobInput });
-    // @ts-ignore
     window.navigator['clipboard'].write([clipboardItemInput]);
     new Notice('Send to clipboard successfully');
   };

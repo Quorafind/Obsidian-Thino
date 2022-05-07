@@ -273,19 +273,46 @@ namespace utils {
 
 export function getDailyNoteFormat(): string {
   let dailyNoteFormat = '';
-  if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager?.getActiveConfig('day').enabled) {
-    const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-    dailyNoteFormat = periodicNotes.calendarSetManager.getActiveConfig('day').format || 'YYYY-MM-DD';
-    return dailyNoteFormat;
+
+  let dailyNoteTempForPeriodicNotes = '';
+  const folderFromPeriodicNotesNew = window.app.plugins
+    .getPlugin('periodic-notes')
+    ?.calendarSetManager?.getActiveConfig('day')?.folder;
+  const folderFromPeriodicNotes = window.app.plugins.getPlugin('periodic-notes')?.settings?.daily?.format;
+
+  if (folderFromPeriodicNotesNew === undefined) {
+    dailyNoteTempForPeriodicNotes = folderFromPeriodicNotes;
+  } else {
+    dailyNoteTempForPeriodicNotes = folderFromPeriodicNotesNew;
   }
-  if (window.app.plugins.getPlugin('periodic-notes')?.settings?.daily) {
-    const dailyNotes = window.app.plugins.getPlugin('periodic-notes');
-    dailyNoteFormat = dailyNotes.settings.daily.format || 'YYYY-MM-DD';
-    return dailyNoteFormat;
+  switch (UseDailyOrPeriodic) {
+    case 'Daily':
+      dailyNoteFormat = getDailyNoteSettings().format || 'YYYY-MM-DD';
+      break;
+    case 'Periodic':
+      dailyNoteFormat = dailyNoteTempForPeriodicNotes || 'YYYY-MM-DD';
+      break;
+    default:
+      dailyNoteFormat = getDailyNoteSettings().format || 'YYYY-MM-DD';
+      break;
   }
-  const dailyNotesSetting = getDailyNoteSettings();
-  dailyNoteFormat = dailyNotesSetting.format;
+  if (dailyNoteFormat === '' || dailyNoteFormat === undefined) {
+    new Notice(t("You didn't set format for daily notes in both periodic-notes and daily-notes plugins."));
+  }
   return dailyNoteFormat;
+  // if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager?.getActiveConfig('day').enabled) {
+  //   const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+  //   dailyNoteFormat = periodicNotes.calendarSetManager.getActiveConfig('day').format || 'YYYY-MM-DD';
+  //   return dailyNoteFormat;
+  // }
+  // if (window.app.plugins.getPlugin('periodic-notes')?.settings?.daily) {
+  //   const dailyNotes = window.app.plugins.getPlugin('periodic-notes');
+  //   dailyNoteFormat = dailyNotes.settings.daily.format || 'YYYY-MM-DD';
+  //   return dailyNoteFormat;
+  // }
+  // const dailyNotesSetting = getDailyNoteSettings();
+  // dailyNoteFormat = dailyNotesSetting.format;
+  // return dailyNoteFormat;
 }
 
 export function getDailyNotePath(): string {
