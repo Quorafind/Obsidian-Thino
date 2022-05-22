@@ -2,7 +2,7 @@
 // Brazilian Portuguese
 
 export default {
-    // setting.ts
+  // setting.ts
   welcome: 'Bem-vindo ao Memos!',
   ribbonIconTitle: 'Memos',
   months: [
