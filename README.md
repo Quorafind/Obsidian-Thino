@@ -20,6 +20,7 @@ A new way for you to quick capture an idea in Obsidian. Which is highly based on
 1. First you ensure you have the 'Daily notes' plugin (the core plugin of Obsidian) enabled.
 2. Then, you should check the setting to set your header to process below and insert new memos below, OR leave blank to write the entries to the bottom of the daily file.
 3. Open memos and then click on 'NOTEIT'.
+4. If you allow comments one Memos, you need to ensure you have the 'dataview' plugin  enabled
 
 A entry will be added to your daily note using a bullet format with the current time.
 
