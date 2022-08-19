@@ -206,29 +206,29 @@ export async function getMemosFromDailyNote(
 
         if (commentsInMemos.length === 0) continue;
 
-        if (commentsInMemos[0].children?.values?.length > 0) {
+        if (commentsInMemos[0].children?.length > 0) {
           // console.log(commentsInMemos[0].children.values);
-          for (let j = 0; j < commentsInMemos[0].children.values.length; j++) {
+          for (let j = 0; j < commentsInMemos[0].children.length; j++) {
             // console.log(commentsInMemos[0].children.values[j].text);
             const hasId = '';
             let commentTime;
-            if (/^\d{12}/.test(commentsInMemos[0].children.values[j].text)) {
-              commentTime = commentsInMemos[0].children.values[j].text?.match(/^\d{14}/)[0];
+            if (/^\d{12}/.test(commentsInMemos[0].children[j].text)) {
+              commentTime = commentsInMemos[0].children[j].text?.match(/^\d{14}/)[0];
             } else {
               commentTime = startDate.format('YYYYMMDDHHmmSS');
             }
             commentMemos.push({
-              id: commentTime + commentsInMemos[0].children.values[j].line,
-              content: commentsInMemos[0].children.values[j].text,
+              id: commentTime + commentsInMemos[0].children[j].line,
+              content: commentsInMemos[0].children[j].text,
               user_id: 1,
               createdAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
               updatedAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
-              memoType: commentsInMemos[0].children.values[j].task
-                ? getTaskType(commentsInMemos[0].children.values[j].status)
+              memoType: commentsInMemos[0].children[j].task
+                ? getTaskType(commentsInMemos[0].children[j].status)
                 : 'JOURNAL',
               hasId: hasId,
               linkId: originId,
-              path: commentsInMemos[0].children.values[j].path,
+              path: commentsInMemos[0].children[j].path,
             });
           }
         }
@@ -258,26 +258,27 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
   );
   // Get Memos from Note
   for (let i = 0; i < files.length; i++) {
-    const createDate = files[i]['creation-date'];
+    const createDate = files[i]['created'];
     // console.log(files[i]);
     const list = files[i].file.lists?.filter((item) => item.parent === undefined);
     if (list.length === 0) continue;
     for (let j = 0; j < list.length; j++) {
-      const content = list[j].text;
-      const header = list[j].header.subpath;
-      const path = list[j].path;
-      const line = list[j].line;
+      const content = list.values[j].text;
+      const header = list.values[j].header.subpath;
+      const path = list.values[j].path;
+      const line = list.values[j].line;
       let memoType = 'JOURNAL';
       let hasId;
-      let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
+     // let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
+      let realCreateDate = createDate.toFormat("yyyy-MM-dd HH:mm");
       if (/\^\S{6}$/g.test(content)) {
         hasId = content.slice(-6);
         // originId = hasId;
       } else {
         hasId = Math.random().toString(36).slice(-6);
       }
-      if (list[j].task === true) {
-        memoType = getTaskType(list[j].status);
+      if (list.values[j].task === true) {
+        memoType = getTaskType(list.values[j].status);
       }
       if (header !== undefined) {
         if (moment(header).isValid()) {
@@ -291,7 +292,8 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
         const timeArr = time.split(':');
         const hour = parseInt(timeArr[0], 10);
         const minute = parseInt(timeArr[1], 10);
-        realCreateDate = moment(createDate, 'YYYYMMDDHHmmSS').hours(hour).minutes(minute);
+        realCreateDate = moment(realCreateDate).hours(hour).minutes(minute);
+        
         // createDate = date.format('YYYYMMDDHHmmSS');
       }
       allMemos.push({
@@ -306,15 +308,15 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
         path: path,
       });
       // Get Comment Memos From Note
-      if (list[j].children?.values.length > 0) {
-        for (let k = 0; k < list[j].children.values.length; k++) {
-          const childContent = list[j].children.values[k].text;
-          const childLine = list[j].children.values[k].line;
+      if (list.values[j].children?.values.length > 0) {
+        for (let k = 0; k < list[j].children.length; k++) {
+          const childContent = list[j].children[k].text;
+          const childLine = list[j].children[k].line;
           let childMemoType = 'JOURNAL';
           let childRealCreateDate = realCreateDate;
           let commentTime;
-          if (list[j].children.values[k].task === true) {
-            childMemoType = getTaskType(list[j].children.values[k].status);
+          if (list[j].children[k].task === true) {
+            childMemoType = getTaskType(list[j].children[k].status);
           }
           if (/^\d{12}/.test(childContent)) {
             commentTime = childContent?.match(/^\d{14}/)[0];
