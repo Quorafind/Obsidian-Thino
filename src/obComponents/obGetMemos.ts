@@ -270,6 +270,7 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
       let memoType = 'JOURNAL';
       let hasId;
       let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
+      let newContent;
       if (/\^\S{6}$/g.test(content)) {
         hasId = content.slice(-6);
         // originId = hasId;
@@ -293,10 +294,13 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
         const minute = parseInt(timeArr[1], 10);
         realCreateDate = moment(createDate, 'YYYYMMDDHHmmSS').hours(hour).minutes(minute);
         // createDate = date.format('YYYYMMDDHHmmSS');
+        newContent = content.substring(6);
+      } else {
+        newContent = content;
       }
       allMemos.push({
         id: realCreateDate.format('YYYYMMDDHHmmSS') + line,
-        content: content,
+        content: newContent,
         user_id: 1,
         createdAt: realCreateDate.format('YYYY/MM/DD HH:mm:SS'),
         updatedAt: realCreateDate.format('YYYY/MM/DD HH:mm:SS'),
