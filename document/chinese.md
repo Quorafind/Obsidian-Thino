@@ -64,15 +64,11 @@ Query 也就是检索，你可以设置多个同时存在或不同时存在的�
 
 检索，正如其名所示。
 
-## 现在的问题
-
-- [ ] 还没办法分享图片
-
 ## 安装
 
 ### 插件市场
 
-还没上架
+请直接在 Obsidian 社区插件市场搜索 `Obsidian Memos` 安装.
 
 ### BRAT
 
@@ -82,7 +78,7 @@ Query 也就是检索，你可以设置多个同时存在或不同时存在的�
 
 手动下载最新的安装包，然后将其中的三个文件解压到 (main.js, manifest.json, styles.css) `{{obsidian_vault}}/.obsidian/plugins/Obsidian-Memos` 文件夹即可.
 
-# Say Thank You
+# 向我表达感谢
 
 如果你觉得 Obsidian-Memos 很有用，帮到了你，你可以考虑给我买杯咖啡： [https://www.buymeacoffee.com/boninall](https://www.buymeacoffee.com/boninall).
 
