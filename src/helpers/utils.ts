@@ -253,12 +253,6 @@ namespace utils {
   export async function createDailyNoteCheck(date: any): Promise<TFile> {
     let file;
 
-<<<<<<< HEAD
-    if (window.app.plugins?.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day')?.enabled) {
-      const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-      file = await periodicNotes.createPeriodicNote('day', date);
-      return file;
-=======
     switch (UseDailyOrPeriodic) {
       case 'Daily':
         file = await createDailyNote(date);
@@ -269,7 +263,6 @@ namespace utils {
       default:
         file = await createDailyNote(date);
         break;
->>>>>>> 4a164c298b6ec45f63cfe1973279f2e915033675
     }
 
     file = await createDailyNote(date);

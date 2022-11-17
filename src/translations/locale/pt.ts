@@ -38,11 +38,9 @@ export default {
   "The text shown on the save Memo button in the UI. 'NOTEIT' by default.":
     'Define o texto apresentado na UI do botão guardar memorandos. Padrão: "NOTEIT".',
   'Focus on editor when open memos': 'Focar no Editor ao iniciar o Memos',
-  'Focus on Editor when open memos. Focus by default.':
-    'Focar no editor ao iniciar o Memos. Padrão: "Focar".',
+  'Focus on Editor when open memos. Focus by default.': 'Focar no editor ao iniciar o Memos. Padrão: "Focar".',
   'Open daily memos with open memos': 'Abrir memorandos diários ao iniciar o Memos',
-  'Open daily memos with open memos. Open by default.':
-    'Abrir memorandos diários ao iniciar o Memos. Padrão: "Abrir".',
+  'Open daily memos with open memos. Open by default.': 'Abrir memorandos diários ao iniciar o Memos. Padrão: "Abrir".',
   'Open Memos when obsidian opens': 'Abrir Memos quando o Obsidian inicia',
   'When enable this, Memos will open when Obsidian opens. False by default.':
     'Quando esta opção está activa, o Memos abrirá quando o Obsidian inicia. Padrão: "Falso".',
@@ -201,17 +199,18 @@ export default {
   'The icon shown on the save Memo button in the UI.': 'O ícone exibido na UI do botão para guardar memorandos.',
   'Fetch Memos From Particular Notes': 'Obter Memorandos de Notas Específicas',
   'You can set any Dataview Query for memos to fetch it. All memos in those notes will show on list. "#memo" by default':
-  'Pode definir qualquer Query de Dataview para o Memos procurar. Todos os memorandos nessas notas serão mostrados na lista. Padrão: "#memo".',
+    'Pode definir qualquer Query de Dataview para o Memos procurar. Todos os memorandos nessas notas serão mostrados na lista. Padrão: "#memo".',
   'Allow Memos to Fetch Memo from Notes': 'Permitir que o Memos Obtenha memorandos das Notas',
   'Use Memos to manage all memos in your notes, not only in daily notes. False by default':
     'Use o Memos para gerir todos os memorandos nas suas notas e não apenas nas notas diárias. Padrão: "Falso".',
   'Always Show Memo Comments': 'Mostrar Comentários dos Memorandos',
-  'Always show memo comments on memos. False by default': 'Mostrar sempre os comentários dos memorandos. Padrão: "Falso".',
+  'Always show memo comments on memos. False by default':
+    'Mostrar sempre os comentários dos memorandos. Padrão: "Falso".',
   "You didn't set folder for daily notes in both periodic-notes and daily-notes plugins.":
-    "Não definiu a pasta para as notas diárias, quer no plugin the Notas Periódicas ou de Notas Diárias.",
+    'Não definiu a pasta para as notas diárias, quer no plugin the Notas Periódicas ou de Notas Diárias.',
   'Please check your daily note plugin OR periodic notes plugin settings':
     'Por favor, verifique as configurações dos plugins de Notas Diárias OU de Notas Periódicas',
-  "Use Which Plugin's Default Configuration": "Usar a Configuração Padrão do Plugin",
+  "Use Which Plugin's Default Configuration": 'Usar a Configuração Padrão do Plugin',
   "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.":
     "O Memos usa a configuração padrão do plugin seleccionado para obter memorandos diariamente. Padrão: 'Notas Diárias'.",
   Daily: 'Diário',

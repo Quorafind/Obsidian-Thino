@@ -68,7 +68,7 @@ div[data-type='memos_view'] #root {
   font-style: normal;
 }
 div[data-type='memos_view'] {
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei UI", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--font-interface), -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei UI", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /*text-align: var();*/
   -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -249,13 +249,10 @@ div[data-type='memos_view'] .view-content:not(.images-wrapper) img {
 .theme-dark div[data-type='memos_view'] svg {
   fill: #cdcdcd;
 }
-<<<<<<< HEAD
-=======
 .theme-dark .dialog-wrapper .btn-group,
 .theme-dark .dialog-wrapper .btns-container {
   fill: #cdcdcd;
 }
->>>>>>> 4a164c298b6ec45f63cfe1973279f2e915033675
 .mono-font-family {
   font-family: 'ubuntu-mono', SFMono-Regular, Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace;
 }
@@ -2577,11 +2574,7 @@ div[data-type='memos_view'] .image-container > img {
   padding: 12px 18px;
   background-color: #303030;
   border-radius: 8px;
-<<<<<<< HEAD
-  border: 1px solid #818181;
-=======
   border: 1px solid #4a4a4a;
->>>>>>> 4a164c298b6ec45f63cfe1973279f2e915033675
 }
 .theme-dark div[data-type='memos_view'] .memo-wrapper:hover {
   border-color: #353535;
@@ -7652,8 +7645,6 @@ div[data-type='memos_view'].mobile-view #page-wrapper > .content-wrapper {
   height: auto;
   opacity: 0.8;
   fill: #cdcdcd;
-<<<<<<< HEAD
-=======
 }
 .theme-dark div[data-type='memos_view'].mobile-view .search-bar-container > .search-bar-inputer > .text-input {
   width: 100%;
@@ -7662,7 +7653,6 @@ div[data-type='memos_view'].mobile-view #page-wrapper > .content-wrapper {
 }
 .theme-dark div[data-type='memos_view'].mobile-view .search-bar-container > .search-bar-inputer:hover + .quickly-action-wrapper {
   display: flex;
->>>>>>> 4a164c298b6ec45f63cfe1973279f2e915033675
 }
 .theme-dark div[data-type='memos_view'].mobile-view .search-bar-container > .quickly-action-wrapper {
   display: none;

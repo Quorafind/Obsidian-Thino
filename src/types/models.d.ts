@@ -12,7 +12,7 @@ declare namespace Model {
 
   interface Memo extends BaseModel {
     content: string;
-    deletedAt: string;
+    deletedAt?: string;
     memoType?: string;
     linkId?: string;
     hasId?: string;

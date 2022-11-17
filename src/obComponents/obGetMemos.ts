@@ -17,87 +17,119 @@ import { getDailyNotePath } from '../helpers/utils';
 
 export class DailyNotesFolderMissingError extends Error {}
 
+interface matchResult {
+  match: number;
+  header: boolean;
+  headerArray?: RegExpMatchArray;
+}
+
 interface allKindsofMemos {
   memos: Model.Memo[];
   commentMemos: Model.Memo[];
 }
 
-const getTaskType = (memoTaskType: string): string => {
+const getMemoType = (line: string): string => {
   let memoType;
-  if (memoTaskType === ' ') {
-    memoType = 'TASK-TODO';
-    return memoType;
-  } else if (memoTaskType === 'x' || memoTaskType === 'X') {
-    memoType = 'TASK-DONE';
-    return memoType;
-  } else {
-    memoType = 'TASK-' + memoTaskType;
+
+  const extractMemoTaskTypeFromLine = (line: string) =>
+    //eslint-disable-next-line
+    /^\s*[\-\*]\s(\[(.{1})\])\s(.*)$/.exec(line)?.[2];
+
+  if (!/^\s*[-*]\s(\[(.)\])\s/g.test(line)) {
+    memoType = 'JOURNAL';
     return memoType;
   }
+
+  let memoTaskType = extractMemoTaskTypeFromLine(line);
+  switch (memoTaskType) {
+    case ' ':
+      memoType = 'TASK-TODO';
+      break;
+    case 'x':
+      memoType = 'TASK-DONE';
+      break;
+    case 'X':
+      memoType = 'TASK-DONE';
+      break;
+    default:
+      memoType = 'TASK-' + memoTaskType;
+      break;
+  }
+  return memoType;
 };
 
-export async function getRemainingMemos(note: TFile): Promise<number> {
-  if (!note) {
-    return 0;
+const buildRegexForMemoComposition = (): RegExp => {
+  let regexMatch = '(-|\\*) (\\[(.{1})\\]\\s)?((\\<time\\>)?\\d{1,2}\\:\\d{2})?';
+  if (DefaultMemoComposition === '') {
+    new Notice(t('Memo Composition is empty. Please check your settings.'));
+    return new RegExp(regexMatch, 'g');
   }
-  const { vault } = appStore.getState().dailyNotesState.app;
-  let fileContents = await vault.read(note);
-  let regexMatch;
-  if (
-    DefaultMemoComposition != '' &&
-    /{TIME}/g.test(DefaultMemoComposition) &&
-    /{CONTENT}/g.test(DefaultMemoComposition)
-  ) {
-    //eslint-disable-next-line
-    regexMatch =
-      '(-|\\*) (\\[(.{1})\\]\\s)?' +
-      DefaultMemoComposition.replace(/{TIME}/g, '((\\<time\\>)?\\d{1,2}:\\d{2})?').replace(/ {CONTENT}/g, '');
-  } else {
-    //eslint-disable-next-line
-    regexMatch = '(-|\\*) (\\[(.{1})\\]\\s)?((\\<time\\>)?\\d{1,2}\\:\\d{2})?';
+  if (!DefaultMemoComposition.contains('{TIME}') || !DefaultMemoComposition.contains('{CONTENT}')) {
+    new Notice(t('Memo Composition is not set correctly. Please check your settings.'));
+    return new RegExp(regexMatch, 'g');
   }
-  const regexMatchRe = new RegExp(regexMatch, 'g');
+
   //eslint-disable-next-line
-  const matchLength = (fileContents.match(regexMatchRe) || []).length;
-  // const matchLength = (fileContents.match(/(-|\*) (\[ \]\s)?((\<time\>)?\d{1,2}\:\d{2})?/g) || []).length;
+  regexMatch =
+    '(-|\\*)\\s(\\[(.{1})\\]\\s)?' +
+    DefaultMemoComposition.replace(/{TIME}/g, '((\\<time\\>)?\\d{1,2}:\\d{2})?(\\<time\\>)?').replace(
+      /\s{CONTENT}/g,
+      '',
+    );
+
+  return new RegExp(regexMatch, 'g');
+};
+
+// Check if daily note contains memos
+export async function getRemainingMemos(note: TFile): Promise<matchResult> {
+  if (!note) {
+    return {
+      match: 0,
+      header: false,
+    };
+  }
+  const { vault } = app;
+
+  const content: string = await vault.read(note);
+  const regExp = buildRegexForMemoComposition();
+  const match = (content.match(regExp) || []).length;
+
+  // Two cases:
+  // 1. when we do not set heading for processing, the match is from the whole daily note.
+  // 2. when we set heading for processing, the match is from the heading, so if there is no
+  // corresponding heading, the match should return 0.
+  if (!ProcessEntriesBelow) {
+    return {
+      match: match,
+      header: false,
+    };
+  }
+
   const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g');
-  const processEntriesHeader = (fileContents.match(re) || []).length;
-  fileContents = null;
+  const processEntriesHeader = (content.match(re) || []).length;
+  const headerMatchArray = content.match(re);
+
   if (processEntriesHeader) {
-    return matchLength;
+    return {
+      match: match,
+      header: true,
+      headerArray: headerMatchArray,
+    };
   }
-  return 0;
+  return { match: match, header: false };
 }
 
-export async function getCommentMemosFromDailyNote(dailyNote: TFile | null, commentMemos: any[]): Promise<any[]> {
-  if (!dailyNote) {
-    return commentMemos;
-  }
-}
+// Memos is list in the daily note, so if set CommentOnMemos true and set CommentsInOriginalNotes true,
+// we need to get the comment memos from the daily note.
+const getCommentMemos = (path: string): any[] => {
+  let comments;
 
-export async function getMemosFromDailyNote(
-  dailyNote: TFile | null,
-  allMemos: any[],
-  commentMemos: any[],
-): Promise<any[]> {
-  if (!dailyNote) {
-    return [];
-  }
-  const { vault } = appStore.getState().dailyNotesState.app;
-  const Memos = await getRemainingMemos(dailyNote);
-  let underComments;
-
-  if (Memos === 0) return;
-
-  // console.log(getAPI().version.compare('>=', '0.5.9'));
-
-  // Get Comments Near the Original Memos. Maybe use Dataview to fetch all memos in the near future.
   if (CommentOnMemos && CommentsInOriginalNotes && getAPI().version.compare('>=', '0.5.9') === true) {
     const dataviewAPI = getAPI();
     if (dataviewAPI !== undefined && ProcessEntriesBelow !== '') {
       try {
-        underComments = dataviewAPI
-          .page(dailyNote.path)
+        comments = dataviewAPI
+          .page(path)
           ?.file.lists.values?.filter(
             (item: object) =>
               item.header.subpath === ProcessEntriesBelow?.replace(/#{1,} /g, '').trim() && item.children.length > 0,
@@ -107,143 +139,153 @@ export async function getMemosFromDailyNote(
       }
     } else {
       try {
-        underComments = dataviewAPI
-          .page(dailyNote.path)
-          ?.file.lists.values?.filter((item: object) => item.children.length > 0);
+        comments = dataviewAPI.page(path)?.file.lists.values?.filter((item: object) => item.children.length > 0);
       } catch (e) {
         console.error(e);
       }
     }
   }
 
-  let fileContents = await vault.read(dailyNote);
-  let fileLines = getAllLinesFromFile(fileContents);
+  return comments;
+};
+
+const getHeaderContent = async (dailyNote: TFile, matchResult: matchResult): Promise<string[]> => {
+  const { vault } = app;
+  const content = await vault.read(dailyNote);
+  let parseContent: string = content;
+
+  if (matchResult.header === true) {
+    const matchArray = matchResult.headerArray;
+    const pos = content.indexOf(matchArray[0]);
+    parseContent = content.substring(pos);
+
+    const nextHeader = parseContent.match(/#{1,} /g);
+    console.log(nextHeader);
+  }
+
+  return getAllLinesFromFile(parseContent);
+};
+
+const lineContainsParseBelowToken = (line: string) => {
+  if (ProcessEntriesBelow === '') {
+    return true;
+  }
+  const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), '');
+  return re.test(line);
+};
+
+export async function getMemosFromDailyNote(dailyNote: TFile | null): Promise<allKindsofMemos> {
+  if (!dailyNote) {
+    return {
+      memos: [],
+      commentMemos: [],
+    };
+  }
+
+  const memosResult = await getRemainingMemos(dailyNote);
+  let memos: Model.Memo[] = [];
+  let commentMemos: Model.Memo[] = [];
+
+  if (memosResult.match === 0) return;
+
+  const underComments = getCommentMemos(dailyNote.path);
+  let fileLines = await getHeaderContent(dailyNote, memosResult);
+
   const startDate = getDateFromFile(dailyNote, 'day');
   const endDate = getDateFromFile(dailyNote, 'day');
   let processHeaderFound = false;
   let memoType: string;
+
   for (let i = 0; i < fileLines.length; i++) {
     const line = fileLines[i];
 
     if (line.length === 0) continue;
-    // if (line.contains('comment: ')) continue;
-    if (processHeaderFound == false && lineContainsParseBelowToken(line)) {
-      processHeaderFound = true;
-    }
-    if (processHeaderFound == true && !lineContainsParseBelowToken(line) && /^#{1,} /g.test(line)) {
+
+    if (processHeaderFound == false && lineContainsParseBelowToken(line)) processHeaderFound = true;
+    if (processHeaderFound == true && !lineContainsParseBelowToken(line) && /^#{1,} /g.test(line))
       processHeaderFound = false;
-    }
 
-    if (lineContainsTime(line) && processHeaderFound) {
-      const hourText = extractHourFromBulletLine(line);
-      const minText = extractMinFromBulletLine(line);
-      startDate.hours(parseInt(hourText));
-      startDate.minutes(parseInt(minText));
-      endDate.hours(parseInt(hourText));
-      if (parseInt(hourText) > 22) {
-        endDate.minutes(parseInt(minText));
-      } else {
-        endDate.minutes(parseInt(minText));
+    if (!lineContainsTime(line) || !processHeaderFound) continue;
+
+    const time = extractTimeFromBulletLine(line);
+
+    startDate.hours(parseInt(time.hour));
+    startDate.minutes(parseInt(time.minute));
+    endDate.hours(parseInt(time.hour));
+    endDate.minutes(parseInt(time.minute));
+
+    memoType = getMemoType(line);
+    const rawText = extractTextFromTodoLine(line);
+
+    let originId = '';
+    if (rawText !== '') {
+      let hasId = Math.random().toString(36).slice(-6);
+      originId = hasId;
+      let linkId = '';
+      if (CommentOnMemos && /comment:(.*)#\^\S{6}]]/g.test(rawText)) {
+        linkId = extractCommentFromLine(rawText);
       }
-      if (/^\s*[-*]\s(\[(.{1})\])\s/g.test(line)) {
-        const memoTaskType = extractMemoTaskTypeFromLine(line);
-        memoType = getTaskType(memoTaskType);
-      } else {
-        memoType = 'JOURNAL';
-      }
-      const rawText = extractTextFromTodoLine(line);
-      let originId = '';
-      if (rawText !== '') {
-        let hasId = Math.random().toString(36).slice(-6);
+      if (/\^\S{6}$/g.test(rawText)) {
+        hasId = rawText.slice(-6);
         originId = hasId;
-        let linkId = '';
-        if (CommentOnMemos && /comment:(.*)#\^\S{6}]]/g.test(rawText)) {
-          linkId = extractCommentFromLine(rawText);
-        }
-        if (/\^\S{6}$/g.test(rawText)) {
-          hasId = rawText.slice(-6);
-          originId = hasId;
-        }
-        allMemos.push({
-          id: startDate.format('YYYYMMDDHHmmSS') + i,
-          content: rawText,
-          user_id: 1,
-          createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
-          updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
-          memoType: memoType,
-          hasId: hasId,
-          linkId: linkId,
-          path: dailyNote.path,
-        });
       }
-      if (/comment:(.*)#\^\S{6}]]/g.test(rawText) && CommentOnMemos && CommentsInOriginalNotes !== true) {
-        const commentId = extractCommentFromLine(rawText);
-        const hasId = '';
-        commentMemos.push({
-          id: startDate.format('YYYYMMDDHHmmSS') + i,
-          content: rawText,
-          user_id: 1,
-          createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
-          updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
-          memoType: memoType,
-          hasId: hasId,
-          linkId: commentId,
-        });
-        continue;
+      memos.push({
+        id: startDate.format('YYYYMMDDHHmmSS') + i,
+        content: rawText,
+        createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
+        updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
+        memoType: memoType,
+        hasId: hasId,
+        linkId: linkId,
+        path: dailyNote.path,
+      });
+    }
+    if (/comment:(.*)#\^\S{6}]]/g.test(rawText) && CommentOnMemos && CommentsInOriginalNotes !== true) {
+      const commentId = extractCommentFromLine(rawText);
+      const hasId = '';
+      commentMemos.push({
+        id: startDate.format('YYYYMMDDHHmmSS') + i,
+        content: rawText,
+        createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
+        updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
+        memoType: memoType,
+        hasId: hasId,
+        linkId: commentId,
+      });
+      continue;
+    }
+    if (rawText === '' || rawText.contains(' comment') || !underComments) continue;
+
+    const originalText = line.replace(/^[-*]\s(\[(.{1})\]\s?)?/, '')?.trim();
+    const commentsInMemos = underComments?.filter(
+      (item) => item.text === originalText || item.line === i || item.blockId === originId,
+    );
+
+    if (commentsInMemos.length === 0) continue;
+
+    if (commentsInMemos[0].children?.length === 0) continue;
+
+    for (let j = 0; j < commentsInMemos[0].children.length; j++) {
+      // console.log(commentsInMemos[0].children.values[j].text);
+      const hasId = '';
+      let commentTime;
+      if (/^\d{12}/.test(commentsInMemos[0].children[j].text)) {
+        commentTime = commentsInMemos[0].children[j].text?.match(/^\d{14}/)[0];
+      } else {
+        commentTime = startDate.format('YYYYMMDDHHmmSS');
       }
-      if (
-        rawText !== '' &&
-        !rawText.contains(' comment') &&
-        underComments !== null &&
-        underComments !== undefined &&
-        underComments.length > 0
-      ) {
-        // console.log(underComments.map((item) => console.log(item.text.replace(/^\d{2}:\d{2}/, ''))));
-        const originalText = line.replace(/^[-*]\s(\[(.{1})\]\s?)?/, '')?.trim();
-        const commentsInMemos = underComments.filter(
-          (item) => item.text === originalText || item.line === i || item.blockId === originId,
-        );
-
-        if (commentsInMemos.length === 0) continue;
-
-        if (commentsInMemos[0].children?.length > 0) {
-          // console.log(commentsInMemos[0].children.values);
-          for (let j = 0; j < commentsInMemos[0].children.length; j++) {
-            // console.log(commentsInMemos[0].children.values[j].text);
-            const hasId = '';
-            let commentTime;
-<<<<<<< HEAD
-            if (/^\d{12}/.test(commentsInMemos[0].children.values[j].text)) {
-              commentTime = commentsInMemos[0].children.values[j].text?.match(/^\d{14}/)[0];
-=======
-            if (/^\d{12}/.test(commentsInMemos[0].children[j].text)) {
-              commentTime = commentsInMemos[0].children[j].text?.match(/^\d{14}/)[0];
->>>>>>> 4a164c298b6ec45f63cfe1973279f2e915033675
-            } else {
-              commentTime = startDate.format('YYYYMMDDHHmmSS');
-            }
-            commentMemos.push({
-              id: commentTime + commentsInMemos[0].children[j].line,
-              content: commentsInMemos[0].children[j].text,
-              user_id: 1,
-              createdAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
-              updatedAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
-              memoType: commentsInMemos[0].children[j].task
-                ? getTaskType(commentsInMemos[0].children[j].status)
-                : 'JOURNAL',
-              hasId: hasId,
-              linkId: originId,
-              path: commentsInMemos[0].children[j].path,
-            });
-          }
-        }
-
-        // console.log(underComments.filter((item: object) => item.text === rawText.trim()));
-      }
+      commentMemos.push({
+        id: commentTime + commentsInMemos[0].children[j].line,
+        content: commentsInMemos[0].children[j].text,
+        createdAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
+        updatedAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
+        memoType: getMemoType(commentsInMemos[0].children[j].status),
+        hasId: hasId,
+        linkId: originId,
+        path: commentsInMemos[0].children[j].path,
+      });
     }
   }
-  fileLines = null;
-  fileContents = null;
 }
 
 export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Promise<void> {
@@ -274,8 +316,8 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
       const line = list.values[j].line;
       let memoType = 'JOURNAL';
       let hasId;
-     // let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
-      let realCreateDate = createDate.toFormat("yyyy-MM-dd HH:mm");
+      // let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
+      let realCreateDate = createDate.toFormat('yyyy-MM-dd HH:mm');
       if (/\^\S{6}$/g.test(content)) {
         hasId = content.slice(-6);
         // originId = hasId;
@@ -283,7 +325,7 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
         hasId = Math.random().toString(36).slice(-6);
       }
       if (list.values[j].task === true) {
-        memoType = getTaskType(list.values[j].status);
+        memoType = getMemoType(list.values[j].status);
       }
       if (header !== undefined) {
         if (moment(header).isValid()) {
@@ -321,7 +363,7 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
           let childRealCreateDate = realCreateDate;
           let commentTime;
           if (list[j].children[k].task === true) {
-            childMemoType = getTaskType(list[j].children[k].status);
+            childMemoType = getMemoType(list[j].children[k].status);
           }
           if (/^\d{12}/.test(childContent)) {
             commentTime = childContent?.match(/^\d{14}/)[0];
@@ -356,8 +398,8 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
 }
 
 export async function getMemos(): Promise<allKindsofMemos> {
-  const memos: any[] | PromiseLike<any[]> = [];
-  const commentMemos: any[] | PromiseLike<any[]> = [];
+  let memos: any[] | PromiseLike<any[]> = [];
+  let commentMemos: any[] | PromiseLike<any[]> = [];
   const { vault } = appStore.getState().dailyNotesState.app;
   const folder = getDailyNotePath();
 
@@ -374,9 +416,9 @@ export async function getMemos(): Promise<allKindsofMemos> {
   const dailyNotes = getAllDailyNotes();
 
   for (const string in dailyNotes) {
-    if (dailyNotes[string] instanceof TFile && dailyNotes[string].extension === 'md') {
-      await getMemosFromDailyNote(dailyNotes[string], memos, commentMemos);
-    }
+    const tempResult = await getMemosFromDailyNote(dailyNotes[string]);
+    memos = [...memos, ...tempResult.memos];
+    commentMemos = [...commentMemos, ...tempResult.commentMemos];
   }
 
   if (FetchMemosFromNote) {
@@ -387,10 +429,7 @@ export async function getMemos(): Promise<allKindsofMemos> {
 }
 
 const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);
-// const lineIsValidTodo = (line: string) => {
-// //eslint-disable-next-line
-//   return /^\s*[\-\*]\s\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s?\s*\S/.test(line)
-// }
+
 const lineContainsTime = (line: string) => {
   let regexMatch;
   let indent = '\\s*';
@@ -423,14 +462,6 @@ const lineContainsTime = (line: string) => {
   // return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);
 };
 
-const lineContainsParseBelowToken = (line: string) => {
-  if (ProcessEntriesBelow === '') {
-    return true;
-  }
-  const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), '');
-  return re.test(line);
-};
-
 const extractTextFromTodoLine = (line: string) => {
   let regexMatch;
   if (
@@ -455,56 +486,33 @@ const extractTextFromTodoLine = (line: string) => {
   // return /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
 };
 
-const extractHourFromBulletLine = (line: string) => {
-  let regexHourMatch;
+const extractTimeFromBulletLine = (line: string) => {
+  let regexTimeMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(.*)$';
   if (
-    DefaultMemoComposition != '' &&
-    /{TIME}/g.test(DefaultMemoComposition) &&
-    /{CONTENT}/g.test(DefaultMemoComposition)
+    !DefaultMemoComposition ||
+    !DefaultMemoComposition.contains('{TIME}') ||
+    !DefaultMemoComposition.contains('{CONTENT}')
   ) {
-    //eslint-disable-next-line
-    regexHourMatch =
-      '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
-      DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(\\<\\/time\\>)?').replace(
-        /{CONTENT}/g,
-        '(.*)$',
-      );
-  } else {
-    //eslint-disable-next-line
-    regexHourMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(.*)$';
+    new Notice(t('Memo Composition is not set correctly. Please check your settings.'));
+    return {
+      hour: new RegExp(regexTimeMatch, '').exec(line)?.[4],
+      minute: new RegExp(regexTimeMatch, '').exec(line)?.[5],
+    };
   }
-  const regexMatchRe = new RegExp(regexHourMatch, '');
-  //eslint-disable-next-line
-  return regexMatchRe.exec(line)?.[4];
+
+  regexTimeMatch =
+    '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
+    DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(\\<\\/time\\>)?').replace(
+      /{CONTENT}/g,
+      '(.*)$',
+    );
+
+  return {
+    hour: new RegExp(regexTimeMatch, '').exec(line)?.[4],
+    minute: new RegExp(regexTimeMatch, '').exec(line)?.[5],
+  };
 };
 
-const extractMinFromBulletLine = (line: string) => {
-  let regexHourMatch;
-  if (
-    DefaultMemoComposition != '' &&
-    /{TIME}/g.test(DefaultMemoComposition) &&
-    /{CONTENT}/g.test(DefaultMemoComposition)
-  ) {
-    //eslint-disable-next-line
-    regexHourMatch =
-      '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' +
-      DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(\\<\\/time\\>)?').replace(
-        /{CONTENT}/g,
-        '(.*)$',
-      );
-  } else {
-    //eslint-disable-next-line
-    regexHourMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?(\\d{1,2})\\:(\\d{2})(.*)$';
-  }
-  const regexMatchRe = new RegExp(regexHourMatch, '');
-  //eslint-disable-next-line
-  return regexMatchRe.exec(line)?.[5];
-  // /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?(\d{1,2})\:(\d{2})(.*)$/.exec(line)?.[5];
-};
-
-const extractMemoTaskTypeFromLine = (line: string) =>
-  //eslint-disable-next-line
-  /^\s*[\-\*]\s(\[(.{1})\])\s(.*)$/.exec(line)?.[2];
 // The below line excludes entries with a ':' after the time as I was having issues with my calendar
 // being pulled in. Once made configurable will be simpler to manage.
 // return /^\s*[\-\*]\s(\[(\s|x|X|\\|\-|\>|D|\?|\/|\+|R|\!|i|B|P|C)\]\s)?(\<time\>)?\d{1,2}\:\d{2}[^:](.*)$/.test(line);

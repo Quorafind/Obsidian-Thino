@@ -215,4 +215,7 @@ export default {
     'Show left sidebar on PC even when the leaf width is less than 875px. False by default.',
   "You didn't set format for daily notes in both periodic-notes and daily-notes plugins.":
     "You didn't set format for daily notes in both periodic-notes and daily-notes plugins.",
+  'Memo Composition is empty. Please check your settings.': 'Memo Composition is empty. Please check your settings.',
+  'Memo Composition is not set correctly. Please check your settings.':
+    'Memo Composition is not set correctly. Please check your settings.',
 };
