@@ -1,8 +1,8 @@
 import { App, DropdownComponent, PluginSettingTab, Setting } from 'obsidian';
 import type MemosPlugin from './index';
-import { getDailyNotePath } from './obComponents/obUpdateMemo';
 import memoService from './services/memoService';
 import { t } from './translations/helper';
+import { getDailyNotePath } from './helpers/utils';
 
 export interface MemosSettings {
   StartDate: string;
@@ -14,6 +14,7 @@ export interface MemosSettings {
   SaveMemoButtonIcon: string;
   ShareFooterStart: string;
   ShareFooterEnd: string;
+  UseDailyOrPeriodic: string;
   DefaultPrefix: string;
   InsertDateFormat: string;
   DefaultEditorLocation: string;
@@ -39,6 +40,7 @@ export interface MemosSettings {
   FetchMemosMark: string;
   FetchMemosFromNote: boolean;
   ShowCommentOnMemos: boolean;
+  ShowLeftSideBar: boolean;
 }
 
 export const DEFAULT_SETTINGS: MemosSettings = {
@@ -52,6 +54,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   ShareFooterStart: '{MemosNum} Memos {UsedDay} Day',
   ShareFooterEnd: '✍️ by {UserName}',
   DefaultPrefix: 'List',
+  UseDailyOrPeriodic: 'Daily',
   InsertDateFormat: 'Tasks',
   DefaultEditorLocation: 'Top',
   UseButtonToShowEditor: false,
@@ -76,6 +79,7 @@ export const DEFAULT_SETTINGS: MemosSettings = {
   FetchMemosMark: '#memo',
   FetchMemosFromNote: false,
   ShowCommentOnMemos: false,
+  ShowLeftSideBar: false,
 };
 
 export class MemosSettingTab extends PluginSettingTab {
@@ -251,6 +255,16 @@ export class MemosSettingTab extends PluginSettingTab {
         }),
       );
 
+    new Setting(containerEl)
+      .setName(t('Always Show Leaf Sidebar on PC'))
+      .setDesc(t('Show left sidebar on PC even when the leaf width is less than 875px. False by default.'))
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.ShowLeftSideBar).onChange(async (value) => {
+          this.plugin.settings.ShowLeftSideBar = value;
+          this.applySettingsUpdate();
+        }),
+      );
+
     this.containerEl.createEl('h1', { text: t('Advanced Options') });
 
     // new Setting(containerEl)
@@ -347,6 +361,7 @@ export class MemosSettingTab extends PluginSettingTab {
           .onChange(async (value) => {
             await this.changeFileName(this.plugin.settings.DeleteFileName, value);
             this.plugin.settings.DeleteFileName = value;
+
             this.applySettingsUpdate();
           }),
       );
@@ -361,6 +376,7 @@ export class MemosSettingTab extends PluginSettingTab {
           .onChange(async (value) => {
             await this.changeFileName(this.plugin.settings.QueryFileName, value);
             this.plugin.settings.QueryFileName = value;
+
             this.applySettingsUpdate();
           }),
       );
@@ -459,6 +475,19 @@ export class MemosSettingTab extends PluginSettingTab {
       );
 
     this.containerEl.createEl('h1', { text: t('Experimental Options') });
+
+    new Setting(containerEl)
+      .setName(t("Use Which Plugin's Default Configuration"))
+      .setDesc(t("Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default."))
+      .addDropdown(async (d: DropdownComponent) => {
+        dropdown = d;
+        dropdown.addOption('Daily', t('Daily'));
+        dropdown.addOption('Periodic', 'Periodic');
+        dropdown.setValue(this.plugin.settings.UseDailyOrPeriodic).onChange(async (value) => {
+          this.plugin.settings.UseDailyOrPeriodic = value;
+          this.applySettingsUpdate();
+        });
+      });
 
     new Setting(containerEl)
       .setName(t('Default Memo Composition'))

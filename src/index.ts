@@ -67,6 +67,18 @@ export default class MemosPlugin extends Plugin {
     );
   }
 
+  onRegisterProjectView(data: DataFrame, contentEl: HTMLElement) {
+    contentEl.createEl('h1', { text: 'Debug' });
+
+    const ul = contentEl.createEl('ul');
+
+    for (const field of data.fields) {
+      ul.createEl('li', {
+        text: field.name,
+      });
+    }
+  }
+
   async onLayoutReady(): Promise<void> {
     addIcons();
     this.addSettingTab(new MemosSettingTab(this.app, this));

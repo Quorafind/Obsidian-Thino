@@ -1,4 +1,4 @@
-import { HoverPopover, ItemView, TFile, WorkspaceLeaf } from 'obsidian';
+import { debounce, HoverPopover, ItemView, Platform, TFile, WorkspaceLeaf } from 'obsidian';
 import { MEMOS_VIEW_TYPE } from './constants';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,16 +15,6 @@ export class Memos extends ItemView {
   constructor(leaf: WorkspaceLeaf, plugin: MemosPlugin) {
     super(leaf);
     this.plugin = plugin;
-
-    // this.plugin.settings = null;
-    // 	plugin.settings.subscribe((val:any) => {
-    // 	this.plugin.settings = val;
-
-    // 	// Refresh the calendar if settings change
-    // 	if (this.memosComponent) {
-    // 		useRefresh();
-    // 	}
-    // 	});
   }
 
   getDisplayText(): string {
@@ -55,7 +45,7 @@ export class Memos extends ItemView {
 
   private async onFileModified(file: TFile): Promise<void> {
     const date = getDateFromFile(file, 'day');
-
+    console.log('debounce');
     if (globalStateService.getState().changedByMemos) {
       globalStateService.setChangedByMemos(false);
       return;
@@ -63,7 +53,7 @@ export class Memos extends ItemView {
     if (date && this.memosComponent) {
       // memoService.clearMemos();
 
-      await memoService.fetchAllMemos();
+      memoService.fetchAllMemos();
     }
   }
 
@@ -81,16 +71,22 @@ export class Memos extends ItemView {
     const leaves = this.app.workspace.getLeavesOfType(MEMOS_VIEW_TYPE);
     if (leaves.length > 0) {
       const leaf = leaves[0];
-      if (leaf.width <= 875) {
+      if (leaf.width > 875) {
         // hide the sidebar
-        globalStateService.setIsMobileView(true);
-        leaf.view.containerEl.classList.add('mobile-view');
-        globalStateService.setIsMobileView(leaf.width <= 875);
-      } else {
+
         globalStateService.setIsMobileView(false);
         leaf.view.containerEl.classList.remove('mobile-view');
         globalStateService.setIsMobileView(leaf.width <= 875);
+        return;
       }
+
+      if (ShowLeftSideBar && !Platform.isMobile) {
+        return;
+      }
+
+      globalStateService.setIsMobileView(true);
+      leaf.view.containerEl.classList.add('mobile-view');
+      globalStateService.setIsMobileView(leaf.width <= 875);
     }
   }
 
@@ -107,7 +103,7 @@ export class Memos extends ItemView {
 
     this.registerEvent(this.app.vault.on('create', this.onFileCreated));
     this.registerEvent(this.app.vault.on('delete', this.onFileDeleted));
-    this.registerEvent(this.app.vault.on('modify', this.onFileModified));
+    this.registerEvent(this.app.vault.on('modify', debounce(this.onFileModified, 2000, true)));
     this.registerEvent(
       this.app.workspace.on('resize', () => {
         this.handleResize();
@@ -166,6 +162,8 @@ export class Memos extends ItemView {
     FetchMemosMark = this.plugin.settings.FetchMemosMark;
     FetchMemosFromNote = this.plugin.settings.FetchMemosFromNote;
     ShowCommentOnMemos = this.plugin.settings.ShowCommentOnMemos;
+    UseDailyOrPeriodic = this.plugin.settings.UseDailyOrPeriodic;
+    ShowLeftSideBar = this.plugin.settings.ShowLeftSideBar;
 
     this.memosComponent = React.createElement(App);
 
@@ -210,3 +208,5 @@ export let CommentsInOriginalNotes: boolean;
 export let FetchMemosMark: string;
 export let FetchMemosFromNote: boolean;
 export let ShowCommentOnMemos: boolean;
+export let UseDailyOrPeriodic: string;
+export let ShowLeftSideBar: boolean;

@@ -18,7 +18,7 @@ interface LinkMatch {
 
 const MemoImage: React.FC<Props> = (props: Props) => {
   const { memo } = props;
-  
+
   const getPathOfImage = (vault: Vault, image: TFile) => {
     return vault.getResourcePath(image);
   };
@@ -110,17 +110,17 @@ const MemoImage: React.FC<Props> = (props: Props) => {
     }
     if (allInternalLink.length) {
       for (let i = 0; i < allInternalLink.length; i++) {
-        const one = allInternalLink[i];
-        internalImageUrls.push(detectWikiInternalLink(one));
+        const allInternalLinkElement = allInternalLink[i];
+        internalImageUrls.push(detectWikiInternalLink(allInternalLinkElement));
       }
     }
     if (allMarkdownLink.length) {
       for (let i = 0; i < allMarkdownLink.length; i++) {
-        const two = allMarkdownLink[i];
-        if (/(.*)http[s]?(.*)/.test(two)) {
-          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(two)?.[5]);
+        const allMarkdownLinkElement = allMarkdownLink[i];
+        if (/(.*)http[s]?(.*)/.test(allMarkdownLinkElement)) {
+          anotherExternalImageUrls.push(MARKDOWN_URL_REG.exec(allMarkdownLinkElement)?.[5]);
         } else {
-          internalImageUrls.push(detectMDInternalLink(two));
+          internalImageUrls.push(detectMDInternalLink(allMarkdownLinkElement));
         }
       }
     }

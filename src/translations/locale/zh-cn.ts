@@ -180,4 +180,17 @@ export default {
     '使用 Memos 来管理你笔记中的 Memos，不单只 DailyNotes 中的内容。默认为关闭',
   'Always Show Memo Comments': '评论将总是可见',
   'Always show memo comments on memos. False by default': '当开启后评论总是会在 Memo 的下方展示。默认为关闭',
+  "You didn't set folder for daily notes in both periodic-notes and daily-notes plugins.":
+    '你在 Periodic Notes 插件和日记插件都没设置日记的所在文件夹',
+  'Please check your daily note plugin OR periodic notes plugin settings':
+    '请检查你的日记插件和/或 Periodic Notes 插件的设置',
+  "Use Which Plugin's Default Configuration": '使用哪个插件的默认日记配置',
+  "Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.":
+    'Memos 采用指定插件的默认配置来获取 Memos。默认为日记插件。',
+  Daily: '日记插件',
+  'Always Show Leaf Sidebar on PC': '在 PC 上总是展示左侧栏',
+  'Show left sidebar on PC even when the leaf width is less than 875px. False by default.':
+    '在 PC 上即使页面宽度小于 875px 时都展示左侧栏。默认为关闭',
+  "You didn't set format for daily notes in both periodic-notes and daily-notes plugins.":
+    '你在 Periodic Notes 插件和日记插件都没设置日记的格式',
 };

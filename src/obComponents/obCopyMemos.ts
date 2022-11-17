@@ -1,8 +1,7 @@
 import { moment } from 'obsidian';
 import { AddBlankLineWhenDate, CommentOnMemos, DefaultMemoComposition, ShowDate, ShowTime } from '../memos';
 import { memoService } from '../services';
-import utils from '../helpers/utils';
-import { getDailyNoteFormat } from './obUpdateMemo';
+import utils, { getDailyNoteFormat } from '../helpers/utils';
 
 export const getMemosByDate = (memos: Model.Memo[]) => {
   const dataArr = [] as any[];

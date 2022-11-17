@@ -1,5 +1,5 @@
 import { moment, TFile } from 'obsidian';
-import { getDailyNote, getDailyNoteSettings } from 'obsidian-daily-notes-interface';
+import { getDailyNote } from 'obsidian-daily-notes-interface';
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
 import appStore from '../stores/appStore';
@@ -52,32 +52,6 @@ export function getFile(memoid: string): TFile {
   const changeDate = moment(timeString, 'YYYYMMDDHHmmSS');
   const dailyNote = getDailyNote(changeDate, dailyNotes);
   return dailyNote;
-}
-
-export function getDailyNoteFormat(): string {
-  let dailyNoteFormat = '';
-  if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day').enabled) {
-    const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-    dailyNoteFormat = periodicNotes.calendarSetManager.getActiveConfig('day').format || 'YYYY-MM-DD';
-    return dailyNoteFormat;
-  }
-  const dailyNotesSetting = getDailyNoteSettings();
-  dailyNoteFormat = dailyNotesSetting.format;
-  return dailyNoteFormat;
-}
-
-export function getDailyNotePath(): string {
-  let dailyNotePath = '';
-  // console.log(window.app.plugins.getPlugin('periodic-notes'));
-  // const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-  if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day').enabled) {
-    const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-    dailyNotePath = periodicNotes.calendarSetManager.getActiveConfig('day').folder;
-    return dailyNotePath;
-  }
-  const dailyNotesSetting = getDailyNoteSettings();
-  dailyNotePath = dailyNotesSetting.folder;
-  return dailyNotePath;
 }
 
 const getAllLinesFromFile = (cache: string) => cache.split(/\r?\n/);

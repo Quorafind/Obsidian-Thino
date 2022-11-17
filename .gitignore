@@ -6,3 +6,13 @@ dist-ssr
 
 .yarn/*
 .idea
+desktop.ini
+
+logs.txt
+logo.svg
+
+*.zip
+*.rar
+
+*.log
+

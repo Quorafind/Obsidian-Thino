@@ -1,5 +1,8 @@
-import { moment, TFile } from 'obsidian';
+import { moment, Notice, TFile } from 'obsidian';
 import { createDailyNote } from 'obsidian-daily-notes-interface';
+import { getDailyNoteSettings } from '_obsidian-daily-notes-interface@0.9.4@obsidian-daily-notes-interface';
+import { t } from '../translations/helper';
+import { UseDailyOrPeriodic } from '../memos';
 
 namespace utils {
   export function getNowTimeStamp(): number {
@@ -105,6 +108,37 @@ namespace utils {
         timer = setTimeout(fn, delay);
       }
     };
+  }
+
+  export function debouncePlus(fn: FunctionType, delay: number, immdiate = false, resultCallback) {
+    let timer: number = null;
+    let isInvoke = false;
+
+    function _debounce(...arg: any[]) {
+      if (timer) clearTimeout(timer);
+      if (immdiate && !isInvoke) {
+        const result = fn.apply(this, arg);
+        if (resultCallback && typeof resultCallback === 'function') resultCallback(result);
+        isInvoke = true;
+      } else {
+        timer = setTimeout(() => {
+          const result = fn.apply(this, arg);
+          if (resultCallback && typeof resultCallback === 'function') resultCallback(result);
+          isInvoke = false;
+          timer = null;
+        }, delay);
+      }
+    }
+
+    console.log('hi');
+
+    _debounce.cancel = function () {
+      if (timer) clearTimeout(timer);
+      timer = null;
+      isInvoke = false;
+    };
+
+    return _debounce;
   }
 
   export function throttle(fn: FunctionType, delay: number) {
@@ -219,15 +253,117 @@ namespace utils {
   export async function createDailyNoteCheck(date: any): Promise<TFile> {
     let file;
 
+<<<<<<< HEAD
     if (window.app.plugins?.getPlugin('periodic-notes')?.calendarSetManager.getActiveConfig('day')?.enabled) {
       const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
       file = await periodicNotes.createPeriodicNote('day', date);
       return file;
+=======
+    switch (UseDailyOrPeriodic) {
+      case 'Daily':
+        file = await createDailyNote(date);
+        break;
+      case 'Periodic':
+        file = await window.app.plugins.getPlugin('periodic-notes')?.createDailyNote('day', date);
+        break;
+      default:
+        file = await createDailyNote(date);
+        break;
+>>>>>>> 4a164c298b6ec45f63cfe1973279f2e915033675
     }
 
     file = await createDailyNote(date);
     return file;
   }
+}
+
+export function getDailyNoteFormat(): string {
+  let dailyNoteFormat = '';
+
+  let dailyNoteTempForPeriodicNotes = '';
+  const folderFromPeriodicNotesNew = window.app.plugins
+    .getPlugin('periodic-notes')
+    ?.calendarSetManager?.getActiveConfig('day')?.folder;
+  const folderFromPeriodicNotes = window.app.plugins.getPlugin('periodic-notes')?.settings?.daily?.format;
+
+  if (folderFromPeriodicNotesNew === undefined) {
+    dailyNoteTempForPeriodicNotes = folderFromPeriodicNotes;
+  } else {
+    dailyNoteTempForPeriodicNotes = folderFromPeriodicNotesNew;
+  }
+  switch (UseDailyOrPeriodic) {
+    case 'Daily':
+      dailyNoteFormat = getDailyNoteSettings().format || 'YYYY-MM-DD';
+      break;
+    case 'Periodic':
+      dailyNoteFormat = dailyNoteTempForPeriodicNotes || 'YYYY-MM-DD';
+      break;
+    default:
+      dailyNoteFormat = getDailyNoteSettings().format || 'YYYY-MM-DD';
+      break;
+  }
+  if (dailyNoteFormat === '' || dailyNoteFormat === undefined) {
+    new Notice(t("You didn't set format for daily notes in both periodic-notes and daily-notes plugins."));
+  }
+  return dailyNoteFormat;
+  // if (window.app.plugins.getPlugin('periodic-notes')?.calendarSetManager?.getActiveConfig('day').enabled) {
+  //   const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+  //   dailyNoteFormat = periodicNotes.calendarSetManager.getActiveConfig('day').format || 'YYYY-MM-DD';
+  //   return dailyNoteFormat;
+  // }
+  // if (window.app.plugins.getPlugin('periodic-notes')?.settings?.daily) {
+  //   const dailyNotes = window.app.plugins.getPlugin('periodic-notes');
+  //   dailyNoteFormat = dailyNotes.settings.daily.format || 'YYYY-MM-DD';
+  //   return dailyNoteFormat;
+  // }
+  // const dailyNotesSetting = getDailyNoteSettings();
+  // dailyNoteFormat = dailyNotesSetting.format;
+  // return dailyNoteFormat;
+}
+
+export function getDailyNotePath(): string {
+  let dailyNotePath = '';
+  let dailyNoteTempForPeriodicNotes = '';
+  const folderFromPeriodicNotesNew = window.app.plugins
+    .getPlugin('periodic-notes')
+    ?.calendarSetManager?.getActiveConfig('day')?.folder;
+  const folderFromPeriodicNotes = window.app.plugins.getPlugin('periodic-notes')?.settings?.daily?.folder;
+
+  if (folderFromPeriodicNotesNew === undefined) {
+    dailyNoteTempForPeriodicNotes = folderFromPeriodicNotes;
+  } else {
+    dailyNoteTempForPeriodicNotes = folderFromPeriodicNotesNew;
+  }
+  switch (UseDailyOrPeriodic) {
+    case 'Daily':
+      dailyNotePath = getDailyNoteSettings().folder || '';
+      break;
+    case 'Periodic':
+      dailyNotePath = dailyNoteTempForPeriodicNotes || '';
+      break;
+    default:
+      dailyNotePath = getDailyNoteSettings().folder || '';
+      break;
+  }
+  // console.log(window.app.plugins.getPlugin('periodic-notes'));
+  // const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+  // if (folderFromPeriodicNotesNew !== '' && folderFromPeriodicNotesNew !== undefined) {
+  //   // const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+  //   dailyNotePath = window.app.plugins.getPlugin('periodic-notes').calendarSetManager.getActiveConfig('day').folder;
+  //   return dailyNotePath;
+  // }
+  // if (folderFromPeriodicNotes !== undefined && folderFromPeriodicNotes !== '') {
+  //   // const dailyNotes = window.app.plugins.getPlugin('periodic-notes');
+  //   dailyNotePath = window.app.plugins.getPlugin('periodic-notes').settings.daily.folder;
+  //   // console.log(dailyNotePath);
+  //   return dailyNotePath;
+  // }
+  // const dailyNotesSetting = getDailyNoteSettings();
+  // dailyNotePath = dailyNotesSetting.folder;
+  if (dailyNotePath === '' || dailyNotePath === undefined) {
+    new Notice(t("You didn't set folder for daily notes in both periodic-notes and daily-notes plugins."));
+  }
+  return dailyNotePath;
 }
 
 export default utils;

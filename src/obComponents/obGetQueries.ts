@@ -1,6 +1,7 @@
-import { getDailyNotePath } from './obUpdateMemo';
 import { moment, TFile } from 'obsidian';
 import appStore from '../stores/appStore';
+import { QueryFileName } from '../memos';
+import { getDailyNotePath } from '../helpers/utils';
 
 export const findQuery = async (): Promise<any[]> => {
   const { metadataCache, vault } = appStore.getState().dailyNotesState.app;
@@ -8,7 +9,7 @@ export const findQuery = async (): Promise<any[]> => {
   const queryList = [];
 
   const filePath = getDailyNotePath();
-  const absolutePath = filePath + '/query.md';
+  const absolutePath = filePath + '/' + QueryFileName + '.md';
 
   const queryFile = metadataCache.getFirstLinkpathDest('', absolutePath);
   if (queryFile instanceof TFile) {
