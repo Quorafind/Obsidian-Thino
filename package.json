@@ -14,7 +14,8 @@
     "build:nolint": "NODE_ENV=production rollup -c",
     "build": "vite build",
     "test": "jest",
-    "test:watch": "yarn test -- --watch"
+    "test:watch": "yarn test -- --watch",
+    "push": "git push -u origin HEAD"
   },
   "dependencies": {
     "obsidian": "0.16.3",
