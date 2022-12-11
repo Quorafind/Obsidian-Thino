@@ -137,7 +137,8 @@ const MemoList: React.FC<Props> = () => {
         .then(() => {
           setFetchStatus(false);
         })
-        .catch(() => {
+        .catch((e) => {
+          console.error(e);
           new Notice(t('Fetch Error'));
         });
     }, 400);

@@ -306,12 +306,17 @@ namespace utils {
       case 'Periodic': {
         // Periodic 没有 api 拿到所有时间的，只能暂时先写今天
         const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
-        const file = periodicNotes.getPeriodicNote('day', moment());
-        return {
-          today: file,
-        } as Record<string, TFile>;
+        if (periodicNotes) {
+          const file = periodicNotes.getPeriodicNote('day', moment());
+          if (file) {
+            return {
+              today: file,
+            } as Record<string, TFile>;
+          }
+        }
       }
     }
+    return {} as Record<string, TFile>;
   }
 }
 

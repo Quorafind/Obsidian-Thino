@@ -30413,12 +30413,17 @@ var utils;
         return getAllDailyNotes_1();
       case "Periodic": {
         const periodicNotes = window.app.plugins.getPlugin("periodic-notes");
-        const file = periodicNotes.getPeriodicNote("day", require$$0.moment());
-        return {
-          today: file
-        };
+        if (periodicNotes) {
+          const file = periodicNotes.getPeriodicNote("day", require$$0.moment());
+          if (file) {
+            return {
+              today: file
+            };
+          }
+        }
       }
     }
+    return {};
   }
   utils2.getAllDailyNotes = getAllDailyNotes2;
 })(utils || (utils = {}));
@@ -40396,7 +40401,8 @@ const MemoList = () => {
     setTimeout(() => {
       memoService.fetchAllMemos().then(() => {
         setFetchStatus(false);
-      }).catch(() => {
+      }).catch((e) => {
+        console.error(e);
         new require$$0.Notice(t$1("Fetch Error"));
       });
     }, 400);
