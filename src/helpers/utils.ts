@@ -256,9 +256,15 @@ namespace utils {
       case 'Daily':
         file = await createDailyNote(date);
         break;
-      case 'Periodic':
-        file = await window.app.plugins.getPlugin('periodic-notes')?.createDailyNote('day', date);
+      case 'Periodic': {
+        const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+        if (periodicNotes?.createDailyNote) {
+          file = await periodicNotes.createDailyNote('day', date);
+        } else if (periodicNotes?.createPeriodicNote) {
+          file = await periodicNotes.createPeriodicNote('day', date);
+        }
         break;
+      }
       default:
         file = await createDailyNote(date);
         break;
