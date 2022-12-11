@@ -7,7 +7,6 @@ import utils from '../helpers/utils';
 import '../less/usage-heat-map.less';
 import { moment, Platform } from 'obsidian';
 import { t } from '../translations/helper';
-import { getDailyNote } from 'obsidian-daily-notes-interface';
 
 const tableConfig = {
   width: 12,
@@ -56,7 +55,7 @@ const UsageHeatMap: React.FC<Props> = () => {
   const [allStat, setAllStat] = useState<DailyUsageStat[]>(getInitialUsageStat(usedDaysAmount, beginDayTimestamp));
   const [popupStat, setPopupStat] = useState<DailyUsageStat | null>(null);
   const [currentStat, setCurrentStat] = useState<DailyUsageStat | null>(null);
-  const [fromTo, setFromTo, fromToRef] = useState('');
+  const [_, setFromTo, fromToRef] = useState('');
   const containerElRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -99,7 +98,7 @@ const UsageHeatMap: React.FC<Props> = () => {
     setPopupStat(null);
   }, []);
 
-  const handleUsageStatItemClick = useCallback((event: React.MouseEvent, item: DailyUsageStat) => {
+  const handleUsageStatItemClick = useCallback(async (event: React.MouseEvent, item: DailyUsageStat) => {
     if (
       locationService.getState().query.duration?.from === item.timestamp &&
       moment(locationService.getState().query.duration?.from).diff(
@@ -174,9 +173,9 @@ const UsageHeatMap: React.FC<Props> = () => {
     } else if (locationService.getState().query.duration?.from === 0 && event.shiftKey) {
       locationService.setFromAndToQuery(item.timestamp, parseInt(moment().endOf('day').format('x')));
     } else if (item.count > 0 && (event.ctrlKey || event.metaKey)) {
-      const { app, dailyNotes } = dailyNotesService.getState();
+      const { app } = dailyNotesService.getState();
 
-      const file = getDailyNote(moment(item.timestamp), dailyNotes);
+      const file = await utils.getDailyNote(moment(item.timestamp));
       if (!Platform.isMobile) {
         const leaf = app.workspace.splitActiveLeaf();
         leaf.openFile(file);

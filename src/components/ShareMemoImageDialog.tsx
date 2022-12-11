@@ -26,7 +26,6 @@ import {
 import lightBackground from '../icons/lightBackground.svg';
 import darkBackground from '../icons/darkBackground.svg';
 
-import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import { t } from '../translations/helper';
 import { dailyNotesService } from '../services';
 import Share from '../icons/share.svg?component';
@@ -288,7 +287,7 @@ const ShareMemoImageDialog: React.FC<Props> = (props: Props) => {
     if (AutoSaveWhenOnMobile && Platform.isMobile) {
       blobInput.arrayBuffer().then(async (buffer) => {
         const ext = 'png';
-        const dailyNotes = getAllDailyNotes();
+        const dailyNotes = utils.getAllDailyNotes();
         for (const string in dailyNotes) {
           if (dailyNotes[string] instanceof TFile) {
             aFile = dailyNotes[string];

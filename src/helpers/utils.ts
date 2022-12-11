@@ -1,5 +1,10 @@
 import { moment, Notice, TFile } from 'obsidian';
-import { createDailyNote, getDailyNoteSettings } from 'obsidian-daily-notes-interface';
+import {
+  createDailyNote,
+  getDailyNoteSettings,
+  getDailyNote as _getDailyNote,
+  getAllDailyNotes as _getAllDailyNotes,
+} from 'obsidian-daily-notes-interface';
 import { t } from '../translations/helper';
 import { UseDailyOrPeriodic } from '../memos';
 
@@ -249,6 +254,24 @@ namespace utils {
     });
   }
 
+  export async function getDailyNote(date: any): Promise<TFile> {
+    let file;
+    switch (UseDailyOrPeriodic) {
+      case 'Daily': {
+        const dailyNotes = _getAllDailyNotes();
+        file = _getDailyNote(date, dailyNotes);
+        break;
+      }
+      case 'Periodic': {
+        const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+        file = periodicNotes?.getPeriodicNote('day', date);
+        break;
+      }
+    }
+
+    return file;
+  }
+
   export async function createDailyNoteCheck(date: any): Promise<TFile> {
     let file;
 
@@ -275,6 +298,20 @@ namespace utils {
     }
 
     return file;
+  }
+  export function getAllDailyNotes() {
+    switch (UseDailyOrPeriodic) {
+      case 'Daily':
+        return _getAllDailyNotes();
+      case 'Periodic': {
+        // Periodic 没有 api 拿到所有时间的，只能暂时先写今天
+        const periodicNotes = window.app.plugins.getPlugin('periodic-notes');
+        const file = periodicNotes.getPeriodicNote('day', moment());
+        return {
+          today: file,
+        } as Record<string, TFile>;
+      }
+    }
   }
 }
 

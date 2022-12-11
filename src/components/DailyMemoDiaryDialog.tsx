@@ -16,7 +16,6 @@ import ArrowRight from '../icons/arrow-right.svg?component';
 import ArrowLeft from '../icons/arrow-left.svg?component';
 import { AutoSaveWhenOnMobile } from '../memos';
 import { moment, Platform, TFile } from 'obsidian';
-import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
 import { t } from '../translations/helper';
 
@@ -82,7 +81,7 @@ const DailyMemoDiaryDialog: React.FC<Props> = (props: Props) => {
               let aFile;
               let newFile;
               const ext = 'png';
-              const dailyNotes = getAllDailyNotes();
+              const dailyNotes = utils.getAllDailyNotes();
               for (const string in dailyNotes) {
                 if (dailyNotes[string] instanceof TFile) {
                   aFile = dailyNotes[string];

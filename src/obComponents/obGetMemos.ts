@@ -1,5 +1,5 @@
 import { moment, normalizePath, Notice, TFile, TFolder } from 'obsidian';
-import { getAllDailyNotes, getDateFromFile } from 'obsidian-daily-notes-interface';
+import { getDateFromFile } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
 import {
   CommentOnMemos,
@@ -13,7 +13,7 @@ import {
 } from '../memos';
 import { getAPI } from 'obsidian-dataview';
 import { t } from '../translations/helper';
-import { getDailyNotePath } from '../helpers/utils';
+import utils, { getDailyNotePath } from '../helpers/utils';
 
 export class DailyNotesFolderMissingError extends Error {}
 
@@ -269,8 +269,8 @@ export async function getMemosFromNote(allMemos: any[], commentMemos: any[]): Pr
       const line = list.values[j].line;
       let memoType = 'JOURNAL';
       let hasId;
-     // let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
-      let realCreateDate = createDate.toFormat("yyyy-MM-dd HH:mm");
+      // let realCreateDate = moment(createDate, 'YYYY-MM-DD HH:mm');
+      let realCreateDate = createDate.toFormat('yyyy-MM-dd HH:mm');
       if (/\^\S{6}$/g.test(content)) {
         hasId = content.slice(-6);
         // originId = hasId;
@@ -366,7 +366,7 @@ export async function getMemos(): Promise<allKindsofMemos> {
     throw new DailyNotesFolderMissingError('Failed to find daily notes folder');
   }
 
-  const dailyNotes = getAllDailyNotes();
+  const dailyNotes = utils.getAllDailyNotes();
 
   for (const string in dailyNotes) {
     if (dailyNotes[string] instanceof TFile && dailyNotes[string].extension === 'md') {

@@ -1,10 +1,9 @@
 // import api from "../helpers/api";
 
 import { moment, TFile } from 'obsidian';
-import { createDailyNote, getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
 import { memoService } from './index';
-// import dailyNotesService from './dailyNotesService';
+import utils from '../helpers/utils';
 
 // interface FileData {
 //   buffer: ArrayBuffer;
@@ -24,12 +23,11 @@ class ResourceService {
     const fileArray = await file.arrayBuffer();
     const ext = getExt(file.type);
 
-    const dailyNotes = getAllDailyNotes();
     const date = moment();
-    const existingFile = getDailyNote(date, dailyNotes);
+    const existingFile = await utils.getDailyNote(date);
     let newFile;
     if (!existingFile) {
-      const dailyFile = await createDailyNote(date);
+      const dailyFile = await utils.createDailyNoteCheck(date);
       newFile = await vault.createBinary(
         //@ts-expect-error, private method
         await vault.getAvailablePathForAttachments(`Pasted Image ${moment().format('YYYYMMDDHHmmss')}`, ext, dailyFile),

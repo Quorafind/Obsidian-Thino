@@ -1,9 +1,9 @@
 import { moment, normalizePath, Notice, TFile } from 'obsidian';
 import appStore from '../stores/appStore';
-import { createDailyNote, getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
+import { createDailyNote } from 'obsidian-daily-notes-interface';
 import { insertAfterHandler } from './obCreateMemo';
 import { DeleteFileName, InsertAfter } from '../memos';
-import { getDailyNotePath } from '../helpers/utils';
+import utils, { getDailyNotePath } from '../helpers/utils';
 
 export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> {
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
@@ -29,8 +29,7 @@ export async function restoreDeletedMemo(deletedMemoid: string): Promise<any[]> 
           const timeMinute = date.format('mm');
 
           const newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + extractContentfromText(line);
-          const dailyNotes = await getAllDailyNotes();
-          const existingFile = getDailyNote(date, dailyNotes);
+          const existingFile = await utils.getDailyNote(date);
           if (!existingFile) {
             const file = await createDailyNote(date);
             const fileContents = await vault.read(file);

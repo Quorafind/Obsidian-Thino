@@ -1,5 +1,5 @@
 import { App, TFile } from 'obsidian';
-import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
+import utils from '../helpers/utils';
 
 export interface State {
   dailyNotes: Record<string, TFile>;
@@ -32,7 +32,7 @@ export type Actions = SetDailyNotesAction | SetObsidianAppAction;
 export function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case 'SET_DAILYNOTES': {
-      const dailyNotes = getAllDailyNotes();
+      const dailyNotes = utils.getAllDailyNotes();
 
       return {
         ...state,

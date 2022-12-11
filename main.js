@@ -30364,6 +30364,23 @@ var utils;
     });
   }
   utils2.getImageSize = getImageSize;
+  async function getDailyNote2(date) {
+    let file;
+    switch (UseDailyOrPeriodic) {
+      case "Daily": {
+        const dailyNotes = getAllDailyNotes_1();
+        file = getDailyNote_1(date, dailyNotes);
+        break;
+      }
+      case "Periodic": {
+        const periodicNotes = window.app.plugins.getPlugin("periodic-notes");
+        file = periodicNotes == null ? void 0 : periodicNotes.getPeriodicNote("day", date);
+        break;
+      }
+    }
+    return file;
+  }
+  utils2.getDailyNote = getDailyNote2;
   async function createDailyNoteCheck(date) {
     let file;
     switch (UseDailyOrPeriodic) {
@@ -30390,6 +30407,20 @@ var utils;
     return file;
   }
   utils2.createDailyNoteCheck = createDailyNoteCheck;
+  function getAllDailyNotes2() {
+    switch (UseDailyOrPeriodic) {
+      case "Daily":
+        return getAllDailyNotes_1();
+      case "Periodic": {
+        const periodicNotes = window.app.plugins.getPlugin("periodic-notes");
+        const file = periodicNotes.getPeriodicNote("day", require$$0.moment());
+        return {
+          today: file
+        };
+      }
+    }
+  }
+  utils2.getAllDailyNotes = getAllDailyNotes2;
 })(utils || (utils = {}));
 function getDailyNoteFormat() {
   var _a, _b, _c, _d, _e, _f;
@@ -30624,7 +30655,7 @@ const defaultState$1 = {
 function reducer(state, action) {
   switch (action.type) {
     case "SET_DAILYNOTES": {
-      const dailyNotes = getAllDailyNotes_1();
+      const dailyNotes = utils$1.getAllDailyNotes();
       return {
         ...state,
         dailyNotes
@@ -30702,7 +30733,7 @@ class DailyNotesService {
     return app2;
   }
   async getMyAllDailyNotes() {
-    const dailyNotes = getAllDailyNotes_1();
+    const dailyNotes = utils$1.getAllDailyNotes();
     appStore.dispatch({
       type: "SET_DAILYNOTES",
       payload: {
@@ -30712,8 +30743,7 @@ class DailyNotesService {
     return dailyNotes;
   }
   async getDailyNoteByMemo(date) {
-    const { dailyNotes } = this.getState();
-    const dailyNote = getDailyNote_1(date, dailyNotes);
+    const dailyNote = await utils$1.getDailyNote(date);
     return dailyNote;
   }
 }
@@ -31435,7 +31465,7 @@ async function getMemos() {
   if (!dailyNotesFolder) {
     throw new DailyNotesFolderMissingError("Failed to find daily notes folder");
   }
-  const dailyNotes = getAllDailyNotes_1();
+  const dailyNotes = utils$1.getAllDailyNotes();
   for (const string in dailyNotes) {
     if (dailyNotes[string] instanceof require$$0.TFile && dailyNotes[string].extension === "md") {
       await getMemosFromDailyNote(dailyNotes[string], memos, commentMemos);
@@ -31632,8 +31662,7 @@ async function waitForInsert(MemoContent, isTASK, insertDate) {
   } else if (!isTASK && DefaultMemoComposition != "") {
     newEvent = `- ` + DefaultMemoComposition.replace(/{TIME}/g, timeText).replace(/{CONTENT}/g, removeEnter);
   }
-  const dailyNotes = await getAllDailyNotes_1();
-  const existingFile = getDailyNote_1(date, dailyNotes);
+  const existingFile = await utils$1.getDailyNote(date);
   if (!existingFile) {
     const file = await utils$1.createDailyNoteCheck(date);
     await dailyNotesService.getMyAllDailyNotes();
@@ -31793,8 +31822,7 @@ async function restoreDeletedMemo(deletedMemoid) {
           const timeHour = date.format("HH");
           const timeMinute = date.format("mm");
           const newEvent = `- ` + String(timeHour) + `:` + String(timeMinute) + ` ` + extractContentfromText$1(line);
-          const dailyNotes = await getAllDailyNotes_1();
-          const existingFile = getDailyNote_1(date, dailyNotes);
+          const existingFile = await utils$1.getDailyNote(date);
           if (!existingFile) {
             const file = await createDailyNote_1(date);
             const fileContents2 = await vault.read(file);
@@ -31950,13 +31978,12 @@ const extractDeleteDatefromText = (line) => {
   return (_a = /^- (\d+)\s(.+)\s(deletedAt: )(.+)$/.exec(line)) == null ? void 0 : _a[4];
 };
 async function obHideMemo(memoid) {
-  const { dailyNotes } = dailyNotesService.getState();
   if (/\d{14,}/.test(memoid)) {
     const { vault } = appStore.getState().dailyNotesState.app;
     const timeString = memoid.slice(0, 13);
     const idString = parseInt(memoid.slice(14));
     const changeDate = require$$0.moment(timeString, "YYYYMMDDHHmmSS");
-    const dailyNote = getDailyNote_1(changeDate, dailyNotes);
+    const dailyNote = await utils$1.getDailyNote(changeDate);
     const fileContent = await vault.read(dailyNote);
     const fileLines = getAllLinesFromFile$3(fileContent);
     const content = extractContentfromText(fileLines[idString]);
@@ -32119,7 +32146,6 @@ var api;
 })(api || (api = {}));
 const api$1 = api;
 async function changeMemo(memoid, originalContent, content, memoType, path) {
-  const { dailyNotes } = dailyNotesService.getState();
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   const timeString = memoid.slice(0, 14);
   const idString = parseInt(memoid.slice(14));
@@ -32133,7 +32159,7 @@ async function changeMemo(memoid, originalContent, content, memoType, path) {
   if (path !== void 0) {
     file = metadataCache.getFirstLinkpathDest("", path);
   } else {
-    file = getDailyNote_1(changeDate, dailyNotes);
+    file = await utils$1.getDailyNote(changeDate);
   }
   const fileContent = await vault.read(file);
   const fileLines = getAllLinesFromFile(fileContent);
@@ -32470,12 +32496,11 @@ class ResourceService {
     const { vault, fileManager } = appStore.getState().dailyNotesState.app;
     const fileArray = await file.arrayBuffer();
     const ext = getExt(file.type);
-    const dailyNotes = getAllDailyNotes_1();
     const date = require$$0.moment();
-    const existingFile = getDailyNote_1(date, dailyNotes);
+    const existingFile = await utils$1.getDailyNote(date);
     let newFile;
     if (!existingFile) {
-      const dailyFile = await createDailyNote_1(date);
+      const dailyFile = await utils$1.createDailyNoteCheck(date);
       newFile = await vault.createBinary(
         await vault.getAvailablePathForAttachments(`Pasted Image ${require$$0.moment().format("YYYYMMDDHHmmss")}`, ext, dailyFile),
         fileArray
@@ -33779,7 +33804,7 @@ const ShareMemoImageDialog = (props) => {
     if (AutoSaveWhenOnMobile && require$$0.Platform.isMobile) {
       blobInput.arrayBuffer().then(async (buffer) => {
         const ext = "png";
-        const dailyNotes = getAllDailyNotes_1();
+        const dailyNotes = utils$1.getAllDailyNotes();
         for (const string in dailyNotes) {
           if (dailyNotes[string] instanceof require$$0.TFile) {
             aFile = dailyNotes[string];
@@ -36471,7 +36496,7 @@ const DailyMemoDiaryDialog = (props) => {
           blobInput.arrayBuffer().then(async (buffer) => {
             let aFile;
             const ext = "png";
-            const dailyNotes = getAllDailyNotes_1();
+            const dailyNotes = utils$1.getAllDailyNotes();
             for (const string in dailyNotes) {
               if (dailyNotes[string] instanceof require$$0.TFile) {
                 aFile = dailyNotes[string];
@@ -37547,7 +37572,7 @@ const UsageHeatMap = () => {
   const [allStat, setAllStat] = dist(getInitialUsageStat(usedDaysAmount, beginDayTimestamp));
   const [popupStat, setPopupStat] = dist(null);
   const [currentStat, setCurrentStat] = dist(null);
-  const [fromTo, setFromTo, fromToRef] = dist("");
+  const [_, setFromTo, fromToRef] = dist("");
   const containerElRef = react.exports.useRef(null);
   const popupRef = react.exports.useRef(null);
   react.exports.useEffect(() => {
@@ -37582,7 +37607,7 @@ const UsageHeatMap = () => {
   const handleUsageStatItemMouseLeave = react.exports.useCallback(() => {
     setPopupStat(null);
   }, []);
-  const handleUsageStatItemClick = react.exports.useCallback((event, item) => {
+  const handleUsageStatItemClick = react.exports.useCallback(async (event, item) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r;
     if (((_a = locationService.getState().query.duration) == null ? void 0 : _a.from) === item.timestamp && require$$0.moment((_b = locationService.getState().query.duration) == null ? void 0 : _b.from).diff((_c = locationService.getState().query.duration) == null ? void 0 : _c.to, "day") == 0) {
       locationService.setFromAndToQuery(0, 0);
@@ -37622,10 +37647,9 @@ const UsageHeatMap = () => {
       locationService.setFromAndToQuery(item.timestamp, parseInt(require$$0.moment().endOf("day").format("x")));
     } else if (item.count > 0 && (event.ctrlKey || event.metaKey)) {
       const {
-        app: app2,
-        dailyNotes
+        app: app2
       } = dailyNotesService.getState();
-      const file = getDailyNote_1(require$$0.moment(item.timestamp), dailyNotes);
+      const file = await utils$1.getDailyNote(require$$0.moment(item.timestamp));
       if (!require$$0.Platform.isMobile) {
         const leaf = app2.workspace.splitActiveLeaf();
         leaf.openFile(file);

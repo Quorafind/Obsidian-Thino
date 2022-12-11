@@ -1,8 +1,6 @@
 import { moment, TFile } from 'obsidian';
-import { getDailyNote } from 'obsidian-daily-notes-interface';
-// import appStore from "../stores/appStore";
-import dailyNotesService from '../services/dailyNotesService';
 import appStore from '../stores/appStore';
+import utils from '../helpers/utils';
 
 export async function changeMemo(
   memoid: string,
@@ -11,7 +9,6 @@ export async function changeMemo(
   memoType?: string,
   path?: string,
 ): Promise<Model.Memo> {
-  const { dailyNotes } = dailyNotesService.getState();
   const { vault, metadataCache } = appStore.getState().dailyNotesState.app;
   const timeString = memoid.slice(0, 14);
   const idString = parseInt(memoid.slice(14));
@@ -26,7 +23,7 @@ export async function changeMemo(
   if (path !== undefined) {
     file = metadataCache.getFirstLinkpathDest('', path);
   } else {
-    file = getDailyNote(changeDate, dailyNotes);
+    file = await utils.getDailyNote(changeDate);
   }
   const fileContent = await vault.read(file);
   const fileLines = getAllLinesFromFile(fileContent);
@@ -46,11 +43,10 @@ export async function changeMemo(
   };
 }
 
-export function getFile(memoid: string): TFile {
-  const { dailyNotes } = dailyNotesService.getState();
+export async function getFile(memoid: string): Promise<TFile> {
   const timeString = memoid.slice(0, 14);
   const changeDate = moment(timeString, 'YYYYMMDDHHmmSS');
-  const dailyNote = getDailyNote(changeDate, dailyNotes);
+  const dailyNote = await utils.getDailyNote(changeDate);
   return dailyNote;
 }
 

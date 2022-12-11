@@ -1,5 +1,4 @@
 import { moment } from 'obsidian';
-import { getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
 import { DefaultMemoComposition, InsertAfter } from '../memos';
 import { dailyNotesService } from '../services';
@@ -63,8 +62,7 @@ export async function waitForInsert(MemoContent: string, isTASK: boolean, insert
     newEvent = `- ` + DefaultMemoComposition.replace(/{TIME}/g, timeText).replace(/{CONTENT}/g, removeEnter);
   }
 
-  const dailyNotes = await getAllDailyNotes();
-  const existingFile = getDailyNote(date, dailyNotes);
+  const existingFile = await utils.getDailyNote(date);
   if (!existingFile) {
     const file = await utils.createDailyNoteCheck(date);
     await dailyNotesService.getMyAllDailyNotes();
