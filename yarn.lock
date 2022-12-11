@@ -2390,17 +2390,10 @@ obsidian-dataview@0.5.47:
     parsimmon "^1.18.0"
     preact "^10.6.5"
 
-obsidian@0.16.3:
+obsidian@0.16.3, obsidian@obsidianmd/obsidian-api#master:
   version "0.16.3"
   resolved "https://registry.npmjs.org/obsidian/-/obsidian-0.16.3.tgz#137b7e91f949517a1bc817b1d7ef9b8aefb219bc"
   integrity sha512-hal9qk1A0GMhHSeLr2/+o3OpLmImiP+Y+sx2ewP13ds76KXsziG96n+IPFT0mSkup1zSwhEu+DeRhmbcyCCXWw==
-  dependencies:
-    "@types/codemirror" "0.0.108"
-    moment "2.29.4"
-
-obsidian@obsidianmd/obsidian-api#master:
-  version "1.1.1"
-  resolved "https://codeload.github.com/obsidianmd/obsidian-api/tar.gz/cb7d2d94ecce1f668a2eb99901d8c26267e56eaf"
   dependencies:
     "@types/codemirror" "0.0.108"
     moment "2.29.4"
