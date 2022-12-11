@@ -261,7 +261,11 @@ namespace utils {
         if (periodicNotes?.createDailyNote) {
           file = await periodicNotes.createDailyNote('day', date);
         } else if (periodicNotes?.createPeriodicNote) {
-          file = await periodicNotes.createPeriodicNote('day', date);
+          try {
+            file = await periodicNotes.createPeriodicNote('day', date);
+          } catch (error) {
+            file = await periodicNotes.getPeriodicNote('day', date);
+          }
         }
         break;
       }
