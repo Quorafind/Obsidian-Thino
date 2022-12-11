@@ -274,7 +274,6 @@ namespace utils {
         break;
     }
 
-    file = await createDailyNote(date);
     return file;
   }
 }
