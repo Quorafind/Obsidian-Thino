@@ -30387,7 +30387,6 @@ var utils;
         file = await createDailyNote_1(date);
         break;
     }
-    file = await createDailyNote_1(date);
     return file;
   }
   utils2.createDailyNoteCheck = createDailyNoteCheck;
