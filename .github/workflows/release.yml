@@ -5,7 +5,7 @@ on:
         types: [created]
 
 env:
-    PLUGIN_NAME: obsidian-double-click-tab
+    PLUGIN_NAME: obsidian-memos
 
 jobs:
     build:
