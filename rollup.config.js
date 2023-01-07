@@ -8,7 +8,7 @@ import less from '@rollup/plugin-less';
 const isProd = process.env.BUILD === 'production';
 
 export default {
-  input: 'src/index.ts',
+  input: 'src/memosIndex.ts',
   output: {
     format: 'cjs',
     file: 'main.js',

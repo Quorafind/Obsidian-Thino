@@ -4,7 +4,7 @@ import MemoFilter from '../components/MemoFilter';
 import MemoList from '../components/MemoList';
 import React from 'react';
 import { Platform } from 'obsidian';
-import { DefaultEditorLocation } from '../memos';
+import { DefaultEditorLocation } from '../memosView';
 
 function Memos() {
   if (Platform.isMobile && DefaultEditorLocation === 'Bottom') {

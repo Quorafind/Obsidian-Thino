@@ -10,7 +10,7 @@ import {
   FetchMemosMark,
   ProcessEntriesBelow,
   QueryFileName,
-} from '../memos';
+} from '../memosView';
 import { getAPI } from 'obsidian-dataview';
 import { t } from '../translations/helper';
 import { getDailyNotePath } from '../helpers/utils';

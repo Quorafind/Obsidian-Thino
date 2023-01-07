@@ -30,7 +30,7 @@ import {
   ShowCommentOnMemos,
   ShowTaskLabel,
   UseButtonToShowEditor,
-} from '../memos';
+} from '../memosView';
 import { t } from '../translations/helper';
 import Editor, { EditorRefActions } from './Editor/Editor';
 import MemoImage from './MemoImage';

@@ -5,7 +5,7 @@ import utils from '../helpers/utils';
 import MenuBtnsPopup from './MenuBtnsPopup';
 import showDailyMemoDiaryDialog from './DailyMemoDiaryDialog';
 import '../less/user-banner.less';
-import { UserName } from '../memos';
+import { UserName } from '../memosView';
 import More from '../icons/more.svg?component';
 import { t } from '../translations/helper';
 

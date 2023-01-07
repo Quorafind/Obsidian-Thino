@@ -14,7 +14,7 @@ import Close from '../icons/close.svg?component';
 import Share from '../icons/share.svg?component';
 import ArrowRight from '../icons/arrow-right.svg?component';
 import ArrowLeft from '../icons/arrow-left.svg?component';
-import { AutoSaveWhenOnMobile } from '../memos';
+import { AutoSaveWhenOnMobile } from '../memosView';
 import { moment, Platform, TFile } from 'obsidian';
 import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';

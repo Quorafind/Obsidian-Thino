@@ -22,7 +22,7 @@ import {
   ShareFooterEnd,
   ShareFooterStart,
   UserName,
-} from '../memos';
+} from '../memosView';
 import lightBackground from '../icons/lightBackground.svg';
 import darkBackground from '../icons/darkBackground.svg';
 

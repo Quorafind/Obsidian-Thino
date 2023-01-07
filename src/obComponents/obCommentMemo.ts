@@ -1,5 +1,5 @@
 import appStore from '../stores/appStore';
-import { CommentOnMemos, CommentsInOriginalNotes } from '../memos';
+import { CommentOnMemos, CommentsInOriginalNotes } from '../memosView';
 import { moment } from 'obsidian';
 import { getAPI } from 'obsidian-dataview';
 

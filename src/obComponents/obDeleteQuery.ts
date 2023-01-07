@@ -1,6 +1,6 @@
 import { TFile } from 'obsidian';
 import appStore from '../stores/appStore';
-import { QueryFileName } from '../memos';
+import { QueryFileName } from '../memosView';
 import { getDailyNotePath } from '../helpers/utils';
 
 export async function deleteQueryForever(queryID: string): Promise<void> {

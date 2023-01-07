@@ -1,7 +1,7 @@
 // Português
 
 export default {
-  // setting.ts
+  // memosSetting.ts
   welcome: 'Bem-vindo ao Memos!',
   ribbonIconTitle: 'Memos',
   months: [

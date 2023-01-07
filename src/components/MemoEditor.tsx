@@ -15,9 +15,15 @@ import { usePopper } from 'react-popper';
 import useState from 'react-usestateref';
 import DatePicker from './common/DatePicker';
 import { moment, Notice, Platform } from 'obsidian';
-import { DefaultEditorLocation, DefaultPrefix, FocusOnEditor, InsertDateFormat, UseButtonToShowEditor } from '../memos';
+import {
+  DefaultEditorLocation,
+  DefaultPrefix,
+  FocusOnEditor,
+  InsertDateFormat,
+  MEMOS_VIEW_TYPE,
+  UseButtonToShowEditor,
+} from '../memosView';
 import useToggle from '../hooks/useToggle';
-import { MEMOS_VIEW_TYPE } from '../constants';
 import { t } from '../translations/helper';
 
 const getCursorPostion = (input: HTMLTextAreaElement) => {

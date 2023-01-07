@@ -1,6 +1,6 @@
 import { moment } from 'obsidian';
 import { getDailyNote } from 'obsidian-daily-notes-interface';
-import { DefaultMemoComposition } from '../memos';
+import { DefaultMemoComposition } from '../memosView';
 // import appStore from "../stores/appStore";
 import dailyNotesService from '../services/dailyNotesService';
 // import { TFile } from "obsidian";

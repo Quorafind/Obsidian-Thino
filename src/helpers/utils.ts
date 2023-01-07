@@ -2,7 +2,7 @@ import { moment, Notice, TFile } from 'obsidian';
 import { createDailyNote } from 'obsidian-daily-notes-interface';
 import { getDailyNoteSettings } from '_obsidian-daily-notes-interface@0.9.4@obsidian-daily-notes-interface';
 import { t } from '../translations/helper';
-import { UseDailyOrPeriodic } from '../memos';
+import { UseDailyOrPeriodic } from '../memosView';
 
 namespace utils {
   export function getNowTimeStamp(): number {

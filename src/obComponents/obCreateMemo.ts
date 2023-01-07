@@ -1,7 +1,7 @@
 import { moment } from 'obsidian';
 import { getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
 import appStore from '../stores/appStore';
-import { DefaultMemoComposition, InsertAfter } from '../memos';
+import { DefaultMemoComposition, InsertAfter } from '../memosView';
 import { dailyNotesService } from '../services';
 import utils from '../helpers/utils';
 

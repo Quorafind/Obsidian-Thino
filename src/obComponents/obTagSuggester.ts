@@ -2,7 +2,7 @@
 // import { TextInputSuggest } from "./obSuggest";
 import memoService from '../services/memoService';
 import dailyNotesService from '../services/dailyNotesService';
-import { UseVaultTags } from '../memos';
+import { UseVaultTags } from '../memosView';
 
 const etTags = (): string[] => {
   const { app } = dailyNotesService.getState();

@@ -10,7 +10,7 @@ import '../less/memolist.less';
 import dailyNotesService from '../services/dailyNotesService';
 import appStore from '../stores/appStore';
 import { Notice, Platform } from 'obsidian';
-import { HideDoneTasks } from '../memos';
+import { HideDoneTasks } from '../memosView';
 // import {moment} from 'obsidian';
 import { t } from '../translations/helper';
 

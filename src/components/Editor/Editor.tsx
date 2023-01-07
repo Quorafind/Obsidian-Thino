@@ -8,13 +8,12 @@ import '../../less/editor.less';
 import ReactTextareaAutocomplete from '@webscopeio/react-textarea-autocomplete';
 import { usedTags } from '../../obComponents/obTagSuggester';
 import '../../less/suggest.less';
-import { FocusOnEditor, SaveMemoButtonIcon, SaveMemoButtonLabel } from '../../memos';
+import { FocusOnEditor, MEMOS_VIEW_TYPE, SaveMemoButtonIcon, SaveMemoButtonLabel } from '../../memosView';
 import { getSuggestions } from '../../obComponents/obFileSuggester';
 import { TFile } from 'obsidian';
 import appStore from '../../stores/appStore';
 import { t } from '../../translations/helper';
 import useState from 'react-usestateref';
-import { MEMOS_VIEW_TYPE } from '../../constants';
 
 type ItemProps = {
   entity: {
