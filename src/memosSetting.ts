@@ -25,10 +25,11 @@ export class DropdownRecord {
 }
 
 const tabNameToTabIconId: Record<string, string> = {
-    General: 'memos',
-    Search: 'album',
+    General: 'chef-hat',
+    Memos: 'memos',
     Theme: 'brush',
-    Bookmark: 'bookmark',
+    Share: 'share-2',
+    Advanced: 'cog',
 };
 
 export interface MemosSettings {
@@ -143,7 +144,7 @@ export class MemosSettingTab extends PluginSettingTab {
 
     private generateSettingsTitle() {
         const linterHeader = this.containerEl.createDiv('memos-setting-title');
-        linterHeader.createEl('h2', { text: 'Web Browser' });
+        linterHeader.createEl('h2', { text: 'Memos' });
         this.generateSearchBar(linterHeader);
     }
 
@@ -153,6 +154,10 @@ export class MemosSettingTab extends PluginSettingTab {
         const settingsEl = this.containerEl.createDiv('memos-setting-content');
 
         this.createTabAndContent('General', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateGeneralSettings(tabName, el));
+        this.createTabAndContent('Memos', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateMemosSettings(tabName, el));
+        this.createTabAndContent('Theme', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateThemeSettings(tabName, el));
+        this.createTabAndContent('Share', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateShareSettings(tabName, el));
+        this.createTabAndContent('Advanced', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateAdvancedSettings(tabName, el));
 
         this.createSearchZeroState(settingsEl);
     }
@@ -360,7 +365,7 @@ export class MemosSettingTab extends PluginSettingTab {
         this.memosCommentSettings(tabName, memosContainerEl);
     }
 
-    private generateSharingSettings(tabName: string, memosContainerEl: HTMLElement) {
+    private generateShareSettings(tabName: string, memosContainerEl: HTMLElement) {
         this.copyMemosSettings(tabName, memosContainerEl);
         this.shareMemosSettings(tabName, memosContainerEl);
     }
@@ -643,7 +648,7 @@ export class MemosSettingTab extends PluginSettingTab {
 
         settingName = t('Comments In Original DailyNotes/Notes');
         descName = t('You should install Dataview Plugin ver 0.5.9 or later to use this feature.');
-        new Setting(memosContainerEl)
+        const commentsInOriginalSetting = new Setting(memosContainerEl)
             .setName(settingName)
             .setDesc(descName)
             .addToggle((toggle) =>
@@ -652,12 +657,16 @@ export class MemosSettingTab extends PluginSettingTab {
                     this.applySettingsUpdate();
                 }),
             );
+
+        this.addSettingToMasterSettingsList(tabName, commentsInOriginalSetting.settingEl, settingName, descName);
     }
 
     private copyMemosSettings(tabName: string, memosContainerEl: HTMLElement) {
-        new Setting(memosContainerEl)
-            .setName(t('Show Time When Copy Results'))
-            .setDesc(t('Show time when you copy results, like 12:00. Copy time by default.'))
+        let settingName = t('Show Time When Copy Results');
+        let descName = t('Show time when you copy results, like 12:00. Copy time by default.');
+        const copyResultWithTimeSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addToggle((toggle) =>
                 toggle.setValue(this.plugin.settings.ShowTime).onChange(async (value) => {
                     this.plugin.settings.ShowTime = value;
@@ -665,9 +674,27 @@ export class MemosSettingTab extends PluginSettingTab {
                 }),
             );
 
-        new Setting(memosContainerEl)
-            .setName(t('Add Blank Line Between Different Date'))
-            .setDesc(t('Add blank line when copy result with date. No blank line by default.'))
+        this.addSettingToMasterSettingsList(tabName, copyResultWithTimeSetting.settingEl, settingName, descName);
+
+        settingName = t('Show Date When Copy Results');
+        descName = t('Show date when you copy results, like [[2022-01-01]]. Copy date by default.');
+        const copyResultWithDate = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
+            .addToggle((toggle) =>
+                toggle.setValue(this.plugin.settings.ShowDate).onChange(async (value) => {
+                    this.plugin.settings.ShowDate = value;
+                    this.applySettingsUpdate();
+                }),
+            );
+
+        this.addSettingToMasterSettingsList(tabName, copyResultWithDate.settingEl, settingName, descName);
+
+        settingName = t('Add Blank Line Between Different Date');
+        descName = t('Add blank line when copy result with date. No blank line by default.');
+        const addBlankLineSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addToggle((toggle) =>
                 toggle.setValue(this.plugin.settings.AddBlankLineWhenDate).onChange(async (value) => {
                     this.plugin.settings.AddBlankLineWhenDate = value;
@@ -675,21 +702,15 @@ export class MemosSettingTab extends PluginSettingTab {
                 }),
             );
 
-        new Setting(memosContainerEl)
-            .setName(t('Show Date When Copy Results'))
-            .setDesc(t('Show date when you copy results, like [[2022-01-01]]. Copy date by default.'))
-            .addToggle((toggle) =>
-                toggle.setValue(this.plugin.settings.ShowDate).onChange(async (value) => {
-                    this.plugin.settings.ShowDate = value;
-                    this.applySettingsUpdate();
-                }),
-            );
+        this.addSettingToMasterSettingsList(tabName, addBlankLineSetting.settingEl, settingName, descName);
     }
 
     private shareMemosSettings(tabName: string, memosContainerEl: HTMLElement) {
-        new Setting(memosContainerEl)
-            .setName(t('Share Memos Image Footer Start'))
-            .setDesc(t("Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default"))
+        let settingName = t('Share Memos Image Footer Start');
+        let descName = t("Set anything you want here, use {MemosNum} to display Number of memos, {UsedDay} for days. '{MemosNum} Memos {UsedDay} Days' By default");
+        const shareFooterStartSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addText((text) =>
                 text
                     .setPlaceholder(DEFAULT_SETTINGS.ShareFooterStart)
@@ -700,9 +721,13 @@ export class MemosSettingTab extends PluginSettingTab {
                     }),
             );
 
-        new Setting(memosContainerEl)
-            .setName(t('Share Memos Image Footer End'))
-            .setDesc(t("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default"))
+        this.addSettingToMasterSettingsList(tabName, shareFooterStartSetting.settingEl, settingName, descName);
+
+        settingName = t('Share Memos Image Footer End');
+        descName = t("Set anything you want here, use {UserName} as your username. '✍️ By {UserName}' By default");
+        const shareFooterEndSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addText((text) =>
                 text
                     .setPlaceholder(DEFAULT_SETTINGS.ShareFooterEnd)
@@ -713,33 +738,45 @@ export class MemosSettingTab extends PluginSettingTab {
                     }),
             );
 
-        new Setting(memosContainerEl)
-            .setName(t('Background Image in Light Theme'))
-            .setDesc(t('Set background image in light theme. Set something like "Daily/one.png"'))
+        this.addSettingToMasterSettingsList(tabName, shareFooterEndSetting.settingEl, settingName, descName);
+
+        settingName = t('Background Image in Light Theme');
+        descName = t('Set background image in light theme. Set something like "Daily/one.png"');
+        const defaultBgLightImageSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addText((text) =>
                 text
                     .setPlaceholder(DEFAULT_SETTINGS.DefaultLightBackgroundImage)
                     .setValue(this.plugin.settings.DefaultLightBackgroundImage)
-                    .onChange(async (value) => {
+                    .onChange(async (value: string) => {
                         this.plugin.settings.DefaultLightBackgroundImage = value;
                         this.applySettingsUpdate();
                     }),
             );
 
-        new Setting(memosContainerEl)
-            .setName(t('Background Image in Dark Theme'))
-            .setDesc(t('Set background image in dark theme. Set something like "Daily/one.png"'))
+        this.addSettingToMasterSettingsList(tabName, defaultBgLightImageSetting.settingEl, settingName, descName);
+
+        settingName = t('Background Image in Dark Theme');
+        descName = t('Set background image in dark theme. Set something like "Daily/one.png"');
+        const defaultBgDarkImageSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addText((text) =>
                 text
                     .setPlaceholder(DEFAULT_SETTINGS.DefaultDarkBackgroundImage)
                     .setValue(this.plugin.settings.DefaultDarkBackgroundImage)
-                    .onChange(async (value) => {
+                    .onChange(async (value: string) => {
                         this.plugin.settings.DefaultDarkBackgroundImage = value;
                         this.applySettingsUpdate();
                     }),
             );
 
-        new Setting(memosContainerEl)
+        this.addSettingToMasterSettingsList(tabName, defaultBgDarkImageSetting.settingEl, settingName, descName);
+
+        settingName = t('Save Shared Image To Folder For Mobile');
+        descName = t('Save image to folder for mobile. False by Default');
+        const saveSharedImageSetting = new Setting(memosContainerEl)
             .setName(t('Save Shared Image To Folder For Mobile'))
             .setDesc(t('Save image to folder for mobile. False by Default'))
             .addToggle((toggle) =>
@@ -748,6 +785,8 @@ export class MemosSettingTab extends PluginSettingTab {
                     this.applySettingsUpdate();
                 }),
             );
+
+        this.addSettingToMasterSettingsList(tabName, saveSharedImageSetting.settingEl, settingName, descName);
     }
 
     private saveDataSettings(tabName: string, memosContainerEl: HTMLElement) {
@@ -771,9 +810,13 @@ export class MemosSettingTab extends PluginSettingTab {
     }
 
     private fetchDataSettings(tabName: string, memosContainerEl: HTMLElement) {
-        new Setting(memosContainerEl)
-            .setName(t("Use Which Plugin's Default Configuration"))
-            .setDesc(t("Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default."))
+        let dropdown: DropdownComponent;
+
+        let settingName = t("Use Which Plugin's Default Configuration");
+        let descName = t("Memos use the plugin's default configuration to fetch memos from daily, 'Daily' by default.");
+        const dailyOrPeriodicSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addDropdown(async (d: DropdownComponent) => {
                 dropdown = d;
                 dropdown.addOption('Daily', t('Daily'));
@@ -784,9 +827,13 @@ export class MemosSettingTab extends PluginSettingTab {
                 });
             });
 
-        new Setting(memosContainerEl)
-            .setName(t('Allow Memos to Fetch Memo from Notes'))
-            .setDesc(t('Use Memos to manage all memos in your notes, not only in daily notes. False by default'))
+        this.addSettingToMasterSettingsList(tabName, dailyOrPeriodicSetting.settingEl, settingName, descName);
+
+        settingName = t('Allow Memos to Fetch Memo from Notes');
+        descName = t('Use Memos to manage all memos in your notes, not only in daily notes. False by default');
+        const fetchMemosFronNoteSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addToggle((toggle) =>
                 toggle.setValue(this.plugin.settings.FetchMemosFromNote).onChange(async (value) => {
                     this.plugin.settings.FetchMemosFromNote = value;
@@ -794,9 +841,13 @@ export class MemosSettingTab extends PluginSettingTab {
                 }),
             );
 
+        this.addSettingToMasterSettingsList(tabName, fetchMemosFronNoteSetting.settingEl, settingName, descName);
+
+        settingName = t('Fetch Memos From Particular Notes');
+        descName = t('You can set any Dataview Query for memos to fetch it. All memos in those notes will show on list. "#memo" by default');
         new Setting(memosContainerEl)
-            .setName(t('Fetch Memos From Particular Notes'))
-            .setDesc(t('You can set any Dataview Query for memos to fetch it. All memos in those notes will show on list. "#memo" by default'))
+            .setName(settingName)
+            .setDesc(descName)
             .addText((text) =>
                 text
                     .setPlaceholder(DEFAULT_SETTINGS.FetchMemosMark)
@@ -809,12 +860,16 @@ export class MemosSettingTab extends PluginSettingTab {
                         this.applySettingsUpdate();
                     }),
             );
+
+        this.addSettingToMasterSettingsList(tabName, fetchMemosFronNoteSetting.settingEl, settingName, descName);
     }
 
     private customFileNameSettings(tabName: string, memosContainerEl: HTMLElement) {
-        new Setting(memosContainerEl)
-            .setName(t('File Name of Recycle Bin'))
-            .setDesc(t("Set the filename for recycle bin. 'delete' By default"))
+        let settingName = t('File Name of Recycle Bin');
+        let descName = t("Set the filename for recycle bin. 'delete' By default");
+        const deleteFileNameSetting = new Setting(memosContainerEl)
+            .setName(settingName)
+            .setDesc(descName)
             .addText((text) =>
                 text
                     .setPlaceholder(DEFAULT_SETTINGS.DeleteFileName)
@@ -827,7 +882,11 @@ export class MemosSettingTab extends PluginSettingTab {
                     }),
             );
 
-        new Setting(memosContainerEl)
+        this.addSettingToMasterSettingsList(tabName, deleteFileNameSetting.settingEl, settingName, descName);
+
+        settingName = t('File Name of Query File');
+        descName = t("Set the filename for query file. 'query' By default");
+        const queryFileNameSetting = new Setting(memosContainerEl)
             .setName(t('File Name of Query File'))
             .setDesc(t("Set the filename for query file. 'query' By default"))
             .addText((text) =>
@@ -841,6 +900,8 @@ export class MemosSettingTab extends PluginSettingTab {
                         this.applySettingsUpdate();
                     }),
             );
+
+        this.addSettingToMasterSettingsList(tabName, queryFileNameSetting.settingEl, settingName, descName);
     }
 
     async changeFileName(originalFileName: string, fileName: string) {
