@@ -7,88 +7,85 @@ import '../less/memo-filter.less';
 import { moment, Notice } from 'obsidian';
 import Copy from '../icons/copy.svg?component';
 import { copyShownMemos } from './MemoList';
-import { getMemosByDate, transferMemosIntoText } from '../obComponents/obCopyMemos';
+import { getMemosByDate, transferMemosIntoText } from '../obUtils/Memos/obCopyMemos';
 import { t } from '../translations/helper';
 
 interface FilterProps {}
 
 const MemoFilter: React.FC<FilterProps> = () => {
-  const {
-    locationState: { query },
-  } = useContext(appContext);
+    const {
+        locationState: { query },
+    } = useContext(appContext);
 
-  const { tag: tagQuery, duration, type: memoType, text: textQuery, filter } = query;
+    const { tag: tagQuery, duration, type: memoType, text: textQuery, filter } = query;
 
-  const queryFilter = queryService.getQueryById(filter);
-  const showFilter = Boolean(
-    tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter,
-  );
+    const queryFilter = queryService.getQueryById(filter);
+    const showFilter = Boolean(tagQuery || (duration && duration.from < duration.to) || memoType || textQuery || queryFilter);
 
-  const handleCopyClick = async () => {
-    if (!(copyShownMemos.length > 0)) {
-      return;
-    }
+    const handleCopyClick = async () => {
+        if (!(copyShownMemos.length > 0)) {
+            return;
+        }
 
-    const memosByDate = getMemosByDate(copyShownMemos);
-    const queryDailyMemos = transferMemosIntoText(memosByDate);
-    await utils.copyTextToClipboard(queryDailyMemos);
-    new Notice(t('Copied to clipboard Successfully'));
-  };
+        const memosByDate = getMemosByDate(copyShownMemos);
+        const queryDailyMemos = transferMemosIntoText(memosByDate);
+        await utils.copyTextToClipboard(queryDailyMemos);
+        new Notice(t('Copied to clipboard Successfully'));
+    };
 
-  return (
-    <div className={`filter-query-container ${showFilter ? '' : 'hidden'}`}>
-      <div className="filter-query">
-        <span className="tip-text">FILTER: </span>
-        <div
-          className={'filter-item-container ' + (queryFilter ? '' : 'hidden')}
-          onClick={() => {
-            locationService.setMemoFilter('');
-          }}
-        >
-          <span className="icon-text">🔖</span> {queryFilter?.title}
+    return (
+        <div className={`filter-query-container ${showFilter ? '' : 'hidden'}`}>
+            <div className="filter-query">
+                <span className="tip-text">FILTER: </span>
+                <div
+                    className={'filter-item-container ' + (queryFilter ? '' : 'hidden')}
+                    onClick={() => {
+                        locationService.setMemoFilter('');
+                    }}
+                >
+                    <span className="icon-text">🔖</span> {queryFilter?.title}
+                </div>
+                <div
+                    className={'filter-item-container ' + (tagQuery ? '' : 'hidden')}
+                    onClick={() => {
+                        locationService.setTagQuery('');
+                    }}
+                >
+                    <span className="icon-text">🏷️</span> {tagQuery}
+                </div>
+                <div
+                    className={'filter-item-container ' + (memoType ? '' : 'hidden')}
+                    onClick={() => {
+                        locationService.setMemoTypeQuery('');
+                    }}
+                >
+                    <span className="icon-text">📦</span> {getTextWithMemoType(memoType as MemoSpecType)}
+                </div>
+                {duration && duration.from < duration.to ? (
+                    <div
+                        className="filter-item-container"
+                        onClick={() => {
+                            locationService.setFromAndToQuery(0, 0);
+                        }}
+                    >
+                        <span className="icon-text">🗓️</span> {moment(duration.from, 'x').format('YYYY/MM/DD')} {t('to')} {moment(duration.to, 'x').add(1, 'days').format('YYYY/MM/DD')}
+                    </div>
+                ) : null}
+                <div
+                    className={'filter-item-container ' + (textQuery ? '' : 'hidden')}
+                    onClick={() => {
+                        locationService.setTextQuery('');
+                    }}
+                >
+                    <span className="icon-text">🔍</span> {textQuery}
+                </div>
+            </div>
+            <div className="copy-memo" onClick={handleCopyClick}>
+                {/*<img className="icon-img" src={copy} onClick={handleCopyClick} />*/}
+                <Copy className="icon-img" />
+            </div>
         </div>
-        <div
-          className={'filter-item-container ' + (tagQuery ? '' : 'hidden')}
-          onClick={() => {
-            locationService.setTagQuery('');
-          }}
-        >
-          <span className="icon-text">🏷️</span> {tagQuery}
-        </div>
-        <div
-          className={'filter-item-container ' + (memoType ? '' : 'hidden')}
-          onClick={() => {
-            locationService.setMemoTypeQuery('');
-          }}
-        >
-          <span className="icon-text">📦</span> {getTextWithMemoType(memoType as MemoSpecType)}
-        </div>
-        {duration && duration.from < duration.to ? (
-          <div
-            className="filter-item-container"
-            onClick={() => {
-              locationService.setFromAndToQuery(0, 0);
-            }}
-          >
-            <span className="icon-text">🗓️</span> {moment(duration.from, 'x').format('YYYY/MM/DD')} {t('to')}{' '}
-            {moment(duration.to, 'x').add(1, 'days').format('YYYY/MM/DD')}
-          </div>
-        ) : null}
-        <div
-          className={'filter-item-container ' + (textQuery ? '' : 'hidden')}
-          onClick={() => {
-            locationService.setTextQuery('');
-          }}
-        >
-          <span className="icon-text">🔍</span> {textQuery}
-        </div>
-      </div>
-      <div className="copy-memo" onClick={handleCopyClick}>
-        {/*<img className="icon-img" src={copy} onClick={handleCopyClick} />*/}
-        <Copy className="icon-img" />
-      </div>
-    </div>
-  );
+    );
 };
 
 export default MemoFilter;

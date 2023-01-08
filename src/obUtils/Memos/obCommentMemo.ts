@@ -1,6 +1,6 @@
 import { moment } from 'obsidian';
 import { getAPI } from 'obsidian-dataview';
-import { dailyNotesService } from '../services';
+import { dailyNotesService } from '../../services';
 
 interface MContent {
     content: string;

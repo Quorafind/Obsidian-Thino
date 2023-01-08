@@ -1,6 +1,6 @@
 import { Notice } from 'obsidian';
-import { t } from '../translations/helper';
-import { IMAGE_URL_REG } from '../helpers/consts';
+import { t } from '../../translations/helper';
+import { IMAGE_URL_REG } from '../../helpers/consts';
 
 export const getBackgroundFile = async (path: string) => {
     if (/(https|http)/g.test(path)) {

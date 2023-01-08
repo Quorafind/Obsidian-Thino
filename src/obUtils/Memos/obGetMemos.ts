@@ -1,9 +1,9 @@
 import { moment, Notice, TFile } from 'obsidian';
 import { getAPI } from 'obsidian-dataview';
-import { t } from '../translations/helper';
-import { getDailyNotePath } from '../helpers/utils';
-import { dailyNotesService } from '../services';
-import MemosPlugin from '../memosIndex';
+import { t } from '../../translations/helper';
+import { getDailyNotePath } from '../../helpers/utils';
+import { dailyNotesService } from '../../services';
+import MemosPlugin from '../../memosIndex';
 
 export class DailyNotesFolderMissingError extends Error {}
 
@@ -82,6 +82,7 @@ export async function checkMemosLocation(note: TFile, plugin: MemosPlugin): Prom
         };
     }
 
+    const { ProcessEntriesBelow } = plugin.settings;
     const content: string = await app.vault.read(note);
     const regExp = buildRegexForMemoComposition(plugin);
     const match = (content.match(regExp) || []).length;
@@ -90,14 +91,14 @@ export async function checkMemosLocation(note: TFile, plugin: MemosPlugin): Prom
     // 1. when we do not set heading for processing, the match is from the whole daily note.
     // 2. when we set heading for processing, the match is from the heading, so if there is no
     // corresponding heading, the match should return 0.
-    if (!plugin.settings.ProcessEntriesBelow) {
+    if (!ProcessEntriesBelow) {
         return {
             match: match,
             header: false,
         };
     }
 
-    const re = new RegExp(plugin.settings.ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g');
+    const re = new RegExp(ProcessEntriesBelow.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g');
     const processEntriesHeader = (content.match(re) || []).length;
     const headerMatchArray = content.match(re);
 
@@ -113,31 +114,34 @@ export async function checkMemosLocation(note: TFile, plugin: MemosPlugin): Prom
 
 // Memos is list in the daily note, so if set CommentOnMemos true and set CommentsInOriginalNotes true,
 // we need to get the comment memos from the daily note.
-const getCommentMemos = (path: string, plugin: MemosPlugin): any[] => {
-    let comments: any;
+const getCommentForMemos = (path: string, plugin: MemosPlugin): any[] => {
+    let comments: any = [];
+    const dataviewAPI = getAPI();
     const { CommentOnMemos, CommentsInOriginalNotes, ProcessEntriesBelow } = plugin.settings;
 
-    if (CommentOnMemos && CommentsInOriginalNotes && getAPI().version.compare('>=', '0.5.9') === true) {
-        const dataviewAPI = getAPI();
-        if (dataviewAPI !== undefined && ProcessEntriesBelow !== '') {
-            try {
-                comments = dataviewAPI.page(path)?.file.lists.values?.filter((item: any) => item.header.subpath === ProcessEntriesBelow?.replace(/#{1,} /g, '').trim() && item.children.length > 0);
-            } catch (e) {
-                console.error(e);
-            }
-        } else {
+    if (!dataviewAPI) return [];
+
+    if (CommentOnMemos && CommentsInOriginalNotes && dataviewAPI.version.compare('>=', '0.5.9') === true) {
+        if (!dataviewAPI || ProcessEntriesBelow === '') {
             try {
                 comments = dataviewAPI.page(path)?.file.lists.values?.filter((item: any) => item.children.length > 0);
             } catch (e) {
                 console.error(e);
             }
-        }
-    }
 
-    return comments;
+            return comments ? comments : [];
+        }
+
+        try {
+            comments = dataviewAPI.page(path)?.file.lists.values?.filter((item: any) => item.header.subpath === ProcessEntriesBelow?.replace(/#{1,} /g, '').trim() && item.children.length > 0);
+        } catch (e) {
+            console.error(e);
+        }
+        return comments ? comments : [];
+    }
 };
 
-const lineContainsParseBelowToken = (line: string, ProcessEntriesBelow: string) => {
+const lineContainsParseBelowToken = (line: string, ProcessEntriesBelow: string): boolean => {
     if (ProcessEntriesBelow === '') {
         return true;
     }
@@ -169,10 +173,10 @@ export async function getMemos(): Promise<allKindsofMemos> {
             if (matchResult.header === true) {
                 const matchArray = matchResult.headerArray;
                 const pos = content.indexOf(matchArray[0]);
-                parseContent = content.substring(pos);
+                parseContent = content.substring(pos).trim();
             }
 
-            return getAllLinesFromFile(parseContent);
+            return parseContent ? getAllLinesFromFile(parseContent) : [];
         };
 
         const format = dailyNotesService.getDateFormat();
@@ -184,13 +188,14 @@ export async function getMemos(): Promise<allKindsofMemos> {
 
         if (memosResult.match === 0) return;
 
-        const underComments = getCommentMemos(file.path, plugin);
+        const underComments = getCommentForMemos(file.path, plugin);
         let fileLines = await getHeaderContent(file, memosResult);
+
+        if (!fileLines.length) return;
 
         let startDate = moment(file.basename, format).startOf('day');
 
         let processHeaderFound = false;
-        let memoType: string;
 
         for (let i = 0; i < fileLines.length; i++) {
             const line = fileLines[i].trim();
@@ -212,10 +217,12 @@ export async function getMemos(): Promise<allKindsofMemos> {
 
             const endDate = startDate.clone();
 
-            memoType = getMemoType(line);
-            const rawText = extractTextFromTodoLine(line, DefaultMemoComposition);
+            const memoType = getMemoType(line);
+            const rawText = extractTextFromTodoLine(line, DefaultMemoComposition).trim();
 
             let originId = '';
+            if (!rawText) continue;
+
             if (rawText !== '') {
                 let hasId = Math.random().toString(36).slice(-6);
                 originId = hasId;
@@ -237,8 +244,9 @@ export async function getMemos(): Promise<allKindsofMemos> {
                     linkId: linkId,
                     path: file.path,
                 });
+                continue;
             }
-            if (/comment:(.*)#\^\S{6}]]/g.test(rawText) && plugin.settings.CommentOnMemos && plugin.settings.CommentsInOriginalNotes !== true) {
+            if (/comment:(.*)#\^\S{6}]]/g.test(rawText) && plugin.settings.CommentOnMemos && !plugin.settings.CommentsInOriginalNotes) {
                 const commentId = extractCommentFromLine(rawText);
                 const hasId = '';
                 commentMemos.push({
@@ -298,7 +306,7 @@ export async function getMemos(): Promise<allKindsofMemos> {
         for (let i = 0; i < files.length; i++) {
             const createDate = files[i]['created'].trim();
             // console.log(files[i]);
-            const list = files[i].file.lists?.filter((item: any) => item.parent === undefined);
+            const list = files[i].file.lists?.filter((item: any) => !item.parent);
             if (list.length === 0) continue;
             for (let j = 0; j < list.length; j++) {
                 const content = list.values[j].text;
@@ -425,15 +433,14 @@ const extractTextFromTodoLine = (line: string, DefaultMemoComposition: string) =
     let regexMatch;
     if (DefaultMemoComposition != '' && /{TIME}/g.test(DefaultMemoComposition) && /{CONTENT}/g.test(DefaultMemoComposition)) {
         //eslint-disable-next-line
-        regexMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' + DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?').replace(/{CONTENT}/g, '(.*)$');
+        regexMatch = '^(\\s*)[\\-\\*]\\s(\\[(.{1})\\]\\s?)?' + DefaultMemoComposition.replace(/{TIME}/g, '(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?').replace(/{CONTENT}/g, '(.*)$');
     } else {
         //eslint-disable-next-line
-        regexMatch = '^\\s*[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?\\s?(.*)$';
+        regexMatch = '^(\\s*)[\\-\\*]\\s(\\[(.{1})\\]\\s?)?(\\<time\\>)?((\\d{1,2})\\:(\\d{2}))?(\\<\\/time\\>)?\\s?(.*)$';
     }
     const regexMatchRe = new RegExp(regexMatch, '');
     //eslint-disable-next-line
-    return regexMatchRe.exec(line)?.[8];
-    // return /^\s*[\-\*]\s(\[(.{1})\]\s?)?(\<time\>)?((\d{1,2})\:(\d{2}))?(\<\/time\>)?\s?(.*)$/.exec(line)?.[8];
+    return regexMatchRe.exec(line)?.[9];
 };
 
 const extractTimeFromBulletLine = (line: string, DefaultMemoComposition: string): timeMatch => {
