@@ -1,57 +1,63 @@
-import { App, TFile } from 'obsidian';
-import { getAllDailyNotes } from 'obsidian-daily-notes-interface';
+import { TFile } from 'obsidian';
+import MemosPlugin from '../memosIndex';
 
 export interface State {
-  dailyNotes: Record<string, TFile>;
-  app: App;
+    data: TFile[];
+    plugin: MemosPlugin;
+    dateFormat: string;
 }
 
-interface SetDailyNotesAction {
-  type: 'SET_DAILYNOTES';
-  payload: {
-    dailyNotes: Record<string, TFile>;
-  };
+interface SetDataAction {
+    type: 'SET_DATA';
+    payload: {
+        data: TFile[];
+    };
 }
 
-interface SetObsidianAppAction {
-  type: 'SET_APP';
-  payload: {
-    app: App;
-  };
+interface SetPluginAction {
+    type: 'SET_PLUGIN';
+    payload: {
+        plugin: MemosPlugin;
+    };
 }
 
-// interface InsertDailyNoteAction {
-//   type: "INSERT_DAILYNOTE";
-//   payload: {
-//     dailyNote: TFile;
-//   };
-// }
+interface SetDateFormatAction {
+    type: 'SET_DATE_FORMAT';
+    payload: {
+        dateFormat: string;
+    };
+}
 
-export type Actions = SetDailyNotesAction | SetObsidianAppAction;
+export type Actions = SetDataAction | SetPluginAction | SetDateFormatAction;
 
 export function reducer(state: State, action: Actions): State {
-  switch (action.type) {
-    case 'SET_DAILYNOTES': {
-      const dailyNotes = getAllDailyNotes();
-
-      return {
-        ...state,
-        dailyNotes: dailyNotes,
-      };
+    switch (action.type) {
+        case 'SET_DATA': {
+            return {
+                ...state,
+                data: action.payload.data,
+            };
+        }
+        case 'SET_PLUGIN': {
+            return {
+                ...state,
+                plugin: action.payload.plugin,
+            };
+        }
+        case 'SET_DATE_FORMAT': {
+            return {
+                ...state,
+                dateFormat: action.payload.dateFormat,
+            };
+        }
+        default: {
+            return state;
+        }
     }
-    case 'SET_APP': {
-      return {
-        ...state,
-        app: action.payload.app,
-      };
-    }
-    default: {
-      return state;
-    }
-  }
 }
 
 export const defaultState: State = {
-  dailyNotes: null,
-  app: null,
+    data: null,
+    plugin: null,
+    dateFormat: null,
 };

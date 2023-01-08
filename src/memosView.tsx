@@ -10,6 +10,7 @@ export const MEMOS_VIEW_TYPE = 'memos_view';
 
 export class Memos extends ItemView {
     plugin: MemosPlugin;
+    data: TFile[];
     hoverPopover: HoverPopover | null;
     private memosComponent: React.ReactElement;
 
@@ -111,6 +112,7 @@ export class Memos extends ItemView {
         );
 
         const memosProps = {
+            data: this.data,
             plugin: this.plugin,
             app: this.app,
         };

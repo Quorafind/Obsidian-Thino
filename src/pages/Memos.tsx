@@ -4,28 +4,30 @@ import MemoFilter from '../components/MemoFilter';
 import MemoList from '../components/MemoList';
 import React from 'react';
 import { Platform } from 'obsidian';
-import { DefaultEditorLocation } from '../memosView';
+import { dailyNotesService } from '../services';
 
 function Memos() {
-  if (Platform.isMobile && DefaultEditorLocation === 'Bottom') {
+    const plugin = dailyNotesService.getPlugin();
+
+    if (!Platform.isMobile || !(plugin.settings.DefaultEditorLocation === 'Bottom')) {
+        return (
+            <>
+                <MemosHeader />
+                <MemoEditor />
+                <MemoFilter />
+                <MemoList />
+            </>
+        );
+    }
+
     return (
-      <>
-        <MemosHeader />
-        <MemoFilter />
-        <MemoList />
-        <MemoEditor />
-      </>
+        <>
+            <MemosHeader />
+            <MemoFilter />
+            <MemoList />
+            <MemoEditor />
+        </>
     );
-  } else {
-    return (
-      <>
-        <MemosHeader />
-        <MemoEditor />
-        <MemoFilter />
-        <MemoList />
-      </>
-    );
-  }
 }
 
 export default Memos;

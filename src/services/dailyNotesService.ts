@@ -1,54 +1,58 @@
-// import { moment } from 'obsidian';
-// import userService from "./userService";
-// import api from "../helpers/api";
+import { moment, TFile } from 'obsidian';
 import appStore from '../stores/appStore';
-import { getAllDailyNotes, getDailyNote } from 'obsidian-daily-notes-interface';
-import { App, TFile } from 'obsidian';
-
-// import { Moment}  from "obsidian";
+import MemosPlugin from '../memosIndex';
 
 class DailyNotesService {
     public getState() {
         return appStore.getState().dailyNotesState;
     }
 
-    public getApp(app: App) {
+    public setPlugin(plugin: MemosPlugin) {
         appStore.dispatch({
-            type: 'SET_APP',
+            type: 'SET_PLUGIN',
             payload: {
-                app,
+                plugin,
             },
         });
-        return app;
     }
 
-    public async getMyAllDailyNotes() {
-        const dailyNotes = getAllDailyNotes();
-
+    public async setData(data: TFile[]) {
         appStore.dispatch({
-            type: 'SET_DAILYNOTES',
+            type: 'SET_DATA',
             payload: {
-                dailyNotes,
+                data,
             },
         });
-        return dailyNotes;
+        return data;
     }
 
-    // public pushDailyNote(dailyNote: TFile) {
-    //   appStore.dispatch({
-    //     type: "INSERT_DAILYNOTE",
-    //     payload: {
-    //       memo: {
-    //         ...memo,
-    //       },
-    //     },
-    //   });
-    // }
+    public setDateFormat(dateFormat: string) {
+        appStore.dispatch({
+            type: 'SET_DATE_FORMAT',
+            payload: {
+                dateFormat,
+            },
+        });
+    }
 
-    public async getDailyNoteByMemo(date: any): Promise<TFile> {
-        const { dailyNotes } = this.getState();
-        const dailyNote = getDailyNote(date, dailyNotes);
-        return dailyNote;
+    getDateFormat(): string {
+        return this.getState().dateFormat;
+    }
+
+    public getFileByMemo(date: any): TFile {
+        const { data } = this.getState();
+
+        return data.find((file) => {
+            return moment(file.basename, this.getDateFormat()).clone().startOf('day').format() === date.clone().startOf('day').format();
+        });
+    }
+
+    public getPlugin(): MemosPlugin {
+        return this.getState().plugin;
+    }
+
+    public getData(): TFile[] {
+        return this.getState().data;
     }
 }
 

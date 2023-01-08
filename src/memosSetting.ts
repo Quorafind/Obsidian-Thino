@@ -158,7 +158,6 @@ export class MemosSettingTab extends PluginSettingTab {
         this.createTabAndContent('Theme', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateThemeSettings(tabName, el));
         this.createTabAndContent('Share', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateShareSettings(tabName, el));
         this.createTabAndContent('Advanced', this.navigateEl, settingsEl, (el: HTMLElement, tabName: string) => this.generateAdvancedSettings(tabName, el));
-
         this.createSearchZeroState(settingsEl);
     }
 
