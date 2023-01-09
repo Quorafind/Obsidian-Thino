@@ -158,17 +158,17 @@ export async function getMemos(): Promise<allKindsofMemos> {
     let memos: Model.Memo[] | PromiseLike<Model.Memo[]> = [];
     let commentMemos: Model.Memo[] | PromiseLike<Model.Memo[]> = [];
 
-    const memoInit = (line: string, startDate: any, plugin: MemosPlugin): allKindsofMemos => {
+    const memoInit = (line: string, date: any, plugin: MemosPlugin): allKindsofMemos => {
         const { DefaultMemoComposition } = plugin.settings;
         const time = extractTimeFromBulletLine(line, DefaultMemoComposition);
 
-        startDate.set({
+        date.set({
             hours: parseInt(time.hour),
             minutes: parseInt(time.minute),
             seconds: parseInt(time.second),
         });
 
-        const endDate = startDate.clone();
+        const endDate = date.clone();
 
         const memoType = getMemoType(line);
         const rawText = extractTextFromTodoLine(line, DefaultMemoComposition).trim();
@@ -188,9 +188,9 @@ export async function getMemos(): Promise<allKindsofMemos> {
                 originId = hasId;
             }
             memos.push({
-                id: startDate.format('YYYYMMDDHHmmSS') + i,
+                id: date.format('YYYYMMDDHHmmSS') + i,
                 content: rawText,
-                createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
+                createdAt: date.format('YYYY/MM/DD HH:mm:SS'),
                 updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
                 memoType: memoType,
                 hasId: hasId,
@@ -203,9 +203,9 @@ export async function getMemos(): Promise<allKindsofMemos> {
             const commentId = extractCommentFromLine(rawText);
             const hasId = '';
             commentMemos.push({
-                id: startDate.format('YYYYMMDDHHmmSS') + i,
+                id: date.format('YYYYMMDDHHmmSS') + i,
                 content: rawText,
-                createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
+                createdAt: date.format('YYYY/MM/DD HH:mm:SS'),
                 updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
                 memoType: memoType,
                 hasId: hasId,
@@ -229,7 +229,7 @@ export async function getMemos(): Promise<allKindsofMemos> {
             if (/^\d{12}/.test(commentsInMemos[0].children[j].text)) {
                 commentTime = commentsInMemos[0].children[j].text?.match(/^\d{14}/)[0];
             } else {
-                commentTime = startDate.format('YYYYMMDDHHmmSS');
+                commentTime = date.format('YYYYMMDDHHmmSS');
             }
             commentMemos.push({
                 id: commentTime + commentsInMemos[0].children[j].line,
