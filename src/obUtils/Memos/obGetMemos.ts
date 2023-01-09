@@ -158,6 +158,92 @@ export async function getMemos(): Promise<allKindsofMemos> {
     let memos: Model.Memo[] | PromiseLike<Model.Memo[]> = [];
     let commentMemos: Model.Memo[] | PromiseLike<Model.Memo[]> = [];
 
+    const memoInit = (line: string, startDate: any, plugin: MemosPlugin): allKindsofMemos => {
+        const { DefaultMemoComposition } = plugin.settings;
+        const time = extractTimeFromBulletLine(line, DefaultMemoComposition);
+
+        startDate.set({
+            hours: parseInt(time.hour),
+            minutes: parseInt(time.minute),
+            seconds: parseInt(time.second),
+        });
+
+        const endDate = startDate.clone();
+
+        const memoType = getMemoType(line);
+        const rawText = extractTextFromTodoLine(line, DefaultMemoComposition).trim();
+
+        let originId = '';
+        if (!rawText) continue;
+
+        if (rawText !== '') {
+            let hasId = Math.random().toString(36).slice(-6);
+            originId = hasId;
+            let linkId = '';
+            if (plugin.settings.CommentOnMemos && /comment:(.*)#\^\S{6}]]/g.test(rawText)) {
+                linkId = extractCommentFromLine(rawText);
+            }
+            if (/\^\S{6}$/g.test(rawText)) {
+                hasId = rawText.slice(-6);
+                originId = hasId;
+            }
+            memos.push({
+                id: startDate.format('YYYYMMDDHHmmSS') + i,
+                content: rawText,
+                createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
+                updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
+                memoType: memoType,
+                hasId: hasId,
+                linkId: linkId,
+                path: file.path,
+            });
+            continue;
+        }
+        if (/comment:(.*)#\^\S{6}]]/g.test(rawText) && plugin.settings.CommentOnMemos && !plugin.settings.CommentsInOriginalNotes) {
+            const commentId = extractCommentFromLine(rawText);
+            const hasId = '';
+            commentMemos.push({
+                id: startDate.format('YYYYMMDDHHmmSS') + i,
+                content: rawText,
+                createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
+                updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
+                memoType: memoType,
+                hasId: hasId,
+                linkId: commentId,
+            });
+            continue;
+        }
+        if (rawText === '' || rawText.contains(' comment') || !underComments) continue;
+
+        const originalText = line.replace(/^[-*]\s(\[(.{1})\]\s?)?/, '')?.trim();
+        const commentsInMemos = underComments?.filter((item) => item.text === originalText || item.line === i || item.blockId === originId);
+
+        if (commentsInMemos.length === 0) continue;
+
+        if (commentsInMemos[0].children?.length === 0) continue;
+
+        for (let j = 0; j < commentsInMemos[0].children.length; j++) {
+            // console.log(commentsInMemos[0].children.values[j].text);
+            const hasId = '';
+            let commentTime;
+            if (/^\d{12}/.test(commentsInMemos[0].children[j].text)) {
+                commentTime = commentsInMemos[0].children[j].text?.match(/^\d{14}/)[0];
+            } else {
+                commentTime = startDate.format('YYYYMMDDHHmmSS');
+            }
+            commentMemos.push({
+                id: commentTime + commentsInMemos[0].children[j].line,
+                content: commentsInMemos[0].children[j].text,
+                createdAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
+                updatedAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
+                memoType: getMemoType(commentsInMemos[0].children[j].status),
+                hasId: hasId,
+                linkId: originId,
+                path: commentsInMemos[0].children[j].path,
+            });
+        }
+    };
+
     const getMemosFromDailyNote = async (file: TFile | null): Promise<allKindsofMemos> => {
         if (!file) {
             return {
@@ -193,7 +279,7 @@ export async function getMemos(): Promise<allKindsofMemos> {
 
         if (!fileLines.length) return;
 
-        let startDate = moment(file.basename, format).startOf('day');
+        let date = moment(file.basename, format).startOf('day');
 
         let processHeaderFound = false;
 
@@ -201,94 +287,14 @@ export async function getMemos(): Promise<allKindsofMemos> {
             const line = fileLines[i].trim();
 
             if (line.length === 0) continue;
+            if (!new RegExp(/(^((\d+\.)|-|\*|\+)(\s)(.*)(?:$)?)/g).test(line)) continue;
 
             if (processHeaderFound == false && lineContainsParseBelowToken(line, ProcessEntriesBelow)) processHeaderFound = true;
             if (processHeaderFound == true && !lineContainsParseBelowToken(line, ProcessEntriesBelow) && /^#{1,} /g.test(line)) processHeaderFound = false;
 
             if (!lineContainsTime(line, CommentsInOriginalNotes, DefaultMemoComposition) || !processHeaderFound) continue;
 
-            const time = extractTimeFromBulletLine(line, DefaultMemoComposition);
-
-            startDate.set({
-                hours: parseInt(time.hour),
-                minutes: parseInt(time.minute),
-                seconds: parseInt(time.second),
-            });
-
-            const endDate = startDate.clone();
-
-            const memoType = getMemoType(line);
-            const rawText = extractTextFromTodoLine(line, DefaultMemoComposition).trim();
-
-            let originId = '';
-            if (!rawText) continue;
-
-            if (rawText !== '') {
-                let hasId = Math.random().toString(36).slice(-6);
-                originId = hasId;
-                let linkId = '';
-                if (plugin.settings.CommentOnMemos && /comment:(.*)#\^\S{6}]]/g.test(rawText)) {
-                    linkId = extractCommentFromLine(rawText);
-                }
-                if (/\^\S{6}$/g.test(rawText)) {
-                    hasId = rawText.slice(-6);
-                    originId = hasId;
-                }
-                memos.push({
-                    id: startDate.format('YYYYMMDDHHmmSS') + i,
-                    content: rawText,
-                    createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
-                    updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
-                    memoType: memoType,
-                    hasId: hasId,
-                    linkId: linkId,
-                    path: file.path,
-                });
-                continue;
-            }
-            if (/comment:(.*)#\^\S{6}]]/g.test(rawText) && plugin.settings.CommentOnMemos && !plugin.settings.CommentsInOriginalNotes) {
-                const commentId = extractCommentFromLine(rawText);
-                const hasId = '';
-                commentMemos.push({
-                    id: startDate.format('YYYYMMDDHHmmSS') + i,
-                    content: rawText,
-                    createdAt: startDate.format('YYYY/MM/DD HH:mm:SS'),
-                    updatedAt: endDate.format('YYYY/MM/DD HH:mm:SS'),
-                    memoType: memoType,
-                    hasId: hasId,
-                    linkId: commentId,
-                });
-                continue;
-            }
-            if (rawText === '' || rawText.contains(' comment') || !underComments) continue;
-
-            const originalText = line.replace(/^[-*]\s(\[(.{1})\]\s?)?/, '')?.trim();
-            const commentsInMemos = underComments?.filter((item) => item.text === originalText || item.line === i || item.blockId === originId);
-
-            if (commentsInMemos.length === 0) continue;
-
-            if (commentsInMemos[0].children?.length === 0) continue;
-
-            for (let j = 0; j < commentsInMemos[0].children.length; j++) {
-                // console.log(commentsInMemos[0].children.values[j].text);
-                const hasId = '';
-                let commentTime;
-                if (/^\d{12}/.test(commentsInMemos[0].children[j].text)) {
-                    commentTime = commentsInMemos[0].children[j].text?.match(/^\d{14}/)[0];
-                } else {
-                    commentTime = startDate.format('YYYYMMDDHHmmSS');
-                }
-                commentMemos.push({
-                    id: commentTime + commentsInMemos[0].children[j].line,
-                    content: commentsInMemos[0].children[j].text,
-                    createdAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
-                    updatedAt: moment(commentTime, 'YYYYMMDDHHmmSS').format('YYYY/MM/DD HH:mm:SS'),
-                    memoType: getMemoType(commentsInMemos[0].children[j].status),
-                    hasId: hasId,
-                    linkId: originId,
-                    path: commentsInMemos[0].children[j].path,
-                });
-            }
+            const memo = memoInit(line, date, plugin);
         }
     };
 
