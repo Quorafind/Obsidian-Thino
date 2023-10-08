@@ -5,6 +5,8 @@
 > Memos 2.0.x is ready for test, if you are interested in it, please contact me @Boninall via Obsidian discord OR mail: Bonopengate@gmail.com
 > 
 > Memos 2.0.x 正在封闭测试中，如果你对此感兴趣，请在 Obsidian discord 上联系我 @Boninall 或者邮件：Bonopengate@gmail.com
+>
+> Releases Note: https://ob.boninall.com/_Update/Obsidian+Memos+Update+MOC
 
 A new way for you to quick capture an idea in Obsidian. Which is highly based on the awesome open source project: [memos](https://github.com/justmemos/memos) and awesome service: [flomo](https://flomoapp.com/).
 
