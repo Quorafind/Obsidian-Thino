@@ -1,6 +1,6 @@
-name: [Thino] Bug Report
+name: Bug Report for Thino
 description: File a bug report for insider version of Thino(2.x)
-title: "[Thino] Bug: "
+title: "[Bug][Thino]: "
 labels: [ "bug" ]
 body:
     -   type: textarea
