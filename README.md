@@ -2,9 +2,15 @@
 
 [中文文档](./document/chinese.md)
 
-> Memos 2.0.x is ready for test, if you are interested in it, please contact me @Boninall via Obsidian discord OR mail: Bonopengate@gmail.com
+> [!warning]
+> Updated: It is now in internal testing on Pkmer, and you can try it out as a Thino insider. If you have previously donated to me through Buy me coffee or other means(before 2023.10), don't worry, I will give you a trial slot! Please feel free to message me privately.
+> <br>
+> 更新：现在它正在 Pkmer 网站上内测发布中，你可以购买 Thino insider 来测试它，如果你之前（在今年十月前）有任意形式捐赠过我，不管数额多少，你都可以随时联系我获取 thino insider 名额！
+
+> [!note]
+> Thino(Memos 2.1.x) is ready for test, if you are interested in it, please contact me @Boninall via Obsidian discord OR mail: Bonopengate@gmail.com
 > 
-> Memos 2.0.x 正在封闭测试中，如果你对此感兴趣，请在 Obsidian discord 上联系我 @Boninall 或者邮件：Bonopengate@gmail.com
+> Thino(Memos 2.1.x) 正在封闭测试中，如果你对此感兴趣，请在 Obsidian discord 上联系我 @Boninall 或者邮件：Bonopengate@gmail.com
 >
 > Releases Note: https://ob.boninall.com/_Update/Obsidian+Memos+Update+MOC
 
