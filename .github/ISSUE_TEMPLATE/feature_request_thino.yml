@@ -1,6 +1,6 @@
-name: [Thino] Feature request
+name: Feature request for Thino
 description: Suggest an idea to insider version of Thino(2.x)
-title: "[Thino] Feature Request: "
+title: "[FR][Thino]: "
 labels: [ "feature request" ]
 body:
     -   type: textarea
