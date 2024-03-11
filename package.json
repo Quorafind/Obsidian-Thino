@@ -1,0 +1,14 @@
+{
+  "name": "thino",
+  "version": "2.3.0",
+  "scripts": {
+    "release": "release-it"
+  },
+  "devDependencies": {
+    "@release-it/bumper": "^6.0.1",
+    "globby": "^14.0.1",
+    "jszip": "^3.10.1",
+    "release-it": "^16.1.0",
+    "semver": "^7.6.0"
+  }
+}
