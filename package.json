@@ -2,10 +2,11 @@
   "name": "thino",
   "version": "2.3.1-1",
   "scripts": {
-    "release": "release-it"
+    "release": "dotenv release-it --"
   },
   "devDependencies": {
     "@release-it/bumper": "^6.0.1",
+    "dotenv-cli": "^7.4.1",
     "globby": "^14.0.1",
     "jszip": "^3.10.1",
     "release-it": "^16.1.0",
