@@ -15,3 +15,4 @@
 - fix: [PRO] global copy is not working.
 - feat: [PRO/BASIC] you can set open thino view when open obsidian on desktop or mobile;
 - feat: [PRO/BASIC] support open note in current thino view;
+- fix: [PRO/BASIC] search should not be case-sensitive;
