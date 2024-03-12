@@ -3,10 +3,9 @@
 <p>Thino: A new way for you to quick capture an idea in Obsidian.</p>
 </div>
 
-
-
-| [English](https://thino.pkmer.net/en/) | [中文](https://thino.pkmer.net/) |
-| -------------------------------------- | ------------------------------ |
+<div align="center">
+  <a href="https://thino.pkmer.net/en/">English</a> | <a href="https://thino.pkmer.net/">中文</a>
+</div>
 
 > [!warning]  
 > From version 2.0.0, thino is not open-source anymore. You can still use it for free, but you need to buy a license to use some advanced features. You can buy a pro license from [here](https://thino.pkmer.net/).
