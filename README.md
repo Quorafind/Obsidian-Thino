@@ -20,6 +20,8 @@
 >
 > About the reason for the rename, please refer to [here](https://thino.pkmer.net/en/thino).
 
+
+
 ## Basic Introduction
 
 1. All Thinos are sourced from your notes. If you are using the basic version, then all Thinos originate from your diary files. For more information, please visit [link](https://thino.pkmer.net/en/thino/01_thino-basic/01_thino-basic-tutorial/).
@@ -58,14 +60,9 @@ The following markdown text formats will be properly parsed in daily note mode:
   
 ---  
 
-## Thino Sync(Not yet available)
+## CHANGELOG
 
-**Thino Sync** is a service that allows you to sync your Thinos across devices. It is a paid service. You can purchase a license from [link](https://thino.pkmer.net/en/).
-
-We will not collect any of your data, and we will not be able to access your data.
-
-- If you use Thino(PKMer) Sync, we store your data to provide the service.
-- If your Sync or Publish subscription expires, your data remains stored on our servers for one month, then deleted permanently. If you cancel the subscription yourself, your data is deleted immediately.
+You can read the changelog from [here](./CHANGELOG.md).
 
 ## Pro vs Free
 
@@ -86,6 +83,17 @@ We will not collect any of your data, and we will not be able to access your dat
 *: Support for live preview editor is limited in free version.
 
 You can purchase a license to use the following features: [link](https://thino.pkmer.net/en/).
+
+
+## Thino Sync(Not yet available)
+
+**Thino Sync** is a service that allows you to sync your Thinos across devices. It is a paid service. You can purchase a license from [link](https://thino.pkmer.net/en/).
+
+We will not collect any of your data, and we will not be able to access your data.
+
+- If you use Thino(PKMer) Sync, we store your data to provide the service.
+- If your Sync or Publish subscription expires, your data remains stored on our servers for one month, then deleted permanently. If you cancel the subscription yourself, your data is deleted immediately.
+
 
 ## How to Install
 
