@@ -1,7 +1,7 @@
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.zWJ7OQSW.svg">
-  <img alt="Light mode" style="" src="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.zWJ7OQSW.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/dark-thino.svg">
+  <img alt="Light mode" style="" src="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.svg">
 </picture>
 <p>Thino: A new way for you to quick capture an idea in Obsidian.</p>
 </div>
