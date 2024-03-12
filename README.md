@@ -74,14 +74,14 @@ We will not collect any of your data, and we will not be able to access your dat
 | Daily Notes Mode                                                        | ✅    | ✅   |  
 | Thino Share                                                             | ✅    | ✅   |  
 | Global Editor                                                           | ✅    | ✅   |  
-| [Live Preview Editor](https://thino.pkmer.net/en/)                      | ✅*   | ✅   |  
-| [Multi Layout](https://thino.pkmer.net/en/)                             | ❌    | ✅   |  
-| [Daily Progress Bar](https://thino.pkmer.net/en/)                       | ❌    | ✅   |  
-| [Custom Suggester for Live Preview Editor](https://thino.pkmer.net/en/) | ❌    | ✅   |  
-| [Random Review](https://thino.pkmer.net/en/)                            | ❌    | ✅   |  
+| [Live Preview Editor](https://thino.pkmer.net/en/thino/01_thino-basic/thino-editor/)                      | ✅*   | ✅   |  
+| [Multi Layout](https://thino.pkmer.net/en/thino/01_thino-basic/thino-multi-layout/)                             | ❌    | ✅   |  
+| [Daily Progress Bar](https://thino.pkmer.net/en/thino/01_thino-basic/thino-heatmap/)                       | ❌    | ✅   |  
+| [Custom Suggester for Live Preview Editor](https://thino.pkmer.net/en/thino/01_thino-basic/thino-editor/) | ❌    | ✅   |  
+| [Random Review](https://thino.pkmer.net/en/thino/01_thino-basic/thino-review/)                            | ❌    | ✅   |  
 | [Local Thino Server](https://thino.pkmer.net/en/)                       | ❌    | ✅   | 
 | [Global Capture](https://thino.pkmer.net/en/)                           | ❌    | ✅   |  
-| [Multiple Thino Sources](https://thino.pkmer.net/en/)                   | ❌    | ✅   |  
+| [Multiple Thino Sources](https://thino.pkmer.net/en/thino/02_thino-advanced/thino-multi-souce/)                   | ❌    | ✅   |  
 
 *: Support for live preview editor is limited in free version.
 
