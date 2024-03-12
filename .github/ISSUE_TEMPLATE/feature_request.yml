@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an idea
+title: "Feature Request: "
+labels: [ "feature request" ]
+body:
+  - type: textarea
+    id: feature-requested
+    attributes:
+      label: Feature Requested
+      description: A clear and concise description of the feature. 一个清晰而简洁的功能描述。
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Relevant Screenshot
+      description: If applicable, add screenshots or a screen recording to help explain the request. 如果适用，请添加截图或屏幕录制以帮助解释请求。
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: The feature would be useful to more users than just me. 该功能对于不仅仅是我自己的用户来说是有用的。
+          required: true
+
