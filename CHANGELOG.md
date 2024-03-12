@@ -13,3 +13,4 @@
   - style: support custom style for checkbox;
 - fix: filter dialog would be closed when title is empty;
 - fix: [PRO] global copy is not working.
+- feat: [PRO/BASIC] you can set open thino view when open obsidian sperately;
