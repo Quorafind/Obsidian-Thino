@@ -1,5 +1,8 @@
 <div align="center">
-<img src="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.zWJ7OQSW.svg" >
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.zWJ7OQSW.svg">
+  <img alt="Light mode" src="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.zWJ7OQSW.svg">
+</picture>
 <p>Thino: A new way for you to quick capture an idea in Obsidian.</p>
 </div>
 
