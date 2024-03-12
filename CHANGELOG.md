@@ -10,4 +10,5 @@
 - fix: influx plugin should not be shown in the editor;
 - feat: [PRO/BASIC] support task type filter & source type filter;
 - feat: [PRO/BASIC] support checkbox type to be shown in the thino card;
-- fix: filter dialog would close when title is empty;
+  - style: support custom style for checkbox;
+- fix: filter dialog would be closed when title is empty;
