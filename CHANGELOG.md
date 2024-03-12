@@ -8,3 +8,5 @@
 - feat: [PRO/BASIC] support navigation from other view to Thino view, and support navigation from Thino view to other view; (Toggle in settings)
 - fix: block id would not be deleted when content is updated;
 - fix: influx plugin should not be shown in the editor;
+- feat: [PRO/BASIC] support task type filter & source type filter;
+- feat: [PRO/BASIC] support checkbox type to be shown in the thino card;
