@@ -12,3 +12,4 @@
 - feat: [PRO/BASIC] support checkbox type to be shown in the thino card;
   - style: support custom style for checkbox;
 - fix: filter dialog would be closed when title is empty;
+- fix: [PRO] global copy is not working.
