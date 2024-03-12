@@ -1,7 +1,9 @@
-![](https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.zWJ7OQSW.svg)
+<div align="center">
+<img src="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.zWJ7OQSW.svg" >
+<p>Thino: A new way for you to quick capture an idea in Obsidian.</p>
+</div>
 
-> [!note]  
-> A new way for you to quick capture an idea in Obsidian.
+
 
 | [English](https://thino.pkmer.net/en/) | [中文](https://thino.pkmer.net/) |
 | -------------------------------------- | ------------------------------ |
