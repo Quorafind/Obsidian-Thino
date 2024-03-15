@@ -1,4 +1,7 @@
 
+# 2.3.5
+
+- fix: [PRO] reg code will not be saved correctly;
 
 # 2.3.4
 
