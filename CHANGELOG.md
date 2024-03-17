@@ -1,4 +1,9 @@
 
+# 2.3.8
+
+- fix: heatmap should not show deleted thinos;
+- fix: [PRO] fix base64 issue with CJK characters;
+
 # 2.3.7
 
 - chore: keep console.error to show status when thino loaded;
