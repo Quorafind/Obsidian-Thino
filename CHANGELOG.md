@@ -1,4 +1,8 @@
 
+# 2.3.6
+
+- fix: storage issue to cause the thino crash;
+
 # 2.3.5
 
 - fix: [PRO] reg code will not be saved correctly;
