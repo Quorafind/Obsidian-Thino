@@ -1,4 +1,8 @@
 
+# 2.3.7
+
+- chore: keep console.error to show status when thino loaded;
+
 # 2.3.6
 
 - fix: storage issue to cause the thino crash;
