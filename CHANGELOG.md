@@ -2,6 +2,7 @@
 # 2.3.5
 
 - fix: [PRO] reg code will not be saved correctly;
+- chore: [PRO] update reg code validation system;
 
 # 2.3.4
 
