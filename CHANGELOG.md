@@ -9,6 +9,7 @@
 - feat: [PRO] support bulk delete/archive/restore/copy in all view(after filter);
 - fix: [PRO] show day's list and task count correctly;
 - style: update the style of default toggle list button, show list icon when select list type;
+- feat: [PRO/BASIC] support basic password protection;
 
 # 2.3.9
 
