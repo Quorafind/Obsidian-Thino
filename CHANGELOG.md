@@ -5,6 +5,7 @@
 - feat: [PRO] support search bar in archive/recycle bin view;
 - feat: [PRO/BASIC] support basic search bar in daily thinos dialog;
 - style: remove translatex in page wrapper;
+- fix: [PRO] should not get archived thino in the thino list;
 
 # 2.3.9
 
