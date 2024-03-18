@@ -2,6 +2,7 @@
 # 2.3.10
 
 - feat: [PRO] support filter in archive/recycle bin view;
+- feat: [PRO] support search bar in archive/recycle bin view;
 
 # 2.3.9
 
