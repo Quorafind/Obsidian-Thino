@@ -3,6 +3,7 @@
 
 - feat: [PRO] support filter in archive/recycle bin view;
 - feat: [PRO] support search bar in archive/recycle bin view;
+- feat: [PRO/BASIC] support basic search bar in daily thinos dialog;
 
 # 2.3.9
 
