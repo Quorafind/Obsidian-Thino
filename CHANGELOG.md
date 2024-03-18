@@ -1,4 +1,9 @@
 
+# 2.3.9
+
+- feat: [PRO] support select thino source or thino type in table view;
+- fix: [PRO] don't show JOURNAL icon correctly;
+
 # 2.3.8
 
 - fix: heatmap should not show deleted thinos;
