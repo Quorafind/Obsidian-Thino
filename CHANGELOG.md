@@ -1,4 +1,8 @@
 
+# 2.3.10
+
+- feat: [PRO] support filter in archive/recycle bin view;
+
 # 2.3.9
 
 - feat: [PRO] support select thino source or thino type in table view;
