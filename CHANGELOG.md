@@ -3,6 +3,7 @@
 
 - feat: [PRO] support select thino source or thino type in table view;
 - fix: [PRO] don't show JOURNAL icon correctly;
+- feat: [PRO] support custom time mark range like day/week/month/year;
 
 # 2.3.8
 
