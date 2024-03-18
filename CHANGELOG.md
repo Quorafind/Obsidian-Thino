@@ -4,6 +4,7 @@
 - feat: [PRO] support filter in archive/recycle bin view;
 - feat: [PRO] support search bar in archive/recycle bin view;
 - feat: [PRO/BASIC] support basic search bar in daily thinos dialog;
+- style: remove translatex in page wrapper;
 
 # 2.3.9
 
