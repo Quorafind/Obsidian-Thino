@@ -6,6 +6,7 @@
 - feat: [PRO/BASIC] support basic search bar in daily thinos dialog;
 - style: remove translatex in page wrapper;
 - fix: [PRO] should not get archived thino in the thino list;
+- feat: [PRO] support bulk delete/archive/restore/copy in all view(after filter);
 
 # 2.3.9
 
