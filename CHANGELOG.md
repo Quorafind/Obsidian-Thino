@@ -7,6 +7,7 @@
 - style: remove translatex in page wrapper;
 - fix: [PRO] should not get archived thino in the thino list;
 - feat: [PRO] support bulk delete/archive/restore/copy in all view(after filter);
+- fix: [PRO] show day's list and task count correctly;
 
 # 2.3.9
 
