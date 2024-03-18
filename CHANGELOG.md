@@ -10,6 +10,7 @@
 - fix: [PRO] show day's list and task count correctly;
 - style: update the style of default toggle list button, show list icon when select list type;
 - feat: [PRO/BASIC] support basic password protection;
+- fix: cannot copy id correctly;
 
 # 2.3.9
 
