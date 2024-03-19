@@ -12,6 +12,7 @@
 - feat: [PRO/BASIC] support basic password protection;
 - fix: cannot copy id correctly;
 - feat: [PRO/BASIC] support better password protection;
+- feat: [PRO/BASIC] support lock via command;
 
 # 2.3.9
 
