@@ -19,6 +19,7 @@
 - fix: top-right menu delete button should not be influenced by last changed.
 - feat: [PRO] support sort order when click on date of agenda;
 - feat: [PRO] support share image of agenda view when right-click on the table header.
+- fix: cannot edit content after obsidian 1.5.11
 
 # 2.3.9
 
