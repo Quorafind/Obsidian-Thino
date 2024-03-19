@@ -14,7 +14,7 @@
 - feat: [PRO/BASIC] support better password protection;
 - feat: [PRO/BASIC] support lock via command;
 - fix: command to lock thino should not show when disabled password protection;
-- fix: dropdown menu cannot delete thino;
+- fix: dropdown menu cannot delete thino correctly;
 - fix: don't show password protection modal when password is empty;
 
 # 2.3.9
