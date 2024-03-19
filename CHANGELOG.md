@@ -13,6 +13,7 @@
 - fix: cannot copy id correctly;
 - feat: [PRO/BASIC] support better password protection;
 - feat: [PRO/BASIC] support lock via command;
+- fix: command to lock thino should not show when disabled password protection;
 
 # 2.3.9
 
