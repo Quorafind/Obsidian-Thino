@@ -24,6 +24,8 @@
 - feat: [PRO] support sort time when in agenda view;
 - fix: cannot edit thino correctly after obsidian 1.5.11;
 - feat: [PRO] support chat view mode;
+- style: fix some issue related to chat view;
+- feat: [PRO] enable switch chat or list mode when is mobile view;
 
 # 2.3.9
 
