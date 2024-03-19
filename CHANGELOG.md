@@ -11,6 +11,7 @@
 - style: update the style of default toggle list button, show list icon when select list type;
 - feat: [PRO/BASIC] support basic password protection;
 - fix: cannot copy id correctly;
+- feat: [PRO/BASIC] support better password protection;
 
 # 2.3.9
 
