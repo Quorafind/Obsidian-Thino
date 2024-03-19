@@ -23,6 +23,7 @@
 - fix: compatibility issue with before obsidian 1.5.6;
 - feat: [PRO] support sort time when in agenda view;
 - fix: cannot edit thino correctly after obsidian 1.5.11;
+- feat: [PRO] support chat view mode;
 
 # 2.3.9
 
