@@ -16,6 +16,7 @@
 - fix: command to lock thino should not show when disabled password protection;
 - fix: dropdown menu cannot delete thino correctly;
 - fix: don't show password protection modal when password is empty;
+- fix: top-right menu delete button should not be influenced by last changed.
 
 # 2.3.9
 
