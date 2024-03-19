@@ -17,6 +17,7 @@
 - fix: dropdown menu cannot delete thino correctly;
 - fix: don't show password protection modal when password is empty;
 - fix: top-right menu delete button should not be influenced by last changed.
+- feat: [PRO] support sort order when click on date of agenda;
 
 # 2.3.9
 
