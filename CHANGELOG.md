@@ -1,4 +1,9 @@
 
+# 2.3.12
+
+- feat: [PRO] support toggle checkbox in chat view;
+
+
 # 2.3.11
 
 - fix: cannot select time when open calendar suggester
