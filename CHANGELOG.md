@@ -2,6 +2,7 @@
 # 2.3.11
 
 - fix: cannot select time when open calendar suggester
+- fix: style when editor is at the bottom of the page
 
 # 2.3.10
 
