@@ -1,4 +1,8 @@
 
+# 2.3.11
+
+- fix: cannot select time when open calendar suggester
+
 # 2.3.10
 
 - feat: [PRO] support filter in archive/recycle bin view;
