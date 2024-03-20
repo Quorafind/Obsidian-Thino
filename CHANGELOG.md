@@ -2,6 +2,7 @@
 # 2.3.12
 
 - feat: [PRO] support toggle checkbox in chat view;
+- feat: [PRO] support automatically add tags to thino content when filter by tags(or tags in query filter);
 
 
 # 2.3.11
