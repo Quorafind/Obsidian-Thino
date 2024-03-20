@@ -27,6 +27,7 @@
 - style: fix some issue related to chat view;
 - feat: [PRO] enable switch chat or list mode when is mobile view;
 - style: [PRO] update chat view style; 
+- style: [PRO] update chat view style;
 
 # 2.3.9
 
