@@ -4,6 +4,7 @@
 - fix: cannot select time when open calendar suggester
 - fix: style when editor is at the bottom of the page
 - fix: show wrong translation
+- fix: should not destroy editor when open settings
 
 # 2.3.10
 
