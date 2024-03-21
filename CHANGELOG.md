@@ -1,4 +1,8 @@
 
+# 2.3.13
+
+- fix: style issue related to chat view;
+
 # 2.3.12
 
 - feat: [PRO] support toggle checkbox in chat view;
