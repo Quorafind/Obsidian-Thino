@@ -5,6 +5,7 @@
 - feat: [PRO] support automatically add tags to thino content when filter by tags(or tags in query filter);
 - style: add pro class name to pro features entry;
 - feat: [PRO] support bulk tag operation in thino list when filtering;
+- feat: [PRO] new chat view style, set it in theme settings of thino;
 
 
 # 2.3.11
