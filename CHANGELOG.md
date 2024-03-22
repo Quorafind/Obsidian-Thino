@@ -1,4 +1,8 @@
 
+# 2.3.17
+
+- style: hide pro features for basic users;
+
 # 2.3.16
 
 - fix: style issue related to chat view;
