@@ -1,4 +1,9 @@
 
+# 2.3.18
+
+- fix: [PRO] update thino should not jump to top of the page;
+
+
 # 2.3.17
 
 - style: hide pro features for basic users;
