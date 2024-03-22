@@ -2,6 +2,7 @@
 # 2.3.17
 
 - style: hide pro features for basic users;
+- style: mobile view header style;
 
 # 2.3.16
 
