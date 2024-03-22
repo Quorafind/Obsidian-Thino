@@ -2,7 +2,7 @@
 # 2.3.18
 
 - fix: [PRO] update thino should not jump to top of the page;
-
+- perf: [PRO] update chat view to improve performance;
 
 # 2.3.17
 
