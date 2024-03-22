@@ -1,6 +1,8 @@
 
 # 2.3.16
 
+- fix: style issue related to chat view;
+
 # 2.3.15
 
 - fix: style issue related to chat view;

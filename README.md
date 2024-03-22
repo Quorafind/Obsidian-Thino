@@ -10,6 +10,8 @@
   <a href="https://thino.pkmer.net/en/">English</a> | <a href="https://thino.pkmer.net/">中文</a>
 </div>
 
+[![wakatime](https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/292fa896-30ea-47f5-be85-7d8398591cbb.svg)](https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/292fa896-30ea-47f5-be85-7d8398591cbb) [![wakatime](https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/6d32fae0-c591-478a-860b-33592db7bc79.svg)](https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/6d32fae0-c591-478a-860b-33592db7bc79)
+
 > [!warning]  
 > From version 2.0.0, thino is not open-source anymore. You can still use it for free, but you need to buy a license to use some advanced features. You can buy a pro license from [here](https://thino.pkmer.net/).
 >
