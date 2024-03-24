@@ -1,4 +1,8 @@
 
+# 2.3.24
+
+- fix: cannot filter thino via tag in daily review view;
+
 # 2.3.23
 
 - fix: scroll to bottom when clear query;
