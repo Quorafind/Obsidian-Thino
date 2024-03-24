@@ -1,4 +1,8 @@
 
+# 2.3.19
+
+- fix: [PRO] moments view issues fixed;
+
 # 2.3.18
 
 - fix: [PRO] update thino should not jump to top of the page;
