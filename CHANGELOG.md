@@ -1,4 +1,8 @@
 
+# 2.3.22
+
+- feat: support better daily review page (via header of thino);
+
 # 2.3.21
 
 - style: hide header when navigate to archive/trash view;
