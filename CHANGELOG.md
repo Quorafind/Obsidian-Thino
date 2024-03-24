@@ -1,4 +1,9 @@
 
+# 2.3.20
+
+- fix: [PRO] chat view css issues;
+- fix: [PRO] moments view css issues;
+
 # 2.3.19
 
 - fix: [PRO] moments view issues fixed;
