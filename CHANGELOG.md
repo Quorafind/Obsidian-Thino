@@ -1,4 +1,8 @@
 
+# 2.3.21
+
+- style: hide header when navigate to archive/trash view;
+
 # 2.3.20
 
 - fix: [PRO] chat view css issues;
