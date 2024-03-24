@@ -3,6 +3,7 @@
 
 - fix: [PRO] update thino should not jump to top of the page;
 - perf: [PRO] update chat view to improve performance;
+- feat: [PRO] support moments view;
 
 # 2.3.17
 
