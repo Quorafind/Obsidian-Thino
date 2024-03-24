@@ -1,4 +1,8 @@
 
+# 2.3.23
+
+- fix: scroll to bottom when clear query;
+
 # 2.3.22
 
 - feat: support better daily review page (via header of thino);
