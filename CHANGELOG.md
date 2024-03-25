@@ -1,4 +1,8 @@
 
+# 2.3.25
+
+- fix: cannot edit thino in moments view.
+
 # 2.3.24
 
 - style: update moments style;
