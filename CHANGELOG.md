@@ -1,4 +1,13 @@
 
+# 2.3.25
+
+- style: update moments style;
+- fix: cannot show editor at the bottom when use moments view;
+- feat: [PRO/BASIC] support better daily thino layout;
+- fix: bottom editor issues related to all views;
+- fix: cannot scroll-x  on table view;
+- fix: should not fetch daily note if not enable;
+
 # 2.3.24
 
 - fix: cannot filter thino via tag in daily review view;
