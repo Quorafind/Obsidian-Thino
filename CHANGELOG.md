@@ -1,4 +1,9 @@
 
+# 2.3.26
+
+- style: new theme settings for Thino, available for Pro and Basic users;
+- fix: show editor in float window;
+
 # 2.3.25
 
 - fix: cannot edit thino in moments view.
