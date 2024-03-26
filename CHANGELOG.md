@@ -5,6 +5,7 @@
 - fix: show editor in float window;
 - feat: support new theme `modern`;
 ![modern](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/modern.png)
+> You can toggle it in theme settings;
 
 # 2.3.25
 
