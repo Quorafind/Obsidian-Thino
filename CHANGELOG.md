@@ -3,6 +3,8 @@
 
 - style: new theme settings for Thino, available for Pro and Basic users;
 - fix: show editor in float window;
+- feat: support new theme `modern`;
+![modern](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/modern.png)
 
 # 2.3.25
 
