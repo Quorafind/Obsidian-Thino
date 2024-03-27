@@ -8,8 +8,6 @@
 > - 样式：更新 changelog 模态框 img 样式；
 > - 修复：复制调试信息问题；
 
----
-
 # 2.3.27
 
 - fix: style issues related to share dialog/daily thino view/thino card dialog;
