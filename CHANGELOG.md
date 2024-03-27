@@ -1,20 +1,30 @@
 
+# 2.3.28
+
+- style: update changelog modal img style;
+- fix: copy debug info issues;
+
+> [!note]- 中文
+> - 样式：更新 changelog 模态框 img 样式；
+> - 修复：复制调试信息问题；
+
+---
+
 # 2.3.27
 
 - fix: style issues related to share dialog/daily thino view/thino card dialog;
 - fix: codeblock would not overflow share card dialog anymore;
 
----
-
-- 修复：分享页面悬浮框/每日 Thino 视图/Thino 卡片悬浮框相关的样式问题；
-- 修复：代码块不会再溢出分享卡片；
+> [!note]- 中文
+> - 修复：分享页面悬浮框/每日 Thino 视图/Thino 卡片悬浮框相关的样式问题；
+> - 修复：代码块不会再溢出分享卡片；
 
 # 2.3.26
 
 - style: new theme settings for Thino, available for Pro and Basic users;
 - fix: show editor in float window;
 - feat: support new theme `modern`;
-![modern|600](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/modern-layout.png)
+![modern|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/modern-layout.png)
 > You can toggle it in theme settings;
 
 # 2.3.25
