@@ -2,6 +2,12 @@
 # 2.3.27
 
 - fix: style issues related to share dialog/daily thino view/thino card dialog;
+- fix: codeblock would not overflow share card dialog anymore;
+
+---
+
+- 修复：分享页面悬浮框/每日 Thino 视图/Thino 卡片悬浮框相关的样式问题；
+- 修复：代码块不会再溢出分享卡片；
 
 # 2.3.26
 
