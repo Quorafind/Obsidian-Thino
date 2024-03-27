@@ -1,4 +1,13 @@
 
+# 2.3.29
+
+- style: update all `var(--color-base-xx)` variables to use `var(--thino-xxxxx)`;
+- style: update chat view paddings;
+
+> [!note]- 中文
+> - 样式：更新所有 `var(--color-base-xx)` 变量使用 `var(--thino-xxxxx)`；
+> - 样式：更新聊天视图内边距；
+
 # 2.3.28
 
 - style: update changelog modal img style;
