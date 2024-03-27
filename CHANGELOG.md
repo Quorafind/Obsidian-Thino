@@ -1,4 +1,8 @@
 
+# 2.3.27
+
+- fix: style issues related to share dialog/daily thino view/thino card dialog;
+
 # 2.3.26
 
 - style: new theme settings for Thino, available for Pro and Basic users;
