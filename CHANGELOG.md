@@ -1,4 +1,12 @@
 
+# 2.3.31
+
+- fix: select `most active day` in `daily thino` view should cause the view to jump to the selected day;
+- fix: icon's weight and height in moments view should be the same;
+- fix: copy in table view as image should work correctly now;
+- feat: support copy thino via context menu;
+
+
 # 2.3.30
 
 - feat: [PRO/BASIC] support copy filtered thino as image;
