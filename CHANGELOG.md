@@ -1,4 +1,10 @@
 
+# 2.3.32
+
+- feat: support filter thino in random review mode, you would review only filtered thino;
+- feat: copy debug info as codeblock;
+- fix: cannot parse daily note if a tag below a header;
+
 # 2.3.31
 
 - fix: select `most active day` in `daily thino` view should cause the view to jump to the selected day;
