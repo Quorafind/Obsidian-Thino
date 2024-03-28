@@ -2,6 +2,7 @@
 # 2.3.30
 
 - feat: [PRO/BASIC] support copy filtered thino as image;
+
 ![copy-image|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share.gif)
 
 > [!note]- 中文
