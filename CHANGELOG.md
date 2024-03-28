@@ -1,4 +1,14 @@
 
+# 2.3.33
+
+- fix: cannot input tag when editing thino;
+- fix: cannot show popover when mouse over heatmap in modern theme;
+
+> [!note]- 中文
+> - 修复：编辑 Thino 时无法输入标签；
+> - 修复：在 Modern 主题中鼠标悬停在热力图上时无法显示弹出窗口；
+
+
 # 2.3.32
 
 - feat: support filter thino in random review mode, you would review only filtered thino;
