@@ -5,6 +5,11 @@
 - feat: copy debug info as codeblock;
 - fix: cannot parse daily note if a tag below a header;
 
+> [!note]- 中文
+> - 特性：支持在随机复习模式下过滤 Thino，您只会复习过滤的 Thino；
+> - 特性：将调试信息复制为代码块；
+> - 修复：如果标签在标题下面，无法解析每日笔记；
+
 # 2.3.31
 
 - fix: select `most active day` in `daily thino` view should cause the view to jump to the selected day;
