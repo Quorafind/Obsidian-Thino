@@ -6,6 +6,14 @@
 - fix: copy in table view as image should work correctly now;
 - feat: support copy thino via context menu;
 
+> [!note]- 中文
+> - 修复：在 `每日 Thino` 视图中选择 `最活跃的一天` 应该导致视图跳转到所选的一天；
+> - 修复：`moments` 视图中的图标的重量和高度应该是相同的；
+> - 修复：在表视图中复制为图片应该可以正常工作；
+> - 特性：支持通过上下文菜单复制 Thino；
+
+![copy-image|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-context-menu-copy.png)
+
 
 # 2.3.30
 
