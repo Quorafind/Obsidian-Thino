@@ -1,4 +1,12 @@
 
+# 2.3.30
+
+- feat: [PRO/BASIC] support copy filtered thino as image;
+![copy-image|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share.gif)
+
+> [!note]- 中文
+> - 特性：[PRO/BASIC] 支持将过滤的 Thino 复制为图片；
+
 # 2.3.29
 
 - style: update all `var(--color-base-xx)` variables to use `var(--thino-xxxxx)`;
