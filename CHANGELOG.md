@@ -1,4 +1,17 @@
 
+# 2.3.34
+
+- fix: bottom editor issues related to chat view;
+- style: better images alignment in moments view;
+- fix: text ellipsis for user name;
+
+> [!note]- 中文
+> - 修复：与聊天视图相关的底部编辑器问题；
+> - 样式：更好的图片对齐样式；
+> - 修复：用户名称的文本省略号；
+
+![username|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-user-name.png)
+
 # 2.3.33
 
 - fix: cannot input tag when editing thino;
