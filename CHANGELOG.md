@@ -1,4 +1,15 @@
 
+# 2.3.35
+
+- feat: [PRO] support tags multi-select filter when holding `ctrl` or `meta` key;
+- feat: [PRO/BASIC] support click on task status item/ tags status item to filter thinos when using Modern theme;
+
+> [!note]- 中文
+> - 特性：[PRO] 支持标签多选过滤，按住 `ctrl` 或 `meta` 键；
+> - 特性：[PRO/BASIC] 在 Modern 模式下，支持点击任务状态项/标签状态项来过滤 Thino；
+
+![tag-filter|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-filter.gif)
+
 # 2.3.34
 
 - fix: bottom editor issues related to chat view;
