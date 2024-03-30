@@ -1,4 +1,14 @@
 
+# 2.3.36
+
+- fix: cannot double-click on checkbox in thino to toggle it, it will trigger edit thino event;
+- fix: click on checkbox in TASK-TODO thino should not toggle it done;
+
+> [!note]- 中文
+> - 修复：无法双击 Thino 中的复选框来切换它，它会触发编辑 Thino 事件；
+> - 修复：点击 TASK-TODO Thino 中的复选框不应该切换它的状态；
+
+
 # 2.3.35
 
 - feat: [PRO] support tags multi-select filter when holding `ctrl` or `meta` key;
