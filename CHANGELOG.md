@@ -22,7 +22,7 @@ Using it via command or insert code block like:
 ```  
 ````
 
-![insert-editor](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-insert-editor.gif)
+![insert-editor|400](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-insert-editor.gif)
 
 
 # 2.3.36
