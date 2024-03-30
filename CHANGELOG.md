@@ -1,4 +1,9 @@
 
+# 2.3.37
+
+- fix: cannot unpin thino correctly via context menu;
+
+
 # 2.3.36
 
 - fix: cannot double-click on checkbox in thino to toggle it, it will trigger edit thino event;
