@@ -2,6 +2,27 @@
 # 2.3.37
 
 - fix: cannot unpin thino correctly via context menu;
+- feat: [PRO/BASIC] support insert editor to current markdown view;
+- fix: tag list cause thino crashed;
+
+> [!note]- 中文
+> - 修复：无法通过上下文菜单正确取消固定 Thino；
+> - 特性：[PRO/BASIC] 支持将编辑器插入到当前的 markdown 视图；
+> - 修复：标签列表导致 Thino 崩溃；
+
+## Insert Editor
+
+Using it via command or insert code block like:
+
+````  
+```thino  
+{  
+  editor: true;
+}  
+```  
+````
+
+![insert-editor](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-insert-editor.gif)
 
 
 # 2.3.36
