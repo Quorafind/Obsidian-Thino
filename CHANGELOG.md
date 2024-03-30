@@ -1,4 +1,20 @@
 
+# 2.3.39
+
+- fix: cannot show thino list correctly;
+- fix: daily notes issue related to thino;
+
+> [!note]- 中文
+> - 修复：无法正确显示 Thino 列表；
+> - 修复：与 Thino 相关的每日笔记问题；
+
+# 2.3.38
+
+- style: reduce thino modal height to 90vh;
+
+> [!note]- 中文
+> - 样式：将 Thino 模态框高度减小到 90vh；
+
 # 2.3.37
 
 - fix: cannot unpin thino correctly via context menu;
