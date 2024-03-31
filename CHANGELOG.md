@@ -1,7 +1,7 @@
 
 # 2.3.39
 
-![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share.gif)
+![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-embed.gif)
 
 - feat: [PRO/BASIC] supercharge thino embed component; You can sort thino components by different types, like list/calendar/heatmap/status/editor/daily;
 
