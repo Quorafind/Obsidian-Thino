@@ -1,4 +1,12 @@
 
+# 2.3.42
+
+- fix: click on editor cause reveal thino's leaf incorrectly;
+
+> [!note]- 中文
+> - 修复：点击编辑器导致错误地显示 Thino 的页面；
+
+
 # 2.3.41
 
 - fix: [PRO] cannot parse multi-files that includes `---` in the content;
