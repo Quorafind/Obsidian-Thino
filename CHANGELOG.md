@@ -1,4 +1,11 @@
 
+# 2.3.41
+
+- fix: [PRO] cannot parse multi-files that includes `---` in the content;
+
+> [!note]- 中文
+> - 修复：[PRO] 无法解析内容中带有 `---` 以下的部分；
+
 # 2.3.40
 
 ![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-embed.gif)
