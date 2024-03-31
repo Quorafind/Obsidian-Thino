@@ -53,6 +53,8 @@
 
 ## Insert Editor
 
+![insert-editor|400](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-insert-editor.gif)
+
 Using it via command or insert code block like:
 
 ````  
@@ -62,9 +64,6 @@ Using it via command or insert code block like:
 }  
 ```  
 ````
-
-![insert-editor|400](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-insert-editor.gif)
-
 
 # 2.3.36
 
@@ -78,6 +77,8 @@ Using it via command or insert code block like:
 
 # 2.3.35
 
+![tag-filter|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-filter.gif)
+
 - feat: [PRO] support tags multi-select filter when holding `ctrl` or `meta` key;
 - feat: [PRO/BASIC] support click on task status item/ tags status item to filter thinos when using Modern theme;
 
@@ -85,9 +86,11 @@ Using it via command or insert code block like:
 > - 特性：[PRO] 支持标签多选过滤，按住 `ctrl` 或 `meta` 键；
 > - 特性：[PRO/BASIC] 在 Modern 模式下，支持点击任务状态项/标签状态项来过滤 Thino；
 
-![tag-filter|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-filter.gif)
+
 
 # 2.3.34
+
+![username|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-user-name.png)
 
 - fix: bottom editor issues related to chat view;
 - style: better images alignment in moments view;
@@ -98,7 +101,7 @@ Using it via command or insert code block like:
 > - 样式：更好的图片对齐样式；
 > - 修复：用户名称的文本省略号；
 
-![username|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-user-name.png)
+
 
 # 2.3.33
 
@@ -123,6 +126,8 @@ Using it via command or insert code block like:
 
 # 2.3.31
 
+![copy-image|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-context-menu-copy.png)
+
 - fix: select `most active day` in `daily thino` view should cause the view to jump to the selected day;
 - fix: icon's weight and height in moments view should be the same;
 - fix: copy in table view as image should work correctly now;
@@ -134,14 +139,12 @@ Using it via command or insert code block like:
 > - 修复：在表视图中复制为图片应该可以正常工作；
 > - 特性：支持通过上下文菜单复制 Thino；
 
-![copy-image|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-context-menu-copy.png)
-
 
 # 2.3.30
 
-- feat: [PRO/BASIC] support copy filtered thino as image;
-
 ![copy-image|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share.gif)
+
+- feat: [PRO/BASIC] support copy filtered thino as image;
 
 > [!note]- 中文
 > - 特性：[PRO/BASIC] 支持将过滤的 Thino 复制为图片；
@@ -175,11 +178,15 @@ Using it via command or insert code block like:
 
 # 2.3.26
 
+![modern|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/modern-layout.png)
+
+- feat: support new theme `modern`;
+
+> [!note]- 中文
+> - 特性：支持新主题 `modern`；
+
 - style: new theme settings for Thino, available for Pro and Basic users;
 - fix: show editor in float window;
-- feat: support new theme `modern`;
-![modern|500](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/modern-layout.png)
-> You can toggle it in theme settings;
 
 # 2.3.25
 
