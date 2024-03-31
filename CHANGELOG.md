@@ -1,12 +1,18 @@
 
-# 2.3.39
+# 2.3.40
 
 ![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-embed.gif)
 
-- feat: [PRO/BASIC] supercharge thino embed component; You can sort thino components by different types, like list/calendar/heatmap/status/editor/daily;
+- feat: [PRO/BASIC] list component in thino embed should place pinned thinos at the top;
+- feat: [PRO/BASIC] support press enter key to unlock thino;
+- feat: support open thino directly via code block;
+- feat: double-click on thino in code block will reveal the thino's leaf;
 
 > [!note]- 中文
-> - 特性：[PRO/BASIC] 强化 Thino 嵌入组件；你可以按不同类型排序 Thino 组件，比如列表/日历/热力图/状态/编辑器/每日；
+> - 特性：[PRO/BASIC] Thino 嵌入中的列表组件应该将固定的 Thino 放在顶部；
+> - 特性：[PRO/BASIC] 支持按回车键解锁 Thino；
+> - 特性：支持通过代码块直接打开 Thino；
+> - 特性：双击代码块中的 Thino 将跳转 Thino 的页面；
 
 ## Thino Embed | Thino 嵌入
 
@@ -28,6 +34,12 @@
 ```
 ````
 
+# 2.3.39
+
+- feat: [PRO/BASIC] supercharge thino embed component; You can sort thino components by different types, like list/calendar/heatmap/status/editor/daily;
+
+> [!note]- 中文
+> - 特性：[PRO/BASIC] 强化 Thino 嵌入组件；你可以按不同类型排序 Thino 组件，比如列表/日历/热力图/状态/编辑器/每日；
 
 # 2.3.38
 
