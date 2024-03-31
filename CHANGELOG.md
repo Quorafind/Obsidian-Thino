@@ -1,4 +1,27 @@
 
+# 2.3.39
+
+![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share.gif)
+
+- feat: [PRO/BASIC] supercharge thino embed component; You can sort thino components by different types, like list/calendar/heatmap/status/editor/daily;
+
+> [!note]- 中文
+> - 特性：[PRO/BASIC] 强化 Thino 嵌入组件；你可以按不同类型排序 Thino 组件，比如列表/日历/热力图/状态/编辑器/每日；
+
+````markdown
+```thino
+{
+  list: true,
+  calendar: true,
+  heatmap: true,
+  status: true,
+  editor: true,
+  daily: '2024/03/22 01:01:01',
+}
+```
+````
+
+
 # 2.3.38
 
 - style: reduce thino modal height to 90vh;
