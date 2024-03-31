@@ -8,6 +8,13 @@
 > [!note]- 中文
 > - 特性：[PRO/BASIC] 强化 Thino 嵌入组件；你可以按不同类型排序 Thino 组件，比如列表/日历/热力图/状态/编辑器/每日；
 
+## Thino Embed | Thino 嵌入
+
+`daily` can be true for current daily note, or a specific date like `2024/03/22 01:01:01`.
+
+> [!note]- 中文
+> - `daily` 可以是 true 表示当前每日笔记，或者是一个特定的日期，比如 `2024/03/22 01:01:01`。
+
 ````markdown
 ```thino
 {
@@ -16,7 +23,7 @@
   heatmap: true,
   status: true,
   editor: true,
-  daily: '2024/03/22 01:01:01',
+  daily: '2024/03/22 01:01:01', 
 }
 ```
 ````
