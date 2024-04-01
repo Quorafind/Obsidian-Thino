@@ -1,4 +1,16 @@
 
+# 2.3.49
+
+![thino-hover-source|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-hover-source-of-thino.gif)
+
+> [!tips]+ English
+> - feat: [PRO/BASIC] support hover thino to show thino source; By pressing `Shift` and hover on thino, you can see the source of the thino;(Toggle settings for `Ctrl` key in hover preview settings of Obsidian)
+> - fix: parse task error when using `HH:mm:ss` format in daily note for Thino;
+
+> [!note]- 中文
+> - 特性：[PRO/BASIC] 鼠标悬停在 Thino 上显示 Thino 源；通过按住 `Shift` 键并悬停在 Thino 上，您可以看到 Thino 的源；(在 Obsidian 的悬停预览设置中切换 `Ctrl` 键的设置)
+> - 修复：在每日笔记中使用 Thino 的 `HH:mm:ss` 格式时解析任务错误；
+
 # 2.3.48
 
 > [!tips]+ English
