@@ -1,4 +1,13 @@
 
+# 2.3.46
+
+- fix: set background image for share image not working;
+- feat: support http link for share dialog background image;
+
+> [!note]- 中文
+> - 修复：设置分享图片的背景图片不起作用；
+> - 特性：支持分享对话框背景图片的 http 链接；
+
 # 2.3.45
 
 - feat: [All source] navigate to thino's source would not open duplicate leaf anymore;
