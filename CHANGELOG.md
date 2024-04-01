@@ -1,4 +1,16 @@
 
+# 2.3.50
+
+| Dark           | Light                                                                                                      |
+|----------------|------------------------------------------------------------------------------------------------------------|
+| ![thino-share\|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-dark.png) | ![thino-share\|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-light.jpg) |
+
+> [!tips]+ English
+> - feat: [PRO/BASIC] Renew share image layout for Thino;
+
+> [!note]- 中文
+> - 特性：[PRO/BASIC] 更新 Thino 的分享图片布局；
+
 # 2.3.49
 
 ![thino-hover-source|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-hover-source-of-thino.gif)
