@@ -1,4 +1,18 @@
 
+# 2.3.44
+
+![thino-canvas-menu|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-canvas-menu.gif)
+
+- feat: [PRO] support thino canvas menu in `thino.canvas`. You need to open thino and then switch to `thino.canvas` to use it;
+  - Note: This feature based on the `CANVAS` source type, you need to enable it in the settings;
+- fix: [PRO] cannot show thino canvas menu correctly;
+
+> [!note]- 中文
+> - 功能：支持 `thino.canvas` 中的 Thino 画布菜单；你需要打开 Thino 然后切换到 `thino.canvas` 来使用它；
+>   - 注意：这个功能基于 `CANVAS` 源类型，你需要在设置中启用它；
+> - 修复：[PRO] 无法正确显示 Thino 画布菜单；
+
+
 # 2.3.43
 
 ![thino-canvas-menu|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-canvas-menu.gif)
