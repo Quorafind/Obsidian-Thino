@@ -1,4 +1,13 @@
 
+# 2.3.47
+
+> [!tips]+ English
+> - style: tag or images issues related to moments view;
+
+> [!note]- 中文
+> - 样式：与 moments 视图相关的标签或图片问题；
+
+
 # 2.3.46
 
 > [!tips]+ English
