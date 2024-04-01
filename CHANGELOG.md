@@ -1,4 +1,19 @@
 
+# 2.3.45
+
+- feat: [PRO/BASIC] navigate to thino's source would not open duplicate leaf anymore;
+- feat: [PRO/BASIC] navigate to thino's source would not open a split pane anymore;
+- style: menu wrapper padding issue;
+
+> [!note]- 中文
+> - 特性：[PRO/BASIC] 导航到 Thino 的源不会再打开重复的页面；
+> - 特性：[PRO/BASIC] 导航到 Thino 的源不会再打开分割窗格；
+> - 样式：菜单内边距问题；
+
+> [!tips]- Highlights
+> - Thanks to [**@izz00**'s daily outline plugin](https://github.com/iiz00/obsidian-daily-note-outline) for special support for `- HH:mm text` format in daily note for Thino.
+> - 感谢 [**@izz00** 的 Daily Outline 插件](https://github.com/iiz00/obsidian-daily-note-outline) 为 Thino 所增加的对每日笔记中 `- HH:mm text` 格式的特殊支持。
+
 # 2.3.44
 
 ![thino-canvas-menu|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-canvas-menu.gif)
