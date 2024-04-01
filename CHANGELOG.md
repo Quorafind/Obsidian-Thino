@@ -1,4 +1,17 @@
 
+# 2.3.48
+
+> [!tips]+ English
+> - fix: word wrap related to a.tag;
+> - feat: [PRO] notice for multi file settings error;
+> - feat: support `HH:mm:ss` format in daily note for Thino;
+
+> [!note]- 中文
+> - 修复：与 a.tag 相关的自动换行；
+> - 特性：[PRO] 多文件设置错误的通知；
+> - 特性：在每日笔记中支持 Thino 的 `HH:mm:ss` 格式；
+
+
 # 2.3.47
 
 > [!tips]+ English
