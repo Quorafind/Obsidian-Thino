@@ -3,10 +3,19 @@
 
 > [!tips]+ English
 > - style: tag or images issues related to moments view;
+> - fix: cannot insert editor into thino directly;
+> - fix: should not show editor modal when thino is not opened;
+> - feat: [PRO] show `ddd`(Mon. etc.) near the time range mark;
+> - style: image issue related to chat view;
+> - feat: can toggle task or list directly when editing thino;
 
 > [!note]- 中文
 > - 样式：与 moments 视图相关的标签或图片问题；
-
+> - 修复：无法直接将编辑器插入到 Thino 中；
+> - 修复：当 Thino 没有打开时不应该显示编辑器模态框；
+> - 特性：[PRO] 在时间范围标记附近显示 `ddd`(周一等)；
+> - 样式：与聊天视图相关的图片问题；
+> - 特性：在编辑 Thino 时可以直接切换任务或列表；
 
 # 2.3.46
 
