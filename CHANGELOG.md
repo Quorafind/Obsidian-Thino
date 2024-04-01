@@ -15,8 +15,6 @@
 
 # 2.3.43
 
-![thino-canvas-menu|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-canvas-menu.gif)
-
 - feat: [PRO] support thino canvas menu in `thino.canvas`. You need to open thino and then switch to `thino.canvas` to use it;
   - Note: This feature based on the `CANVAS` source type, you need to enable it in the settings; 
 
