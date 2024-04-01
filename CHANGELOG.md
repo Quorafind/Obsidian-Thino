@@ -1,13 +1,13 @@
 
 # 2.3.45
 
-- feat: [PRO/BASIC] navigate to thino's source would not open duplicate leaf anymore;
-- feat: [PRO/BASIC] navigate to thino's source would not open a split pane anymore;
+- feat: [All source] navigate to thino's source would not open duplicate leaf anymore;
+- feat: [All source] navigate to thino's source would not open a split pane anymore;
 - style: menu wrapper padding issue;
 
 > [!note]- 中文
-> - 特性：[PRO/BASIC] 导航到 Thino 的源不会再打开重复的页面；
-> - 特性：[PRO/BASIC] 导航到 Thino 的源不会再打开分割窗格；
+> - 特性：导航到 Thino 的源不会再打开重复的页面；
+> - 特性：导航到 Thino 的源不会再打开分割窗格；
 > - 样式：菜单内边距问题；
 
 > [!tips]- Highlights
