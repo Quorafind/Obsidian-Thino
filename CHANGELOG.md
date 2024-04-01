@@ -1,8 +1,9 @@
 
 # 2.3.46
 
-- fix: set background image for share image not working;
-- feat: support http link for share dialog background image;
+> [!tips]+ English
+> - fix: set background image for share image not working;
+> - feat: support http link for share dialog background image;
 
 > [!note]- 中文
 > - 修复：设置分享图片的背景图片不起作用；
@@ -10,9 +11,10 @@
 
 # 2.3.45
 
-- feat: [All source] navigate to thino's source would not open duplicate leaf anymore;
-- feat: [All source] navigate to thino's source would not open a split pane anymore;
-- style: menu wrapper padding issue;
+> [!tips]+ English
+> - feat: [All source] navigate to thino's source would not open duplicate leaf anymore;
+> - feat: [All source] navigate to thino's source would not open a split pane anymore;
+> - style: menu wrapper padding issue;
 
 > [!note]- 中文
 > - 特性：导航到 Thino 的源不会再打开重复的页面；
