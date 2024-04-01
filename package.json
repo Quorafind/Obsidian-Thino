@@ -1,6 +1,6 @@
 {
   "name": "thino",
-  "version": "2.3.46",
+  "version": "2.3.47",
   "scripts": {
     "release": "dotenv release-it --"
   },
