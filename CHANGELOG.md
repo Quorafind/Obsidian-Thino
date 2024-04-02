@@ -1,4 +1,17 @@
 
+# 2.3.52
+
+![thino-user-info|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-user-info.png)
+
+> [!tips]+ English
+> - feat: support user icon globally;
+> - chore: rearrange settings;
+
+> [!note]- 中文
+> - 特性：全局支持用户图标；
+> - 杂项：重新排列设置；
+
+
 # 2.3.51
 
 > [!tips]+ English
