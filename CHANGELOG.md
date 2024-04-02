@@ -1,4 +1,15 @@
 
+# 2.3.51
+
+> [!tips]+ English
+> - feat: [PRO/BASIC] support download image directly on phone;
+> - style: better share image on phone;
+
+> [!note]- 中文
+> - 特性：[PRO/BASIC] 支持在手机上直接下载图片；
+> - 样式：在手机上更好的分享图片；
+
+
 # 2.3.50
 
 | Dark           | Light                                                                                                      |
