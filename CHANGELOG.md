@@ -1,4 +1,12 @@
 
+# 2.3.53
+
+> [!tips]+ English
+> - fix: cannot use templater in thino;
+
+> [!note]- 中文
+> - 修复：无法在 Thino 中使用 templater；
+
 # 2.3.52
 
 ![thino-user-info|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-user-info.png)
