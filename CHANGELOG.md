@@ -1,7 +1,7 @@
 
 # 2.3.55 
 
-![img|300](https://i.imgur.com/GVF2wTB.mp4)
+<video width="300" src="https://i.imgur.com/GVF2wTB.mp4" autoplay></video>
 
 > [!tips]+ English
 > - feat: [PRO] support append/prepend text when share to thino on mobile;
