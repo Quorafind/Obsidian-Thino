@@ -1,4 +1,12 @@
 
+# 2.3.56
+
+> [!tips]+ English
+> - feat: support `float editor` on mobile;
+
+> [!note]- 中文
+> - 特性：支持在手机上使用 `浮动编辑器`；
+
 # 2.3.55 
 
 <video width="300" src="https://i.imgur.com/GVF2wTB.mp4" autoplay></video>
