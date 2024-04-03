@@ -1,4 +1,12 @@
 
+# 2.3.60
+
+> [!tips]+ English
+> - fix: tag count issues;
+
+> [!note]- 中文
+> - 修复：标签计数问题；
+
 # 2.3.59
 
 ![thino-group-moments|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-group-moments.png)
