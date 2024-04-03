@@ -1,4 +1,15 @@
 
+# 2.3.55 
+
+![img|300](https://i.imgur.com/GVF2wTB.mp4)
+
+> [!tips]+ English
+> - feat: [PRO] support append/prepend text when share to thino on mobile;
+
+> [!note]- 中文
+> - 特性：[PRO] 支持在手机上分享到 Thino 时追加/前置文本；
+
+
 # 2.3.54
 
 > [!tips]+ English
