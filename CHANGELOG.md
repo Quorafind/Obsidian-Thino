@@ -1,4 +1,14 @@
 
+# 2.3.54
+
+> [!tips]+ English
+> - feat: count child tags‘s count automatically in thino;
+> - chore: remove unused jump to settings features for Chat View;
+
+> [!note]- 中文
+> - 特性：自动计算 Thino 中的子标签数量；
+> - 杂项：删除聊天视图的跳转设置功能；
+
 # 2.3.53
 
 > [!tips]+ English
