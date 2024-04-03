@@ -1,4 +1,14 @@
 
+# 2.3.58
+
+> [!tips]+ English
+> - fix: tag cound issues;
+> - style: set image's width as 100% when only one image in thino;
+
+> [!note]- 中文
+> - 修复：标签计数问题；
+> - 样式：当 Thino 中只有一张图片时，将图片的宽度设置为 100%；
+
 # 2.3.57
 
 > [!tips]+ English
