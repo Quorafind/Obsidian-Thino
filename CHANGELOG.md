@@ -1,4 +1,18 @@
 
+# 2.3.59
+
+![thino-group-moments|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-group-moments.png)
+
+> [!tips]+ English
+> - chore: remove unused hotkeys;
+> - feat: [PRO] support day group for thino;
+> - feat: [PRO] support hide pinned group for thino;
+
+> [!note]- 中文
+> - 杂项：删除未使用的快捷键；
+> - 特性：[PRO] 支持 Thino 的日期分组；
+> - 特性：[PRO] 支持隐藏固定组的 Thino；
+
 # 2.3.58
 
 > [!tips]+ English
