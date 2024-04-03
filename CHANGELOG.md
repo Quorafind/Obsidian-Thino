@@ -1,4 +1,14 @@
 
+# 2.3.57
+
+> [!tips]+ English
+> - fix: better word count. Thanks to better word count plugin.
+> - fix: tag count issues;
+
+> [!note]- 中文
+> - 修复：更好的字数统计。感谢 better word count 插件。
+> - 修复：标签计数问题；
+
 # 2.3.56
 
 > [!tips]+ English
