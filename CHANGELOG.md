@@ -5,7 +5,7 @@
 
 > [!tips]+ English
 > - chore: remove unused hotkeys;
-> - feat: [PRO] support day group for thino;
+> - feat: [PRO] support day group for thino in moments view;
 > - feat: [PRO] support hide pinned group for thino;
 
 > [!note]- 中文
