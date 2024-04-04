@@ -1,4 +1,14 @@
 
+# 2.3.61
+
+> [!tips]+ English
+> - fix: click on mark link in Thino editor cause create and open a new leaf;
+> - feat: [PRO] different insert target for Task or List thino;
+
+> [!note]- 中文
+> - 修复：点击 Thino 编辑器中的标记链接导致创建并打开一个新的页面；
+> - 特性：[PRO] 任务或列表 Thino 的不同插入目标；
+
 # 2.3.60
 
 > [!tips]+ English
