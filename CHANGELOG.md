@@ -1,4 +1,22 @@
 
+# 2.4.0
+
+> [!tips]+ English
+> - chore: celebrate thino download count over 100000;
+> - feat: better onboarding experience for Thino users;
+>   - support user setting guide; 
+>   - If you are a new user, you can see the user setting guide when you open the settings;
+>   - If you are an old user, you can skip the guide;
+> - feat: support local images from the library for user icon and background image;
+
+> [!note]- 中文
+> - 杂项：庆祝 Thino 下载量超过 100000；
+> - 特性：更好的 Thino 用户入门体验；
+>   - 支持用户设置向导； 
+>   - 如果您是新用户，您可以在打开设置时看到用户设置向导；
+>   - 如果您是老用户，您可以跳过向导；
+> - 特性：用户图标和背景图均支持从库内部的本地图片；
+
 # 2.3.61
 
 > [!tips]+ English
