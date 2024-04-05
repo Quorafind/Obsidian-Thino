@@ -1,6 +1,9 @@
 
 # 2.4.0
 
+> [!warning]- Onboarding
+> ![thino-onboarding|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-onboarding.gif)
+
 > [!tips]+ English
 > - chore: celebrate thino download count over 100000;
 > - feat: better onboarding experience for Thino users;
