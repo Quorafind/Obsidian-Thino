@@ -1,4 +1,12 @@
 
+# 2.4.1
+
+> [!tips]+ English
+> - chore: show different language's changelog automatically;
+
+> [!note]- 中文
+> - 杂项：自动显示不同语言的更新日志；
+
 # 2.4.0
 
 > [!warning]- Onboarding
