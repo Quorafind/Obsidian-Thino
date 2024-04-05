@@ -5,7 +5,7 @@
 > ![thino-onboarding|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-onboarding.gif)
 
 > [!tips]+ English
-> - chore: celebrate thino download count over 100000;
+> - chore: congrats! thino download count over 100000;
 > - feat: better onboarding experience for Thino users;
 >   - support user setting guide; 
 >   - If you are a new user, you can see the user setting guide when you open the settings;
