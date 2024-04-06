@@ -1,4 +1,13 @@
 
+# 2.4.9
+
+> [!tips]+ English
+> - fix: cannot save `InsertAfter` correctly in user setting guide;
+
+> [!note]- 中文
+> - 修复：在设置向导中无法正确保存 `InsertAfter`；
+
+
 # 2.4.8
 
 > [!tips]+ English
