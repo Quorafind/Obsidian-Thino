@@ -1,4 +1,12 @@
 
+# 2.4.4
+
+> [!tips]+ English
+> - fix: cannot load image correctly when sharing;
+
+> [!note]- 中文
+> - 修复：当分享时无法正确加载图片；
+
 # 2.4.3
 
 > [!tips]+ English
