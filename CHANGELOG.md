@@ -1,4 +1,12 @@
 
+# 2.4.3
+
+> [!tips]+ English
+> - fix: cannot preview ::before when generate image;
+
+> [!note]- 中文
+> - 修复：生成图片时无法预览 ::before；
+
 # 2.4.2
 
 > [!tips]+ English
