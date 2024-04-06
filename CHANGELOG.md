@@ -1,4 +1,13 @@
 
+# 2.4.10
+
+> [!tips]+ English
+> - fix: path contains `'` can't be shown in Thino correctly;
+
+> [!note]- 中文
+> - 修复：路径包含 `'` 无法正确显示在 Thino 中；
+
+
 # 2.4.9
 
 > [!tips]+ English
