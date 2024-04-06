@@ -1,4 +1,12 @@
 
+# 2.4.8
+
+> [!tips]+ English
+> - feat: support image selector for User icon;
+
+> [!note]- 中文
+> - 特性：支持用户图标的图片选择器；
+
 # 2.4.7
 
 > [!tips]+ English
