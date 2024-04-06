@@ -1,4 +1,12 @@
 
+# 2.4.7
+
+> [!tips]+ English
+> - fix: cannot share image when path contains CJK text;
+
+> [!note]- 中文
+> - 修复：当路径包含 CJK 文本时无法分享图片；
+
 # 2.4.5
 
 > [!tips]+ English
