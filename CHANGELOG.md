@@ -1,4 +1,23 @@
 
+# 2.4.2
+
+> [!tips]+ English
+> - fix: load moments view issue;
+> - feat: support different text action for sharing text/image to thino on mobile;
+>   - support text input box, when input content, it will be added to the beginning or end according to the setting;
+>   - support tag select box, when select tag, it will be added to the beginning or end according to the setting;
+>   - support predefined text, when select predefined text, it will be added to the beginning or end according to the setting;
+> - feat: support setting wizard on mobile;
+
+> [!note]- 中文
+> - 修复：加载 moments 视图问题；
+> - 特性：支持在手机上分享文本/图片到 Thino 时的不同文本操作；
+>   - 支持文本输入框，当输入内容，将会根据设定，自动添加到开头或者末尾；
+>   - 支持标签选择框，当选择标签，将会根据设定，自动添加到开头或者末尾；
+>   - 支持预定义文本，当选择预定义文本，将会根据设定，自动添加到开头或者末尾；
+> - 特性：设置向导支持移动端；
+
+
 # 2.4.1
 
 > [!tips]+ English
