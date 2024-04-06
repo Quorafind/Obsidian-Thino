@@ -1,4 +1,12 @@
 
+# 2.4.5
+
+> [!tips]+ English
+> - fix: don't support local image for sharing on mobile;
+
+> [!note]- 中文
+> - 修复：不支持在手机上分享本地图片；
+
 # 2.4.4
 
 > [!tips]+ English
