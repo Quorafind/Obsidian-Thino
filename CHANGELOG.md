@@ -1,4 +1,28 @@
 
+# 2.4.12
+
+> [!tips]+ English
+> - feat: remove <br> dependency for thino in daily notes;
+>   - newline use indent automatically; 
+>   - new thino will not include <br> tag;
+>   - old thino will be updated automatically when you edit it next time;
+>   - if your thino has special layout requirements, please update it manually;
+
+> [!note]- 中文
+> - 特性：在每日笔记中移除 Thino 的 <br> 依赖；
+>   - 换行使用缩进自动完成； 
+>   - 新建的 Thino 不再包含 <br> 标签；
+>   - 旧的 Thino 会在下次编辑时自动更新；
+>   - 如果您的 Thino 有特殊的排版需求，请手动更新；
+
+# 2.4.11
+
+> [!tips]+ English
+> - fix: Thino should not be locked when user is on user guide;
+
+> [!note]- 中文
+> - 修复：当用户在用户指南上时，Thino 不应该被锁定；
+
 # 2.4.10
 
 > [!tips]+ English
