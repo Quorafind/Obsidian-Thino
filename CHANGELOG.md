@@ -1,5 +1,5 @@
 
-# 2.4.11
+# 2.4.11~2.4.12
 
 > [!tips]+ English
 > - feat: remove `<br>` dependency for thino in daily notes;
@@ -8,6 +8,7 @@
 >   - old thino will be updated automatically when you edit it next time;
 >   - if your thino has special layout requirements, please update it manually;
 > - fix: Thino should not be locked when user is on user guide;
+> - fix: list cannot patch correctly in thino from daily notes;
 
 > [!note]- 中文
 > - 特性：在每日笔记中移除 Thino 的 `<br>` 依赖；
@@ -16,6 +17,7 @@
 >   - 旧的 Thino 会在下次编辑时自动更新；
 >   - 如果您的 Thino 有特殊的排版需求，请手动更新；
 > - 修复：当用户在用户指南上时，Thino 不应该被锁定；
+> - 修复：在每日笔记中，Thino 无法正确插入列表；
 
 # 2.4.10
 
