@@ -7,6 +7,7 @@
 >   - new thino will not include <br> tag;
 >   - old thino will be updated automatically when you edit it next time;
 >   - if your thino has special layout requirements, please update it manually;
+> - fix: cannot load user guide when locked thino;
 
 > [!note]- 中文
 > - 特性：在每日笔记中移除 Thino 的 <br> 依赖；
@@ -14,6 +15,7 @@
 >   - 新建的 Thino 不再包含 <br> 标签；
 >   - 旧的 Thino 会在下次编辑时自动更新；
 >   - 如果您的 Thino 有特殊的排版需求，请手动更新；
+> - 修复：锁定 Thino 时无法加载用户指南；
 
 # 2.4.11
 
