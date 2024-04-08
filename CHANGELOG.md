@@ -1,4 +1,12 @@
 
+# 2.4.15
+
+> [!tips]+ English
+> - fix: cannot update thino webid correctly;
+
+> [!note]- 中文
+> - 修复：无法正确更新 Thino 的 webid；
+
 # 2.4.14
 
 > [!tips]+ English
