@@ -3,9 +3,11 @@
 
 > [!tips]+ English
 > - fix: use tab to indent should not follow tab size;
+> - fix: cannot delete thino correctly when set ProcessThinoBelow
 
 > [!note]- 中文
 > - 修复：使用 tab 缩进时不应该遵循 tab 大小；
+> - 修复：当设置 ProcessThinoBelow 时无法正确删除 Thino；
 
 
 # 2.4.12
