@@ -1,4 +1,13 @@
 
+# 2.4.14
+
+> [!tips]+ English
+> - fix: edit created thino cannot save correctly;
+
+> [!note]- 中文
+> - 修复：编辑创建的 Thino 无法正确保存；
+
+
 # 2.4.13
 
 > [!tips]+ English
