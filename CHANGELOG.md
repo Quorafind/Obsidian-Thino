@@ -3,9 +3,11 @@
 
 > [!tips]+ English
 > - fix: edit created thino cannot save correctly;
+> - fix: cannot exit user setting guide correctly;
 
 > [!note]- 中文
 > - 修复：编辑创建的 Thino 无法正确保存；
+> - 修复：无法正确退出用户设置向导；
 
 
 # 2.4.13
