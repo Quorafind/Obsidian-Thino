@@ -1,5 +1,14 @@
 
-# 2.4.11~2.4.12
+# 2.4.13
+
+> [!tips]+ English
+> - fix: use tab to indent should not follow tab size;
+
+> [!note]- 中文
+> - 修复：使用 tab 缩进时不应该遵循 tab 大小；
+
+
+# 2.4.12
 
 > [!tips]+ English
 > - feat: remove `<br>` dependency for thino in daily notes;
