@@ -1,4 +1,13 @@
 
+# 2.4.16
+
+> [!tips]+ English
+> - fix: cannot update webid correctly;
+
+> [!note]- 中文
+> - 修复：不能正确更新 webid；
+
+
 # 2.4.15
 
 > [!tips]+ English
