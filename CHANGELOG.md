@@ -3,9 +3,11 @@
 
 > [!tips]+ English
 > - fix: cannot update thino webid correctly;
+> - fix: possible to load changelog that crash the app;
 
 > [!note]- 中文
 > - 修复：无法正确更新 Thino 的 webid；
+> - 修复：可能加载导致应用崩溃的更新日志；
 
 # 2.4.14
 
