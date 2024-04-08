@@ -4,10 +4,12 @@
 > [!tips]+ English
 > - fix: cannot update thino webid correctly;
 > - fix: possible to load changelog that crash the app;
+> - fix: dead loop cause by parent-children list;
 
 > [!note]- 中文
 > - 修复：无法正确更新 Thino 的 webid；
 > - 修复：可能加载导致应用崩溃的更新日志；
+> - 修复：由于父子列表导致的死循环；
 
 # 2.4.14
 
