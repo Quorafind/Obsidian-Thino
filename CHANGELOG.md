@@ -3,9 +3,11 @@
 
 > [!tips]+ English
 > - fix: cannot update webid correctly;
+> - style: remove margin top for page-wrapper when using modern theme;
 
 > [!note]- 中文
 > - 修复：不能正确更新 webid；
+> - 样式：在使用现代主题时，移除 page-wrapper 的顶部边距；
 
 
 # 2.4.15
