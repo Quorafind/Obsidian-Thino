@@ -4,10 +4,16 @@
 > [!tips]+ English
 > - fix: cannot update webid correctly;
 > - style: remove margin top for page-wrapper when using modern theme;
+> - feat: click on editor should focus on the editor when using live-preview mode;
+> - fix: cannot create webid correctly;
+> - fix: should not replace block id for children list when update content in thino;
 
 > [!note]- 中文
 > - 修复：不能正确更新 webid；
 > - 样式：在使用现代主题时，移除 page-wrapper 的顶部边距；
+> - 特性：在使用实时预览模式时，点击编辑器应该聚焦到编辑器；
+> - 修复：不能正确创建 webid；
+> - 修复：在更新 Thino 内容时，不应该替换子列表的块 id；
 
 
 # 2.4.15
