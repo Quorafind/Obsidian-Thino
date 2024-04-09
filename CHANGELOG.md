@@ -1,4 +1,18 @@
 
+# 2.4.17
+
+| Minimal                                                                                                         | Modern                                                                                                         | Clean                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-minimal.png) | ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-modern.png) | ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-clean.png) |
+
+> [!tips]+ English
+> - fix: bottom editor issue on mobile;
+> - feat: support three share styles for thino;
+
+> [!note]- 中文
+> - 修复：手机上底部编辑器问题；
+> - 特性：支持 Thino 的三种分享样式；
+
 # 2.4.16
 
 > [!tips]+ English
