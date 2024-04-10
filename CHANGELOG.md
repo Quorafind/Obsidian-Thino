@@ -1,4 +1,12 @@
 
+# 2.4.20
+
+> [!tips]+ English
+> - fix: overflow issue for thino's menu;
+
+> [!note]- 中文
+> - 修复：Thino 菜单的溢出问题；
+
 # 2.4.19
 
 > [!tips]+ English
