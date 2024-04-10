@@ -1,4 +1,14 @@
 
+# 2.4.19
+
+> [!tips]+ English
+> - fix: cannot use context-menu to share thino on mobile;
+> - feat: support share thino via commands;
+
+> [!note]- 中文
+> - 修复：无法在手机上使用右键菜单分享 Thino；
+> - 特性：支持通过命令分享 Thino；
+
 # 2.4.18
 
 ![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-context-menu.png)
