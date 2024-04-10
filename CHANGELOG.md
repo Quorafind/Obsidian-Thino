@@ -1,11 +1,19 @@
 
 # 2.4.18
 
+![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-context-menu.png)
+
 > [!tips]+ English
 > - fix: background issue for thino share;
+> - fix: cannot load icon correctly for thino share;
+> - feat: support `Gradient` style for thino share;
+> - feat: support share via editor context menu;
 
 > [!note]- 中文
 > - 修复：Thino 分享的背景问题；
+> - 修复：Thino 分享的图标无法正确加载；
+> - 特性：支持 Thino 分享的 `Gradient` 样式；
+> - 特性：支持在编辑器中通过右键菜单分享；
 
 # 2.4.17
 
