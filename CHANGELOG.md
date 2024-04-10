@@ -1,4 +1,12 @@
 
+# 2.4.18
+
+> [!tips]+ English
+> - fix: background issue for thino share;
+
+> [!note]- 中文
+> - 修复：Thino 分享的背景问题；
+
 # 2.4.17
 
 | Minimal                                                                                                         | Modern                                                                                                         | Clean                                                                                                         |
