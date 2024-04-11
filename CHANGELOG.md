@@ -4,10 +4,12 @@
 > [!tips]+ English
 > - fix: create thino file in thino folder should attach id and create time quickly;
 > - fix: should not parse tags in codeblock;
+> - style: fix sidebar width too narrow cause heatmap squeezed;
 
 > [!note]- 中文
 > - 修复：在 Thino 文件夹中创建 Thino 文件应该快速附加 id 和创建时间；
 > - 修复：不应该解析代码块中的标签；
+> - 样式：修复侧边栏的宽度过窄导致热点图被挤压的问题；
 
 # 2.4.20
 
