@@ -9,6 +9,7 @@
 > - fix: should not be able to hide editor when editing thino in Moments view;
 > - fix: tasks plugin compatibility issue;
 > - feat: [PRO] support split thino with heading 1/2/3;
+> - feat: support call tasks insert modal via hotkey;
 
 > [!note]- 中文
 > - 修复：Thino 菜单的溢出问题；
@@ -18,6 +19,7 @@
 > - 修复：在 Moments 视图中编辑 Thino 时不应该能够隐藏编辑器；
 > - 修复：Tasks 插件兼容性问题；
 > - 特性：[PRO] 支持将带有一级/二级/三级标题的 Thino 分割成多个文件；
+> - 特性：支持通过快捷键调用 Tasks 插入模态框；
 
 # 2.4.19
 
