@@ -7,6 +7,8 @@
 > - feat: [PRO] support rename after create MULTI file;
 > - fix: daily thinos background issue when sharing;
 > - fix: should not be able to hide editor when editing thino in Moments view;
+> - fix: tasks plugin compatibility issue;
+> - feat: [PRO] support split thino with heading 1/2/3;
 
 > [!note]- 中文
 > - 修复：Thino 菜单的溢出问题；
@@ -14,6 +16,8 @@
 > - 特性：[PRO] 支持创建多文件后重命名；
 > - 修复：分享时每日 Thino 的背景问题；
 > - 修复：在 Moments 视图中编辑 Thino 时不应该能够隐藏编辑器；
+> - 修复：Tasks 插件兼容性问题；
+> - 特性：[PRO] 支持将带有一级/二级/三级标题的 Thino 分割成多个文件；
 
 # 2.4.19
 
