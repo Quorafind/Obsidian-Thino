@@ -5,11 +5,15 @@
 > - fix: overflow issue for thino's menu;
 > - style: remove gap in content wrapper when using fluent/inline style for Chat view;
 > - feat: [PRO] support rename after create MULTI file;
+> - fix: daily thinos background issue when sharing;
+> - fix: should not be able to hide editor when editing thino in Moments view;
 
 > [!note]- 中文
 > - 修复：Thino 菜单的溢出问题；
 > - 样式：在聊天视图中使用 fluent/inline 样式时，移除 content-wrapper 中的 gap 属性；
 > - 特性：[PRO] 支持创建多文件后重命名；
+> - 修复：分享时每日 Thino 的背景问题；
+> - 修复：在 Moments 视图中编辑 Thino 时不应该能够隐藏编辑器；
 
 # 2.4.19
 
