@@ -4,10 +4,12 @@
 > [!tips]+ English
 > - fix: overflow issue for thino's menu;
 > - style: remove gap in content wrapper when using fluent/inline style for Chat view;
+> - feat: [PRO] support rename after create MULTI file;
 
 > [!note]- 中文
 > - 修复：Thino 菜单的溢出问题；
 > - 样式：在聊天视图中使用 fluent/inline 样式时，移除 content-wrapper 中的 gap 属性；
+> - 特性：[PRO] 支持创建多文件后重命名；
 
 # 2.4.19
 
