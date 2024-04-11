@@ -1,4 +1,12 @@
 
+# 2.4.21
+
+> [!tips]+ English
+> - fix: create thino file in thino folder should attach id and create time quickly;
+
+> [!note]- 中文
+> - 修复：在 Thino 文件夹中创建 Thino 文件应该快速附加 id 和创建时间；
+
 # 2.4.20
 
 > [!tips]+ English
