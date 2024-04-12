@@ -1,4 +1,12 @@
 
+# 2.4.22
+
+> [!tips]+ English
+> - fix: heatmap calendar cannot display data correctly;
+
+> [!note]- 中文
+> - 修复：热点图日历无法正确显示数据；
+
 # 2.4.21
 
 > [!tips]+ English
