@@ -4,10 +4,14 @@
 > [!tips]+ English
 > - fix: heatmap calendar cannot display data correctly;
 > - fix：Thino time group issue related to YYYY format;
+> - fix: when click on task input box to complete task in thino, should not make task line become a block;
+> - feat: you can reset all settings via button in advanced settings now，but not includes password settings and pro verify settings;
 
 > [!note]- 中文
 > - 修复：热点图日历无法正确显示数据；
 > - 修复：与 YYYY 格式相关的 Thino 时间组问题；
+> - 修复：在 Thino 中点击任务输入框完成任务时，不应该使任务行变成一个块；
+> - 特性：您现在可以通过高级设置中的设置重置按钮重置所有设置，但不包括密码设置和专业版验证设置；
 
 # 2.4.21
 
