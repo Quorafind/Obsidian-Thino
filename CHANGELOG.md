@@ -1,4 +1,16 @@
 
+# 2.4.23
+
+> [!tips]+ English
+> - feat: support append task done date when complete task in thino;
+> - style: fix thino editor wrapper margin-top issue;
+> - fix: end mark should not place on same line where code block ends
+
+> [!note]- 中文
+> - 特性：在 Thino 中完成任务时支持追加完成日期；
+> - 样式：修复 Thino 编辑器包装器的 margin-top 问题；
+> - 修复：结束标记不应该放在代码块结束的同一行；
+
 # 2.4.22
 
 > [!tips]+ English
