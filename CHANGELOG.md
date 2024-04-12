@@ -3,9 +3,11 @@
 
 > [!tips]+ English
 > - fix: heatmap calendar cannot display data correctly;
+> - fix：Thino time group issue related to YYYY format;
 
 > [!note]- 中文
 > - 修复：热点图日历无法正确显示数据；
+> - 修复：与 YYYY 格式相关的 Thino 时间组问题；
 
 # 2.4.21
 
