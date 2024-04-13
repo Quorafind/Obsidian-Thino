@@ -1,8 +1,11 @@
 
 # 2.4.23
 
-> [!waring]- For Weread user and Thino Pro users | 对于微信阅读以及 Thino Pro 用户
+> [!waring]+ For Weread user and Thino Pro users | 对于微信阅读以及 Thino Pro 用户
+> You can index your notes from WeRead as part of Thino using the tag indexing feature in 2.4.23, and use it for random review or filtering;
 > 你可以利用新版本的单文件标签索引功能来索引微信阅读的笔记成为 Thino 的一部分，且用于随机回顾，或者筛选；
+> ---
+> For more information, please refer to the tutorial:
 > 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/532
 > ![thino-file-tag|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-file-tag.png)
 
@@ -20,8 +23,6 @@
 > - chore: add a space between `📆` and date when select from Calendar suggester;
 > - fix: open editor modal should not influence the editor in view;
 > - fix: content in editor modal should not influence editor content in view;
-
-
 
 > [!note]- 中文
 > ## 新特性
