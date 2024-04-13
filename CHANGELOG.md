@@ -1,31 +1,43 @@
 
 # 2.4.23
 
+> [!waring]- For Weread user and Thino Pro users | 对于微信阅读以及 Thino Pro 用户
+> 你可以利用新版本的单文件标签索引功能来索引微信阅读的笔记成为 Thino 的一部分，且用于随机回顾，或者筛选；
+> 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/532
+> ![thino-file-tag|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-file-tag.png)
+
 > [!tips]+ English
-> - feat: support append task done date when complete task in thino;
+> ## New Features
+> - feat: [PRO] fetch thinos when edit/delete/create thino with tags;
 > - feat: [PRO] support fetch notes with specific tags for `FILE`/`MULTI` file type;
+> - feat: support set default min-height for content when share thino;
+> - feat: support share multi thinos with share thino;
+> - feat: support append task done date when complete task in thino;
+> ## Fixes
 > - style: fix thino editor wrapper margin-top issue;
 > - fix: end mark should not place on same line where code block ends
 > - fix: when detach editor in modal/codeblock should not cause editor in view to be destroyed;
 > - chore: add a space between `📆` and date when select from Calendar suggester;
 > - fix: open editor modal should not influence the editor in view;
 > - fix: content in editor modal should not influence editor content in view;
-> - feat: [PRO] fetch thinos when edit/delete/create thino with tags;
-> - feat: support set default min-height for content when share thino;
-> - feat: support share multi thinos with share thino;
+
+
 
 > [!note]- 中文
-> - 特性：在 Thino 中完成任务时支持追加完成日期；
+> ## 新特性
 > - 特性：[PRO] 支持为 FILE/MULTI 文件类型获取具有特定标签的笔记，例如你设置为 `#thino/file` 的文件会被索引为单文件类型文件；
+> - 特性：[PRO] 当编辑/删除/创建带有标签的 Thino 时，获取 Thino；
+> - 特性：在分享 Thino 时支持设置内容的默认最小高度；
+> - 特性：支持分享多个 Thino；
+> - 特性：在 Thino 中完成任务时支持追加完成日期；
+> ## 修复
 > - 样式：修复 Thino 编辑器包装器的 margin-top 问题；
 > - 修复：结束标记不应该放在代码块结束的同一行；
 > - 修复：在模态框/代码块中关闭编辑器时不应该导致视图中的编辑器被销毁；
 > - 杂项：在从日历建议器中选择时，在 `📆` 和日期之间添加一个空格；
 > - 修复：打开编辑器模态框不应该影响视图中的编辑器；
 > - 修复：模态框中的内容不应该影响视图中的编辑器内容；
-> - 特性：[PRO] 当编辑/删除/创建带有标签的 Thino 时，获取 Thino；
-> - 特性：在分享 Thino 时支持设置内容的默认最小高度；
-> - 特性：支持分享多个 Thino；
+
 
 # 2.4.22
 
