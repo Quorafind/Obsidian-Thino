@@ -5,11 +5,15 @@
 > - feat: support append task done date when complete task in thino;
 > - style: fix thino editor wrapper margin-top issue;
 > - fix: end mark should not place on same line where code block ends
+> - fix: when detach editor in modal/codeblock should not cause editor in view to be destroyed;
+> - chore: add a space before `📆` and date when select from Calendar suggester;
 
 > [!note]- 中文
 > - 特性：在 Thino 中完成任务时支持追加完成日期；
 > - 样式：修复 Thino 编辑器包装器的 margin-top 问题；
 > - 修复：结束标记不应该放在代码块结束的同一行；
+> - 修复：在模态框/代码块中关闭编辑器时不应该导致视图中的编辑器被销毁；
+> - 杂项：在从日历建议器中选择时，在 `📆` 和日期之前添加一个空格；
 
 # 2.4.22
 
