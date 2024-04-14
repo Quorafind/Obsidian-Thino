@@ -1,4 +1,16 @@
 
+# 2.4.24
+
+> [!tips]+ English
+> ## Fixes
+> - fix: tasks label issue;
+> - fix: should not remove block id when update thino content;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：任务标签问题；
+> - 修复：更新 Thino 内容时不应该移除块 id；
+
 # 2.4.23
 
 > [!waring]- For Weread user and Thino Pro users | 对于微信阅读以及 Thino Pro 用户  
