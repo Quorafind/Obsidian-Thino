@@ -1,15 +1,35 @@
 
 # 2.4.24
 
+> [!waring]- For ReadWise user and Thino Pro users | 对于 ReadWise 以及 Thino Pro 用户  
+> You can index your notes from ReadWise as part of Thino using the tag indexing feature in 2.4.24, and use it for random review or filtering;  
+> 你可以利用新版本的单文件标签索引功能来索引 ReadWise 的笔记成为 Thino 的一部分，且用于随机回顾，或者筛选；
+> ---  
+> For more information, please refer to the tutorial:  
+> 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/536
+> ---
+> ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-readwise-share.png)
+
 > [!tips]+ English
+> ## Optimizations
+> - chore: thino share dialog will save last share type;
+> - chore: update editor loaded method;
 > ## Fixes
 > - fix: tasks label issue;
 > - fix: should not remove block id when update thino content;
+> - fix: prevent heatmap date picker performance issue;
+> - fix: heatmap display will calculate in real-time according to time change, not pre-calculate;
 
 > [!note]- 中文
+> ## 优化
+> - 杂项：Thino 分享对话框将保存上次分享类型；
+> - 杂项：更新编辑器加载方法；
 > ## 修复
 > - 修复：任务标签问题；
 > - 修复：更新 Thino 内容时不应该移除块 id；
+> - 修复：防止热点图日期选择器性能问题；
+> - 修复：热点图显示会根据时间变化而实时计算，而不是预计算；
+
 
 # 2.4.23
 
