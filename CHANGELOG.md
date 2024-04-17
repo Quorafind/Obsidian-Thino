@@ -1,4 +1,14 @@
 
+# 2.4.26
+
+> [!tips]+ English
+> ## Features
+> - feat: support hide side bar via command;
+
+> [!note]- 中文
+> ## 特性
+> - 特性：支持通过命令隐藏侧边栏；
+
 # 2.4.25
 
 > [!waring]- For Thino Pro users | 对于 Thino Pro 用户
