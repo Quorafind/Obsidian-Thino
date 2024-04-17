@@ -3,17 +3,21 @@
 
 > [!tips]+ English
 > ## Features
-> - feat: support hide side bar via command;
+> - feat: support hide sidebar/tag list/query list via command;
 > - feat: [PRO] support bulk delete/archive/restore in trash view/archive view;
+> - feat: press ctrl/meta key to click on time of thino will filter thinos by date;
 > ## Fixes
 > - fix: better handle for end mark with thino;
+> - fix: issue with heatmap calendar;
 
 > [!note]- 中文
 > ## 特性
-> - 特性：支持通过命令隐藏侧边栏；
+> - 特性：支持通过命令隐藏侧边栏/标签列/检索式列；
 > - 特性：[PRO] 在垃圾箱视图/归档视图中支持批量删除/归档/恢复；
+> - 特性：按住 ctrl/meta 键点击 Thino 的时间将按日期筛选 Thino；
 > ## 修复
 > - 修复：更好的处理 Thino 中的结束标记；
+> - 修复：热点图日历的数据显示问题；
 
 # 2.4.25
 
