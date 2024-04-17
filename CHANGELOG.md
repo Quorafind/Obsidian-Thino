@@ -4,10 +4,16 @@
 > [!tips]+ English
 > ## Features
 > - feat: support hide side bar via command;
+> - feat: [PRO] support bulk delete/archive/restore in trash view/archive view;
+> ## Fixes
+> - fix: better handle for end mark with thino;
 
 > [!note]- 中文
 > ## 特性
 > - 特性：支持通过命令隐藏侧边栏；
+> - 特性：[PRO] 在垃圾箱视图/归档视图中支持批量删除/归档/恢复；
+> ## 修复
+> - 修复：更好的处理 Thino 中的结束标记；
 
 # 2.4.25
 
