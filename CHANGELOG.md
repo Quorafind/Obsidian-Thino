@@ -1,4 +1,34 @@
 
+# 2.4.25
+
+> [!waring]- For Thino Pro users | 对于 Thino Pro 用户
+> ![300](https://raw.githubusercontent.com/Quorafind/Thino-Capture-Releases/main/media/select-and-send.png)
+> ---
+> Now ==Thino Capture== is available for Thino Pro users, you can capture content from web pages, context menu, and sidebar panel for quick capture;
+> You can install it manually by downloading the extension from [here](https://github.com/Quorafind/Thino-Capture-Releases)
+> - You only need to enable local server in Thino Pro settings;
+> - And then enable the extension in Chrome(With developer mode enabled);
+> - Enjoy capturing content from web pages, context menu, and sidebar panel for quick capture;(Currently not support directly cropping images and full text)
+> ---
+> 现在 ==Thino Capture== 已经对 Thino Pro 用户开放，你可以从网页、右键菜单、侧边栏快捷输入捕获内容；
+> 你可以通过手动下载扩展包的方式安装： [这里](https://github.com/Quorafind/Thino-Capture-Releases/blob/main/README-ZH.md)
+> - 你只需要在 Thino Pro 设置中启用本地服务器；
+> - 然后在 Chrome 中加载扩展(开发者模式已启用)；
+> - 尽情享受从网页、右键菜单、侧边栏快捷输入捕获内容的乐趣；（目前还不支持直接裁剪图片和全文）
+
+> [!tips]+ English
+> ## Features
+> ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-focus-mode.png)
+> - feat: support focus mode via command;
+> - feat: support quick issue via user banner menu;
+
+> [!note]- 中文
+> ## 特性
+> ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-focus-mode.png)
+> - 特性：支持通过命令开启聚焦模式；
+> - 特性：支持通过用户菜单快速提交问题；
+
+
 # 2.4.24
 
 > [!waring]- For ReadWise user and Thino Pro users | 对于 ReadWise 以及 Thino Pro 用户  
@@ -43,7 +73,7 @@
 > ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-file-tag.png)
 
 > [!tips]+ English
-> ## New Features
+> ## Features
 > - feat: [PRO] fetch thinos when edit/delete/create thino with tags;
 > - feat: [PRO] support fetch notes with specific tags for `FILE`/`MULTI` file type;
 > - feat: support set default min-height for content when share thino;
@@ -102,24 +132,30 @@
 # 2.4.20
 
 > [!tips]+ English
+> # Features
+> - feat: [PRO] support rename after create MULTI file;
+> - feat: [PRO] support split thino with heading 1/2/3;
+> - feat: support call tasks insert modal via hotkey;
+> # Fixes
 > - fix: overflow issue for thino's menu;
 > - style: remove gap in content wrapper when using fluent/inline style for Chat view;
-> - feat: [PRO] support rename after create MULTI file;
 > - fix: daily thinos background issue when sharing;
 > - fix: should not be able to hide editor when editing thino in Moments view;
 > - fix: tasks plugin compatibility issue;
-> - feat: [PRO] support split thino with heading 1/2/3;
-> - feat: support call tasks insert modal via hotkey;
+
 
 > [!note]- 中文
+> # 特性
+> - 特性：[PRO] 支持创建多文件后重命名；
+> - 特性：[PRO] 支持将带有一级/二级/三级标题的 Thino 分割成多个文件；
+> - 特性：支持通过快捷键调用 Tasks 插入模态框；
+> # 修复
 > - 修复：Thino 菜单的溢出问题；
 > - 样式：在聊天视图中使用 fluent/inline 样式时，移除 content-wrapper 中的 gap 属性；
-> - 特性：[PRO] 支持创建多文件后重命名；
 > - 修复：分享时每日 Thino 的背景问题；
 > - 修复：在 Moments 视图中编辑 Thino 时不应该能够隐藏编辑器；
 > - 修复：Tasks 插件兼容性问题；
-> - 特性：[PRO] 支持将带有一级/二级/三级标题的 Thino 分割成多个文件；
-> - 特性：支持通过快捷键调用 Tasks 插入模态框；
+
 
 # 2.4.19
 
@@ -136,16 +172,22 @@
 ![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-context-menu.png)
 
 > [!tips]+ English
-> - fix: background issue for thino share;
-> - fix: cannot load icon correctly for thino share;
+> # Features
 > - feat: support `Gradient` style for thino share;
 > - feat: support share via editor context menu;
+> # Fixes
+> - fix: background issue for thino share;
+> - fix: cannot load icon correctly for thino share;
+
 
 > [!note]- 中文
-> - 修复：Thino 分享的背景问题；
-> - 修复：Thino 分享的图标无法正确加载；
+> # 特性
 > - 特性：支持 Thino 分享的 `Gradient` 样式；
 > - 特性：支持在编辑器中通过右键菜单分享；
+> # 修复
+> - 修复：Thino 分享的背景问题；
+> - 修复：Thino 分享的图标无法正确加载；
+
 
 # 2.4.17
 
