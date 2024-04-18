@@ -1,17 +1,34 @@
 
 # 2.4.27
 
+> [!Update]
+> ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-collapse.png)
+
 > [!tips]+ English
 > ## Features
 > - feat: support collapse thino content by setting max-height for Thino; You can set it in interface settings of Thino settings;
+> - feat: support scroll to top when scroll on thino list;
+> ## Improvements
+> - chore: improve performance when switch list type;
 > ## Fixes
 > - fix: sometimes, render list view will cause thinos display issue;
+> - fix: lag issue when render collapsed thino;
+> - fix: sync issue when capture from web;
+> - fix: unusual scroll behavior when render thino in chat view; (Note, it will still scroll to the bottom every time you refresh because data will be completely re-fetched)
+> - fix: sync issue when capture via URI;
 
 > [!note]- 中文
 > ## 特性
 > - 特性：支持通过设置 Thino 的最大高度来折叠 Thino 内容；你可以在 Thino 设置的界面设置中设置；
+> - 特性：在 Thino 列表上滚动时支持滚动到顶部；
+> ## 改进
+> - 提升：切换列表样式时的性能；
 > ## 修复
 > - 修复：有时，渲染列表视图会导致 Thino 显示问题；
+> - 修复：渲染折叠 Thino 时的延迟问题；
+> - 修复：从网页捕获时的同步问题；
+> - 修复：在聊天视图中渲染 Thino 时的异常滚动行为；（注意，每次刷新仍然会导致其重新滚动到底部，因为数据会完全重新获取）；
+> - 修复：通过 URI 捕获时的同步问题；
 
 # 2.4.26
 
