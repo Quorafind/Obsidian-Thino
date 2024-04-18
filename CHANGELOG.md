@@ -1,4 +1,18 @@
 
+# 2.4.27
+
+> [!tips]+ English
+> ## Features
+> - feat: support collapse thino content by setting max-height for Thino; You can set it in interface settings of Thino settings;
+> ## Fixes
+> - fix: sometimes, render list view will cause thinos display issue;
+
+> [!note]- 中文
+> ## 特性
+> - 特性：支持通过设置 Thino 的最大高度来折叠 Thino 内容；你可以在 Thino 设置的界面设置中设置；
+> ## 修复
+> - 修复：有时，渲染列表视图会导致 Thino 显示问题；
+
 # 2.4.26
 
 > [!tips]+ English
