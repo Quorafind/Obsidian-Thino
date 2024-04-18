@@ -1,4 +1,18 @@
 
+# 2.4.28
+
+> [!tips]+ English
+> ## Improvements
+> - chore: show raw text when thino contains more than 3 callouts, this option can be turned off in settings;
+> ## Fixes
+> - fix: heatmap date picker doesn't show data correctly;
+
+> [!note]- 中文
+> ## 改进
+> - 杂项：当 Thino 包含超过 3 个 callout 时显示原始文本，该选项可以到设置中关闭；
+> ## 修复
+> - 修复：热点图日期选择器无法正确显示数据；
+
 # 2.4.27
 
 > [!Update]
