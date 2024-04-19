@@ -8,10 +8,12 @@
 > ## Improvements
 > - chore: show raw text when thino contains more than 3 callouts for improving render performance, this option can be turned off in settings;
 > - style: remove border of icon when sharing thino;
+> - chore: faster destroy editor when save button clicked;
 > ## Fixes
 > - fix: heatmap date picker doesn't show data correctly;
 > - fix: height should not lower than 80px when collapse thino;
 > - fix: look behind issue related to safari browser;
+> - fix: pin or unpin thino should update thino list correctly;
 
 > [!note]- 中文
 > ## 特性
@@ -20,10 +22,12 @@
 > ## 改进
 > - 杂项：当 Thino 包含超过 3 个 callout 时显示原始文本以提高渲染性能，该选项可以到设置中关闭；
 > - 样式：分享 Thino 时移除图标的边框；
+> - 杂项：当点击保存按钮时更快地销毁编辑器；
 > ## 修复
 > - 修复：热点图日期选择器无法正确显示数据；
 > - 修复：折叠 Thino 时高度不应低于 80px；
 > - 修复：Safari 浏览器相关的 lookbehind 正则导致的崩溃问题；
+> - 修复：固定或取消固定 Thino 时应该正确更新 Thino 列表；
 
 # 2.4.27
 
