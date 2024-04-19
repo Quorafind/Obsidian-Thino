@@ -14,6 +14,7 @@
 > - fix: height should not lower than 80px when collapse thino;
 > - fix: look behind issue related to safari browser;
 > - fix: pin or unpin thino should update thino list correctly;
+> - fix: cannot delete thino correctly via calendar mode;
 
 > [!note]- 中文
 > ## 特性
@@ -28,6 +29,7 @@
 > - 修复：折叠 Thino 时高度不应低于 80px；
 > - 修复：Safari 浏览器相关的 lookbehind 正则导致的崩溃问题；
 > - 修复：固定或取消固定 Thino 时应该正确更新 Thino 列表；
+> - 修复：无法通过日历模式正确删除 Thino；
 
 # 2.4.27
 
