@@ -1,4 +1,15 @@
 
+# 2.4.29
+
+> [!tips]+ English
+> ## Features
+> - feat: insert new thino to daily note should insert before `---`, blockid or next header;
+
+> [!note]- 中文
+> ## 特性
+> - 特性：插入新的 Thino 到每日笔记时应该插入在 `---`、块 id 或者下一个标题之前；
+
+
 # 2.4.28
 
 > [!tips]+ English
