@@ -2,16 +2,28 @@
 # 2.4.28
 
 > [!tips]+ English
+> ## Features
+> - feat: support append/prepend text to thino when capture from [Thino Capture](https://github.com/Quorafind/Thino-Capture-Releases)
+>   - You can use it to add tags for clipping, or add some extra information;
 > ## Improvements
-> - chore: show raw text when thino contains more than 3 callouts, this option can be turned off in settings;
+> - chore: show raw text when thino contains more than 3 callouts for improving render performance, this option can be turned off in settings;
+> - style: remove border of icon when sharing thino;
 > ## Fixes
 > - fix: heatmap date picker doesn't show data correctly;
+> - fix: height should not lower than 80px when collapse thino;
+> - fix: look behind issue related to safari browser;
 
 > [!note]- 中文
+> ## 特性
+> - 特性：支持从 [Thino Capture](https://github.com/Quorafind/Thino-Capture-Releases) 获取文本的时候追加/前置文本；
+>   - 你可以将该功能用于添加裁剪的标签，或者添加一些额外的信息；
 > ## 改进
-> - 杂项：当 Thino 包含超过 3 个 callout 时显示原始文本，该选项可以到设置中关闭；
+> - 杂项：当 Thino 包含超过 3 个 callout 时显示原始文本以提高渲染性能，该选项可以到设置中关闭；
+> - 样式：分享 Thino 时移除图标的边框；
 > ## 修复
 > - 修复：热点图日期选择器无法正确显示数据；
+> - 修复：折叠 Thino 时高度不应低于 80px；
+> - 修复：Safari 浏览器相关的 lookbehind 正则导致的崩溃问题；
 
 # 2.4.27
 
