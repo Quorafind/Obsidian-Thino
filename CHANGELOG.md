@@ -5,6 +5,8 @@
 > ## Features
 > - feat: insert new thino to daily note should insert before `---`, blockid or next header;
 > - feat: support collapsed height when collapse thino, set it in thino settings;
+> ## Improvements
+> - chore: improve loading performance when first load thino;
 > ## Fixes
 > - fix: cannot set thino collapse max height to 0;
 > - fix: wrong translation for some languages;
@@ -14,6 +16,8 @@
 > ## 特性
 > - 特性：插入新的 Thino 到每日笔记时应该插入在 `---`、块 id 或者下一个标题之前；
 > - 特性：在折叠 Thino 时支持折叠高度，可以在 Thino 设置中设置；
+> ## 改进
+> - 杂项：提升首次加载 Thino 的性能；
 > ## 修复
 > - 修复：不能设置 Thino 折叠最大高度为 0 ；
 > - 修复：一些语言的翻译错误；
