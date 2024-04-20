@@ -1,4 +1,14 @@
 
+# 2.4.30
+
+> [!tips]+ English
+> ## Fixes
+> - fix: cannot toggle checkbox with number in thino;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：在 Thino 中无法切换带有数字的复选框；
+
 # 2.4.29
 
 > [!tips]+ English
