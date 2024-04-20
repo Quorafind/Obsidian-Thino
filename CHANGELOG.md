@@ -12,6 +12,7 @@
 > - fix: wrong translation for some languages;
 > - fix: float toolbar not working;
 > - fix: cannot use command to insert task into editor;
+> - fix: templater loading issue when creating thino in new daily note;
 
 > [!note]- 中文
 > ## 特性
@@ -24,6 +25,7 @@
 > - 修复：一些语言的翻译错误；
 > - 修复：浮动工具栏不工作；
 > - 修复：不能使用命令将任务插入到编辑器中；
+> - 修复：在新的每日笔记中创建 Thino 时 Templater 加载问题；
 
 
 # 2.4.28
