@@ -11,6 +11,7 @@
 > - fix: cannot set thino collapse max height to 0;
 > - fix: wrong translation for some languages;
 > - fix: float toolbar not working;
+> - fix: cannot use command to insert task into editor;
 
 > [!note]- 中文
 > ## 特性
@@ -22,6 +23,7 @@
 > - 修复：不能设置 Thino 折叠最大高度为 0 ；
 > - 修复：一些语言的翻译错误；
 > - 修复：浮动工具栏不工作；
+> - 修复：不能使用命令将任务插入到编辑器中；
 
 
 # 2.4.28
