@@ -1,4 +1,14 @@
 
+# 2.4.31
+
+> [!tips]+ English
+> ## Fixes
+> - fix：menu issue with native menu;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：原生菜单问题；
+
 # 2.4.30
 
 > [!tips]+ English
