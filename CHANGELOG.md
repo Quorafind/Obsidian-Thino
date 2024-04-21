@@ -1,6 +1,18 @@
 
 # 2.4.31
 
+> [!waring]+ For Zotero user and Thino Pro users | 对于 Zotero 以及 Thino Pro 用户  
+> You can index your notes from Zotero as part of Thino using the tag indexing feature in 2.4.24, and use it for random review or filtering;  
+> 你可以利用新版本的单文件标签索引功能来索引 Zotero 的笔记成为 Thino 的一部分，且用于随机回顾，或者筛选；
+> ---  
+> For more information, please refer to the tutorial:  
+> 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/561
+> ---
+> ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-zotero.jpg)
+> ---
+> Readwise: https://github.com/Quorafind/Obsidian-Thino/discussions/536
+> Weread: https://github.com/Quorafind/Obsidian-Thino/discussions/532
+
 > [!tips]+ English
 > ## Fixes
 > - fix：menu issue with native menu;
