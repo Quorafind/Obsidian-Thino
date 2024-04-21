@@ -4,10 +4,12 @@
 > [!tips]+ English
 > ## Fixes
 > - fix：menu issue with native menu;
+> - fix: when editing thino should not add tag to thino automatically;
 
 > [!note]- 中文
 > ## 修复
 > - 修复：原生菜单问题；
+> - 修复：编辑 Thino 时不应该自动添加标签到 Thino；
 
 # 2.4.30
 
