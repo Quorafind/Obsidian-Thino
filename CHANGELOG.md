@@ -1,4 +1,16 @@
 
+# 2.4.34
+
+> [!tips]+ English
+> ## Feature
+> - feat: [PRO] support export csv when using table view and filter in table;
+> - feat: [PRO] support thino mobile navbar button for quick access to thino editor;
+
+> [!note]- 中文
+> ## 特性
+> - 特性：[PRO] 在表格视图筛选后中支持导出 csv；
+> - 特性：[PRO] 支持 Thino 移动端导航栏按钮，用于快速访问 Thino 编辑器；
+
 # 2.4.33
 
 > [!waring]+ For Zotero user and Thino Pro users | 对于 Zotero 以及 Thino Pro 用户  
