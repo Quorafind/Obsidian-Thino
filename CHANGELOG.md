@@ -1,4 +1,18 @@
 
+# 2.3.35
+
+> [!tips]+ English
+> ## Feature
+> - feat: [PRO] support filter via path or metadata;
+> - feat: Tag counts would include tags in file;
+>   - Each file will only be counted once, but there is a possibility that a file may have multiple Thinos;
+
+> [!note]- 中文
+> ## 特性
+> - 特性：[PRO] 支持通过路径或元数据进行筛选；
+> - 特性：标签计数将包括文件中的标签；
+>   - 每个文件仅计数一次，但是存在一个文件附带多个 Thino 的可能；
+
 # 2.4.34
 
 > [!tips]+ English
