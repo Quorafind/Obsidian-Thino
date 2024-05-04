@@ -1,5 +1,15 @@
 
-# 2.3.35
+# 2.4.36
+
+> [!tips]+ English
+> ## Fixes
+> - fix: tag fetch issue;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：标签获取问题；
+
+# 2.4.35
 
 > [!tips]+ English
 > ## Feature
