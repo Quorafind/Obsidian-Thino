@@ -1,4 +1,14 @@
 
+# 2.4.39
+
+> [!tips]+ English
+> ## Fixes
+> - fix: tag fetch issue related to thino file;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：与 Thino 文件相关的标签获取问题；
+
 # 2.4.38
 
 > [!tips]+ English
