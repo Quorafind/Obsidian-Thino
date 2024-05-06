@@ -1,4 +1,14 @@
 
+# 2.4.37
+
+> [!tips]+ English
+> ## Fixes
+> - fix: tag filter issue;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：标签筛选问题；
+
 # 2.4.36
 
 > [!tips]+ English
