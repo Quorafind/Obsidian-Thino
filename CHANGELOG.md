@@ -4,10 +4,12 @@
 > [!tips]+ English
 > ## Fixes
 > - fix: tag filter issue;
+> - fix: tag fetch issue related to thino file;
 
 > [!note]- 中文
 > ## 修复
 > - 修复：标签筛选问题；
+> - 修复：与 Thino 文件相关的标签获取问题；
 
 # 2.4.36
 
