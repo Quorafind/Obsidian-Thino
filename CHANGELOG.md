@@ -1,4 +1,16 @@
 
+# 2.4.40
+
+> [!tips]+ English
+> ## Fixes
+> - fix: [FILE] cannot fetch thino when there is no heading in note;
+> - fix: [FILE] cannot archive thino when there is no heading in note;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：【单文件】当笔记中没有标题时无法获取 Thino；
+> - 修复：【单文件】当笔记中没有标题时无法归档 Thino；
+
 # 2.4.39
 
 > [!tips]+ English
