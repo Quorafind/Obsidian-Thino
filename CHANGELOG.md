@@ -1,4 +1,14 @@
 
+# 2.4.43
+
+> [!tips]+ English
+> ## Fixes
+> - fix: hover-link not working
+
+> [!note]- 中文
+> ## 修复
+> - 修复：悬停链接无法使用
+
 # 2.4.42
 
 > [!tips]+ English
