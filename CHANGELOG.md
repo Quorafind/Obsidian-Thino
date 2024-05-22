@@ -1,4 +1,14 @@
 
+# 2.4.42
+
+> [!tips]+ English
+> ## Fixes
+> - fix: sync issue;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：同步问题；
+
 # 2.4.41
 
 > [!tips]+ English
