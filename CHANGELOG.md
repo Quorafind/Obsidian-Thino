@@ -1,4 +1,14 @@
 
+# 2.4.44
+
+> [!tips]+ English
+> ## Fixes
+> - fix: click on `@MARK` link in editor should not create a note;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：在编辑器中点击 `@MARK` 链接不应该创建笔记；
+
 # 2.4.43
 
 > [!tips]+ English
