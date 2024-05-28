@@ -1,4 +1,14 @@
 
+# 2.4.45
+
+> [!tips]+ English
+> ## Fixes
+> - fix: create daily note with thino sync and also Templater opened will cause error;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：打开 Thino 同步和 Templater 插件的情况下创建日记会导致错误；
+
 # 2.4.44
 
 > [!tips]+ English
