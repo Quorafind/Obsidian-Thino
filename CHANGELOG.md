@@ -1,4 +1,14 @@
 
+# 2.4.47
+
+> [!tips]+ English
+> ## Features
+> - feat: support toggle show/hide left sidebar on tablet;
+
+> [!note]- 中文
+> ## 功能
+> - 功能：支持在平板上切换显示/隐藏左侧边栏；
+
 # 2.4.46
 
 > [!tips]+ English
