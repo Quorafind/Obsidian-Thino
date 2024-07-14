@@ -1,4 +1,20 @@
 
+# 2.4.48
+
+> [!tips]+ English
+> ## Improve
+> - Don't show tags from SINGLE file and also from ARCHIVE thino;
+> - Fuzzy match when text search, not exact match;
+> - Improve open speed and performance when over 20000 thinos;
+> - Improve the performance of the search bar when searching;
+
+> [!note]- 中文
+> ## 改进
+> - 不显示单个文件的标签，也不显示归档的 Thino 的标签；
+> - 文本搜索时会模糊匹配，而不是完全匹配；
+> - 改进超过 20000 个 Thino 时的打开速度以及性能；
+> - 改进搜索栏搜索时的性能；
+
 # 2.4.47
 
 > [!tips]+ English
@@ -20,67 +36,6 @@
 > - 修复：打开 Thino 同步和 Templater 插件的情况下创建日记会导致错误；
 
 
-# 2.4.45
-
-> [!tips]+ English
-> ## Fixes
-> - fix: create daily note with thino sync and also Templater opened will cause error;
-
-> [!note]- 中文
-> ## 修复
-> - 修复：打开 Thino 同步和 Templater 插件的情况下创建日记会导致错误；
-
-# 2.4.44
-
-> [!tips]+ English
-> ## Fixes
-> - fix: click on `@MARK` link in editor should not create a note;
-
-> [!note]- 中文
-> ## 修复
-> - 修复：在编辑器中点击 `@MARK` 链接不应该创建笔记；
-
-# 2.4.43
-
-> [!tips]+ English
-> ## Fixes
-> - fix: hover-link not working
-
-> [!note]- 中文
-> ## 修复
-> - 修复：悬停链接无法使用
-
-# 2.4.42
-
-> [!tips]+ English
-> ## Fixes
-> - fix: sync issue;
-
-> [!note]- 中文
-> ## 修复
-> - 修复：同步问题；
-
-# 2.4.41
-
-> [!tips]+ English
-> ## Fixes
-> - fix: [FILE] when there is a string in the note that is the same as the id, the original content cannot be edited;
-
-> [!note]- 中文
-> ## 修复
-> - 修复：【单文件】当笔记中存在和 id 一样的字符串的时候会出现无法编辑原内容的情况；
-
-# 2.4.40
-
-> [!tips]+ English
-> ## Fixes
-> - fix: [FILE] cannot fetch thino when there is no heading in note;
-> - fix: [FILE] cannot archive thino when there is no heading in note;
-
-> [!note]- 中文
-> ## 修复
-> - 修复：【单文件】当笔记中没有标题时无法获取 Thino；
-> - 修复：【单文件】当笔记中没有标题时无法归档 Thino；
 
 ------
 
