@@ -1,4 +1,14 @@
 
+# 2.4.49
+
+> [!tips]+ English
+> ## Fix
+> - Cannot archive thino correctly.
+
+> [!note]- 中文
+> ## 修复
+> - 无法正确归档 Thino。
+
 # 2.4.48
 
 > [!tips]+ English
