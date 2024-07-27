@@ -2,6 +2,18 @@
 # 2.4.49
 
 > [!tips]+ English
+> ## Feat
+> - Path now is showed near the time of thino when from files [MULTI].
+> - You can set sync manually in settings.
+
+> [!note]- 中文
+> ## 功能
+> - 现在来自多文件的 Thino 旁边显示路径。
+> - 您可以在设置中手动同步。
+
+# 2.4.49
+
+> [!tips]+ English
 > ## Fix
 > - Cannot archive thino correctly.
 
