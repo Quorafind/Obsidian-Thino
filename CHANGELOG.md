@@ -1,4 +1,15 @@
 
+# 2.4.51
+
+> [!tips]+ English
+> ## Feat
+> - Pro: support time range filter(eg. `This week`, `This month`, `This year`, `Last week`, `Last month`, `Last year`);
+
+> [!note]- 中文
+> ## 功能
+> - Pro 功能：支持时间范围过滤（例如 `本周`，`本月`，`本年`，`上周`，`上月`，`上年`）；
+
+
 # 2.4.50
 
 > [!tips]+ English
