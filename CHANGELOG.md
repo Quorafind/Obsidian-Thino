@@ -1,4 +1,14 @@
 
+# 2.4.52
+
+> [!tips]+ English
+> ## Feat
+> - Onboarding guide could be closed by clicking the close button;
+
+> [!note]- 中文
+> ## 功能
+> - 引导指南可以通过点击关闭按钮关闭；
+
 # 2.4.51
 
 > [!tips]+ English
