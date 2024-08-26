@@ -1,13 +1,17 @@
 
-# 2.4.52
+# 2.4.52~2.4.53
 
 > [!tips]+ English
 > ## Feat
 > - Onboarding guide could be closed by clicking the close button;
+> ## Fix
+> - Should not influence default style of tailwindcss;
 
 > [!note]- 中文
 > ## 功能
 > - 引导指南可以通过点击关闭按钮关闭；
+> ## 修复
+> - 不应该影响 tailwindcss 的默认样式；
 
 # 2.4.51
 
