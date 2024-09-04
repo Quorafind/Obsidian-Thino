@@ -1,3 +1,12 @@
+# 2.4.54
+
+> [!tips]+ English
+> ## Fix
+> - Thino's type will not be changed when sync from web;
+
+> [!note]- 中文
+> ## 修复
+> - 从网络同步时 Thino 的类型不会改变；
 
 # 2.4.52~2.4.53
 
