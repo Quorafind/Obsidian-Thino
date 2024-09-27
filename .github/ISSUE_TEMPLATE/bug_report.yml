@@ -34,13 +34,6 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: editor
-    attributes:
-      label: Which editor are you using? (If applicable)
-      options:
-        - label: New Editor (WYSIWYG) | 新编辑器
-        - label: Legacy Editor (Markdown) | 旧编辑器
-  - type: checkboxes
     id: checklist
     attributes:
       label: Checklist
