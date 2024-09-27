@@ -1,3 +1,18 @@
+# 2.4.56
+
+> [!tips]+ English
+> ## Fix
+> - Path filter cannot correctly clear when click the clear button;
+> ## Style
+> - Improve the style of the Thino's modern layout;
+
+> [!note]- 中文
+> ## 修复
+> - 路径过滤器无法正确清除；
+> ## 样式
+> - 改进 Thino 的现代布局样式；
+
+
 # 2.4.54~2.4.55
 
 > [!tips]+ English
