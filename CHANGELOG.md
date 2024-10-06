@@ -1,3 +1,14 @@
+# 2.4.57
+
+> [!tips]+ English
+> ## Fix
+> - style: improve the style of the Thino's review page;
+
+> [!note]- 中文
+> ## 样式
+> - 改进 Thino 的复习页面的样式；
+
+
 # 2.4.56
 
 > [!tips]+ English
