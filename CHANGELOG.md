@@ -1,3 +1,14 @@
+# 2.4.58
+
+> [!tips]+ English
+> ## Fix
+> - fix: task type cannot save when using multi-file thino;
+
+> [!note]- 中文
+> ## 修复
+> - 修复：使用多文件 Thino 时无法保存任务类型；
+
+
 # 2.4.57
 
 > [!tips]+ English
