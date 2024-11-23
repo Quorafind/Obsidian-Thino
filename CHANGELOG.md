@@ -1,3 +1,13 @@
+# 2.4.59
+
+> [!tips]+ English
+> ## Feat
+> - feat: support open daily/periodic notes plugin settings in Thino's settings;
+
+> [!note]- 中文
+> ## 功能
+> - 功能：支持在 Thino 的设置中打开日记/周期性笔记插件的设置；
+
 # 2.4.58
 
 > [!tips]+ English
