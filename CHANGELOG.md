@@ -6,7 +6,9 @@
 > ## Feat
 >
 > - feat: [pro] support daily review(based on FSRS algorithm);
+> - feat: [pro] support thino stat;
 > - feat: support history menu for thino editor;
+> - feat: support query sort;
 >
 > ## Fix
 >
@@ -23,7 +25,9 @@
 > ## 功能
 >
 > - 功能：[Pro] 支持每日复习（基于 FSRS 算法）；
+> - 功能：[Pro] 支持 Thino 统计；
 > - 功能：支持历史菜单；
+> - 功能：支持查询（Query）排序；
 >
 > ## 修复
 >
