@@ -1,18 +1,26 @@
-# 2.5.0-pre
+# 2.5.0
 
 > [!tips]+ English
-> Happy New Year! This is a pre-release version, you can't update to this version automatically in Obsidian. If you want to experience this version, please download it manually.
 >
 > ## Feat
 >
-> - feat: [pro] support daily review(based on FSRS algorithm);
 > - feat: [pro] support thino stat;
 > - feat: support history menu for thino editor;
 > - feat: support query sort;
+> - feat: support search for Source Type "Multi" paths;
+> - feat: support both block references and original thino id references;
+> - feat: add dropdown menu in three dots to clear Filter status on mobile;
+> - feat: support adding fixed string (e.g., timestamp) at beginning or end;
+> - feat: support copying thino block links and embedded block links;
 >
 > ## Fix
 >
 > - fix: clear editor content cache after save;
+> - fix: image export functionality;
+> - fix: style issues when generating images (caused by Stat page error);
+> - fix: preserve Block id when updating content;
+> - fix: compatibility with HH:mm-HH:mm format in Thino;
+> - fix: lazy loading for thino;
 >
 > ## Style
 >
@@ -20,18 +28,26 @@
 > - chore: update verify reg code process;
 
 > [!note]- 中文
-> 新年快乐！这个是一个预发布版本，你还没办法在 Obsidian 中更新到这个版本，如果你想要体验这个版本，请手动下载这个版本。
 >
 > ## 功能
 >
-> - 功能：[Pro] 支持每日复习（基于 FSRS 算法）；
 > - 功能：[Pro] 支持 Thino 统计；
 > - 功能：支持历史菜单；
 > - 功能：支持查询（Query）排序；
+> - 功能：支持搜索 Source Type 为 "Multi" 的路径；
+> - 功能：同时支持块引用和原始 thino id 的引用，解决通过行引用日记中的 Thino 的问题；
+> - 功能：移动端增加三点菜单中的下拉选项直接清除 Filter；
+> - 功能：支持在开头或末尾添加固定字符串（如时间戳）；
+> - 功能：支持复制 thino 的块链接和嵌入块链接；
 >
 > ## 修复
 >
 > - 修复：编辑器内容保存后，悬浮编辑器的缓存不会清空的问题；
+> - 修复：图片导出的相关功能；
+> - 修复：生成图片时的样式问题（由 Stat 页面导致的报错）；
+> - 修复：更新内容时正确保留 Block id；
+> - 修复：不支持 HH:mm-HH:mm 这种形式的 Thino 的兼容性问题；
+> - 修复：无法懒加载 thino 的问题；
 >
 > ## 样式
 >
