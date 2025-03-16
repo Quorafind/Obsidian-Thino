@@ -1,3 +1,21 @@
+# 2.5.1
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: style issues in the top bar;
+> - fix: style issues when sidebar is expanded;
+> - fix: missing icon for "Copy embed link" in the right-click context menu;
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：顶部栏的样式问题；
+> - 修复：侧边栏展开时的样式问题；
+> - 修复：右键 Thino 菜单中"复制嵌入链接"选项图标缺失的问题；
+
 # 2.5.0
 
 > [!tips]+ English
