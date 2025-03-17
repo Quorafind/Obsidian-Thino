@@ -13,12 +13,15 @@
 > - feat: allow mobile devices to use default header instead of Thino's top bar;
 > - feat: support i18n for additional countries;
 >
+> ## Improve
+>
+> - improve: migrate all default menu styles to Obsidian's native menus for consistency;
+> - improve: prevent Esc from exiting editor when Vim mode is enabled;
+>
 > ## Fix
 >
-> - fix: migrate all default menu styles to Obsidian's native menus for consistency;
 > - fix: length-related statistics not displaying correctly in Stat page;
 > - fix: placeholder not showing properly when editor is empty;
-> - fix: increase editor height when focused;
 > - fix: prevent Esc from exiting editor when Vim mode is enabled;
 > - fix: color issues in daily review bar charts;
 > - fix: [pro] remove bottom loading indicator in table mode;
@@ -38,13 +41,15 @@
 > - 功能：允许移动端使用默认的头部形式，而不是 Thino 的顶部；
 > - 功能：支持更多国家的 i18n；
 >
+> ## 改进
+>
+> - 改进：开启 Vim 模式时，不触发 Esc 退出编辑器的行为；
+> - 改进：迁移所有默认菜单样式为 Obsidian 自带的菜单，保证样式一致性；
+>
 > ## 修复
 >
-> - 修复：迁移所有默认菜单样式为 Obsidian 自带的菜单，保证样式一致性；
 > - 修复：Stat 页面中长度相关的统计图显示不正确；
 > - 修复：编辑器为空行时无法正常显示 Placeholder；
-> - 修复：聚焦到编辑器时高度适当增加；
-> - 修复：开启 Vim 模式时，不触发 Esc 退出编辑器的行为；
 > - 修复：每日回顾柱状图颜色问题；
 > - 修复：[Pro] 表格模式下不应该有底部的加载提示；
 > - 修复：移动端左上角按钮的空间样式问题；
