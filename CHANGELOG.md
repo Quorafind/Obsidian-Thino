@@ -1,3 +1,55 @@
+# 2.6.0
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat: [pro] support link groups at the bottom of Thino;
+> - feat: [pro] support link groups in non-basic views (table, calendar, etc.) via right-click;
+> - feat: [pro] add link group display button in moments and waterfall views;
+> - feat: [pro] allow setting maximum character count and current character count;
+> - feat: [pro] support hiding specific folders to prevent metadata changes during MULTI indexing;
+> - feat: add configurable double-click behavior for Thino;
+> - feat: allow mobile devices to use default header instead of Thino's top bar;
+> - feat: support i18n for additional countries;
+>
+> ## Fix
+>
+> - fix: migrate all default menu styles to Obsidian's native menus for consistency;
+> - fix: length-related statistics not displaying correctly in Stat page;
+> - fix: placeholder not showing properly when editor is empty;
+> - fix: increase editor height when focused;
+> - fix: prevent Esc from exiting editor when Vim mode is enabled;
+> - fix: color issues in daily review bar charts;
+> - fix: [pro] remove bottom loading indicator in table mode;
+> - fix: mobile top-left button spacing issues;
+> - fix: Thino maximum width in lists should be 100% instead of overflowing;
+
+> [!note]- 中文
+>
+> ## 功能
+>
+> - 功能：[Pro] 在 Thino 底部支持链接组显示引用和被引用的链接；
+> - 功能：[Pro] 支持在非基础视图（表格、日历等）通过右键唤起链接组展示；
+> - 功能：[Pro] 在动态、瀑布流等视图的右上角添加链接组展示按钮；
+> - 功能：[Pro] 允许设置最大字数限制和当前字数统计；
+> - 功能：[Pro] 支持隐藏特定文件夹，避免在 MULTI 索引时更改对应的元数据；
+> - 功能：增加可配置的 Thino 双击行为；
+> - 功能：允许移动端使用默认的头部形式，而不是 Thino 的顶部；
+> - 功能：支持更多国家的 i18n；
+>
+> ## 修复
+>
+> - 修复：迁移所有默认菜单样式为 Obsidian 自带的菜单，保证样式一致性；
+> - 修复：Stat 页面中长度相关的统计图显示不正确；
+> - 修复：编辑器为空行时无法正常显示 Placeholder；
+> - 修复：聚焦到编辑器时高度适当增加；
+> - 修复：开启 Vim 模式时，不触发 Esc 退出编辑器的行为；
+> - 修复：每日回顾柱状图颜色问题；
+> - 修复：[Pro] 表格模式下不应该有底部的加载提示；
+> - 修复：移动端左上角按钮的空间样式问题；
+> - 修复：Thino 在列表中的最大宽度应为 100% 而非超出范围；
+
 # 2.5.1
 
 > [!tips]+ English
