@@ -1,3 +1,31 @@
+# 2.6.1
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: block reference not working correctly when using the reference menu in the top-right corner of Thino;
+> - fix: timestamp recognition errors when there is no space after the timestamp;
+> - fix: global hotkey registration failure during startup;
+> - fix: search command not working properly when launched directly;
+>
+> ## Improve
+>
+> - improve: add option to configure drag behavior to generate block reference links or copy the original text;
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：通过 Thino 右上角菜单的引用没有正确实现块引用方案；
+> - 修复：时间戳后边没有空格的话会导致意外的识别错误；
+> - 修复：启动时的全局快捷键注册失败的问题；
+> - 修复：直接启动搜索的命令没有正常生效；
+>
+> ## 改进
+>
+> - 改进：支持设置拖动时生成块引用链接或者直接将原文拖过去；
+
 # 2.6.0
 
 > [!tips]+ English
