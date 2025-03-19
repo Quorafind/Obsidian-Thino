@@ -1,3 +1,15 @@
+# 2.7.2
+
+> ## Fix
+>
+> - feat: add option to show/hide scrollbar in all thino views;
+
+> [!note]- 中文
+>
+> ## 功能
+>
+> - 功能：增加是否显示所有 Thino 视图中的滚动条的设置；
+
 # 2.7.1
 
 > ## Fix
