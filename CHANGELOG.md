@@ -1,8 +1,30 @@
-# 2.7.2
+# 2.7.3
 
+> [!tips]+ English
+>
 > ## Fix
 >
-> - feat: add option to show/hide scrollbar in all thino views;
+> - fix: list of thinos not updated correctly after editing;
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：Thino 更新后列表没有及时更新；
+
+# 2.7.2
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: thino not updated when daily notes are updated;
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：Thino 在 Daily Notes 更新时没有正确更新；
 
 > [!note]- 中文
 >
