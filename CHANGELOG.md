@@ -1,15 +1,5 @@
-# 2.7.0-beta
+# 2.7.0
 
-> [!warning]+ English
->
-> This is a beta version, you need to install it via BRAT.
-
-> [!note]- 中文
->
-> 这是一个测试版本，你需要通过 BRAT 的方式安装。
-
-> [!tips]+ English
->
 > ## Fix
 >
 > - fix: path display pushing menu buttons out of view on narrower screens;
