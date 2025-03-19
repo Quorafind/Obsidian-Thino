@@ -1,3 +1,33 @@
+# 2.7.1
+
+> ## Fix
+>
+> - fix: style issues causing page width to jump repeatedly;
+> - fix: used tags showing as 0;
+>
+> ## Improve
+>
+> - improve: added option to show/hide "Scroll to top" button;
+> - improve: added setting to include/exclude archived content in random review;
+> - improve: remember fit-to-view option when clicking preview images;
+> - improve: [pro] added toggle for comments display in dynamic view;
+> - improve: support for duplicate query;
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：样式问题导致页面宽度反复跳动；
+> - 修复：使用过的标签显示为 0；
+>
+> ## 改进
+>
+> - 改进：增加是否显示"回到顶部"按钮的设置；
+> - 改进：增加是否包含归档内容在随机回顾中的设置；
+> - 改进：增加是否记住点击预览图片时的缩放选项；
+> - 改进：[Pro] 增加动态视图中是否显示评论的设置；
+> - 改进：支持复制查询；
+
 # 2.7.0
 
 > ## Fix
