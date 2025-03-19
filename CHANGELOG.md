@@ -1,3 +1,17 @@
+# 2.6.2
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: compatibility with Kanban plugin;
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：兼容 Kanban 插件；
+
 # 2.6.1
 
 > [!tips]+ English
