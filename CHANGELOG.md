@@ -1,3 +1,49 @@
+# 2.7.0-beta
+
+> [!warning]+ English
+>
+> This is a beta version, you need to install it via BRAT.
+
+> [!note]- 中文
+>
+> 这是一个测试版本，你需要通过 BRAT 的方式安装。
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: path display pushing menu buttons out of view on narrower screens;
+> - fix: nested list rendering issues;
+> - fix: "Show thino editor" command preserving input content when reopened;
+>
+> ## Improve
+>
+> - improve: refactored filter logic for better performance;
+> - improve: added real-time preview of filter data changes;
+> - improve: refactored tag filtering for better performance;
+> - improve: added indicators to show whether tags are from files or from Thino itself;
+> - improve: refactored state data calculation;
+> - improve: [pro] tags in files should not be used for filtering or display when metadata filtering is disabled;
+> - improve: added option to configure whether editor automatically receives focus;
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：路径展示的时候会意外将右上角的菜单按钮在比较窄的屏幕中挤出去；
+> - 修复：嵌套的列表渲染异常的问题；
+> - 修复：Show thino editor 的命令重复开启的情况下依旧保留了已输入的内容情况；
+>
+> ## 改进
+>
+> - 改进：重构筛选器逻辑以及提升性能；
+> - 改进：支持实时预览筛选器的数据变更情况；
+> - 改进：重构标签筛选以及提升性能；
+> - 改进：标签筛选后，如果是来自文件的标签或者 Thino 本身的标签会分别展示对应的提示；
+> - 改进：重构状态数据计算；
+> - 改进：【PRO】没有选择通过元数据筛选 Thino 的功能时，在对应的文件中的标签不应该用于筛选或者展示；
+> - 改进：设置中允许用户调整是否自动聚焦到编辑器；
+
 # 2.6.2
 
 > [!tips]+ English
