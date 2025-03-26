@@ -1,3 +1,37 @@
+# 2.7.4
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: display issues in archive view
+> - fix: block ID handling in multi-line Thinos
+>   - Block IDs now correctly insert at the end of the last non-list/quote line
+>   - Metadata no longer displays after block IDs
+>
+> ## Improve
+>
+> - improve: reduced bundle size by approximately 200kb
+> - improve: added new paste options for users
+>   - "Text" option maintains previous behavior
+>   - "Block-link" option uses Obsidian's native drag logic
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：打开归档视图错误显示内容的问题
+> - 修复：Block ID 在修改 Thino 时候的一些问题
+>   - Blockid 在多行 Thino 中现在能正确插入到最后的一个非列表、引用的行末
+>   - 元数据不再在 block ID 之后展示
+>
+> ## 优化
+>
+> - 优化：打包后体积大小（缩减大概 200kb）
+> - 优化：提供新的选项允许用户选择粘贴行为
+>   - 选择为 Text 的时候恢复之前的使用逻辑
+>   - 选择为 Block-link 的时候则使用 Obsidian 自带的拖动逻辑
+
 # 2.7.3
 
 > [!tips]+ English
