@@ -1,3 +1,21 @@
+# 2.7.5
+
+> [!tips]+ English
+>
+> ## Improve
+>
+> - improve: updated settings descriptions
+>   - Clarified that drag behavior settings only apply when using diary as source
+> - improve: removed unnecessary console logs
+
+> [!note]- 中文
+>
+> ## 优化
+>
+> - 优化：更新设置的内容说明
+>   - 对于拖动行为的设置，该项仅在日记来源情况下会生效
+> - 优化：去除一些不必要的控制台提示
+
 # 2.7.4
 
 > [!tips]+ English
