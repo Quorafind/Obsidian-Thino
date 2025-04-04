@@ -1,3 +1,19 @@
+# 2.7.6
+
+> [!tips]+ English
+>
+> ## Improve
+>
+> - improve: new ui for settings
+> - style: revert text-wrap for link text
+
+> [!note]- 中文
+>
+> ## 优化
+>
+> - 优化：新的设置页面样式
+> - 样式：还原链接文本的换行
+
 # 2.7.5
 
 > [!tips]+ English
