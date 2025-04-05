@@ -2,11 +2,19 @@
 
 > [!tips]+ English
 >
+> ## Improve
+>
+> - improve: add button in about section to open change log
+>
 > ## Fix
 >
 > - fix: filter type "Type" not working
 
 > [!note]- 中文
+>
+> ## 改进
+>
+> - 改进：在关于页面中添加按钮打开更新日志
 >
 > ## 修复
 >
