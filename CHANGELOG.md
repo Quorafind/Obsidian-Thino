@@ -1,3 +1,17 @@
+# 2.7.9
+
+> [!tips]+ English
+>
+> ## Improve
+>
+> - style: update style of tab group of settings page
+
+> [!note]- 中文
+>
+> ## 改进
+>
+> - 样式：更新设置页面中标签组的样式
+
 # 2.7.8
 
 > [!tips]+ English
