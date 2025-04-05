@@ -1,3 +1,19 @@
+# 2.7.7
+
+> [!tips]+ English
+>
+> ## Improve
+>
+> - improve: refactor the settings page
+> - improve: [Pro] add pro badge in the settings page
+
+> [!note]- 中文
+>
+> ## 优化
+>
+> - 优化：重构设置页面
+> - 优化：[Pro] 在设置页面中添加专业版徽标
+
 # 2.7.6
 
 > [!tips]+ English
