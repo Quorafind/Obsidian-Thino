@@ -1,3 +1,17 @@
+# 2.7.8
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: filter type "Type" not working
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：过滤类型 "Type" 不生效的问题
+
 # 2.7.7
 
 > [!tips]+ English
