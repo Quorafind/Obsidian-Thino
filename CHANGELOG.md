@@ -1,3 +1,25 @@
+# 2.7.10
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat: support gallery view for images
+>
+> ## Fix
+>
+> - fix: when word count is 0, it should not be checked
+>
+> [!note]- 中文
+>
+> ## 功能
+>
+> - 功能：支持图片的画廊视图；
+>
+> ## 修复
+>
+> - 修复：当字数限制为 0 时，不应该进行检查；
+
 # 2.7.9
 
 > [!tips]+ English
