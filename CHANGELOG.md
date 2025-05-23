@@ -1,3 +1,17 @@
+# 2.7.11
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - fix: possible issue of daily review limit
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：可能存在的每日复习限制问题；
+
 # 2.7.10
 
 > [!tips]+ English
