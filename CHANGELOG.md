@@ -1,3 +1,13 @@
+# 2.7.13
+
+> [!tips]+ English
+>
+> revert: enable scrollbar in all thino views
+
+> [!note]- 中文
+>
+> 回退：在所有 Thino 视图中启用滚动条
+
 # 2.7.11
 
 > [!tips]+ English
