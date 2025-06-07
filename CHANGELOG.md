@@ -1,3 +1,18 @@
+# 2.7.14
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat: support custom background for share Thino image dialog
+> - feat: support custom font and font size for share Thino image dialog
+
+> [!note]- 中文
+>
+> ## 功能
+>
+> - 功能：支持自定义分享 Thino 图片的背景，自定义字体以及字号
+
 # 2.7.13
 
 > [!tips]+ English
