@@ -1,3 +1,19 @@
+# 2.7.15
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat: support filter images by colors in the gallery view
+> - feat: [pro] better service for API
+
+> [!note]- 中文
+>
+> ## 功能
+>
+> - 功能：支持在画廊视图中通过颜色过滤图片
+> - 功能：[Pro] 更好的 API 服务
+
 # 2.7.14
 
 > [!tips]+ English
