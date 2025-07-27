@@ -14,22 +14,6 @@
 > - 修复：改进多行 memo 内容提取逻辑，防止内容被截断
 > - 修复：处理包含多个列表项的 memo 被错误处理的边缘情况
 
-# 2.7.15
-
-> [!tips]+ English
->
-> ## Feat
->
-> - feat: support filter images by colors in the gallery view
-> - feat: [pro] better service for API
-
-> [!note]- 中文
->
-> ## 功能
->
-> - 功能：支持在画廊视图中通过颜色过滤图片
-> - 功能：[Pro] 更好的 API 服务
-
 ---
 
 > [!warning]+ English
