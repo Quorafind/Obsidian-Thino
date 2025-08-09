@@ -1,3 +1,18 @@
+# 2.7.18
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: or logic issue in query filter;
+>
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：查询过滤器中的或逻辑问题；
+
+
 # 2.7.17
 
 > [!tips]+ English
