@@ -1,3 +1,58 @@
+# 2.8.0-2
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix(stats): time distribution and time-series charts misalignment by enforcing stable ordering (hours, days, months) and dynamic width to avoid label overlap; enable horizontal scroll when needed
+> - fix(memos): archive/delete now instantly reflects in the list by notifying worker cache and triggering filtered list recompute
+> - fix(filter): clicking a saved query reliably updates the main list by transforming query to worker query in filterMemos and avoiding stale cache keys
+>
+> ## Improvement
+>
+> - chore(charts): consistent axis labels and safer zero/edge-case handling
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复（统计）：通过对小时/日期/月等数据进行稳定排序，并根据数据量动态计算图表宽度，避免标签拥挤导致的“错位”；在需要时启用横向滚动
+> - 修复（列表）：删除/归档后立即反映到列表中（通知 Worker 缓存并触发筛选重算）
+> - 修复（筛选）：点击已保存的检索式后主列表能可靠更新（在 filterMemos 中将查询转换为 Worker 查询并避免缓存不一致）
+>
+> ## 优化
+>
+> - 优化（图表）：统一坐标轴标签与零值/边界情况处理
+
+# 2.7.18
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: or logic issue in query filter;
+>
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：查询过滤器中的或逻辑问题；
+
+# 2.7.17
+
+> [!tips]+ English
+>
+> ## Fix
+>
+> - fix: improve multi-line memo content extraction logic to prevent truncation
+> - fix: handle edge case where memos with multiple list items were incorrectly processed
+
+> [!note]- 中文
+>
+> ## 修复
+>
+> - 修复：改进多行 memo 内容提取逻辑，防止内容被截断
+> - 修复：处理包含多个列表项的 memo 被错误处理的边缘情况
 
 # 2.7.14
 
@@ -456,118 +511,162 @@
 # 2.4.59
 
 > [!tips]+ English
+>
 > ## Feat
+>
 > - feat: support open daily/periodic notes plugin settings in Thino's settings;
 
 > [!note]- 中文
+>
 > ## 功能
+>
 > - 功能：支持在 Thino 的设置中打开日记/周期性笔记插件的设置；
 
 # 2.4.58
 
 > [!tips]+ English
+>
 > ## Fix
+>
 > - fix: task type cannot save when using multi-file thino;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：使用多文件 Thino 时无法保存任务类型；
-
 
 # 2.4.57
 
 > [!tips]+ English
+>
 > ## Fix
+>
 > - style: improve the style of the Thino's review page;
 
 > [!note]- 中文
+>
 > ## 样式
+>
 > - 改进 Thino 的复习页面的样式；
-
 
 # 2.4.56
 
 > [!tips]+ English
+>
 > ## Fix
+>
 > - Path filter cannot correctly clear when click the clear button;
+>
 > ## Style
+>
 > - Improve the style of the Thino's modern layout;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 路径过滤器无法正确清除；
+>
 > ## 样式
+>
 > - 改进 Thino 的现代布局样式；
-
 
 # 2.4.54~2.4.55
 
 > [!tips]+ English
+>
 > ## Fix
+>
 > - Thino's type will not be changed when sync from web;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 从网络同步时 Thino 的类型不会改变；
 
 # 2.4.52~2.4.53
 
 > [!tips]+ English
+>
 > ## Feat
+>
 > - Onboarding guide could be closed by clicking the close button;
+>
 > ## Fix
+>
 > - Should not influence default style of tailwindcss;
 
 > [!note]- 中文
+>
 > ## 功能
+>
 > - 引导指南可以通过点击关闭按钮关闭；
+>
 > ## 修复
+>
 > - 不应该影响 tailwindcss 的默认样式；
 
 # 2.4.51
 
 > [!tips]+ English
+>
 > ## Feat
+>
 > - Pro: support time range filter(eg. `This week`, `This month`, `This year`, `Last week`, `Last month`, `Last year`);
 
 > [!note]- 中文
+>
 > ## 功能
+>
 > - Pro 功能：支持时间范围过滤（例如 `本周`，`本月`，`本年`，`上周`，`上月`，`上年`）；
-
 
 # 2.4.50
 
 > [!tips]+ English
+>
 > ## Feat
+>
 > - Path now is showed near the time of thino when from files [MULTI].
 > - You can set sync manually in settings.
 
 > [!note]- 中文
+>
 > ## 功能
+>
 > - 现在来自多文件的 Thino 旁边显示路径。
 > - 您可以在设置中手动同步。
 
 # 2.4.49
 
 > [!tips]+ English
+>
 > ## Fix
+>
 > - Cannot archive thino correctly.
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 无法正确归档 Thino。
 
 # 2.4.48
 
 > [!tips]+ English
+>
 > ## Improve
+>
 > - Don't show tags from SINGLE file and also from ARCHIVE thino;
 > - Fuzzy match when text search, not exact match;
 > - Improve open speed and performance when over 20000 thinos;
 > - Improve the performance of the search bar when searching;
 
 > [!note]- 中文
+>
 > ## 改进
+>
 > - 不显示单个文件的标签，也不显示归档的 Thino 的标签；
 > - 文本搜索时会模糊匹配，而不是完全匹配；
 > - 改进超过 20000 个 Thino 时的打开速度以及性能；
@@ -576,224 +675,310 @@
 # 2.4.47
 
 > [!tips]+ English
+>
 > ## Features
+>
 > - feat: support toggle show/hide left sidebar on tablet;
 
 > [!note]- 中文
+>
 > ## 功能
+>
 > - 功能：支持在平板上切换显示/隐藏左侧边栏；
 
 # 2.4.46
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: create daily note with thino sync and also Templater opened will cause error;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：打开 Thino 同步和 Templater 插件的情况下创建日记会导致错误；
 
 # 2.4.45
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: create daily note with thino sync and also Templater opened will cause error;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：打开 Thino 同步和 Templater 插件的情况下创建日记会导致错误；
 
 # 2.4.44
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: click on `@MARK` link in editor should not create a note;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：在编辑器中点击 `@MARK` 链接不应该创建笔记；
 
 # 2.4.43
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: hover-link not working
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：悬停链接无法使用
 
 # 2.4.42
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: sync issue;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：同步问题；
 
 # 2.4.41
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: [FILE] when there is a string in the note that is the same as the id, the original content cannot be edited;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：【单文件】当笔记中存在和 id 一样的字符串的时候会出现无法编辑原内容的情况；
 
 # 2.4.40
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: [FILE] cannot fetch thino when there is no heading in note;
 > - fix: [FILE] cannot archive thino when there is no heading in note;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：【单文件】当笔记中没有标题时无法获取 Thino；
 > - 修复：【单文件】当笔记中没有标题时无法归档 Thino；
 
 # 2.4.39
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: tag fetch issue related to thino file;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：与 Thino 文件相关的标签获取问题；
 
 # 2.4.38
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: tag fetch issue related to thino file;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：与 Thino 文件相关的标签获取问题；
 
 # 2.4.37
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: tag filter issue;
 > - fix: tag fetch issue related to thino file;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：标签筛选问题；
 > - 修复：与 Thino 文件相关的标签获取问题；
 
 # 2.4.36
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: tag fetch issue;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：标签获取问题；
 
 # 2.4.35
 
 > [!tips]+ English
+>
 > ## Feature
+>
 > - feat: [PRO] support filter via path or metadata;
 > - feat: Tag counts would include tags in file;
-    >   - Each file will only be counted once, but there is a possibility that a file may have multiple Thinos;
+>   - Each file will only be counted once, but there is a possibility that a file may have multiple Thinos;
 
 > [!note]- 中文
+>
 > ## 特性
+>
 > - 特性：[PRO] 支持通过路径或元数据进行筛选；
 > - 特性：标签计数将包括文件中的标签；
-    >   - 每个文件仅计数一次，但是存在一个文件附带多个 Thino 的可能；
+>   - 每个文件仅计数一次，但是存在一个文件附带多个 Thino 的可能；
 
 # 2.4.34
 
 > [!tips]+ English
+>
 > ## Feature
+>
 > - feat: [PRO] support export csv when using table view and filter in table;
 > - feat: [PRO] support thino mobile navbar button for quick access to thino editor;
 > - feat: [PRO] support always show status text when enable date-picker;
 > - feat: [PRO] support create new query based on current query when using inline query filter;
+>
 > ## Fixes
+>
 > - style: fix image width issue;
 
 > [!note]- 中文
+>
 > ## 特性
+>
 > - 特性：[PRO] 在表格视图筛选后中支持导出 csv；
 > - 特性：[PRO] 支持 Thino 移动端导航栏按钮，用于快速访问 Thino 编辑器；
 > - 特性：[PRO] 在启用日期选择器时始终显示状态文本；
 > - 特性：[PRO] 在使用顶部检索式按钮时支持基于当前检索式创建新的检索式；
+>
 > ## 修复
+>
 > - 样式：修复图片宽度问题；
 
 # 2.4.33
 
-> [!waring]+ For Zotero user and Thino Pro users | 对于 Zotero 以及 Thino Pro 用户  
-> You can index your notes from Zotero as part of Thino using the tag indexing feature in 2.4.24, and use it for random review or filtering;  
+> [!waring]+ For Zotero user and Thino Pro users | 对于 Zotero 以及 Thino Pro 用户
+> You can index your notes from Zotero as part of Thino using the tag indexing feature in 2.4.24, and use it for random review or filtering;
 > 你可以利用新版本的单文件标签索引功能来索引 Zotero 的笔记成为 Thino 的一部分，且用于随机回顾，或者筛选；
-> ---  
-> For more information, please refer to the tutorial:  
+>
+> ---
+>
+> For more information, please refer to the tutorial:
 > 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/561
+>
 > ---
-> ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-zotero.jpg)
-> ---
+>
+> ## ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-zotero.jpg)
+>
 > Readwise: https://github.com/Quorafind/Obsidian-Thino/discussions/536
 > Weread: https://github.com/Quorafind/Obsidian-Thino/discussions/532
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: scroll thino list view didn't hide editor when set editor at the bottom with button;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：滚动 Thino 列表视图时，当设置编辑器在底部时没有隐藏编辑器；
 
 # 2.4.32
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: parsing error when templater enabled and template is blank;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：启用 Templater 且模板为空时的解析错误；
 
 # 2.4.31
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix：menu issue with native menu;
 > - fix: when editing thino should not add tag to thino automatically;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：原生菜单问题；
 > - 修复：编辑 Thino 时不应该自动添加标签到 Thino；
 
 # 2.4.30
 
 > [!tips]+ English
+>
 > ## Fixes
+>
 > - fix: cannot toggle checkbox with number in thino;
 
 > [!note]- 中文
+>
 > ## 修复
+>
 > - 修复：在 Thino 中无法切换带有数字的复选框；
 
 # 2.4.29
 
 > [!tips]+ English
+>
 > ## Features
+>
 > - feat: insert new thino to daily note should insert before `---`, blockid or next header;
 > - feat: support collapsed height when collapse thino, set it in thino settings;
+>
 > ## Improvements
+>
 > - chore: improve loading performance when first load thino;
+>
 > ## Fixes
+>
 > - fix: cannot set thino collapse max height to 0;
 > - fix: wrong translation for some languages;
 > - fix: float toolbar not working;
@@ -801,30 +986,41 @@
 > - fix: templater loading issue when creating thino in new daily note;
 
 > [!note]- 中文
+>
 > ## 特性
+>
 > - 特性：插入新的 Thino 到每日笔记时应该插入在 `---`、块 id 或者下一个标题之前；
 > - 特性：在折叠 Thino 时支持折叠高度，可以在 Thino 设置中设置；
+>
 > ## 改进
+>
 > - 杂项：提升首次加载 Thino 的性能；
+>
 > ## 修复
+>
 > - 修复：不能设置 Thino 折叠最大高度为 0 ；
 > - 修复：一些语言的翻译错误；
 > - 修复：浮动工具栏不工作；
 > - 修复：不能使用命令将任务插入到编辑器中；
 > - 修复：在新的每日笔记中创建 Thino 时 Templater 加载问题；
 
-
 # 2.4.28
 
 > [!tips]+ English
+>
 > ## Features
+>
 > - feat: support append/prepend text to thino when capture from [Thino Capture](https://github.com/Quorafind/Thino-Capture-Releases)
-    >   - You can use it to add tags for clipping, or add some extra information;
+>   - You can use it to add tags for clipping, or add some extra information;
+>
 > ## Improvements
+>
 > - chore: show raw text when thino contains more than 3 callouts for improving render performance, this option can be turned off in settings;
 > - style: remove border of icon when sharing thino;
 > - chore: faster destroy editor when save button clicked;
+>
 > ## Fixes
+>
 > - fix: heatmap date picker doesn't show data correctly;
 > - fix: height should not lower than 80px when collapse thino;
 > - fix: look behind issue related to safari browser;
@@ -832,14 +1028,20 @@
 > - fix: cannot delete thino correctly via calendar mode;
 
 > [!note]- 中文
+>
 > ## 特性
+>
 > - 特性：支持从 [Thino Capture](https://github.com/Quorafind/Thino-Capture-Releases) 获取文本的时候追加/前置文本；
-    >   - 你可以将该功能用于添加裁剪的标签，或者添加一些额外的信息；
+>   - 你可以将该功能用于添加裁剪的标签，或者添加一些额外的信息；
+>
 > ## 改进
+>
 > - 杂项：当 Thino 包含超过 3 个 callout 时显示原始文本以提高渲染性能，该选项可以到设置中关闭；
 > - 样式：分享 Thino 时移除图标的边框；
 > - 杂项：当点击保存按钮时更快地销毁编辑器；
+>
 > ## 修复
+>
 > - 修复：热点图日期选择器无法正确显示数据；
 > - 修复：折叠 Thino 时高度不应低于 80px；
 > - 修复：Safari 浏览器相关的 lookbehind 正则导致的崩溃问题；
@@ -852,12 +1054,18 @@
 > ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-collapse.png)
 
 > [!tips]+ English
+>
 > ## Features
+>
 > - feat: support collapse thino content by setting max-height for Thino; You can set it in interface settings of Thino settings;
 > - feat: support scroll to top when scroll on thino list;
+>
 > ## Improvements
+>
 > - chore: improve performance when switch list type;
+>
 > ## Fixes
+>
 > - fix: sometimes, render list view will cause thinos display issue;
 > - fix: lag issue when render collapsed thino;
 > - fix: sync issue when capture from web;
@@ -865,12 +1073,18 @@
 > - fix: sync issue when capture via URI;
 
 > [!note]- 中文
+>
 > ## 特性
+>
 > - 特性：支持通过设置 Thino 的最大高度来折叠 Thino 内容；你可以在 Thino 设置的界面设置中设置；
 > - 特性：在 Thino 列表上滚动时支持滚动到顶部；
+>
 > ## 改进
+>
 > - 提升：切换列表样式时的性能；
+>
 > ## 修复
+>
 > - 修复：有时，渲染列表视图会导致 Thino 显示问题；
 > - 修复：渲染折叠 Thino 时的延迟问题；
 > - 修复：从网页捕获时的同步问题；
@@ -880,20 +1094,28 @@
 # 2.4.26
 
 > [!tips]+ English
+>
 > ## Features
+>
 > - feat: support hide sidebar/tag list/query list via command;
 > - feat: [PRO] support bulk delete/archive/restore in trash view/archive view;
 > - feat: press ctrl/meta key to click on time of thino will filter thinos by date;
+>
 > ## Fixes
+>
 > - fix: better handle for end mark with thino;
 > - fix: issue with heatmap calendar;
 
 > [!note]- 中文
+>
 > ## 特性
+>
 > - 特性：支持通过命令隐藏侧边栏/标签列/检索式列；
 > - 特性：[PRO] 在垃圾箱视图/归档视图中支持批量删除/归档/恢复；
 > - 特性：按住 ctrl/meta 键点击 Thino 的时间将按日期筛选 Thino；
+>
 > ## 修复
+>
 > - 修复：更好的处理 Thino 中的结束标记；
 > - 修复：热点图日历的数据显示问题；
 
@@ -901,83 +1123,113 @@
 
 > [!waring]- For Thino Pro users | 对于 Thino Pro 用户
 > ![300](https://raw.githubusercontent.com/Quorafind/Thino-Capture-Releases/main/media/select-and-send.png)
+>
 > ---
+>
 > Now ==Thino Capture== is available for Thino Pro users, you can capture content from web pages, context menu, and sidebar panel for quick capture;
 > You can install it manually by downloading the extension from [here](https://github.com/Quorafind/Thino-Capture-Releases)
+>
 > - You only need to enable local server in Thino Pro settings;
 > - And then enable the extension in Chrome(With developer mode enabled);
 > - Enjoy capturing content from web pages, context menu, and sidebar panel for quick capture;(Currently not support directly cropping images and full text)
+>
 > ---
+>
 > 现在 ==Thino Capture== 已经对 Thino Pro 用户开放，你可以从网页、右键菜单、侧边栏快捷输入捕获内容；
 > 你可以通过手动下载扩展包的方式安装： [这里](https://github.com/Quorafind/Thino-Capture-Releases/blob/main/README-ZH.md)
+>
 > - 你只需要在 Thino Pro 设置中启用本地服务器；
 > - 然后在 Chrome 中加载扩展(开发者模式已启用)；
 > - 尽情享受从网页、右键菜单、侧边栏快捷输入捕获内容的乐趣；（目前还不支持直接裁剪图片和全文）
 
 > [!tips]+ English
+>
 > ## Features
+>
 > ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-focus-mode.png)
+>
 > - feat: support focus mode via command;
 > - feat: support quick issue via user banner menu;
 
 > [!note]- 中文
+>
 > ## 特性
+>
 > ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-focus-mode.png)
+>
 > - 特性：支持通过命令开启聚焦模式；
 > - 特性：支持通过用户菜单快速提交问题；
 
-
 # 2.4.24
 
-> [!waring]- For ReadWise user and Thino Pro users | 对于 ReadWise 以及 Thino Pro 用户  
-> You can index your notes from ReadWise as part of Thino using the tag indexing feature in 2.4.24, and use it for random review or filtering;  
+> [!waring]- For ReadWise user and Thino Pro users | 对于 ReadWise 以及 Thino Pro 用户
+> You can index your notes from ReadWise as part of Thino using the tag indexing feature in 2.4.24, and use it for random review or filtering;
 > 你可以利用新版本的单文件标签索引功能来索引 ReadWise 的笔记成为 Thino 的一部分，且用于随机回顾，或者筛选；
-> ---  
-> For more information, please refer to the tutorial:  
-> 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/536
+>
 > ---
+>
+> For more information, please refer to the tutorial:
+> 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/536
+>
+> ---
+>
 > ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-readwise-share.png)
 
 > [!tips]+ English
+>
 > ## Optimizations
+>
 > - chore: thino share dialog will save last share type;
 > - chore: update editor loaded method;
+>
 > ## Fixes
+>
 > - fix: tasks label issue;
 > - fix: should not remove block id when update thino content;
 > - fix: prevent heatmap date picker performance issue;
 > - fix: heatmap display will calculate in real-time according to time change, not pre-calculate;
 
 > [!note]- 中文
+>
 > ## 优化
+>
 > - 杂项：Thino 分享对话框将保存上次分享类型；
 > - 杂项：更新编辑器加载方法；
+>
 > ## 修复
+>
 > - 修复：任务标签问题；
 > - 修复：更新 Thino 内容时不应该移除块 id；
 > - 修复：防止热点图日期选择器性能问题；
 > - 修复：热点图显示会根据时间变化而实时计算，而不是预计算；
 
-
 # 2.4.23
 
-> [!waring]- For Weread user and Thino Pro users | 对于微信阅读以及 Thino Pro 用户  
-> You can index your notes from WeRead as part of Thino using the tag indexing feature in 2.4.23, and use it for random review or filtering;  
+> [!waring]- For Weread user and Thino Pro users | 对于微信阅读以及 Thino Pro 用户
+> You can index your notes from WeRead as part of Thino using the tag indexing feature in 2.4.23, and use it for random review or filtering;
 > 你可以利用新版本的单文件标签索引功能来索引微信阅读的笔记成为 Thino 的一部分，且用于随机回顾，或者筛选；
-> ---  
-> For more information, please refer to the tutorial:  
-> 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/532
+>
 > ---
+>
+> For more information, please refer to the tutorial:
+> 对应教程为： https://github.com/Quorafind/Obsidian-Thino/discussions/532
+>
+> ---
+>
 > ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-file-tag.png)
 
 > [!tips]+ English
+>
 > ## Features
+>
 > - feat: [PRO] fetch thinos when edit/delete/create thino with tags;
 > - feat: [PRO] support fetch notes with specific tags for `FILE`/`MULTI` file type;
 > - feat: support set default min-height for content when share thino;
 > - feat: support share multi thinos with share thino;
 > - feat: support append task done date when complete task in thino;
+>
 > ## Fixes
+>
 > - style: fix thino editor wrapper margin-top issue;
 > - fix: end mark should not place on same line where code block ends
 > - fix: when detach editor in modal/codeblock should not cause editor in view to be destroyed;
@@ -986,13 +1238,17 @@
 > - fix: content in editor modal should not influence editor content in view;
 
 > [!note]- 中文
+>
 > ## 新特性
+>
 > - 特性：[PRO] 支持为 FILE/MULTI 文件类型获取具有特定标签的笔记，例如你设置为 `#thino/file` 的文件会被索引为单文件类型文件；
 > - 特性：[PRO] 当编辑/删除/创建带有标签的 Thino 时，获取 Thino；
 > - 特性：在分享 Thino 时支持设置内容的默认最小高度；
 > - 特性：支持分享多个 Thino；
 > - 特性：在 Thino 中完成任务时支持追加完成日期；
+>
 > ## 修复
+>
 > - 样式：修复 Thino 编辑器包装器的 margin-top 问题；
 > - 修复：结束标记不应该放在代码块结束的同一行；
 > - 修复：在模态框/代码块中关闭编辑器时不应该导致视图中的编辑器被销毁；
@@ -1000,16 +1256,17 @@
 > - 修复：打开编辑器模态框不应该影响视图中的编辑器；
 > - 修复：模态框中的内容不应该影响视图中的编辑器内容；
 
-
 # 2.4.22
 
 > [!tips]+ English
+>
 > - fix: heatmap calendar cannot display data correctly;
 > - fix：Thino time group issue related to YYYY format;
 > - fix: when click on task input box to complete task in thino, should not make task line become a block;
 > - feat: you can reset all settings via button in advanced settings now，but not includes password settings and pro verify settings;
 
 > [!note]- 中文
+>
 > - 修复：热点图日历无法正确显示数据；
 > - 修复：与 YYYY 格式相关的 Thino 时间组问题；
 > - 修复：在 Thino 中点击任务输入框完成任务时，不应该使任务行变成一个块；
@@ -1018,11 +1275,13 @@
 # 2.4.21
 
 > [!tips]+ English
+>
 > - fix: create thino file in thino folder should attach id and create time quickly;
 > - fix: should not parse tags in codeblock;
 > - style: fix sidebar width too narrow cause heatmap squeezed;
 
 > [!note]- 中文
+>
 > - 修复：在 Thino 文件夹中创建 Thino 文件应该快速附加 id 和创建时间；
 > - 修复：不应该解析代码块中的标签；
 > - 样式：修复侧边栏的宽度过窄导致热点图被挤压的问题；
@@ -1030,38 +1289,46 @@
 # 2.4.20
 
 > [!tips]+ English
+>
 > # Features
+>
 > - feat: [PRO] support rename after create MULTI file;
 > - feat: [PRO] support split thino with heading 1/2/3;
 > - feat: support call tasks insert modal via hotkey;
+>
 > # Fixes
+>
 > - fix: overflow issue for thino's menu;
 > - style: remove gap in content wrapper when using fluent/inline style for Chat view;
 > - fix: daily thinos background issue when sharing;
 > - fix: should not be able to hide editor when editing thino in Moments view;
 > - fix: tasks plugin compatibility issue;
 
-
 > [!note]- 中文
+>
 > # 特性
+>
 > - 特性：[PRO] 支持创建多文件后重命名；
 > - 特性：[PRO] 支持将带有一级/二级/三级标题的 Thino 分割成多个文件；
 > - 特性：支持通过快捷键调用 Tasks 插入模态框；
+>
 > # 修复
+>
 > - 修复：Thino 菜单的溢出问题；
 > - 样式：在聊天视图中使用 fluent/inline 样式时，移除 content-wrapper 中的 gap 属性；
 > - 修复：分享时每日 Thino 的背景问题；
 > - 修复：在 Moments 视图中编辑 Thino 时不应该能够隐藏编辑器；
 > - 修复：Tasks 插件兼容性问题；
 
-
 # 2.4.19
 
 > [!tips]+ English
+>
 > - fix: cannot use context-menu to share thino on mobile;
 > - feat: support share thino via commands;
 
 > [!note]- 中文
+>
 > - 修复：无法在手机上使用右键菜单分享 Thino；
 > - 特性：支持通过命令分享 Thino；
 
@@ -1070,22 +1337,28 @@
 ![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-context-menu.png)
 
 > [!tips]+ English
+>
 > # Features
+>
 > - feat: support `Gradient` style for thino share;
 > - feat: support share via editor context menu;
+>
 > # Fixes
+>
 > - fix: background issue for thino share;
 > - fix: cannot load icon correctly for thino share;
 
-
 > [!note]- 中文
+>
 > # 特性
+>
 > - 特性：支持 Thino 分享的 `Gradient` 样式；
 > - 特性：支持在编辑器中通过右键菜单分享；
+>
 > # 修复
+>
 > - 修复：Thino 分享的背景问题；
 > - 修复：Thino 分享的图标无法正确加载；
-
 
 # 2.4.17
 
@@ -1094,16 +1367,19 @@
 | ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-minimal.png) | ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-modern.png) | ![300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-clean.png) |
 
 > [!tips]+ English
+>
 > - fix: bottom editor issue on mobile;
 > - feat: support three share styles for thino;
 
 > [!note]- 中文
+>
 > - 修复：手机上底部编辑器问题；
 > - 特性：支持 Thino 的三种分享样式；
 
 # 2.4.16
 
 > [!tips]+ English
+>
 > - fix: cannot update webid correctly;
 > - style: remove margin top for page-wrapper when using modern theme;
 > - feat: click on editor should focus on the editor when using live-preview mode;
@@ -1111,21 +1387,23 @@
 > - fix: should not replace block id for children list when update content in thino;
 
 > [!note]- 中文
+>
 > - 修复：不能正确更新 webid；
 > - 样式：在使用现代主题时，移除 page-wrapper 的顶部边距；
 > - 特性：在使用实时预览模式时，点击编辑器应该聚焦到编辑器；
 > - 修复：不能正确创建 webid；
 > - 修复：在更新 Thino 内容时，不应该替换子列表的块 id；
 
-
 # 2.4.15
 
 > [!tips]+ English
+>
 > - fix: cannot update thino webid correctly;
 > - fix: possible to load changelog that crash the app;
 > - fix: dead loop cause by parent-children list;
 
 > [!note]- 中文
+>
 > - 修复：无法正确更新 Thino 的 webid；
 > - 修复：可能加载导致应用崩溃的更新日志；
 > - 修复：由于父子列表导致的死循环；
@@ -1133,30 +1411,33 @@
 # 2.4.14
 
 > [!tips]+ English
+>
 > - fix: edit created thino cannot save correctly;
 > - fix: cannot exit user setting guide correctly;
 
 > [!note]- 中文
+>
 > - 修复：编辑创建的 Thino 无法正确保存；
 > - 修复：无法正确退出用户设置向导；
-
 
 # 2.4.13
 
 > [!tips]+ English
+>
 > - fix: use tab to indent should not follow tab size;
 > - fix: cannot delete thino correctly when set ProcessThinoBelow
 
 > [!note]- 中文
+>
 > - 修复：使用 tab 缩进时不应该遵循 tab 大小；
 > - 修复：当设置 ProcessThinoBelow 时无法正确删除 Thino；
-
 
 # 2.4.12
 
 > [!tips]+ English
+>
 > - feat: remove `<br>` dependency for thino in daily notes;
-    >   - newline use indent automatically;
+>   - newline use indent automatically;
 >   - new thino will not include `<br>` tag;
 >   - old thino will be updated automatically when you edit it next time;
 >   - if your thino has special layout requirements, please update it manually;
@@ -1164,8 +1445,9 @@
 > - fix: list cannot patch correctly in thino from daily notes;
 
 > [!note]- 中文
+>
 > - 特性：在每日笔记中移除 Thino 的 `<br>` 依赖；
-    >   - 换行使用缩进自动完成；
+>   - 换行使用缩进自动完成；
 >   - 新建的 Thino 不再包含 `<br>` 标签；
 >   - 旧的 Thino 会在下次编辑时自动更新；
 >   - 如果您的 Thino 有特殊的排版需求，请手动更新；
@@ -1175,86 +1457,101 @@
 # 2.4.10
 
 > [!tips]+ English
+>
 > - fix: path contains `'` can't be shown in Thino correctly;
 
 > [!note]- 中文
+>
 > - 修复：路径包含 `'` 无法正确显示在 Thino 中；
-
 
 # 2.4.9
 
 > [!tips]+ English
+>
 > - fix: cannot save `InsertAfter` correctly in user setting guide;
 
 > [!note]- 中文
+>
 > - 修复：在设置向导中无法正确保存 `InsertAfter`；
-
 
 # 2.4.8
 
 > [!tips]+ English
+>
 > - feat: support image selector for User icon;
 
 > [!note]- 中文
+>
 > - 特性：支持用户图标的图片选择器；
 
 # 2.4.7
 
 > [!tips]+ English
+>
 > - fix: cannot share image when path contains CJK text;
 
 > [!note]- 中文
+>
 > - 修复：当路径包含 CJK 文本时无法分享图片；
 
 # 2.4.5
 
 > [!tips]+ English
+>
 > - fix: don't support local image for sharing on mobile;
 
 > [!note]- 中文
+>
 > - 修复：不支持在手机上分享本地图片；
 
 # 2.4.4
 
 > [!tips]+ English
+>
 > - fix: cannot load image correctly when sharing;
 
 > [!note]- 中文
+>
 > - 修复：当分享时无法正确加载图片；
 
 # 2.4.3
 
 > [!tips]+ English
+>
 > - fix: cannot preview ::before when generate image;
 
 > [!note]- 中文
+>
 > - 修复：生成图片时无法预览 ::before；
 
 # 2.4.2
 
 > [!tips]+ English
+>
 > - fix: load moments view issue;
 > - feat: support different text action for sharing text/image to thino on mobile;
-    >   - support text input box, when input content, it will be added to the beginning or end according to the setting;
+>   - support text input box, when input content, it will be added to the beginning or end according to the setting;
 >   - support tag select box, when select tag, it will be added to the beginning or end according to the setting;
 >   - support predefined text, when select predefined text, it will be added to the beginning or end according to the setting;
 > - feat: support setting wizard on mobile;
 
 > [!note]- 中文
+>
 > - 修复：加载 moments 视图问题；
 > - 特性：支持在手机上分享文本/图片到 Thino 时的不同文本操作；
-    >   - 支持文本输入框，当输入内容，将会根据设定，自动添加到开头或者末尾；
+>   - 支持文本输入框，当输入内容，将会根据设定，自动添加到开头或者末尾；
 >   - 支持标签选择框，当选择标签，将会根据设定，自动添加到开头或者末尾；
 >   - 支持预定义文本，当选择预定义文本，将会根据设定，自动添加到开头或者末尾；
 > - 特性：设置向导支持移动端；
 
-
 # 2.4.1
 
 > [!tips]+ English
+>
 > - chore: show different language's changelog automatically;
 
 > [!note]- 中文
+>
 > - 杂项：自动显示不同语言的更新日志；
 
 # 2.4.0
@@ -1263,17 +1560,19 @@
 > ![thino-onboarding|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-onboarding.gif)
 
 > [!tips]+ English
+>
 > - chore: congrats! thino download count over 100000;
 > - feat: better onboarding experience for Thino users;
-    >   - support user setting guide;
+>   - support user setting guide;
 >   - If you are a new user, you can see the user setting guide when you open the settings;
 >   - If you are an old user, you can skip the guide;
 > - feat: support local images from the library for user icon and background image;
 
 > [!note]- 中文
+>
 > - 杂项：庆祝 Thino 下载量超过 100000；
 > - 特性：更好的 Thino 用户入门体验；
-    >   - 支持用户设置向导；
+>   - 支持用户设置向导；
 >   - 如果您是新用户，您可以在打开设置时看到用户设置向导；
 >   - 如果您是老用户，您可以跳过向导；
 > - 特性：用户图标和背景图均支持从库内部的本地图片；
@@ -1281,19 +1580,23 @@
 # 2.3.61
 
 > [!tips]+ English
+>
 > - fix: click on mark link in Thino editor cause create and open a new leaf;
 > - feat: [PRO] different insert target for Task or List thino;
 
 > [!note]- 中文
+>
 > - 修复：点击 Thino 编辑器中的标记链接导致创建并打开一个新的页面；
 > - 特性：[PRO] 任务或列表 Thino 的不同插入目标；
 
 # 2.3.60
 
 > [!tips]+ English
+>
 > - fix: tag count issues;
 
 > [!note]- 中文
+>
 > - 修复：标签计数问题；
 
 # 2.3.59
@@ -1301,11 +1604,13 @@
 ![thino-group-moments|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-group-moments.png)
 
 > [!tips]+ English
+>
 > - chore: remove unused hotkeys;
 > - feat: [PRO] support day group for thino in moments view;
 > - feat: [PRO] support hide pinned group for thino;
 
 > [!note]- 中文
+>
 > - 杂项：删除未使用的快捷键；
 > - 特性：[PRO] 支持 Thino 的日期分组；
 > - 特性：[PRO] 支持隐藏固定组的 Thino；
@@ -1313,29 +1618,35 @@
 # 2.3.58
 
 > [!tips]+ English
+>
 > - fix: tag cound issues;
 > - style: set image's width as 100% when only one image in thino;
 
 > [!note]- 中文
+>
 > - 修复：标签计数问题；
 > - 样式：当 Thino 中只有一张图片时，将图片的宽度设置为 100%；
 
 # 2.3.57
 
 > [!tips]+ English
+>
 > - fix: better word count. Thanks to better word count plugin.
 > - fix: tag count issues;
 
 > [!note]- 中文
+>
 > - 修复：更好的字数统计。感谢 better word count 插件。
 > - 修复：标签计数问题；
 
 # 2.3.56
 
 > [!tips]+ English
+>
 > - feat: support `float editor` on mobile;
 
 > [!note]- 中文
+>
 > - 特性：支持在手机上使用 `浮动编辑器`；
 
 # 2.3.55
@@ -1343,28 +1654,33 @@
 <video width="300" src="https://i.imgur.com/GVF2wTB.mp4" autoplay></video>
 
 > [!tips]+ English
+>
 > - feat: [PRO] support append/prepend text when share to thino on mobile;
 
 > [!note]- 中文
+>
 > - 特性：[PRO] 支持在手机上分享到 Thino 时追加/前置文本；
-
 
 # 2.3.54
 
 > [!tips]+ English
+>
 > - feat: count child tags‘s count automatically in thino;
 > - chore: remove unused jump to settings features for Chat View;
 
 > [!note]- 中文
+>
 > - 特性：自动计算 Thino 中的子标签数量；
 > - 杂项：删除聊天视图的跳转设置功能；
 
 # 2.3.53
 
 > [!tips]+ English
+>
 > - fix: cannot use templater in thino;
 
 > [!note]- 中文
+>
 > - 修复：无法在 Thino 中使用 templater；
 
 # 2.3.52
@@ -1372,35 +1688,39 @@
 ![thino-user-info|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-user-info.png)
 
 > [!tips]+ English
+>
 > - feat: support user icon globally;
 > - chore: rearrange settings;
 
 > [!note]- 中文
+>
 > - 特性：全局支持用户图标；
 > - 杂项：重新排列设置；
-
 
 # 2.3.51
 
 > [!tips]+ English
+>
 > - feat: [PRO/BASIC] support download image directly on phone;
 > - style: better share image on phone;
 
 > [!note]- 中文
+>
 > - 特性：[PRO/BASIC] 支持在手机上直接下载图片；
 > - 样式：在手机上更好的分享图片；
 
-
 # 2.3.50
 
-| Dark           | Light                                                                                                      |
-|----------------|------------------------------------------------------------------------------------------------------------|
-| ![thino-share\|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-dark.png) | ![thino-share\|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-light.jpg) |
+| Dark                                                                                                                     | Light                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| ![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-dark.png) | ![thino-share|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-share-light.jpg) |
 
 > [!tips]+ English
+>
 > - feat: [PRO/BASIC] Renew share image layout for Thino;
 
 > [!note]- 中文
+>
 > - 特性：[PRO/BASIC] 更新 Thino 的分享图片布局；
 
 # 2.3.49
@@ -1408,29 +1728,33 @@
 ![thino-hover-source|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-hover-source-of-thino.gif)
 
 > [!tips]+ English
+>
 > - feat: [PRO/BASIC] support hover thino to show thino source; By pressing `Shift` and hover on thino, you can see the source of the thino;(Toggle settings for `Ctrl` key in hover preview settings of Obsidian)
 > - fix: parse task error when using `HH:mm:ss` format in daily note for Thino;
 
 > [!note]- 中文
+>
 > - 特性：[PRO/BASIC] 鼠标悬停在 Thino 上显示 Thino 源；通过按住 `Shift` 键并悬停在 Thino 上，您可以看到 Thino 的源；(在 Obsidian 的悬停预览设置中切换 `Ctrl` 键的设置)
 > - 修复：在每日笔记中使用 Thino 的 `HH:mm:ss` 格式时解析任务错误；
 
 # 2.3.48
 
 > [!tips]+ English
+>
 > - fix: word wrap related to a.tag;
 > - feat: [PRO] notice for multi file settings error;
 > - feat: support `HH:mm:ss` format in daily note for Thino;
 
 > [!note]- 中文
+>
 > - 修复：与 a.tag 相关的自动换行；
 > - 特性：[PRO] 多文件设置错误的通知；
 > - 特性：在每日笔记中支持 Thino 的 `HH:mm:ss` 格式；
 
-
 # 2.3.47
 
 > [!tips]+ English
+>
 > - style: tag or images issues related to moments view;
 > - fix: cannot insert editor into thino directly;
 > - fix: should not show editor modal when thino is not opened;
@@ -1439,6 +1763,7 @@
 > - feat: can toggle task or list directly when editing thino;
 
 > [!note]- 中文
+>
 > - 样式：与 moments 视图相关的标签或图片问题；
 > - 修复：无法直接将编辑器插入到 Thino 中；
 > - 修复：当 Thino 没有打开时不应该显示编辑器模态框；
@@ -1449,26 +1774,31 @@
 # 2.3.46
 
 > [!tips]+ English
+>
 > - fix: set background image for share image not working;
 > - feat: support http link for share dialog background image;
 
 > [!note]- 中文
+>
 > - 修复：设置分享图片的背景图片不起作用；
 > - 特性：支持分享对话框背景图片的 http 链接；
 
 # 2.3.45
 
 > [!tips]+ English
+>
 > - feat: [All source] navigate to thino's source would not open duplicate leaf anymore;
 > - feat: [All source] navigate to thino's source would not open a split pane anymore;
 > - style: menu wrapper padding issue;
 
 > [!note]- 中文
+>
 > - 特性：导航到 Thino 的源不会再打开重复的页面；
 > - 特性：导航到 Thino 的源不会再打开分割窗格；
 > - 样式：菜单内边距问题；
 
 > [!tips]- Highlights
+>
 > - Thanks to [**@izz00**'s daily outline plugin](https://github.com/iiz00/obsidian-daily-note-outline) for special support for `- HH:mm text` format in daily note for Thino.
 > - 感谢 [**@izz00** 的 Daily Outline 插件](https://github.com/iiz00/obsidian-daily-note-outline) 为 Thino 所增加的对每日笔记中 `- HH:mm text` 格式的特殊支持。
 
@@ -1477,37 +1807,39 @@
 ![thino-canvas-menu|300](https://raw.githubusercontent.com/quorafind/obsidian-thino/main/media/changelog/thino-canvas-menu.gif)
 
 - feat: [PRO] support thino canvas menu in `thino.canvas`. You need to open thino and then switch to `thino.canvas` to use it;
-    - Note: This feature based on the `CANVAS` source type, you need to enable it in the settings;
+  - Note: This feature based on the `CANVAS` source type, you need to enable it in the settings;
 - fix: [PRO] cannot show thino canvas menu correctly;
 
 > [!note]- 中文
+>
 > - 功能：支持 `thino.canvas` 中的 Thino 画布菜单；你需要打开 Thino 然后切换到 `thino.canvas` 来使用它；
-    >   - 注意：这个功能基于 `CANVAS` 源类型，你需要在设置中启用它；
+>   - 注意：这个功能基于 `CANVAS` 源类型，你需要在设置中启用它；
 > - 修复：[PRO] 无法正确显示 Thino 画布菜单；
-
 
 # 2.3.43
 
 - feat: [PRO] support thino canvas menu in `thino.canvas`. You need to open thino and then switch to `thino.canvas` to use it;
-    - Note: This feature based on the `CANVAS` source type, you need to enable it in the settings;
+  - Note: This feature based on the `CANVAS` source type, you need to enable it in the settings;
 
 > [!note]- 中文
+>
 > - 功能：支持 `thino.canvas` 中的 Thino 画布菜单；你需要打开 Thino 然后切换到 `thino.canvas` 来使用它；
-    >   - 注意：这个功能基于 `CANVAS` 源类型，你需要在设置中启用它；
+>   - 注意：这个功能基于 `CANVAS` 源类型，你需要在设置中启用它；
 
 # 2.3.42
 
 - fix: click on editor cause reveal thino's leaf incorrectly;
 
 > [!note]- 中文
+>
 > - 修复：点击编辑器导致错误地显示 Thino 的页面；
-
 
 # 2.3.41
 
 - fix: [PRO] cannot parse multi-files that includes `---` in the content;
 
 > [!note]- 中文
+>
 > - 修复：[PRO] 无法解析内容中带有 `---` 以下的部分；
 
 # 2.3.40
@@ -1520,6 +1852,7 @@
 - feat: double-click on thino in code block will reveal the thino's leaf;
 
 > [!note]- 中文
+>
 > - 特性：[PRO/BASIC] Thino 嵌入中的列表组件应该将固定的 Thino 放在顶部；
 > - 特性：[PRO/BASIC] 支持按回车键解锁 Thino；
 > - 特性：支持通过代码块直接打开 Thino；
@@ -1530,6 +1863,7 @@
 `daily` can be true for current daily note, or a specific date like `2024/03/22 01:01:01`.
 
 > [!note]- 中文
+>
 > - `daily` 可以是 true 表示当前每日笔记，或者是一个特定的日期，比如 `2024/03/22 01:01:01`。
 
 ````markdown
@@ -1540,7 +1874,7 @@
   heatmap: true,
   status: true,
   editor: true,
-  daily: '2024/03/22 01:01:01', 
+  daily: '2024/03/22 01:01:01',
 }
 ```
 ````
@@ -1550,6 +1884,7 @@
 - feat: [PRO/BASIC] supercharge thino embed component; You can sort thino components by different types, like list/calendar/heatmap/status/editor/daily;
 
 > [!note]- 中文
+>
 > - 特性：[PRO/BASIC] 强化 Thino 嵌入组件；你可以按不同类型排序 Thino 组件，比如列表/日历/热力图/状态/编辑器/每日；
 
 # 2.3.38
@@ -1557,11 +1892,11 @@
 - style: reduce thino modal height to 90vh;
 - fix: cannot show thino list correctly;
 - fix: daily notes issue related to thino;
--
-> [!note]- 中文
-> - 样式：将 Thino 模态框高度减小到 90vh；
-> - 修复：无法正确显示 Thino 列表；
-> - 修复：与 Thino 相关的每日笔记问题；
+- > [!note]- 中文
+  >
+  > - 样式：将 Thino 模态框高度减小到 90vh；
+  > - 修复：无法正确显示 Thino 列表；
+  > - 修复：与 Thino 相关的每日笔记问题；
 
 # 2.3.37
 
@@ -1570,6 +1905,7 @@
 - fix: tag list cause thino crashed;
 
 > [!note]- 中文
+>
 > - 修复：无法通过上下文菜单正确取消固定 Thino；
 > - 特性：[PRO/BASIC] 支持将编辑器插入到当前的 markdown 视图；
 > - 修复：标签列表导致 Thino 崩溃；
@@ -1580,12 +1916,12 @@
 
 Using it via command or insert code block like:
 
-````  
-```thino  
-{  
+````
+```thino
+{
   editor: true;
-}  
-```  
+}
+```
 ````
 
 # 2.3.36
@@ -1594,9 +1930,9 @@ Using it via command or insert code block like:
 - fix: click on checkbox in TASK-TODO thino should not toggle it done;
 
 > [!note]- 中文
+>
 > - 修复：无法双击 Thino 中的复选框来切换它，它会触发编辑 Thino 事件；
 > - 修复：点击 TASK-TODO Thino 中的复选框不应该切换它的状态；
-
 
 # 2.3.35
 
@@ -1606,10 +1942,9 @@ Using it via command or insert code block like:
 - feat: [PRO/BASIC] support click on task status item/ tags status item to filter thinos when using Modern theme;
 
 > [!note]- 中文
+>
 > - 特性：[PRO] 支持标签多选过滤，按住 `ctrl` 或 `meta` 键；
 > - 特性：[PRO/BASIC] 在 Modern 模式下，支持点击任务状态项/标签状态项来过滤 Thino；
-
-
 
 # 2.3.34
 
@@ -1620,11 +1955,10 @@ Using it via command or insert code block like:
 - fix: text ellipsis for user name;
 
 > [!note]- 中文
+>
 > - 修复：与聊天视图相关的底部编辑器问题；
 > - 样式：更好的图片对齐样式；
 > - 修复：用户名称的文本省略号；
-
-
 
 # 2.3.33
 
@@ -1632,9 +1966,9 @@ Using it via command or insert code block like:
 - fix: cannot show popover when mouse over heatmap in modern theme;
 
 > [!note]- 中文
+>
 > - 修复：编辑 Thino 时无法输入标签；
 > - 修复：在 Modern 主题中鼠标悬停在热力图上时无法显示弹出窗口；
-
 
 # 2.3.32
 
@@ -1643,6 +1977,7 @@ Using it via command or insert code block like:
 - fix: cannot parse daily note if a tag below a header;
 
 > [!note]- 中文
+>
 > - 特性：支持在随机复习模式下过滤 Thino，您只会复习过滤的 Thino；
 > - 特性：将调试信息复制为代码块；
 > - 修复：如果标签在标题下面，无法解析每日笔记；
@@ -1657,11 +1992,11 @@ Using it via command or insert code block like:
 - feat: support copy thino via context menu;
 
 > [!note]- 中文
+>
 > - 修复：在 `每日 Thino` 视图中选择 `最活跃的一天` 应该导致视图跳转到所选的一天；
 > - 修复：`moments` 视图中的图标的重量和高度应该是相同的；
 > - 修复：在表视图中复制为图片应该可以正常工作；
 > - 特性：支持通过上下文菜单复制 Thino；
-
 
 # 2.3.30
 
@@ -1670,6 +2005,7 @@ Using it via command or insert code block like:
 - feat: [PRO/BASIC] support copy filtered thino as image;
 
 > [!note]- 中文
+>
 > - 特性：[PRO/BASIC] 支持将过滤的 Thino 复制为图片；
 
 # 2.3.29
@@ -1678,6 +2014,7 @@ Using it via command or insert code block like:
 - style: update chat view paddings;
 
 > [!note]- 中文
+>
 > - 样式：更新所有 `var(--color-base-xx)` 变量使用 `var(--thino-xxxxx)`；
 > - 样式：更新聊天视图内边距；
 
@@ -1687,6 +2024,7 @@ Using it via command or insert code block like:
 - fix: copy debug info issues;
 
 > [!note]- 中文
+>
 > - 样式：更新 changelog 模态框 img 样式；
 > - 修复：复制调试信息问题；
 
@@ -1696,6 +2034,7 @@ Using it via command or insert code block like:
 - fix: codeblock would not overflow share card dialog anymore;
 
 > [!note]- 中文
+>
 > - 修复：分享页面悬浮框/每日 Thino 视图/Thino 卡片悬浮框相关的样式问题；
 > - 修复：代码块不会再溢出分享卡片；
 
@@ -1706,6 +2045,7 @@ Using it via command or insert code block like:
 - feat: support new theme `modern`;
 
 > [!note]- 中文
+>
 > - 特性：支持新主题 `modern`；
 
 - style: new theme settings for Thino, available for Pro and Basic users;
@@ -1721,7 +2061,7 @@ Using it via command or insert code block like:
 - fix: cannot show editor at the bottom when use moments view;
 - feat: [PRO/BASIC] support better daily thino layout;
 - fix: bottom editor issues related to all views;
-- fix: cannot scroll-x  on table view;
+- fix: cannot scroll-x on table view;
 - fix: should not fetch daily note if not enable;
 - fix: cannot filter thino via tag in daily review view;
 
@@ -1780,7 +2120,6 @@ Using it via command or insert code block like:
 - style: add pro class name to pro features entry;
 - feat: [PRO] support bulk tag operation in thino list when filtering;
 - feat: [PRO] new chat view style, set it in theme settings of thino;
-
 
 # 2.3.11
 
@@ -1854,7 +2193,7 @@ Using it via command or insert code block like:
 - fix: influx plugin should not be shown in the editor;
 - feat: [PRO/BASIC] support task type filter & source type filter;
 - feat: [PRO/BASIC] support checkbox type to be shown in the thino card;
-    - style: support custom style for checkbox;
+  - style: support custom style for checkbox;
 - fix: filter dialog would be closed when title is empty;
 - fix: [PRO] global copy is not working.
 - feat: [PRO/BASIC] you can set open thino view when open obsidian on desktop or mobile;

@@ -1,58 +1,62 @@
-# 2.8.0-2
+# 2.8.0~2.8.3
 
 > [!tips]+ English
 >
-> ## Fix
+> ## Feat
 >
-> - fix(stats): time distribution and time-series charts misalignment by enforcing stable ordering (hours, days, months) and dynamic width to avoid label overlap; enable horizontal scroll when needed
-> - fix(memos): archive/delete now instantly reflects in the list by notifying worker cache and triggering filtered list recompute
-> - fix(filter): clicking a saved query reliably updates the main list by transforming query to worker query in filterMemos and avoiding stale cache keys
+> - feat: introduce virtual list rendering and optimized components for smoother scrolling on large lists
+> - feat: add in-app Changelog view for quick release notes lookup
 >
-> ## Improvement
+> ## Performance
 >
-> - chore(charts): consistent axis labels and safer zero/edge-case handling
-
-> [!note]- 中文
->
-> ## 修复
->
-> - 修复（统计）：通过对小时/日期/月等数据进行稳定排序，并根据数据量动态计算图表宽度，避免标签拥挤导致的“错位”；在需要时启用横向滚动
-> - 修复（列表）：删除/归档后立即反映到列表中（通知 Worker 缓存并触发筛选重算）
-> - 修复（筛选）：点击已保存的检索式后主列表能可靠更新（在 filterMemos 中将查询转换为 Worker 查询并避免缓存不一致）
->
-> ## 优化
->
-> - 优化（图表）：统一坐标轴标签与零值/边界情况处理
-
-# 2.7.18
-
-> [!tips]+ English
+> - perf: major MemoList rendering and filtering optimizations; reduce recomputation and add quick-update methods for real-time operations
+> - perf: improve chart rendering performance and filter recomputation efficiency
 >
 > ## Fix
 >
-> - fix: or logic issue in query filter;
+> - fix(filter): correct duration-range validity checks when filter thinos
+> - fix(filter): improve tag filtering
+> - fix(memo-list): prevent unwanted scroll reset when switching to chat view
+> - fix(moment view): adjust styling and icon rendering issues
+> - fix(safari issue): work around for ios white screen issue
 >
+> ## Refactor
+>
+> - refactor!: migrate state management from custom stores to Zustand while preserving existing plugin behavior
+> - refactor: remove unused dependencies/docs/components and optimize imports
+>
+> ## Style
+>
+> - style: improve UI responsiveness and scrollbar handling;
+
 > [!note]- 中文
+>
+> ## 新增
+>
+> - 新增：引入虚拟列表渲染与优化组件，在长列表下滚动更顺滑
+> - 新增：内置「更新日志」页面，便于快速查看版本说明
+>
+> ## 性能
+>
+> - 性能：大幅优化 MemoList 渲染与筛选，减少重复计算，并为实时操作提供快速更新方法
+> - 性能：优化图表渲染与筛选重算效率
 >
 > ## 修复
 >
-> - 修复：查询过滤器中的或逻辑问题；
-
-# 2.7.17
-
-> [!tips]+ English
+> - 修复（筛选）：校正筛选 Thinos 的时长区间校验
+> - 修复（筛选）：改进标签筛选
+> - 修复（列表）：切换到聊天视图时避免意外滚动重置
+> - 修复（Moment 视图）：修复样式与图标渲染问题
+> - 修复（safari）：修复 ios 下白屏问题
 >
-> ## Fix
+> ## 重构
 >
-> - fix: improve multi-line memo content extraction logic to prevent truncation
-> - fix: handle edge case where memos with multiple list items were incorrectly processed
+> - 重构：状态管理迁移至 Zustand，同时保持既有行为不变
+> - 重构：移除未使用的依赖、文档与组件，并优化导入
 >
-> [!note]- 中文
+> ## 样式
 >
-> ## 修复
->
-> - 修复：改进多行 memo 内容提取逻辑，防止内容被截断
-> - 修复：处理包含多个列表项的 memo 被错误处理的边缘情况
+> - 样式：提升界面响应性与滚动条体验；
 
 ---
 
