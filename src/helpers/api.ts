@@ -8,6 +8,9 @@ import { obHideMemo } from '../obComponents/obHideMemo';
 import { deleteForever, getDeletedMemos, restoreDeletedMemo } from '../obComponents/obDeleteMemo';
 import { deleteQueryForever } from '../obComponents/obDeleteQuery';
 import { pinQueryInFile, unpinQueryInFile } from '../obComponents/obPinQuery';
+import { obArchiveMemo } from '../obComponents/obArchiveMemo';
+import { obUnarchiveMemo } from '../obComponents/obUnarchiveMemo';
+import { getArchivedMemos } from '../obComponents/obGetArchivedMemos';
 
 // type ResponseType<T = unknown> = {
 //   succeed: boolean;
@@ -230,6 +233,20 @@ namespace api {
     //   url: `/api/query/${queryId}`,
     //   data: { pinnedAt: "" },
     // });
+  }
+
+  //eslint-disable-next-line
+  export function archiveMemo(memoId: string) {
+    return obArchiveMemo(memoId);
+  }
+
+  //eslint-disable-next-line
+  export function unarchiveMemo(memoId: string) {
+    return obUnarchiveMemo(memoId);
+  }
+
+  export function getArchivedMemos() {
+    return getArchivedMemos();
   }
 
   //eslint-disable-next-line

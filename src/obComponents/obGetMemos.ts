@@ -154,6 +154,11 @@ export async function getMemosFromDailyNote(
       const rawText = extractTextFromTodoLine(line);
       let originId = '';
       if (rawText !== '') {
+        // Skip archived memos (they should only appear in archive view)
+        if (/\[archived:true\]/i.test(rawText)) {
+          continue;
+        }
+
         let hasId = Math.random().toString(36).slice(-6);
         originId = hasId;
         let linkId = '';
