@@ -1,0 +1,4 @@
+
+[log] loading Obsidian42 - BRAT 
+[log] loading plugin 
+[log] Theme Design Utilities Plugin loaded.

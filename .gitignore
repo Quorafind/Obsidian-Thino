@@ -13,19 +13,6 @@ logo.svg
 
 *.zip
 *.rar
-*.7z
 
 *.log
 
-main.js
-main.js.map
-
-data.json
-.env
-
-.release-it.cjs
-
-package.json
-pnpm-lock.yaml
-
-scripts/

@@ -1,0 +1,76 @@
+@text-black: #37352f;
+@text-gray: #52504b;
+@text-lightgray: #cac8c4;
+@text-blue: #5783f7;
+@text-unresolved-blue: #8fa2d6;
+@text-green: #55bb8e;
+@text-red: #d28653;
+
+@text-dark-black: #d2d1cd;
+@text-dark-gray: #c7c4bb;
+@text-dark-lightgray: #5e5b56;
+@text-dark-blue: #bbbec7;
+@text-dark-unresolved-blue: #8c92a1;
+@text-dark-green: #457560;
+@text-dark-red: #940b01;
+@text-dark-light-red: #d24c42;
+
+@bg-black: #2f3437;
+@bg-gray: #e4e4e4;
+@bg-whitegray: #f8f8f8;
+@bg-Searchbar-lightgray: #fcfcfc;
+@bg-lightgray: #eaeaea;
+@bg-blue: #1337a3;
+@bg-yellow: yellow;
+@bg-light-blue: #eef3fe;
+@bg-paper-yellow: #fbf4de;
+
+@bg-dark-black: #cacdcf;
+@bg-dark-gray: #353535;
+@bg-dark-whitegray: #808080;
+@bg-dark-lightgray: #727171;
+@bg-dark-Search-lightgray: #302e2e;
+@bg-dark-blue: #2c395a;
+@bg-dark-yellow: rgb(119, 119, 119);
+@bg-dark-light-blue: #616161;
+@bg-dark-paper-yellow: #5f5f5f;
+
+.mono-font-family {
+  font-family: 'ubuntu-mono', SFMono-Regular, Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace;
+}
+
+.hide-scroll-bar {
+  .pretty-scroll-bar(0, 0);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.pretty-scroll-bar(@width: 0px, @height: 0px) {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: @width;
+    height: @height;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: @width;
+    height: @height;
+    border-radius: 8px;
+    background-color: #d5d5d5;
+
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+}
+
+.flex(@direction, @justify, @align) {
+  display: flex;
+  flex-direction: @direction;
+  justify-content: @justify;
+  align-items: @align;
+}

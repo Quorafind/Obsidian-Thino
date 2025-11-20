@@ -1,0 +1,188 @@
+@import './mixin.less';
+
+.theme-light .daily-memo-wrapper {
+  .flex(row, flex-start, flex-start);
+  position: relative;
+  width: calc(100% - 24px);
+  margin-left: 24px;
+  padding: 0;
+  padding-bottom: 24px;
+  border: none;
+  border-left: 2px solid @bg-whitegray;
+
+  &:last-child {
+    border-left: none;
+    padding-bottom: 0;
+  }
+
+  > .time-wrapper {
+    .flex(column, center, center);
+    position: relative;
+    left: -24px;
+    margin-top: -2px;
+    flex-shrink: 0;
+    width: 48px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: @bg-lightgray;
+    color: @text-gray;
+    border: 2px solid white;
+
+    > .normal-text {
+      margin: 0 auto;
+      font-size: 11px;
+      line-height: 24px;
+    }
+  }
+
+  > .memo-content-container {
+    .flex(column, flex-start, flex-start);
+    width: 100%;
+    margin-left: -12px;
+    padding: 0;
+    font-size: 16px;
+    margin-top: -3px;
+
+    > .memo-content-text {
+      margin-top: -14px;
+
+      p {
+        > a {
+          width: 20em;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+        }
+      }
+
+      .tag-span {
+        cursor: unset;
+        padding-left: 4px;
+        padding-right: 6px;
+        margin-left: 4px;
+
+        &:hover {
+          color: @text-blue;
+          background-color: @bg-light-blue;
+        }
+      }
+    }
+
+    > .images-container {
+      .flex(column, flex-start, flex-start);
+      width: 100%;
+
+      > img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        margin-top: 16px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.theme-dark .daily-memo-wrapper {
+  .flex(row, flex-start, flex-start);
+  position: relative;
+  width: calc(100% - 24px);
+  margin-left: 24px;
+  padding: 0;
+  padding-bottom: 24px;
+  border: none;
+  border-left: 2px solid @bg-dark-whitegray;
+
+  &:last-child {
+    border-left: none;
+    padding-bottom: 0;
+  }
+
+  > .time-wrapper {
+    .flex(column, center, center);
+    position: relative;
+    left: -24px;
+    margin-top: -2px;
+    flex-shrink: 0;
+    width: 48px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: @bg-dark-lightgray;
+    color: @text-dark-gray;
+    border: 2px solid @bg-dark-lightgray;
+
+    > .normal-text {
+      margin: 0 auto;
+      font-size: 11px;
+      line-height: 24px;
+    }
+  }
+
+  > .memo-content-container {
+    .flex(column, flex-start, flex-start);
+    width: 100%;
+    margin-left: -12px;
+    padding: 0;
+    font-size: 16px;
+    margin-top: -3px;
+
+    > .memo-content-text {
+      margin-top: -14px;
+      text-overflow: clip;
+      overflow: hidden;
+      -webkit-line-clamp: 2; /*限制在一个块元素显示的文本的行数*/
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      width: 80%;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      -webkit-text-overflow: ellipsis;
+      -moz-text-overflow: ellipsis;
+      white-space: nowrap; /*规定段落中的文本不进行换行*/
+
+      p {
+        > a.link {
+          width: 20em;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+        }
+      }
+
+      .tag-span {
+        cursor: unset;
+        padding-left: 4px;
+        padding-right: 6px;
+        margin-left: 4px;
+
+        &:hover {
+          color: @text-dark-blue;
+          background-color: @bg-dark-light-blue;
+        }
+      }
+    }
+
+    > .images-container {
+      .flex(column, flex-start, flex-start);
+      width: 100%;
+
+      > img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        margin-top: 16px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

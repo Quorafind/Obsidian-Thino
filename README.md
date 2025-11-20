@@ -1,115 +1,113 @@
-<div align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/dark-thino.svg">
-  <img alt="Light mode" style="" src="https://github.com/Quorafind/Obsidian-Thino/blob/main/media/light-thino.svg">
-</picture>
-<p>Thino: A new way for you to quick capture an idea in Obsidian.</p>
-</div>
+# Obsidian Memos
 
-<div align="center">
-  <a href="https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/292fa896-30ea-47f5-be85-7d8398591cbb"><img src="https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/292fa896-30ea-47f5-be85-7d8398591cbb.svg" alt="wakatime"></a> <a href="https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/6d32fae0-c591-478a-860b-33592db7bc79"><img src="https://wakatime.com/badge/user/58e91e50-0298-48e9-b2b6-8567cfc4f2fe/project/6d32fae0-c591-478a-860b-33592db7bc79.svg" alt="wakatime"></a>
-</div>
+[中文文档](./document/chinese.md)
 
-<div align="center">
-  <a href="https://thino.pkmer.net/en/">English</a> | <a href="https://thino.pkmer.net/">中文</a>
-</div>
+> [!warning]
+> Updated: It is now in internal testing on Pkmer, and you can try it out as a Thino insider. If you have previously donated to me through Buy me coffee or other means(before 2023.10), don't worry, I will give you a trial slot! Please feel free to message me privately.
+> <br>
+> 更新：现在它正在 Pkmer 网站上内测发布中，你可以购买 Thino insider 来测试它，如果你之前（在今年十月前）有任意形式捐赠过我，不管数额多少，你都可以随时联系我获取 thino insider 名额！
 
-
-
-> [!warning]  
-> From version 2.0.0, thino is not open-source anymore. You can still use it for free, but you need to buy a license to use some advanced features. You can buy a pro license from [here](https://thino.pkmer.net/).
+> [!note]
+> Thino(Memos 2.1.x) is ready for test, if you are interested in it, please contact me @Boninall via Obsidian discord OR mail: Bonopengate@gmail.com
+> 
+> Thino(Memos 2.1.x) 正在封闭测试中，如果你对此感兴趣，请在 Obsidian discord 上联系我 @Boninall 或者邮件：Bonopengate@gmail.com
 >
-> v1's source codebase is still open-source via MIT license, you can visit it here: [v1 source code](https://github.com/Quorafind/Obsidian-Memos/tree/v1).
+> Releases Note: https://ob.boninall.com/_Update/Obsidian+Memos+Update+MOC
 
-> [!note]  
-> From version 2.0.0, obsidian-memos is renamed to thino, you can search thino in obsidian plugin market to install it.
->
-> About the reason for the rename, please refer to [here](https://thino.pkmer.net/en/thino).
+A new way for you to quick capture an idea in Obsidian. Which is highly based on the awesome open source project: [memos](https://github.com/justmemos/memos) and awesome service: [flomo](https://flomoapp.com/).
 
+![](https://raw.githubusercontent.com/Quorafind/Obsidian-Memos/main/document/Memos-Desktop.png)
+![](https://raw.githubusercontent.com/Quorafind/Obsidian-Memos/main/document/Memos-Mobile.png)
 
+## Introduction
 
-## Basic Introduction
-
-1. All Thinos are sourced from your notes. If you are using the basic version, then all Thinos originate from your diary files. For more information, please visit [link](https://thino.pkmer.net/en/thino/01_thino-basic/01_thino-basic-tutorial/).
-2. In diary mode, it accesses content under a specified title or the entire text of the diary, parsing it into Thinos. A common format is `- 12:00 abcd`.
-3. Each Thino you input will be inserted at the end of your specified title or at the end of the full text.
-
-You can read thinos from multi-source, please visit [link](https://thino.pkmer.net/en/).
-
-## Additional Features
-
-Please refer to our official documentation website: [link](https://thino.pkmer.net/en/thino).
-  
----  
+1. All the memos come from your daily notes, this requires the 'Daily Notes Plugin' to be enabled for this plugin to work.
+2. Memos are taken from below the header you set in the configuration under 'Process Memos below' this is `# Journal` by default.
+3. Memos are created under the heading set in the configuration as 'Insert After' this is `# Journal` by default(Now you can set it to any other heading you like).
+4. When you create a query, a query.md file will be generated automatically in your daily note folder.
+5. When you delete a memo, it will send to the delete.md in your daily note folder, please don't edit it directly.
 
 ## How to Use
 
-1. You need to activate the Daily Notes core plugin at a minimum (If you are a thino pro user, you can disable daily notes plugin when you disable the diary mode).
-2. Before using, please configure at least two settings: processing under the specified title in diary mode and inserting under the specified title.
-3. Open Thino, enter content, and click the `noteit` button.
-4. The content you input will be automatically inserted into your diary file.
+1. First you ensure you have the 'Daily notes' plugin (the core plugin of Obsidian) enabled.
+2. Then, you should check the setting to set your header to process below and insert new memos below, OR leave blank to write the entries to the bottom of the daily file.
+3. Open memos and then click on 'NOTEIT'.
+4. If you allow comments one Memos, you need to ensure you have the 'dataview' plugin  enabled
 
-## Basic Example (Daily Note Mode)
+A entry will be added to your daily note using a bullet format with the current time.
 
-The content you input will be transformed into the following format:
+### Example
 
-```markdown  
-- 22:15 {your input content}  
-```  
+```markdown
+- 22:15 {Contents of memo you entered}
+```
 
-The following markdown text formats will be properly parsed in daily note mode:
+It uses the following formats when parsing to add memos to the list:
 
-```markdown  
-- 19:00 abcd  
-- [ ] 19:00 cdef  
-```  
-  
----  
+- `- 19:00` in daily notes.
+- `- [ ] 19:00` in daily notes.
 
-## CHANGELOG
+## Features
 
-You can read the changelog from [here](./CHANGELOG.md).
+### Memos list
 
-## Pro vs Free
+Show all memos that from your daily notes, so you can read them in one page.
 
-| Features                                                                | Free | Pro |  
-|-------------------------------------------------------------------------|------|-----|  
-| Daily Notes Mode                                                        | ✅    | ✅   |  
-| Thino Share                                                             | ✅    | ✅   |  
-| Global Editor                                                           | ✅    | ✅   |  
-| [Live Preview Editor](https://thino.pkmer.net/en/thino/01_thino-basic/thino-editor/)                      | ✅*   | ✅   |  
-| [Multi Layout](https://thino.pkmer.net/en/thino/01_thino-basic/thino-multi-layout/)                             | ❌    | ✅   |  
-| [Daily Progress Bar](https://thino.pkmer.net/en/thino/01_thino-basic/thino-heatmap/)                       | ❌    | ✅   |  
-| [Custom Suggester for Live Preview Editor](https://thino.pkmer.net/en/thino/01_thino-basic/thino-editor/) | ❌    | ✅   |  
-| [Random Review](https://thino.pkmer.net/en/thino/01_thino-basic/thino-review/)                            | ❌    | ✅   |  
-| [Local Thino Server](https://thino.pkmer.net/en/)                       | ❌    | ✅   | 
-| [Global Capture](https://thino.pkmer.net/en/)                           | ❌    | ✅   |  
-| [Multiple Thino Sources](https://thino.pkmer.net/en/thino/02_thino-advanced/thino-multi-souce/)                   | ❌    | ✅   |  
+### Share memo and timeline
 
-*: Support for live preview editor is limited in free version.
+You can share any memo and daily memo through image.
 
-You can purchase a license to use the following features: [link](https://thino.pkmer.net/en/).
+### Tag list
 
+Build in tag list for JUST memos. The build in tag list will show the tags in your memos. 
 
-## Thino Sync(Not yet available)
+### Query list
 
-**Thino Sync** is a service that allows you to sync your Thinos across devices. It is a paid service. You can purchase a license from [link](https://thino.pkmer.net/en/).
+You can set queries that contains more than one variable to query memos. You can add it\pin it\Delete it. 
 
-We will not collect any of your data, and we will not be able to access your data.
+### Memos Heatmap
 
-- If you use Thino(PKMer) Sync, we store your data to provide the service.
-- If your Sync or Publish subscription expires, your data remains stored on our servers for one month, then deleted permanently. If you cancel the subscription yourself, your data is deleted immediately.
+You have a github heatmap like view to see your memos amount everyday, like dots in calendar. But all of them is clickable to filter that day's memos.
 
+### User banner 
+
+You can set your name in setting ,so don't forget to do it. And you can find the setting and trash box for memos when you click on the three dots near the user name.
+
+In each memo, you can used MARK to make it link to another memo. And you can delete it, share it and so on.
+
+TIPS: 
+
+1. you can double click on the memo to edit the memo.
+2. Ctrl+click to jump to the source of the memo.
+
+### Search and filter
+
+Every time, you search in memos will filter the memos that matched (which are showed in one page), and in memos, there are already four build-in filters to help you for using memos easily.
+
+### More in settings
+
+You can find many interesting stuff in settings, don't hesitate to try them.
+
+### Set different color for the heatmap:
+
+You can download css snippet here: [Heatmap-color](./document/Heatmap-css-snippet.css)
 
 ## How to Install
 
-| Source                                                                  | Description                                                                                                                                                        |  
-|-------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|  
-| [Obsidian Plugin Market](https://obsidian.md/plugins?id=obsidian-memos) | Install from Obsidian's plugin market.                                                                                                                             |  
-| [PKMer plugins](https://pkmer.cn/products/plugin/pluginMarket/)         | Install from PKMer plugins.                                                                                                                                        |  
-| [GitHub](https://github.com/quorafind/obsidian-thino)                   | Download the latest release. Extract and put the three files (main.js, manifest.json, styles.css) to folder `{{obsidian_vault}}/.obsidian/plugins/Obsidian-Thino`. |  
-| BRAT                                                                    | Add `Quorafind/Obsidian-Thino` to BRAT.                                                                                                                            |  
+### From Plugin Market in Obsidian
+
+💜: Directly install from Obsidian Market.
+
+### From BRAT
+
+🚗: Add `Quorafind/Obsidian-Memos` to BRAT.
+
+### Download Manually
+
+🚚: Download the latest release. Extract and put the three files (main.js, manifest.json, styles.css) to folder `{{obsidian_vault}}/.obsidian/plugins/Obsidian-Memos`. 
 
 ## Say Thank You
 
-If you like this plugin, please consider buying license to support my work and enthusiasm. You can buy a license from [here](https://thino.pkmer.net/).
+If you are enjoy using Obsidian-Memos then please support my work and enthusiasm by buying me a coffee on [https://www.buymeacoffee.com/boninall](https://www.buymeacoffee.com/boninall).
+
+<a href="https://www.buymeacoffee.com/boninall"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=boninall&button_colour=6495ED&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00"></a>
