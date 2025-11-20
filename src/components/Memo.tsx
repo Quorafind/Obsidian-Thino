@@ -352,6 +352,56 @@ const Memo: React.FC<Props> = (props: Props) => {
     }
   };
 
+  const handleCopyMemoClick = async () => {
+    try {
+      await navigator.clipboard.writeText(propsMemo.content);
+      new Notice(t('Copied to clipboard Successfully'));
+    } catch (error: any) {
+      new Notice(error.message || 'Failed to copy');
+    }
+  };
+
+  const handleCopyLinkClick = async () => {
+    try {
+      const dailyFormat = getDailyNoteFormat();
+      const date = moment(propsMemo.id.slice(0, 8)).format(dailyFormat);
+      const linkId = propsMemo.hasId || propsMemo.id;
+      const link = `[[${date}#^${linkId}]]`;
+      await navigator.clipboard.writeText(link);
+      new Notice(t('Copied to clipboard Successfully'));
+    } catch (error: any) {
+      new Notice(error.message || 'Failed to copy link');
+    }
+  };
+
+  const handleCopyEmbedLinkClick = async () => {
+    try {
+      const dailyFormat = getDailyNoteFormat();
+      const date = moment(propsMemo.id.slice(0, 8)).format(dailyFormat);
+      const linkId = propsMemo.hasId || propsMemo.id;
+      const embedLink = `![[${date}#^${linkId}]]`;
+      await navigator.clipboard.writeText(embedLink);
+      new Notice(t('Copied to clipboard Successfully'));
+    } catch (error: any) {
+      new Notice(error.message || 'Failed to copy embed link');
+    }
+  };
+
+  const getWordCount = () => {
+    const text = propsMemo.content
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
+      .replace(/!\[\[.*?\]\]/g, '') // Remove image embeds
+      .replace(/\[\[.*?\]\]/g, '') // Remove links
+      .replace(/[#@]/g, '') // Remove special characters
+      .trim();
+
+    if (!text) return 0;
+
+    // Count words (split by whitespace)
+    const words = text.split(/\s+/).filter(word => word.length > 0);
+    return words.length;
+  };
+
   const handleMouseLeaveMemoWrapper = () => {
     if (showConfirmDeleteBtn) {
       toggleConfirmDeleteBtn(false);
@@ -500,21 +550,33 @@ const Memo: React.FC<Props> = (props: Props) => {
             </span>
             <div className="more-action-btns-wrapper">
               <div className="more-action-btns-container">
+                <span className="btn" onClick={handleCopyMemoClick}>
+                  {t('COPY')}
+                </span>
+                <span className="btn" onClick={handleEditMemoClick}>
+                  {t('EDIT')}
+                </span>
+                <span className="btn" onClick={handleGenMemoImageBtnClick}>
+                  {t('SHARE')}
+                </span>
+                <div className="menu-separator"></div>
+                <span className="btn" onClick={handleCopyEmbedLinkClick}>
+                  {t('Copy embed link')}
+                </span>
+                <span className="btn" onClick={handleCopyLinkClick}>
+                  {t('Copy link')}
+                </span>
+                <div className="menu-separator"></div>
                 <span className="btn" onClick={handleShowMemoStoryDialog}>
                   {t('READ')}
                 </span>
                 <span className="btn" onClick={handleMarkMemoClick}>
                   {t('MARK')}
                 </span>
-                <span className="btn" onClick={handleGenMemoImageBtnClick}>
-                  {t('SHARE')}
-                </span>
-                <span className="btn" onClick={handleEditMemoClick}>
-                  {t('EDIT')}
-                </span>
                 <span className="btn" onClick={() => handleSourceMemoClick(propsMemo)}>
                   {t('SOURCE')}
                 </span>
+                <div className="menu-separator"></div>
                 <span className="btn archive-btn" onClick={handleArchiveMemoClick}>
                   {t('ARCHIVE')}
                 </span>
@@ -522,7 +584,11 @@ const Memo: React.FC<Props> = (props: Props) => {
                   className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
                   onClick={handleDeleteMemoClick}
                 >
-                  {showConfirmDeleteBtn ? t('CONFIRM！') : t('DELETE')}
+                  {showConfirmDeleteBtn ? t('CONFIRM！') : t('TRASH BOX')}
+                </span>
+                <div className="menu-separator"></div>
+                <span className="word-count">
+                  {getWordCount()} {getWordCount() === 1 ? t('word') : t('words')}
                 </span>
               </div>
             </div>
