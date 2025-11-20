@@ -1,0 +1,19 @@
+.voice-recorder {
+  &.recording {
+    animation: pulse 1.5s ease-in-out infinite;
+    color: var(--interactive-accent);
+
+    svg {
+      fill: var(--interactive-accent);
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState as useReactState } from 'react';
 import appContext from '../stores/appContext';
-import { dailyNotesService, globalStateService, locationService, memoService, resourceService } from '../services';
+import { dailyNotesService, globalStateService, locationService, memoService, resourceService, audioService } from '../services';
 import utils from '../helpers/utils';
 import { storage } from '../helpers/storage';
 import Editor, { EditorRefActions } from './Editor/Editor';
@@ -19,6 +19,8 @@ import { DefaultEditorLocation, DefaultPrefix, FocusOnEditor, InsertDateFormat, 
 import useToggle from '../hooks/useToggle';
 import { MEMOS_VIEW_TYPE } from '../constants';
 import { t } from '../translations/helper';
+import VoiceRecorder from './VoiceRecorder';
+import RichTextToolbar from './RichTextToolbar';
 
 const getCursorPostion = (input: HTMLTextAreaElement) => {
   const {
@@ -73,6 +75,7 @@ const MemoEditor: React.FC<Props> = () => {
 
   const [isListShown, toggleList] = useToggle(false);
   const [isEditorShown, toggleEditor] = useState(false);
+  const [showRichToolbar, setShowRichToolbar] = useReactState(false);
 
   const editorRef = useRef<EditorRefActions>(null);
   const prevGlobalStateRef = useRef(globalState);
@@ -751,6 +754,44 @@ const MemoEditor: React.FC<Props> = () => {
     inputEl.click();
   }, []);
 
+  const handleVoiceTranscription = useCallback((text: string, audioBlob?: Blob) => {
+    if (!editorRef.current) {
+      return;
+    }
+
+    // Insert the transcribed text into the editor
+    const currentContent = editorRef.current.getContent();
+    const newContent = currentContent ? `${currentContent}\n${text}` : text;
+    editorRef.current.setContent(newContent);
+    handleContentChange(newContent);
+  }, []);
+
+  const handleAudioRecorded = useCallback(async (audioBlob: Blob) => {
+    try {
+      const audioPath = await audioService.saveAudioRecording(audioBlob);
+      const audioLink = audioService.getAudioLink(audioPath);
+
+      if (editorRef.current) {
+        editorRef.current.insertText(`\n${audioLink}`);
+      }
+
+      new Notice(t('Audio recording saved successfully'));
+    } catch (error) {
+      console.error('Error saving audio:', error);
+      new Notice(t('Failed to save audio recording'));
+    }
+  }, []);
+
+  const handleFormat = useCallback((format: string) => {
+    if (editorRef.current && editorRef.current.applyFormat) {
+      editorRef.current.applyFormat(format);
+    }
+  }, []);
+
+  const toggleRichToolbar = useCallback(() => {
+    setShowRichToolbar(prev => !prev);
+  }, []);
+
   const showEditStatus = Boolean(globalState.editMemoId);
 
   const editorConfig = useMemo(
@@ -777,21 +818,29 @@ const MemoEditor: React.FC<Props> = () => {
         {...editorConfig}
         tools={
           <>
-            {/*<img className="action-btn add-tag" src={tag}  />*/}
             <Tag className="action-btn add-tag" onClick={handleTagTextBtnClick} />
-            {/*<img className="action-btn file-upload" src={imageSvg} onClick={handleUploadFileBtnClick} />*/}
             <ImageSvg className="action-btn file-upload" onClick={handleUploadFileBtnClick} />
-            {/*<img*/}
-            {/*  className="action-btn list-or-task"*/}
-            {/*  src={`${!isListShown ? journalSvg : taskSvg}`}*/}
-            {/*  onClick={handleChangeStatus}*/}
-            {/*/>*/}
             {!isListShown ? (
               <JournalSvg className="action-btn list-or-task" onClick={handleChangeStatus} />
             ) : (
               <TaskSvg className="action-btn list-or-task" onClick={handleChangeStatus} />
             )}
-            {/* <img className={`action-btn ${isListShown ? "" : "hidden"}`} src={taskSvg} onClick={handleChangeStatus} /> */}
+            <VoiceRecorder
+              onTranscription={handleVoiceTranscription}
+              onAudioRecorded={handleAudioRecorded}
+            />
+            <button
+              className={`action-btn toggle-toolbar ${showRichToolbar ? 'active' : ''}`}
+              onClick={toggleRichToolbar}
+              title={t('Toggle formatting toolbar')}
+            >
+              Aa
+            </button>
+            {showRichToolbar && (
+              <div className="rich-toolbar-container">
+                <RichTextToolbar onFormat={handleFormat} />
+              </div>
+            )}
           </>
         }
       />

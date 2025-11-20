@@ -262,6 +262,29 @@ class MemoService {
     const memo = await changeMemo(memoId, originalText, text, type, path);
     return memo;
   }
+
+  public async archiveMemoById(id: string): Promise<boolean> {
+    const success = await api.archiveMemo(id);
+    if (success) {
+      appStore.dispatch({
+        type: 'DELETE_MEMO_BY_ID',
+        payload: {
+          id: id,
+        },
+      });
+    }
+    return success;
+  }
+
+  public async unarchiveMemoById(id: string): Promise<boolean> {
+    const success = await api.unarchiveMemo(id);
+    return success;
+  }
+
+  public async fetchArchivedMemos(): Promise<Model.Memo[]> {
+    const data = await api.getArchivedMemos();
+    return data;
+  }
 }
 
 const memoService = new MemoService();

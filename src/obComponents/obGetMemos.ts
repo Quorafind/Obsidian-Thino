@@ -154,6 +154,11 @@ export async function getMemosFromDailyNote(
       const rawText = extractTextFromTodoLine(line);
       let originId = '';
       if (rawText !== '') {
+        // Skip archived memos (they should only appear in archive view)
+        if (/\[archived:true\]/i.test(rawText)) {
+          continue;
+        }
+
         let hasId = Math.random().toString(36).slice(-6);
         originId = hasId;
         let linkId = '';
@@ -212,13 +217,8 @@ export async function getMemosFromDailyNote(
             // console.log(commentsInMemos[0].children.values[j].text);
             const hasId = '';
             let commentTime;
-<<<<<<< HEAD
-            if (/^\d{12}/.test(commentsInMemos[0].children.values[j].text)) {
-              commentTime = commentsInMemos[0].children.values[j].text?.match(/^\d{14}/)[0];
-=======
             if (/^\d{12}/.test(commentsInMemos[0].children[j].text)) {
               commentTime = commentsInMemos[0].children[j].text?.match(/^\d{14}/)[0];
->>>>>>> 4a164c298b6ec45f63cfe1973279f2e915033675
             } else {
               commentTime = startDate.format('YYYYMMDDHHmmSS');
             }

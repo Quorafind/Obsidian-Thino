@@ -72,6 +72,10 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
     app.setting.openTabById('obsidian-memos');
   };
 
+  const handleMemosArchiveBtnClick = () => {
+    locationService.pushHistory('/archive');
+  };
+
   const handleMemosTrashBtnClick = () => {
     locationService.pushHistory('/recycle');
   };
@@ -88,6 +92,9 @@ const MenuBtnsPopup: React.FC<Props> = (props: Props) => {
     <div className={`menu-btns-popup ${shownStatus ? '' : 'hidden'}`} ref={popupElRef}>
       <button className="btn action-btn" onClick={handleMyAccountBtnClick}>
         <span className="icon">👤</span> {t('Settings')}
+      </button>
+      <button className="btn action-btn" onClick={handleMemosArchiveBtnClick}>
+        <span className="icon">📦</span> {t('Archive')}
       </button>
       <button className="btn action-btn" onClick={handleMemosTrashBtnClick}>
         <span className="icon">🗑️</span> {t('Recycle bin')}
