@@ -15,6 +15,7 @@ import appStore from '../../stores/appStore';
 import { t } from '../../translations/helper';
 import useState from 'react-usestateref';
 import { MEMOS_VIEW_TYPE } from '../../constants';
+import { applyMarkdownFormat } from '../../helpers/editorFormatting';
 
 type ItemProps = {
   entity: {
@@ -34,6 +35,7 @@ export interface EditorRefActions {
   insertText: (text: string) => void;
   setContent: (text: string) => void;
   getContent: () => string;
+  applyFormat?: (format: string) => void;
 }
 
 interface EditorProps {
@@ -182,6 +184,23 @@ const Editor = forwardRef((props: EditorProps, ref: React.ForwardedRef<EditorRef
       },
       getContent: (): string => {
         return editorRef.current?.value ?? '';
+      },
+      applyFormat: (format: string) => {
+        if (!editorRef.current) {
+          return;
+        }
+
+        const text = editorRef.current.value;
+        const start = editorRef.current.selectionStart;
+        const end = editorRef.current.selectionEnd;
+
+        const result = applyMarkdownFormat(text, start, end, format);
+
+        editorRef.current.value = result.newText;
+        editorRef.current.setSelectionRange(result.selectionStart, result.selectionEnd);
+        editorRef.current.focus();
+        handleContentChangeCallback(result.newText);
+        refresh();
       },
     }),
     [],

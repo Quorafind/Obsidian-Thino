@@ -5,6 +5,7 @@ import memoService from './memoService';
 import queryService from './queryService';
 // import userService from "./userService";
 import resourceService from './resourceService';
+import audioService from './audioService';
 
 export {
   globalStateService,
@@ -14,4 +15,5 @@ export {
   dailyNotesService,
   // userService,
   resourceService,
+  audioService,
 };

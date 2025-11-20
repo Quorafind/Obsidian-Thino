@@ -1,0 +1,67 @@
+.rich-text-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  background: var(--background-secondary);
+  border-radius: 4px;
+  margin: 4px 0;
+
+  .toolbar-btn {
+    min-width: 28px;
+    height: 28px;
+    padding: 4px 8px;
+    background: var(--background-modifier-form-field);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: var(--background-modifier-hover);
+      border-color: var(--interactive-accent);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.rich-toolbar-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.toggle-toolbar {
+  &.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .rich-text-toolbar {
+    .toolbar-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 6px 10px;
+    }
+  }
+}
