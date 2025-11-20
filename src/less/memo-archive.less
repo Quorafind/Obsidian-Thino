@@ -1,0 +1,74 @@
+@import './mixin.less';
+
+.memo-archive-page {
+  @apply w-full flex flex-col justify-start items-start relative pb-4;
+
+  > .page-container {
+    @apply w-full max-w-full flex flex-col justify-start items-start px-4;
+
+    > .page-header {
+      @apply sticky top-0 bg-white dark:bg-zinc-800 w-full flex flex-row justify-between items-center w-full h-14 pt-4 pb-2 z-2 mb-2 hide-scrollbar;
+
+      > .title-container {
+        @apply flex flex-row justify-start items-center;
+
+        > .icon-img {
+          @apply w-6 h-auto mr-2 opacity-60;
+        }
+
+        > .title-text {
+          @apply font-bold text-2xl opacity-80 dark:text-gray-200;
+        }
+      }
+
+      > .toggle-sidebar-btn {
+        @apply border flex md:hidden justify-center items-center w-8 h-8 p-1 rounded shadow hover:opacity-80 hover:shadow-inner;
+      }
+    }
+
+    > .empty-state {
+      @apply w-full flex flex-col items-center justify-center py-12 text-center;
+
+      > .empty-icon {
+        @apply w-24 h-24 opacity-30 mb-4;
+      }
+
+      > .empty-text {
+        @apply text-gray-500 dark:text-gray-400 text-lg;
+      }
+    }
+
+    > .archived-memos-wrapper {
+      @apply w-full flex flex-col justify-start items-start;
+
+      > .archived-memo {
+        @apply w-full mb-4 opacity-80;
+      }
+    }
+  }
+}
+
+.archived-memo {
+  border-left: 3px solid var(--interactive-accent);
+  background: var(--background-secondary);
+
+  .archive-icon {
+    @apply w-4 h-4 inline-block mr-1 opacity-60;
+  }
+
+  .unarchive-btn {
+    @apply text-green-600 dark:text-green-400;
+
+    &:hover {
+      @apply bg-green-100 dark:bg-green-900;
+    }
+  }
+}
+
+.archive-btn {
+  @apply text-orange-600 dark:text-orange-400;
+
+  &:hover {
+    @apply bg-orange-100 dark:bg-orange-900;
+  }
+}

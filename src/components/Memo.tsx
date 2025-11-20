@@ -339,6 +339,19 @@ const Memo: React.FC<Props> = (props: Props) => {
     }
   };
 
+  const handleArchiveMemoClick = async () => {
+    try {
+      await memoService.archiveMemoById(propsMemo.id);
+      new Notice(t('ARCHIVE SUCCEED'));
+    } catch (error: any) {
+      new Notice(error.message || t('Failed to archive memo'));
+    }
+
+    if (globalStateService.getState().editMemoId === propsMemo.id) {
+      globalStateService.setEditMemoId('');
+    }
+  };
+
   const handleMouseLeaveMemoWrapper = () => {
     if (showConfirmDeleteBtn) {
       toggleConfirmDeleteBtn(false);
@@ -501,6 +514,9 @@ const Memo: React.FC<Props> = (props: Props) => {
                 </span>
                 <span className="btn" onClick={() => handleSourceMemoClick(propsMemo)}>
                   {t('SOURCE')}
+                </span>
+                <span className="btn archive-btn" onClick={handleArchiveMemoClick}>
+                  {t('ARCHIVE')}
                 </span>
                 <span
                   className={`btn delete-btn ${showConfirmDeleteBtn ? 'final-confirm' : ''}`}
