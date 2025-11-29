@@ -1,3 +1,83 @@
+# 2.8.4~2.8.10
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(flow): add UI updates for better responsiveness
+> - feat(list): add memo selection feature for batch operations
+>
+> ## Performance
+>
+> - perf(list): optimize memo list rendering performance
+> - perf(filter): add quick update methods for real-time memo operations
+>
+> ## Fix
+>
+> - fix(chat): preserve scroll position when loading history
+> - fix(scroll): restore scroll functionality in memo list
+> - fix(calendar): remove mobile platform restriction for calendar suggest
+> - fix(filter): improve tag filtering and type checking logic
+> - fix(filter): correct isFiltered logic to check duration range validity
+> - fix(memo-list): prevent unwanted scroll reset when switching to chat view
+> - fix(moments): fix moments view styling and icon rendering
+> - fix(virtual-list): resolve rendering issues and improve scroll stability
+>
+> ## Refactor
+>
+> - refactor(flow): simplify editor implementation with hooks-based approach
+> - refactor(list): remove virtual list and add selection feature
+> - refactor: remove virtual list implementation and update dependencies
+> - refactor: optimize virtual list performance and remove documentation files
+>
+> ## Build
+>
+> - build: migrate to rolldown-vite and add node polyfills
+>
+> ## Style
+>
+> - style: improve UI responsiveness and scrollbar handling
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（Flow）：UI 更新，提升响应速度
+> - 新增（列表）：添加 Memo 选择功能，支持批量操作
+>
+> ## 性能
+>
+> - 性能（列表）：优化 Memo 列表渲染性能
+> - 性能（筛选）：添加实时 Memo 操作的快速更新方法
+>
+> ## 修复
+>
+> - 修复（聊天）：加载历史记录时保持滚动位置
+> - 修复（滚动）：恢复 Memo 列表的滚动功能
+> - 修复（日历）：移除日历建议的移动端平台限制
+> - 修复（筛选）：改进标签筛选和类型检查逻辑
+> - 修复（筛选）：校正筛选时长区间有效性检查逻辑
+> - 修复（列表）：切换到聊天视图时避免意外滚动重置
+> - 修复（Moments 视图）：修复样式与图标渲染问题
+> - 修复（虚拟列表）：解决渲染问题并提升滚动稳定性
+>
+> ## 重构
+>
+> - 重构（Flow）：使用基于 Hooks 的方式简化编辑器实现
+> - 重构（列表）：移除虚拟列表并添加选择功能
+> - 重构：移除虚拟列表实现并更新依赖
+> - 重构：优化虚拟列表性能并移除文档文件
+>
+> ## 构建
+>
+> - 构建：迁移至 rolldown-vite 并添加 Node polyfills
+>
+> ## 样式
+>
+> - 样式：提升界面响应性与滚动条体验
+
+---
+
 # 2.8.0~2.8.3
 
 > [!tips]+ English
