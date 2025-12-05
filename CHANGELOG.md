@@ -1,3 +1,19 @@
+# 2.8.11
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(share): add outer frame option for share image with padding, shadow and background color
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（分享）：分享图片支持外框选项，可添加边距、阴影和背景颜色
+
+---
+
 # 2.8.4~2.8.10
 
 > [!tips]+ English
