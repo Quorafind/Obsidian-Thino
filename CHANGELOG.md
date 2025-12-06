@@ -1,3 +1,41 @@
+# 2.8.12
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(ui): add ShadowRoot component for Shadow DOM style isolation
+>
+> ## Fix
+>
+> - fix(share): fix MarkdownRenderer lifecycle management with proper Component initialization and cleanup
+> - fix(moments): fix edit button icon rendering using Obsidian's setIcon API
+>
+> ## Style
+>
+> - style(chat): improve history button positioning for inline and fluent styles
+> - style(moments): add mix-blend-mode for better edit button visibility
+> - style(share): refine tag styling in share dialog
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（UI）：添加 ShadowRoot 组件，实现 Shadow DOM 样式隔离
+>
+> ## 修复
+>
+> - 修复（分享）：修复 MarkdownRenderer 生命周期管理，正确初始化和清理 Component
+> - 修复（Moments）：使用 Obsidian 的 setIcon API 修复编辑按钮图标渲染
+>
+> ## 样式
+>
+> - 样式（聊天）：改进 inline 和 fluent 样式下历史按钮的定位
+> - 样式（Moments）：添加 mix-blend-mode 提升编辑按钮可见性
+> - 样式（分享）：优化分享对话框中的标签样式
+
+---
+
 # 2.8.11
 
 > [!tips]+ English
