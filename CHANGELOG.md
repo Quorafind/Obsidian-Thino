@@ -1,3 +1,15 @@
+# 2.8.20
+
+> [!tips]+ English
+> 
+> ## Fix
+> - fix(settings): deep copy tokenForVerify to ensure it's mutable (fixes delete property error)
+
+> [!note]- 中文
+>
+> ## 修复
+> - 修复（设置）：深拷贝 tokenForVerify 确保其可变性（修复删除属性错误）
+
 # 2.8.12
 
 > [!tips]+ English
