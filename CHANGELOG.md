@@ -1,3 +1,59 @@
+# 3.0.0-beta.1
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(super): add AI-powered semantic search and Super sidebar with local embedding (ONNX/MiniLM), vector store, and optional OpenAI/Anthropic provider support
+> - feat(search): rewrite SearchBar with time-range presets and Super semantic search integration
+> - feat(memo): add enhanced link card rendering for link-only memos
+> - feat: support special thino showing
+>
+> ## Fix
+>
+> - fix(memo): add per-file optimistic lock to prevent flicker on creation
+> - fix(core): improve image regex and tag filtering logic
+> - fix(filter): fix type filter matching logic for NOT_TAGGED, LINKED, IMAGED, CONNECTED
+> - fix(worker): fix outstanding key tracking in worker pool
+> - fix(persist): return object directly for zustand v5 persist compatibility
+>
+> ## Refactor
+>
+> - refactor(settings): migrate settings page to sidebar-layout modal
+> - refactor(i18n): extract shared locale helper with navigator.language fallback for all language detection
+>
+> ## Style
+>
+> - style(search): redesign search bar with filter chips and dropdown panels
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（Super）：AI 语义搜索与 Super 侧边栏，支持本地嵌入（ONNX/MiniLM）、向量存储，以及可选的 OpenAI/Anthropic 提供商
+> - 新增（搜索）：重构搜索栏，支持时间范围预设与 Super 语义搜索集成
+> - 新增（Memo）：为纯链接 Memo 添加增强型链接卡片渲染
+> - 新增：支持特殊 Thino 展示
+>
+> ## 修复
+>
+> - 修复（Memo）：添加文件级乐观锁，防止创建时闪烁
+> - 修复（核心）：改进图片正则与标签过滤逻辑
+> - 修复（筛选）：修复 NOT_TAGGED、LINKED、IMAGED、CONNECTED 类型过滤匹配逻辑
+> - 修复（Worker）：修复 Worker 池中 outstanding key 追踪问题
+> - 修复（持久化）：直接返回对象以兼容 zustand v5 persist
+>
+> ## 重构
+>
+> - 重构（设置）：设置页迁移为侧边栏布局弹窗
+> - 重构（国际化）：提取共享语言检测辅助函数，支持 navigator.language 回退
+>
+> ## 样式
+>
+> - 样式（搜索）：重新设计搜索栏，支持筛选标签与下拉面板
+
+---
+
 # 2.8.21
 
 > [!tips]+ English
