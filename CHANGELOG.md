@@ -1,3 +1,37 @@
+# 3.0.0-beta.5
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(editor): auto-detect clipboard content on editor focus and show a "Paste as Thino" button for quick capture; added dedup guard to prevent duplicate saves on rapid clicks
+> - feat(settings): add "Show clipboard paste button on focus" toggle in Editor settings (enabled by default)
+> - feat(gallery): improve local image resolution with decoded paths and fallback lookups; clicking on broken images now navigates to the source memo
+> - feat(gallery): support displaying external HTTP images in the gallery
+> - feat(super): support importing embedding model and WASM runtime files from a local folder (for offline or air-gapped setups), with a folder picker in Super settings
+>
+> ## Fix
+>
+> - fix(taglist): eliminate the brief "Loading…" flash that appeared every time the tag list refreshed
+> - fix(search): update the filter toggle icon from a filter icon to a chevron for visual consistency
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（编辑器）：聚焦编辑器时自动检测剪贴板内容，在保存按钮旁显示「粘贴为 Thino」按钮，支持一键创建；增加防重复点击保护，避免连点时重复创建
+> - 新增（设置）：编辑器设置中新增「聚焦时显示剪贴板粘贴按钮」开关（默认开启）
+> - 新增（图库）：改进本地图片解析，支持百分号编码路径和多级回退查找；图片加载失败时点击可跳转到来源 Thino
+> - 新增（图库）：图库现在支持展示外部 HTTP 图片
+> - 新增（Super）：支持从本地文件夹导入嵌入模型和 WASM 运行时文件（适用于离线或内网环境），在 Super 设置中提供文件夹选择器
+>
+> ## 修复
+>
+> - 修复（标签列表）：消除标签列表每次刷新时短暂闪烁「加载中…」的问题
+> - 修复（搜索）：将筛选切换图标从漏斗改为箭头，视觉上更统一
+
+---
+
 # 3.0.0-beta.4
 
 > [!tips]+ English
