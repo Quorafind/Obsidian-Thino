@@ -1,3 +1,27 @@
+# 3.0.0-beta.4
+
+> [!tips]+ English
+>
+> ## Performance
+>
+> - perf(render): reduce UI freezes during startup and large memo loads by marking store updates as non-urgent
+> - perf(render): fix state cascade where loading memos would trigger two back-to-back full re-renders instead of one
+> - perf(css): skip layout and paint for offscreen memo items, reducing ~200ms of layout thrashing when scrolling large lists
+> - perf(taglist): fix tag list re-rendering on every memo change even when tags haven't changed
+> - perf(render): memoize ThinosGroup component to avoid re-rendering day groups unnecessarily
+
+> [!note]- 中文
+>
+> ## 性能
+>
+> - 性能（渲染）：将大批量 Memo 加载标记为低优先级更新，减少启动和加载时的界面卡顿
+> - 性能（渲染）：修复状态级联问题 — 加载 Memo 时不再连续触发两次完整重渲染
+> - 性能（CSS）：屏幕外的 Memo 元素自动跳过布局和绘制，滚动大列表时减少约 200ms 的布局抖动
+> - 性能（标签列表）：修复标签列表在每次 Memo 变化时都重渲染的问题（即使标签本身没变）
+> - 性能（渲染）：缓存日期分组组件，避免不必要的重渲染
+
+---
+
 # 3.0.0-beta.3
 
 > [!tips]+ English
