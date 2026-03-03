@@ -1,3 +1,35 @@
+# 3.0.0-beta.2
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(cli): add Obsidian CLI support with `thino`, `thinos`, and `thinos:search` commands
+>   - `obsidian thino:add` — create a new thino from the command line with content, location, and type options
+>   - `obsidian thinos` — search and list thinos with filters for date, tag, location, type, and output format
+>   - `obsidian thinos:search` — hybrid semantic + text search powered by Super, with text-only fallback
+>   - Use `obsidian help thinos` or `obsidian help thino` to see full commands
+>
+> ## Style
+>
+> - style(search): redesign search bar with filter chips and dropdown panels
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（CLI）：支持 Obsidian CLI，提供 `thino`、`thinos` 和 `thinos:search` 命令
+>   - `obsidian thino:add` — 通过命令行创建新 Thino，支持内容、存储位置和类型选项
+>   - `obsidian thinos` — 搜索和列出 Thino，支持按日期、标签、存储位置、类型等筛选，可输出 JSON 格式
+>   - `obsidian thinos:search` — Super 语义 + 文本混合搜索，无 Super 时回退为纯文本搜索
+>   - 使用 `obsidian help thinos` 和 `obsidian help thino` 来查看完整命令
+>
+> ## 样式
+>
+> - 样式（搜索）：重新设计搜索栏，支持筛选标签与下拉面板
+
+---
+
 # 3.0.0-beta.1
 
 > [!tips]+ English
