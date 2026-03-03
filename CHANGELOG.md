@@ -1,3 +1,29 @@
+# 3.0.0-beta.6
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(canvas): add Thino Canvas Organizer (Pro) — a spatial canvas view for organizing thinos via drag-and-drop, with bidirectional sync between canvas nodes and the thino list
+>
+> ## Fix
+>
+> - fix(sync): external file changes (e.g. from Obsidian Sync or other plugins) now correctly trigger thino list updates; previously a global write-lock could silently block unrelated file events
+> - fix(memo): editing a thino from the canvas organizer now immediately reflects in the thino list without requiring a manual refresh
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（画布）：Thino 画布整理器（Pro）— 支持将 Thino 拖放到画布上进行空间整理，画布与 Thino 列表双向同步，一边改另一边自动更新
+>
+> ## 修复
+>
+> - 修复（同步）：外部文件变更（如 Obsidian 同步、其他插件修改）现在能正确触发 Thino 列表更新；此前全局写入锁可能误拦截无关文件的变更事件，导致外部修改被静默忽略
+> - 修复（Memo）：从画布整理器编辑 Thino 后，列表中的内容会立即更新，无需手动刷新
+
+---
+
 # 3.0.0-beta.5
 
 > [!tips]+ English
