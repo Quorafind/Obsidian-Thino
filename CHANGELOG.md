@@ -1,3 +1,23 @@
+# 3.0.0-beta.3
+
+> [!tips]+ English
+>
+> ## Refactor
+>
+> - refactor(sync): extract SyncService — consolidate all sync logic (create/edit/delete/pin/pull/push) into a single service with guard checks for missing token or webId
+> - refactor(sync): simplify sync callers in memoService, Memos.tsx, MemoTrash.tsx, and obCreateMemo by delegating to SyncService
+> - refactor(webAPI): remove dead code and unused commented-out functions
+
+> [!note]- 中文
+>
+> ## 重构
+>
+> - 重构（同步）：提取 SyncService — 将所有同步逻辑（创建/编辑/删除/置顶/拉取/推送）整合为单一服务，增加缺失 token 或 webId 的守卫检查
+> - 重构（同步）：简化 memoService、Memos.tsx、MemoTrash.tsx 和 obCreateMemo 中的同步调用，统一委托给 SyncService
+> - 重构（webAPI）：移除无用代码和已注释的废弃函数
+
+---
+
 # 3.0.0-beta.2
 
 > [!tips]+ English
