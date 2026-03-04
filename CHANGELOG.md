@@ -1,3 +1,31 @@
+# 3.0.0-beta.7
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(memo): add secret content masking with password protection (Pro) — supports regex-based content masking with blur or block character styles; set a password via settings to reveal masked content on click, with session-level reveal state that resets on reload
+> - feat(memo): add lock action to re-mask revealed secret content — after revealing a masked memo, a new "Lock" context menu item lets you re-mask it instantly without reloading
+> - feat(query): add live preview panel to query create dialog — shows a floating side panel on desktop that displays matching memos in real-time as filters are edited
+>
+> ## Style
+>
+> - style(global): add button-group layout style for consistent grouped button rendering
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（Memo）：新增加密内容遮蔽与密码保护（Pro）— 支持基于正则的内容遮蔽，可选模糊或替换字符样式；在设置中配置密码后点击即可揭示，揭示状态为会话级别，刷新页面后自动重置
+> - 新增（Memo）：新增锁定操作以重新遮蔽已揭示的加密内容 — 揭示加密 Memo 后，右键菜单中可一键重新遮蔽，无需刷新
+> - 新增（查询）：查询创建对话框新增实时预览面板 — 桌面端编辑筛选条件时，侧边浮动面板实时展示匹配的 Memo
+>
+> ## 样式
+>
+> - 样式（全局）：新增按钮组布局样式，统一分组按钮的渲染效果
+
+---
+
 # 3.0.0-beta.6
 
 > [!tips]+ English
