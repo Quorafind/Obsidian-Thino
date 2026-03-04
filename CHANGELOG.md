@@ -4,7 +4,7 @@
 >
 > ## Feat
 >
-> - feat(review): upgrade FSRS algorithm to v5.2.3 (FSRS-6, 21 weights) with full daily review system rebuild
+> - feat(review): upgrade FSRS algorithm with full daily review system rebuild
 > - feat(review): replace IndexedDB storage with app.saveLocalStorage for review data persistence per thino ID
 > - feat(review): add Review settings tab with configurable retention, max interval, fuzz, short-term scheduling, daily limit, and custom FSRS-6 weights
 > - feat(review): auto-skip and clean up review data for deleted thinos during review sessions
@@ -18,7 +18,7 @@
 >
 > ## 新增
 >
-> - 新增（复习）：升级 FSRS 算法至 v5.2.3（FSRS-6，21 权重），全面重构每日复习系统
+> - 新增（复习）：升级 FSRS 算法，全面重构每日复习系统
 > - 新增（复习）：使用 app.saveLocalStorage 替代 IndexedDB 存储复习数据，基于 thino ID 持久化
 > - 新增（复习）：新增复习设置页，支持配置保留率、最大间隔、模糊化、短期调度、每日上限及自定义 FSRS-6 权重
 > - 新增（复习）：复习时自动跳过并清理已删除 thino 的复习数据
