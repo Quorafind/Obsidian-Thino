@@ -1,3 +1,59 @@
+# 3.0.0-beta.9
+
+> [!tips]+ English
+>
+> ## Feat
+>
+> - feat(super): enhance AI chat with structured tool call rendering, reasoning/thinking blocks, and conversation history management
+> - feat(super): add inline Super AI chat in ChatView and MemoEditor with @mention suggestions
+> - feat(super): add PKMer AI provider for Chinese locale users
+>
+> ## Fix
+>
+> - fix(daily): fix date card vertical centering when daily thinos list is empty
+> - fix(settings): fix Capacitor Device access crash on desktop by adding optional chaining
+> - fix(settings): fix device ID retrieval pattern to prevent accessing properties on false
+>
+> ## Refactor
+>
+> - refactor(settings): extract Review and Super settings into modular tab components
+> - refactor(settings): integrate PKMer OAuth verification flow into settings UI
+>
+> ## Style
+>
+> - style(chat): add chat view styles for inline Super conversations
+> - style(memo): unset chat view memo margin for cleaner layout
+> - style(settings): add legacy verify section layout style
+> - style(global): add count-text faint color for tag counts
+
+> [!note]- 中文
+>
+> ## 新增
+>
+> - 新增（Super）：AI 对话增强，支持结构化工具调用渲染、推理/思考块和对话历史管理
+> - 新增（Super）：在 ChatView 和 MemoEditor 中新增内联 Super AI 对话，支持 @提及建议
+> - 新增（Super）：为中文用户新增 PKMer AI 提供商
+>
+> ## 修复
+>
+> - 修复（每日）：修复每日 Thino 列表为空时日期卡片垂直居中的问题
+> - 修复（设置）：修复桌面端 Capacitor Device 访问崩溃，添加可选链操作
+> - 修复（设置）：修复设备 ID 获取模式，防止对 false 值访问属性
+>
+> ## 重构
+>
+> - 重构（设置）：将复习和 Super 设置提取为模块化标签组件
+> - 重构（设置）：将 PKMer OAuth 验证流程集成到设置界面
+>
+> ## 样式
+>
+> - 样式（聊天）：新增内联 Super 对话的聊天视图样式
+> - 样式（Memo）：取消聊天视图中 Memo 的底部边距，布局更整洁
+> - 样式（设置）：新增旧版验证区域布局样式
+> - 样式（全局）：为标签计数添加淡色文字样式
+
+---
+
 # 3.0.0-beta.8
 
 > [!tips]+ English
