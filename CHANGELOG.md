@@ -1,3 +1,41 @@
+# 3.0.0-beta.10
+
+> [!note]- English
+>
+> ## Feat
+>
+> - feat(super): PKMer AI Agent can now automatically delegate tasks to specialized models — image generation, text summarization, web page summarization, and quick classification — without manual model switching
+> - feat(super): generated images are displayed directly in the tool call card with a download button on hover
+>
+> ## Fix
+>
+> - fix(super): fix content duplication after tool calls where the model would repeat earlier text in subsequent rounds
+> - fix(super): fix duplicate streaming content caused by API proxies re-sending the full response as a final delta
+>
+> ## Style
+>
+> - style(super): simplify PKMer AI model selector to a single-click option (Agent handles everything)
+> - style(super): truncate long tool call previews (e.g. image prompts) with ellipsis instead of overflowing
+
+> [!tips]+ 中文
+>
+> ## 新增
+>
+> - 新增（Super）：PKMer AI Agent 现在可以自动调用专用模型完成子任务 —— 生成图片、摘要文本、总结网页、快速分类 —— 无需手动切换模型
+> - 新增（Super）：生成的图片直接在工具调用卡片中展示，悬停显示下载按钮
+>
+> ## 修复
+>
+> - 修复（Super）：修复工具调用后模型重复输出之前内容的问题
+> - 修复（Super）：修复 API 代理在流式传输结束时重发完整内容导致的重复显示问题
+>
+> ## 样式
+>
+> - 样式（Super）：简化 PKMer AI 模型选择器为一键切换（Agent 自动处理所有任务）
+> - 样式（Super）：工具调用预览文本过长时用省略号截断，不再溢出
+
+---
+
 # 3.0.0-beta.9
 
 > [!tips]+ English
