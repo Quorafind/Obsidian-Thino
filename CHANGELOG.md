@@ -1,3 +1,53 @@
+# 3.0.0-beta.11
+
+> [!note]- English
+>
+> ## Feat
+>
+> - feat(tag): add tag pinning, bulk rename, custom emoji/color icons, and right-click context menu for tag management
+> - feat(sidebar): allow hiding/showing sidebar navigation entries with persistent preferences and overflow menu
+> - feat(memo): add "Send to file" action to organize selected memos into a vault file with list, callout, or plain format and optional archive/delete
+> - feat(review): apply current query filter to Daily Review and Random Review memo pools
+>
+> ## Fix
+>
+> - fix(review): reset review state when filter changes in Daily Review; clear query on unmount
+>
+> ## Style
+>
+> - style(editor): simplify clipboard paste button label from "Paste as Thino" to "Paste"
+> - style(tag): add pinned tag indicator, emoji badge, and color dot styles
+> - style(sidebar): add hidden-entry overflow toggle and "more" icon styles
+>
+> ## Build
+>
+> - build: migrate from rolldown-vite to vite 8.0.2; add qrcode dependency
+
+> [!tips]+ 中文
+>
+> ## 新增
+>
+> - 新增（标签）：支持标签置顶、批量重命名、自定义 Emoji/颜色图标，右键菜单管理标签
+> - 新增（侧边栏）：支持隐藏/显示侧边栏导航项，偏好持久化，新增溢出菜单
+> - 新增（Memo）：新增「发送到文件」操作，可将选中 Memo 整理到库中文件，支持列表、Callout 或纯文本格式，可选归档或删除原始 Memo
+> - 新增（复习）：每日复习和随机复习现在会应用当前查询筛选条件
+>
+> ## 修复
+>
+> - 修复（复习）：每日复习中切换筛选条件时重置复习状态；卸载时清除查询
+>
+> ## 样式
+>
+> - 样式（编辑器）：剪贴板粘贴按钮文案从「粘贴为 Thino」简化为「粘贴」
+> - 样式（标签）：新增置顶标签指示器、Emoji 徽章和颜色圆点样式
+> - 样式（侧边栏）：新增隐藏项溢出切换和「更多」图标样式
+>
+> ## 构建
+>
+> - 构建：从 rolldown-vite 迁移至 vite 8.0.2；新增 qrcode 依赖
+
+---
+
 # 3.0.0-beta.10
 
 > [!note]- English
