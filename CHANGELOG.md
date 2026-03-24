@@ -6,8 +6,8 @@
 >
 > - feat(tag): add tag pinning, bulk rename, custom emoji/color icons, and right-click context menu for tag management
 > - feat(sidebar): allow hiding/showing sidebar navigation entries with persistent preferences and overflow menu
-> - feat(memo): add "Send to file" action to organize selected memos into a vault file with list, callout, or plain format and optional archive/delete
-> - feat(review): apply current query filter to Daily Review and Random Review memo pools
+> - feat(Thino): add "Send to file" action to organize selected Thinos into a vault file with list, callout, or plain format and optional archive/delete
+> - feat(review): apply current query filter to Daily Review and Random Review Thino pools
 >
 > ## Fix
 >
@@ -25,7 +25,7 @@
 >
 > - 新增（标签）：支持标签置顶、批量重命名、自定义 Emoji/颜色图标，右键菜单管理标签
 > - 新增（侧边栏）：支持隐藏/显示侧边栏导航项，偏好持久化，新增溢出菜单
-> - 新增（Memo）：新增「发送到文件」操作，可将选中 Memo 整理到库中文件，支持列表、Callout 或纯文本格式，可选归档或删除原始 Memo
+> - 新增（Thino）：新增「发送到文件」操作，可将选中 Thino 整理到库中文件，支持列表、Callout 或纯文本格式，可选归档或删除原始 Thino
 > - 新增（复习）：每日复习和随机复习现在会应用当前查询筛选条件
 >
 > ## 修复
@@ -85,7 +85,7 @@
 > ## Feat
 >
 > - feat(super): enhance AI chat with structured tool call rendering, reasoning/thinking blocks, and conversation history management
-> - feat(super): add inline Super AI chat in ChatView and MemoEditor with @mention suggestions
+> - feat(super): add inline Super AI chat in ChatView and ThinoEditor with @mention suggestions
 > - feat(super): add PKMer AI provider for Chinese locale users
 >
 > ## Fix
@@ -102,7 +102,7 @@
 > ## Style
 >
 > - style(chat): add chat view styles for inline Super conversations
-> - style(memo): unset chat view memo margin for cleaner layout
+> - style(Thino): unset chat view Thino margin for cleaner layout
 > - style(settings): add legacy verify section layout style
 > - style(global): add count-text faint color for tag counts
 
@@ -111,7 +111,7 @@
 > ## 新增
 >
 > - 新增（Super）：AI 对话增强，支持结构化工具调用渲染、推理/思考块和对话历史管理
-> - 新增（Super）：在 ChatView 和 MemoEditor 中新增内联 Super AI 对话，支持 @提及建议
+> - 新增（Super）：在 ChatView 和 ThinoEditor 中新增内联 Super AI 对话，支持 @提及建议
 > - 新增（Super）：为中文用户新增 PKMer AI 提供商
 >
 > ## 修复
@@ -128,7 +128,7 @@
 > ## 样式
 >
 > - 样式（聊天）：新增内联 Super 对话的聊天视图样式
-> - 样式（Memo）：取消聊天视图中 Memo 的底部边距，布局更整洁
+> - 样式（Thino）：取消聊天视图中 Thino 的底部边距，布局更整洁
 > - 样式（设置）：新增旧版验证区域布局样式
 > - 样式（全局）：为标签计数添加淡色文字样式
 
@@ -172,9 +172,9 @@
 >
 > ## Feat
 >
-> - feat(memo): add secret content masking with password protection (Pro) — supports regex-based content masking with blur or block character styles; set a password via settings to reveal masked content on click, with session-level reveal state that resets on reload
-> - feat(memo): add lock action to re-mask revealed secret content — after revealing a masked memo, a new "Lock" context menu item lets you re-mask it instantly without reloading
-> - feat(query): add live preview panel to query create dialog — shows a floating side panel on desktop that displays matching memos in real-time as filters are edited
+> - feat(Thino): add secret content masking with password protection (Pro) — supports regex-based content masking with blur or block character styles; set a password via settings to reveal masked content on click, with session-level reveal state that resets on reload
+> - feat(Thino): add lock action to re-mask revealed secret content — after revealing a masked Thino, a new "Lock" context menu item lets you re-mask it instantly without reloading
+> - feat(query): add live preview panel to query create dialog — shows a floating side panel on desktop that displays matching Thinos in real-time as filters are edited
 >
 > ## Style
 >
@@ -184,9 +184,9 @@
 >
 > ## 新增
 >
-> - 新增（Memo）：新增加密内容遮蔽与密码保护（Pro）— 支持基于正则的内容遮蔽，可选模糊或替换字符样式；在设置中配置密码后点击即可揭示，揭示状态为会话级别，刷新页面后自动重置
-> - 新增（Memo）：新增锁定操作以重新遮蔽已揭示的加密内容 — 揭示加密 Memo 后，右键菜单中可一键重新遮蔽，无需刷新
-> - 新增（查询）：查询创建对话框新增实时预览面板 — 桌面端编辑筛选条件时，侧边浮动面板实时展示匹配的 Memo
+> - 新增（Thino）：新增加密内容遮蔽与密码保护（Pro）— 支持基于正则的内容遮蔽，可选模糊或替换字符样式；在设置中配置密码后点击即可揭示，揭示状态为会话级别，刷新页面后自动重置
+> - 新增（Thino）：新增锁定操作以重新遮蔽已揭示的加密内容 — 揭示加密 Thino 后，右键菜单中可一键重新遮蔽，无需刷新
+> - 新增（查询）：查询创建对话框新增实时预览面板 — 桌面端编辑筛选条件时，侧边浮动面板实时展示匹配的 Thino
 >
 > ## 样式
 >
@@ -205,7 +205,7 @@
 > ## Fix
 >
 > - fix(sync): external file changes (e.g. from Obsidian Sync or other plugins) now correctly trigger thino list updates; previously a global write-lock could silently block unrelated file events
-> - fix(memo): editing a thino from the canvas organizer now immediately reflects in the thino list without requiring a manual refresh
+> - fix(Thino): editing a thino from the canvas organizer now immediately reflects in the thino list without requiring a manual refresh
 
 > [!note]- 中文
 >
@@ -216,7 +216,7 @@
 > ## 修复
 >
 > - 修复（同步）：外部文件变更（如 Obsidian 同步、其他插件修改）现在能正确触发 Thino 列表更新；此前全局写入锁可能误拦截无关文件的变更事件，导致外部修改被静默忽略
-> - 修复（Memo）：从画布整理器编辑 Thino 后，列表中的内容会立即更新，无需手动刷新
+> - 修复（Thino）：从画布整理器编辑 Thino 后，列表中的内容会立即更新，无需手动刷新
 
 ---
 
@@ -228,7 +228,7 @@
 >
 > - feat(editor): auto-detect clipboard content on editor focus and show a "Paste as Thino" button for quick capture; added dedup guard to prevent duplicate saves on rapid clicks
 > - feat(settings): add "Show clipboard paste button on focus" toggle in Editor settings (enabled by default)
-> - feat(gallery): improve local image resolution with decoded paths and fallback lookups; clicking on broken images now navigates to the source memo
+> - feat(gallery): improve local image resolution with decoded paths and fallback lookups; clicking on broken images now navigates to the source Thino
 > - feat(gallery): support displaying external HTTP images in the gallery
 > - feat(super): support importing embedding model and WASM runtime files from a local folder (for offline or air-gapped setups), with a folder picker in Super settings
 >
@@ -260,20 +260,20 @@
 >
 > ## Performance
 >
-> - perf(render): reduce UI freezes during startup and large memo loads by marking store updates as non-urgent
-> - perf(render): fix state cascade where loading memos would trigger two back-to-back full re-renders instead of one
-> - perf(css): skip layout and paint for offscreen memo items, reducing ~200ms of layout thrashing when scrolling large lists
-> - perf(taglist): fix tag list re-rendering on every memo change even when tags haven't changed
-> - perf(render): memoize ThinosGroup component to avoid re-rendering day groups unnecessarily
+> - perf(render): reduce UI freezes during startup and large Thino loads by marking store updates as non-urgent
+> - perf(render): fix state cascade where loading Thinos would trigger two back-to-back full re-renders instead of one
+> - perf(css): skip layout and paint for offscreen Thino items, reducing ~200ms of layout thrashing when scrolling large lists
+> - perf(taglist): fix tag list re-rendering on every Thino change even when tags haven't changed
+> - perf(render): Thinoize ThinosGroup component to avoid re-rendering day groups unnecessarily
 
 > [!note]- 中文
 >
 > ## 性能
 >
-> - 性能（渲染）：将大批量 Memo 加载标记为低优先级更新，减少启动和加载时的界面卡顿
-> - 性能（渲染）：修复状态级联问题 — 加载 Memo 时不再连续触发两次完整重渲染
-> - 性能（CSS）：屏幕外的 Memo 元素自动跳过布局和绘制，滚动大列表时减少约 200ms 的布局抖动
-> - 性能（标签列表）：修复标签列表在每次 Memo 变化时都重渲染的问题（即使标签本身没变）
+> - 性能（渲染）：将大批量 Thino 加载标记为低优先级更新，减少启动和加载时的界面卡顿
+> - 性能（渲染）：修复状态级联问题 — 加载 Thino 时不再连续触发两次完整重渲染
+> - 性能（CSS）：屏幕外的 Thino 元素自动跳过布局和绘制，滚动大列表时减少约 200ms 的布局抖动
+> - 性能（标签列表）：修复标签列表在每次 Thino 变化时都重渲染的问题（即使标签本身没变）
 > - 性能（渲染）：缓存日期分组组件，避免不必要的重渲染
 
 ---
@@ -285,7 +285,7 @@
 > ## Refactor
 >
 > - refactor(sync): extract SyncService — consolidate all sync logic (create/edit/delete/pin/pull/push) into a single service with guard checks for missing token or webId
-> - refactor(sync): simplify sync callers in memoService, Memos.tsx, MemoTrash.tsx, and obCreateMemo by delegating to SyncService
+> - refactor(sync): simplify sync callers in ThinoService, Thinos.tsx, ThinoTrash.tsx, and obCreateThino by delegating to SyncService
 > - refactor(webAPI): remove dead code and unused commented-out functions
 
 > [!note]- 中文
@@ -293,7 +293,7 @@
 > ## 重构
 >
 > - 重构（同步）：提取 SyncService — 将所有同步逻辑（创建/编辑/删除/置顶/拉取/推送）整合为单一服务，增加缺失 token 或 webId 的守卫检查
-> - 重构（同步）：简化 memoService、Memos.tsx、MemoTrash.tsx 和 obCreateMemo 中的同步调用，统一委托给 SyncService
+> - 重构（同步）：简化 ThinoService、Thinos.tsx、ThinoTrash.tsx 和 obCreateThino 中的同步调用，统一委托给 SyncService
 > - 重构（webAPI）：移除无用代码和已注释的废弃函数
 
 ---
@@ -338,12 +338,12 @@
 >
 > - feat(super): add AI-powered semantic search and Super sidebar with local embedding (ONNX/MiniLM), vector store, and optional OpenAI/Anthropic provider support
 > - feat(search): rewrite SearchBar with time-range presets and Super semantic search integration
-> - feat(memo): add enhanced link card rendering for link-only memos
+> - feat(Thino): add enhanced link card rendering for link-only Thinos
 > - feat: support special thino showing
 >
 > ## Fix
 >
-> - fix(memo): add per-file optimistic lock to prevent flicker on creation
+> - fix(Thino): add per-file optimistic lock to prevent flicker on creation
 > - fix(core): improve image regex and tag filtering logic
 > - fix(filter): fix type filter matching logic for NOT_TAGGED, LINKED, IMAGED, CONNECTED
 > - fix(worker): fix outstanding key tracking in worker pool
@@ -364,12 +364,12 @@
 >
 > - 新增（Super）：AI 语义搜索与 Super 侧边栏，支持本地嵌入（ONNX/MiniLM）、向量存储，以及可选的 OpenAI/Anthropic 提供商
 > - 新增（搜索）：重构搜索栏，支持时间范围预设与 Super 语义搜索集成
-> - 新增（Memo）：为纯链接 Memo 添加增强型链接卡片渲染
+> - 新增（Thino）：为纯链接 Thino 添加增强型链接卡片渲染
 > - 新增：支持特殊 Thino 展示
 >
 > ## 修复
 >
-> - 修复（Memo）：添加文件级乐观锁，防止创建时闪烁
+> - 修复（Thino）：添加文件级乐观锁，防止创建时闪烁
 > - 修复（核心）：改进图片正则与标签过滤逻辑
 > - 修复（筛选）：修复 NOT_TAGGED、LINKED、IMAGED、CONNECTED 类型过滤匹配逻辑
 > - 修复（Worker）：修复 Worker 池中 outstanding key 追踪问题
@@ -471,21 +471,21 @@
 > ## Feat
 >
 > - feat(flow): add UI updates for better responsiveness
-> - feat(list): add memo selection feature for batch operations
+> - feat(list): add Thino selection feature for batch operations
 >
 > ## Performance
 >
-> - perf(list): optimize memo list rendering performance
-> - perf(filter): add quick update methods for real-time memo operations
+> - perf(list): optimize Thino list rendering performance
+> - perf(filter): add quick update methods for real-time Thino operations
 >
 > ## Fix
 >
 > - fix(chat): preserve scroll position when loading history
-> - fix(scroll): restore scroll functionality in memo list
+> - fix(scroll): restore scroll functionality in Thino list
 > - fix(calendar): remove mobile platform restriction for calendar suggest
 > - fix(filter): improve tag filtering and type checking logic
 > - fix(filter): correct isFiltered logic to check duration range validity
-> - fix(memo-list): prevent unwanted scroll reset when switching to chat view
+> - fix(Thino-list): prevent unwanted scroll reset when switching to chat view
 > - fix(moments): fix moments view styling and icon rendering
 > - fix(virtual-list): resolve rendering issues and improve scroll stability
 >
@@ -509,17 +509,17 @@
 > ## 新增
 >
 > - 新增（Flow）：UI 更新，提升响应速度
-> - 新增（列表）：添加 Memo 选择功能，支持批量操作
+> - 新增（列表）：添加 Thino 选择功能，支持批量操作
 >
 > ## 性能
 >
-> - 性能（列表）：优化 Memo 列表渲染性能
-> - 性能（筛选）：添加实时 Memo 操作的快速更新方法
+> - 性能（列表）：优化 Thino 列表渲染性能
+> - 性能（筛选）：添加实时 Thino 操作的快速更新方法
 >
 > ## 修复
 >
 > - 修复（聊天）：加载历史记录时保持滚动位置
-> - 修复（滚动）：恢复 Memo 列表的滚动功能
+> - 修复（滚动）：恢复 Thino 列表的滚动功能
 > - 修复（日历）：移除日历建议的移动端平台限制
 > - 修复（筛选）：改进标签筛选和类型检查逻辑
 > - 修复（筛选）：校正筛选时长区间有效性检查逻辑
@@ -555,14 +555,14 @@
 >
 > ## Performance
 >
-> - perf: major MemoList rendering and filtering optimizations; reduce recomputation and add quick-update methods for real-time operations
+> - perf: major ThinoList rendering and filtering optimizations; reduce recomputation and add quick-update methods for real-time operations
 > - perf: improve chart rendering performance and filter recomputation efficiency
 >
 > ## Fix
 >
 > - fix(filter): correct duration-range validity checks when filter thinos
 > - fix(filter): improve tag filtering
-> - fix(memo-list): prevent unwanted scroll reset when switching to chat view
+> - fix(Thino-list): prevent unwanted scroll reset when switching to chat view
 > - fix(moment view): adjust styling and icon rendering issues
 > - fix(safari issue): work around for ios white screen issue
 >
@@ -584,7 +584,7 @@
 >
 > ## 性能
 >
-> - 性能：大幅优化 MemoList 渲染与筛选，减少重复计算，并为实时操作提供快速更新方法
+> - 性能：大幅优化 ThinoList 渲染与筛选，减少重复计算，并为实时操作提供快速更新方法
 > - 性能：优化图表渲染与筛选重算效率
 >
 > ## 修复
