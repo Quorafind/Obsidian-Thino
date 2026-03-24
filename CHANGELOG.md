@@ -18,10 +18,6 @@
 > - style(editor): simplify clipboard paste button label from "Paste as Thino" to "Paste"
 > - style(tag): add pinned tag indicator, emoji badge, and color dot styles
 > - style(sidebar): add hidden-entry overflow toggle and "more" icon styles
->
-> ## Build
->
-> - build: migrate from rolldown-vite to vite 8.0.2; add qrcode dependency
 
 > [!tips]+ 中文
 >
@@ -41,10 +37,6 @@
 > - 样式（编辑器）：剪贴板粘贴按钮文案从「粘贴为 Thino」简化为「粘贴」
 > - 样式（标签）：新增置顶标签指示器、Emoji 徽章和颜色圆点样式
 > - 样式（侧边栏）：新增隐藏项溢出切换和「更多」图标样式
->
-> ## 构建
->
-> - 构建：从 rolldown-vite 迁移至 vite 8.0.2；新增 qrcode 依赖
 
 ---
 
