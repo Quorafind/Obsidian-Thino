@@ -1,3 +1,19 @@
+# 3.0.0-beta.12
+
+> [!note]- English
+>
+> ## Feat
+>
+> - feat(group): persist day-mark group collapse/expand state across sessions so fold preferences survive page reloads
+
+> [!tips]+ 中文
+>
+> ## 新增
+>
+> - 新增（分组）：日期分组的折叠/展开状态现在会跨会话持久化，刷新页面后保留折叠偏好
+
+---
+
 # 3.0.0-beta.11
 
 > [!note]- English
