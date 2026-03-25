@@ -1,3 +1,21 @@
+# 3.0.0-beta.13
+
+> [!note]- English
+>
+> ## Fix
+>
+> - fix(tag): add missing styles for tag color picker button (circle shape, hover scale)
+> - fix(editor): auto-scroll editor container when cursor moves beyond visible area
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - 修复（标签）：补全标签颜色选择器按钮样式（圆形外观、悬停放大效果）
+> - 修复（编辑器）：光标移出可视区域时自动滚动编辑器容器，保持光标可见
+
+---
+
 # 3.0.0-beta.12
 
 > [!note]- English
