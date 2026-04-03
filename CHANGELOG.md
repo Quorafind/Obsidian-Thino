@@ -52,6 +52,9 @@
 > - fix(calendar): remove mobile platform restriction for calendar suggest
 > - fix(chat): preserve scroll position when loading history
 > - fix(scroll): restore scroll functionality in Thino list
+> - fix(journal): fix "Custom" heading date format dropdown reverting immediately; use configured headingDateFormat for H2 parsing with regex fallback for format changes
+> - fix(journal): fix time-only list items (e.g. `- 17:54` with content on next line) not extracting timestamp correctly
+> - fix(journal): fix nested multi-line content losing blank lines; normalize line endings for cross-platform compatibility
 >
 > ## Refactor
 >
@@ -123,6 +126,9 @@
 > - 修复（日历）：移除日历建议的移动端平台限制
 > - 修复（聊天）：加载历史记录时保持滚动位置
 > - 修复（滚动）：恢复 Thino 列表的滚动功能
+> - 修复（Journal）：修复标题日期格式下拉框选择「自定义」后立即回退的问题；H2 标题解析使用配置的 headingDateFormat，并支持正则回退以兼容格式变更
+> - 修复（Journal）：修复时间独占一行（如 `- 17:54`，内容在下一行缩进）时时间戳未被正确提取的问题
+> - 修复（Journal）：修复多行嵌套内容丢失空行的问题；规范化换行符以兼容跨平台
 >
 > ## 重构
 >
