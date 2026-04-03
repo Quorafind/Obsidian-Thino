@@ -9,7 +9,6 @@
 > - feat(super): PKMer AI Agent can now automatically delegate tasks to specialized models — image generation, text summarization, web page summarization, and quick classification — without manual model switching
 > - feat(super): enhance AI chat with structured tool call rendering, reasoning/thinking blocks, and conversation history management
 > - feat(super): add inline Super AI chat in ChatView and ThinoEditor with @mention suggestions
-> - feat(super): add PKMer AI provider for Chinese locale users
 > - feat(super): support importing embedding model and WASM runtime files from a local folder (for offline or air-gapped setups)
 > - feat(review): upgrade FSRS algorithm with full daily review system rebuild, IndexedDB → app.saveLocalStorage migration, configurable retention/interval/weights, auto-skip deleted thinos
 > - feat(review): apply current query filter to Daily Review and Random Review Thino pools
@@ -56,14 +55,9 @@
 >
 > ## Refactor
 >
-> - refactor!: migrate state management from custom stores to Zustand
-> - refactor(sync): extract SyncService — consolidate all sync logic into a single service
 > - refactor(settings): migrate settings page to sidebar-layout modal; extract Review and Super settings into modular tab components
 > - refactor(settings): integrate PKMer OAuth verification flow into settings UI
-> - refactor(i18n): extract shared locale helper with navigator.language fallback
-> - refactor(flow): simplify editor implementation with hooks-based approach
-> - refactor(list): remove virtual list and add selection feature
->
+> 
 > ## Style
 >
 > - style(review): redesign daily review page with progress bar, card swipe animations, stacked card depth effect
@@ -75,9 +69,6 @@
 > - style(editor): simplify clipboard paste button label
 > - style(global): add button-group layout and count-text faint color styles
 >
-> ## Build
->
-> - build: migrate to rolldown-vite and add node polyfills
 
 > [!tips]+ 中文
 >
@@ -135,13 +126,8 @@
 >
 > ## 重构
 >
-> - 重构！：状态管理迁移至 Zustand
-> - 重构（同步）：提取 SyncService — 将所有同步逻辑整合为单一服务
 > - 重构（设置）：设置页迁移为侧边栏布局弹窗；将复习和 Super 设置提取为模块化标签组件
 > - 重构（设置）：将 PKMer OAuth 验证流程集成到设置界面
-> - 重构（国际化）：提取共享语言检测辅助函数，支持 navigator.language 回退
-> - 重构（Flow）：使用基于 Hooks 的方式简化编辑器实现
-> - 重构（列表）：移除虚拟列表并添加选择功能
 >
 > ## 样式
 >
@@ -154,9 +140,6 @@
 > - 样式（编辑器）：剪贴板粘贴按钮文案简化
 > - 样式（全局）：新增按钮组布局和淡色计数文字样式
 >
-> ## 构建
->
-> - 构建：迁移至 rolldown-vite 并添加 Node polyfills
 
 ---
 
