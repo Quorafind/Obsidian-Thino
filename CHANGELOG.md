@@ -55,6 +55,7 @@
 > - fix(journal): fix "Custom" heading date format dropdown reverting immediately; use configured headingDateFormat for H2 parsing with regex fallback for format changes
 > - fix(journal): fix time-only list items (e.g. `- 17:54` with content on next line) not extracting timestamp correctly
 > - fix(journal): fix nested multi-line content losing blank lines; normalize line endings for cross-platform compatibility
+> - fix(mobile): guard all top-level Node.js requires (`http`, `url`, `crypto`, `fs`, `path`, `child_process`, `readline`, `stream`, `electron`) with `Platform.isDesktop` to prevent startup crash on mobile; lazy-load WeChat module via dynamic `import()` since it depends entirely on Node.js runtime
 >
 > ## Refactor
 >
@@ -129,6 +130,7 @@
 > - 修复（Journal）：修复标题日期格式下拉框选择「自定义」后立即回退的问题；H2 标题解析使用配置的 headingDateFormat，并支持正则回退以兼容格式变更
 > - 修复（Journal）：修复时间独占一行（如 `- 17:54`，内容在下一行缩进）时时间戳未被正确提取的问题
 > - 修复（Journal）：修复多行嵌套内容丢失空行的问题；规范化换行符以兼容跨平台
+> - 修复（移动端）：为所有顶层 Node.js 模块引用（`http`、`url`、`crypto`、`fs`、`path`、`child_process`、`readline`、`stream`、`electron`）添加 `Platform.isDesktop` 守卫，防止移动端启动崩溃；WeChat 模块改为动态 `import()` 延迟加载
 >
 > ## 重构
 >
