@@ -1,3 +1,17 @@
+# 3.0.2~3.0.4
+
+> [!note]- English
+>
+> ## Fix
+>
+> - fix: fix issues related to mobile
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - 修复：修复移动端上的阻塞问题
+
 # 3.0.1
 
 > [!note]- English
