@@ -1,3 +1,18 @@
+# 3.0.6
+
+> [!note]- English
+>
+> ## Fix
+> 
+> - Feat: support focus interface
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - 功能：支持专注外观
+
+
 # 3.0.2~3.0.5
 
 > [!note]- English
