@@ -1,14 +1,30 @@
-# 3.0.6
+# 3.0.7
 
 > [!note]- English
 >
 > ## Fix
 > 
-> - Feat: support focus interface
+> - fix: ios clipboard issue
+> - fix: some css issues in focus interface 
 
 > [!tips]+ 中文
 >
 > ## 修复
+>
+> - 修复：ios 剪贴板复制的问题
+> - 修复：Focus 主题下的样式问题
+
+# 3.0.6
+
+> [!note]- English
+>
+> ## 功能
+> 
+> - Feat: support focus interface
+
+> [!tips]+ 中文
+>
+> ## 功能
 >
 > - 功能：支持专注外观
 
