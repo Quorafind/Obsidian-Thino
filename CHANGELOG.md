@@ -1,3 +1,33 @@
+# 3.0.13
+
+> [!note]- English
+>
+> ## Fix
+> 
+> - #916 Persistence for save type switching / JOURNAL-only writes
+> - #874 / #786 frontmatter/properties tags participating in tag filtering and matched display
+> - #917 More robust localized date parsing for Used days / date statistics
+> - #896 Hierarchical list block links landing on the parent item
+> - #927 Focus heatmap colors following the settings
+> - #919 Long block-level math formulas scroll horizontally on narrow screens
+> - #923 / #833 Mitigation for bottom obstruction of the Focus sidebar/editor on mobile
+> - #893 Initialization wizard can scroll in small windows
+> - #926 Mitigation for Focus filter overflow
+
+> [!tips]+ 中文
+>
+> ## 修复
+> 
+> - #916 保存类型切换持久化 / JOURNAL-only 写入
+> - #874 / #786 frontmatter/properties tags 参与标签筛选与匹配显示
+> - #917 Used days / 日期统计对本地化日期解析更稳
+> - #896 层级列表块链接落到父项
+> - #927 Focus 热力图颜色跟随设置
+> - #919 长块级数学公式窄屏可横向滚动
+> - #923 / #833 移动端 Focus 侧栏/编辑器底部遮挡缓解
+> - #893 初始化向导小窗口可滚动
+> - #926 Focus 筛选器溢出缓解
+
 # 3.0.7~3.0.12
 
 > [!note]- English
