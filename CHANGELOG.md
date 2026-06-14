@@ -1,3 +1,89 @@
+# 3.0.14
+
+> [!note]- English
+>
+> ## Feat
+>
+> Added query mode for `thino` code blocks. You can now write YAML query fields inside a `thino` code block to render memo results directly in notes.
+> Query mode is enabled automatically when any of the following fields appears: `view`, `keyword`, `query`, `search`, `table`, `cloud`, or `chart`.
+> Added support for list, table, word cloud, and chart views.
+> Supported query fields include:
+>   * `view`: `list`, `table`, `cloud`, `chart`
+>   * `keyword` / `query` / `search`: keyword search
+>   * `tag`: tag filter with nested tag matching
+>   * `source`: `DAILY`, `FILE`, `CANVAS`, `MULTI`, `JOURNAL`
+>   * `path`: path substring matching
+>   * `range`: `7d`, `30d`, `90d`, `thisWeek`, `thisMonth`, `thisYear`, `lastWeek`, `lastMonth`, `lastYear`
+>   * `limit`: result limit
+>   * `sort`: `desc` / `asc`
+>   * `groupBy`: chart grouping by `day`, `week`, `month`, `tag`, or `source`
+>   * `top`: word count or chart bar count for cloud/chart views
+>   * `includeArchived` / `includeDeleted`: include archived or deleted memos
+>   * `title`: custom block title
+> Multiple query conditions are combined with AND logic.
+> Word cloud items and `groupBy: tag` chart bars can be clicked to update the main view search.
+>
+> Example:
+>
+> ```thino
+> query: project review
+> ```
+>
+> ```thino
+> view: table
+> tag: reading
+> range: 90d
+> limit: 100
+> ```
+>
+> ```thino
+> view: chart
+> groupBy: tag
+> top: 15
+> ```
+
+> [!tips]+ 中文
+>
+> ## 功能
+>
+> 新增 `thino` 代码块查询模式。现在可以在笔记中通过 `thino` 代码块编写 YAML 查询字段，直接渲染对应的 Thino 结果。
+> 当代码块中出现 `view`、`keyword`、`query`、`search`、`table`、`cloud` 或 `chart` 任一字段时，会自动进入查询模式。
+> 新增列表、表格、词云和图表视图支持。
+> 支持的查询字段包括：
+>   * `view`：`list`、`table`、`cloud`、`chart`
+>   * `keyword` / `query` / `search`：关键词检索
+>   * `tag`：标签过滤，支持层级标签匹配
+>   * `source`：`DAILY`、`FILE`、`CANVAS`、`MULTI`、`JOURNAL`
+>   * `path`：路径包含匹配
+>   * `range`：`7d`、`30d`、`90d`、`thisWeek`、`thisMonth`、`thisYear`、`lastWeek`、`lastMonth`、`lastYear`
+>   * `limit`：结果数量上限
+>   * `sort`：`desc` / `asc`
+>   * `groupBy`：图表按 `day`、`week`、`month`、`tag` 或 `source` 分组
+>   * `top`：词云词数或图表柱状数量
+>   * `includeArchived` / `includeDeleted`：是否包含归档或回收站内容
+>   * `title`：自定义代码块标题
+> 多个查询条件会按 AND 逻辑叠加生效。
+> 词云中的词，以及 `groupBy: tag` 图表中的标签柱，支持点击后联动主视图检索。
+>
+> 示例：
+>
+> ```thino
+> query: 项目 复盘
+> ```
+>
+> ```thino
+> view: table
+> tag: reading
+> range: 90d
+> limit: 100
+> ```
+>
+> ```thino
+> view: chart
+> groupBy: tag
+> top: 15
+> ```
+
 # 3.0.13
 
 > [!note]- English
