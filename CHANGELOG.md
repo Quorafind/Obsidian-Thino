@@ -1,3 +1,31 @@
+# 3.0.15
+
+> [!note]- English
+>
+> ## Feat
+>
+> Exposed the current thinos on the global app object. You can now read them anywhere (console / other plugins) via `window.app.getThinos()`.
+> Supported options:
+>   * `window.app.getThinos()` — all normal thinos in the store
+>   * `window.app.getThinos({ filtered: true })` — thinos currently shown in the active view (respects the active query, filter and sort)
+>   * `window.app.getThinos({ status: 'ARCHIVED' })` — archived thinos
+>   * `window.app.getThinos({ status: 'ALL' })` — every thino regardless of status
+>   * `window.app.getThinos({ comments: true })` — comment thinos
+> Returns a shallow copy, so the store is never mutated. The accessor is registered on plugin load and removed on unload.
+
+> [!tips]+ 中文
+>
+> ## 功能
+>
+> 将当前 thinos 暴露到全局 app 对象上。现在可以在任意位置（控制台 / 其他插件）通过 `window.app.getThinos()` 读取当前的 thinos。
+> 支持的选项：
+>   * `window.app.getThinos()` —— store 中所有正常状态的 thinos
+>   * `window.app.getThinos({ filtered: true })` —— 当前视图中显示的 thinos（遵循当前查询、筛选与排序）
+>   * `window.app.getThinos({ status: 'ARCHIVED' })` —— 已归档的 thinos
+>   * `window.app.getThinos({ status: 'ALL' })` —— 不限状态的全部 thinos
+>   * `window.app.getThinos({ comments: true })` —— 评论类 thinos
+> 返回的是浅拷贝，不会影响 store。该接口在插件加载时注册，卸载时移除。
+
 # 3.0.14
 
 > [!note]- English
