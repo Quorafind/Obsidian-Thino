@@ -1,3 +1,21 @@
+# 3.0.16
+
+> [!note]- English
+>
+> ## Fix
+>
+> Added compatibility with the new PKMer OAuth Thino device registration flow.
+> After OAuth login, Thino now reports the current device to PKMer and verifies that the device is active before enabling Pro features.
+> Improved OAuth failure handling for device-limit, missing-product and missing-scope responses.
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> 兼容新版 PKMer OAuth 的 Thino 设备注册流程。
+> OAuth 登录后会向 PKMer 上报当前设备，并在启用 Pro 功能前确认当前设备处于可用状态。
+> 优化设备数量超限、未购买产品、scope 不足等 OAuth 错误提示。
+
 # 3.0.15
 
 > [!note]- English
