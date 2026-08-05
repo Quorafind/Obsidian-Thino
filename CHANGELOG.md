@@ -1,3 +1,19 @@
+# 3.0.19
+
+> [!note]- English
+>
+> ## Change
+>
+> Reproducible release builds for Obsidian plugin review: the source repository now pins the exact toolchain (Node 22 + pnpm 10 with a frozen lockfile), documents the full build-verification steps, and every release is mirrored as an identically-named tag in the source repository so the published `main.js` / `styles.css` can be reproduced byte-for-byte.
+> No functional changes for users.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> 为 Obsidian 插件审核提供可复现的发布构建：源码仓库现在固定了完整工具链（Node 22 + pnpm 10 + 冻结 lockfile），提供了完整的构建验证文档，且每次发布都会在源码仓库打上同名 tag，发布的 `main.js` / `styles.css` 可逐字节复现。
+> 对用户没有功能性变更。
+
 # 3.0.18
 
 > [!note]- English
