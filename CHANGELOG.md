@@ -1,3 +1,17 @@
+# 3.0.20
+
+> [!note]- English
+>
+> ## Change
+>
+> Build output now lands in `dist/` at the repository root so Obsidian's automated build verification can locate the built `main.js`. No functional changes for users.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> 生产构建产物改为输出到仓库根目录的 `dist/`，使 Obsidian 自动构建验证能够找到构建出的 `main.js`。对用户没有功能性变更。
+
 # 3.0.19
 
 > [!note]- English
