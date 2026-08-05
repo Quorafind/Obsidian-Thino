@@ -1,3 +1,27 @@
+# 3.0.18
+
+> [!note]- English
+>
+> ## Fix
+>
+> Resolved all errors flagged by the Obsidian plugin review scan: removed dynamic `<style>` element injection (share-image export now inlines CSS during serialization, and Shadow DOM styles use constructable stylesheets), removed the `document.write` sandbox technique, and cleaned up every unscoped `eslint-disable` directive.
+> Fixed hundreds of review warnings: timers now use `window.setTimeout`/`window.setInterval` for popout-window compatibility, unhandled promises are explicitly voided, deleting files respects your "Deleted files" preference (`FileManager.trashFile`), and command names no longer repeat the plugin name.
+>
+> ## Change
+>
+> Temporarily removed the local (Transformers.js) embedding engine — it relied on downloading and executing a runtime script, which the plugin review does not allow. Semantic search now works through API embedding providers (e.g. OpenAI-compatible); if you previously used the local engine, the setting is migrated automatically. The feature may return in a future release in a compliant form.
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> 解决了 Obsidian 插件审核扫描标记的全部错误：移除动态创建 `<style>` 元素的行为（分享图片导出改为在序列化阶段内联 CSS，Shadow DOM 样式改用 constructable stylesheet）、移除 `document.write` 沙箱写入、清理所有未限定规则的 `eslint-disable` 注释。
+> 修复数百条审核警告：计时器统一使用 `window.setTimeout`/`window.setInterval` 以兼容弹出窗口、未处理的 Promise 显式标记、删除文件遵循用户的"已删除文件"偏好设置（`FileManager.trashFile`）、命令名不再重复插件名。
+>
+> ## 变更
+>
+> 暂时移除本地（Transformers.js）向量嵌入引擎——该功能依赖运行时下载并执行脚本，不符合插件审核要求。语义检索现在仅通过 API 嵌入服务商（如 OpenAI 兼容接口）提供；此前使用本地引擎的用户设置会自动迁移。该功能未来可能以合规形式回归。
+
 # 3.0.16
 
 > [!note]- English
