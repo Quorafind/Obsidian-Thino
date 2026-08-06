@@ -18,6 +18,12 @@
 
 > [!warning]  
 > From version 2.0.0, thino is not open-source anymore. You can still use it for free, but you need to buy a license to use some advanced features. You can buy a pro license from [here](https://thino.pkmer.net/).
+
+## License & disclosure
+
+- **Closed source**: Thino is commercial, closed-source software, distributed under the [Thino Proprietary License](./LICENSE) (all rights reserved). This repository ships the compiled plugin for the Obsidian community directory.
+- **Payment**: the core capture/list features are free; Pro features (e.g. sync with Thino Web, canvas/table/moments views, local HTTP API, AI features) require a paid license from [thino.pkmer.net](https://thino.pkmer.net/).
+- **Network services**: the plugin contacts remote endpoints only for license verification/activation (PKMer), optional Thino Web sync when you enable it, and optional AI providers you configure yourself (your own API keys). None of your notes are sent anywhere unless you explicitly enable sync or AI features.
 >
 > v1's source codebase is still open-source via MIT license, you can visit it here: [v1 source code](https://github.com/Quorafind/Obsidian-Memos/tree/v1).
 
