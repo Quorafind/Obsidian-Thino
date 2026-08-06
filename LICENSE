@@ -1,0 +1,41 @@
+Thino Proprietary License
+
+Copyright (c) 2022-2026 Boninall (Quorafind). All rights reserved.
+
+Thino is commercial, closed-source software distributed as a compiled
+Obsidian plugin. The contents of this repository (including the compiled
+plugin files "main.js", "styles.css", "manifest.json" and release
+archives) are the property of the copyright holder.
+
+Grant of use
+------------
+You are granted a personal, non-exclusive, non-transferable, revocable
+right to install and use the plugin within the Obsidian application.
+Access to Pro or paid features additionally requires a valid license or
+subscription obtained through the official channels.
+
+Restrictions
+------------
+Except as expressly permitted above or as required by applicable law,
+you may not, without prior written permission from the copyright holder:
+
+- copy, redistribute, republish, sell, rent, sublicense, or mirror the
+  software or any part of it;
+- modify, adapt, translate, decompile, disassemble, or reverse engineer
+  the software, or create derivative works based on it;
+- remove, disable, or circumvent any license verification or feature
+  restrictions in the software.
+
+Disclaimer
+----------
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Contact
+-------
+Licensing inquiries: https://github.com/Quorafind
