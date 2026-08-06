@@ -3,6 +3,13 @@ name: Attest release assets
 on:
   release:
     types: [published]
+  # Manual entry point so a release can be attested after the fact, and so
+  # changes to this workflow can be verified without cutting a version.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to attest
+        required: true
 
 permissions:
   contents: read
@@ -18,7 +25,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           # No checkout step runs here, so gh cannot infer the repo from git.
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
         run: |
           mkdir release-assets
           gh release download "$RELEASE_TAG" \
@@ -29,4 +36,9 @@ jobs:
       - name: Generate artifact attestations
         uses: actions/attest@v4
         with:
-          subject-path: 'release-assets/{main.js,manifest.json,styles.css}'
+          # actions/attest globs via @actions/glob, which has no brace
+          # expansion; list the subjects one per line instead.
+          subject-path: |
+            release-assets/main.js
+            release-assets/manifest.json
+            release-assets/styles.css
