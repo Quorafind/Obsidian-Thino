@@ -1,3 +1,231 @@
+# 3.1.0
+
+> [!note]- English
+>
+> ## Improvements
+>
+> - Thino is less than half its former size (`main.js` 2.2 MB → 981 KB) and loads faster. Most dialogs (thino card, image preview, saved filters, share image, bulk tag edit) are rebuilt on Obsidian's native UI.
+> - Calendar rebuilt: week and day views are now per-day lists, `+N More` opens that day, and the agenda shows 30 days around the current date. Clicking the date in the toolbar now jumps to the chosen date.
+> - `#tag` and `[[link]]` completion in the editor now uses Obsidian's suggestion list, shown below the input.
+> - The table view was rewritten: search, three-state column sorting, type/path/status filters and CSV export (desktop).
+> - The gallery lays cards out in CSS columns, filling each column top to bottom.
+> - The onboarding tour is now a step-by-step dialog.
+> - The legacy settings tabs are gone; Obsidian's plugin settings page shows the Thino entry page.
+>
+> ## Fixes
+>
+> - Share as image: the chosen background (color, gradient, pattern or image) now shows around the card; it used to be hidden behind opaque themes.
+> - Moments view: double-clicking a thino opens the editor again.
+> - The sidebar heatmap keeps its activity dots after switching months.
+> - The "enlarge images when viewing" setting now takes effect.
+> - The WeChat login QR code shows the image returned by the server and can be scanned again.
+> - Auto-saving a shared image on mobile writes the file instead of failing.
+> - The moments view switcher and the Thino Daily share button show their icons again.
+> - A WeChat ACP agent whose process exits now returns an error instead of hanging.
+
+> [!tips]+ 中文
+>
+> ## 改进
+>
+> - 插件体积减少一半以上（`main.js` 2.2 MB → 981 KB），加载更快。大部分对话框（Thino 卡片、图片预览、筛选器、分享图片、批量编辑标签）改用 Obsidian 原生界面重写。
+> - 日历重写：周视图和日视图改为按天排列的列表，点 `+N More` 直接打开当天；议程视图显示当前日期前后 30 天。点工具栏上的日期现在可以跳转到所选日期。
+> - 编辑器里的 `#标签` 和 `[[链接]]` 补全改用 Obsidian 的建议列表，显示在输入框下方。
+> - 表格视图重写：搜索、三态列排序、类型/路径/状态筛选，以及 CSV 导出（桌面端）。
+> - 画廊改用 CSS 分栏排版，卡片按列自上而下填充。
+> - 新手引导改为分步对话框。
+> - 移除旧版设置标签页；Obsidian 的插件设置页现在显示 Thino 入口页。
+>
+> ## 修复
+>
+> - 分享为图片：所选背景（纯色、渐变、图案或图片）现在会显示在卡片四周，不再被不透明的主题完全遮住。
+> - Moments 视图：双击 thino 可以重新进入编辑。
+> - 侧栏热力图翻月后，活动标记不再消失。
+> - "查看时放大图片"设置现在会生效。
+> - 微信登录二维码直接显示服务端返回的图片，可以正常扫码。
+> - 移动端开启自动保存时，分享图片会真正写出文件，不再报错。
+> - Moments 视图切换按钮和 Thino Daily 分享按钮的图标恢复显示。
+> - 微信 ACP agent 进程退出后，对话会返回错误，不再一直卡住。
+
+# 3.0.31
+
+> [!note]- English
+>
+> ## Fixes
+>
+> - Pro users signed in through PKMer were treated as free users in some places: generating or testing an API token failed, and the local HTTP API (used by Thino Capture) rejected every request. These now work.
+> - The PRO badge no longer lights up before the license check finishes.
+> - Review, daily review and statistics pages now check the license consistently.
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - 通过 PKMer 登录的 Pro 用户在部分功能中被判为免费用户：生成或测试 API token 失败，本地 HTTP API（Thino Capture 依赖）拒绝所有请求。现已修复。
+> - 许可证校验完成前，PRO 徽章不再提前亮起。
+> - 复习、每日回顾和统计页面的许可证检查保持一致。
+
+# 3.0.30
+
+> [!note]- English
+>
+> ## New
+>
+> - `thino` code blocks support `maxHeight` (default 480, `0` removes the limit) and `pager: more`, which appends the next batch instead of paging.
+>
+> ## Fixes
+>
+> - Devices running different Thino versions no longer make each other reload in a loop and keep reopening the changelog (#938).
+> - Free users no longer lose the Journal save type after restarting Obsidian (#932).
+> - The editor wraps long lines on mobile (#925), and the heatmap color scheme applies to every panel.
+> - Plugins such as QuickAdd get the real Markdown view again; Thino only takes over while its own editor is active.
+> - Editing a thino that has nested child content no longer appends duplicated text.
+
+> [!tips]+ 中文
+>
+> ## 新增
+>
+> - `thino` 代码块支持 `maxHeight`（默认 480，设为 `0` 取消高度限制）和 `pager: more`（点击加载下一批，替代翻页）。
+>
+> ## 修复
+>
+> - 不同版本的设备之间不再互相触发插件反复重载、循环弹出更新日志（#938）。
+> - 免费用户重启 Obsidian 后不再丢失 Journal 保存类型（#932）。
+> - 移动端编辑器长行正常换行（#925），热力图配色在所有面板中生效。
+> - QuickAdd 等插件重新能拿到真正的 Markdown 视图；只有 Thino 自己的编辑器激活时才会接管。
+> - 编辑带有嵌套子内容的 thino 时，不再重复追加内容。
+
+# 3.0.29
+
+> [!note]- English
+>
+> ## Change
+>
+> Thino Web sync now uses the `thino.pkmer.cn` endpoint.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> Thino Web 同步改用 `thino.pkmer.cn` 接口地址。
+
+# 3.0.28
+
+> [!note]- English
+>
+> ## Fixes
+>
+> - On Obsidian 1.13, Thino's plugin settings page shows the entry page again instead of inactive setting rows.
+> - Clicking a Thino result in Obsidian's settings search opens Thino settings at the right tab and highlights the setting.
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - 在 Obsidian 1.13 中，Thino 的插件设置页重新显示入口页，不再是一排无法操作的设置行。
+> - 在 Obsidian 设置搜索中点击 Thino 的结果，会打开 Thino 设置的对应标签页并高亮该设置。
+
+# 3.0.27
+
+> [!note]- English
+>
+> ## Change
+>
+> Super AI replies now arrive in one piece, with a "Working…" indicator while the request runs, instead of streaming token by token.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> Super AI 的回复改为一次性返回，请求期间显示"Working…"提示，不再逐字流式输出。
+
+# 3.0.26
+
+> [!note]- English
+>
+> ## Change
+>
+> Fixed the workflow that attests the build provenance of the release files. No functional changes for users.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> 修复为发布文件生成构建来源证明（attestation）的工作流。对用户没有功能性变更。
+
+# 3.0.25
+
+> [!note]- English
+>
+> ## Change
+>
+> The standalone WeChat sidecar moved out of the plugin source. No functional changes for users.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> 独立运行的微信 sidecar 从插件源码中移出。对用户没有功能性变更。
+
+# 3.0.24
+
+> [!note]- English
+>
+> ## Change
+>
+> Code-quality fixes from the Obsidian plugin review. No functional changes for users.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> 根据 Obsidian 插件审核意见修复代码质量问题。对用户没有功能性变更。
+
+# 3.0.23
+
+> [!note]- English
+>
+> ## New
+>
+> Thino settings can be found through Obsidian's built-in settings search (Obsidian 1.13 and later).
+
+> [!tips]+ 中文
+>
+> ## 新增
+>
+> 可以通过 Obsidian 自带的设置搜索找到 Thino 的设置项（需要 Obsidian 1.13 及以上）。
+
+# 3.0.22
+
+> [!note]- English
+>
+> ## Change
+>
+> Thino now requires Obsidian 1.12.2 or later. Further fixes from the Obsidian plugin review.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> Thino 现在需要 Obsidian 1.12.2 及以上版本。另外继续修复了 Obsidian 插件审核提出的问题。
+
+# 3.0.21
+
+> [!note]- English
+>
+> ## Changes
+>
+> - Thino commands no longer ship with default hotkeys; assign your own under Settings → Hotkeys.
+> - Locally stored UI state is now kept per vault. Existing values are migrated automatically.
+> - Debug logging is off unless explicitly enabled.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> - Thino 命令不再自带默认快捷键，可在"设置 → 快捷键"中自行设置。
+> - 本地保存的界面状态改为按仓库区分，已有数据会自动迁移。
+> - 调试日志默认关闭，需要手动开启。
+
 # 3.0.20
 
 > [!note]- English
