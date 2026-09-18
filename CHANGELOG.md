@@ -1,3 +1,21 @@
+# 3.1.1
+
+> [!note]- English
+>
+> ## Fixes
+>
+> - Flow view: double-clicking a thino replaces it with the editor again, instead of showing the editor underneath the rendered text.
+> - Tag list: a tag with a custom emoji shows only the emoji, no longer the `#` icon next to it.
+> - Filter bar: the thino count no longer shows a stray "…" icon after the result count goes from 0 to more.
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - Flow 视图：双击 thino 会重新直接用编辑器替换原文，不再在渲染内容下方多出一个编辑器。
+> - 标签列表：设置了自定义 emoji 的标签只显示 emoji，不再同时显示 `#` 图标。
+> - 筛选栏：结果数从 0 变为非 0 后，数量前不再多出一个"…"图标。
+
 # 3.1.0
 
 > [!note]- English
