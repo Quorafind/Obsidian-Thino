@@ -1,3 +1,19 @@
+# 3.1.2
+
+> [!note]- English
+>
+> ## Maintenance
+>
+> - Code cleanup for the Obsidian plugin review: fewer redundant type casts, Obsidian DOM helpers instead of raw `document.createElement`, and anchored popups (date picker, inline filter, composer suggestions) positioned through CSS instead of inline styles. No behavior changes are intended.
+> - The release is now built only from committed source, so it can be verified against the tagged source.
+
+> [!tips]+ 中文
+>
+> ## 维护
+>
+> - 按 Obsidian 插件审查要求整理代码：去掉多余的类型断言，改用 Obsidian 的 DOM 辅助方法替代 `document.createElement`，日期选择器、行内筛选、输入补全等弹出面板改为通过 CSS 定位而非内联样式。预期无行为变化。
+> - 发布包现在只从已提交的源码构建，可与对应 tag 的源码逐字节核对。
+
 # 3.1.1
 
 > [!note]- English
