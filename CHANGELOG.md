@@ -1,3 +1,17 @@
+# 3.2.1
+
+> [!note]- English
+>
+> ## Fixes
+>
+> - Sync with Thino Web works again. 3.2.0 could mistake a server without the new sync engine for one that has it, and then stopped syncing; it now uses the new engine only when the server really supports it, and otherwise the previous sync. Changes made in the meantime were kept and are sent now.
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - 修复 Thino Web 同步失效：3.2.0 可能把尚未支持新同步的服务器误判为已支持，导致同步停止；现在只有服务器确实支持时才使用新同步，否则继续使用原来的同步方式。期间的修改都已保留，会在更新后同步上去。
+
 # 3.2.0
 
 > [!note]- English
