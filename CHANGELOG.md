@@ -1,3 +1,17 @@
+# 3.2.2
+
+> [!note]- English
+>
+> ## Changes
+>
+> - The "Sync server" setting has been removed: Thino always syncs with Thino Web. If you had entered another server, Thino goes back to Thino Web with your existing Thino Web sign-in.
+
+> [!tips]+ 中文
+>
+> ## 变更
+>
+> - 移除「同步服务器」设置：Thino 始终与 Thino Web 同步。如果之前填写过其他服务器，更新后会自动回到 Thino Web，并沿用原来的 Thino Web 登录。
+
 # 3.2.1
 
 > [!note]- English
