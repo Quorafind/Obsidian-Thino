@@ -1,3 +1,37 @@
+# 3.2.0
+
+> [!note]- English
+>
+> ## New
+>
+> - New sync engine for Thino Web: only what changed is downloaded, uploads are sent in batches and are safe to retry, and while Obsidian is in the foreground edits made on Thino Web show up in about a second. It is used automatically once the server supports it; until then Thino keeps using the previous sync.
+> - Changes made while offline are kept and sent in order when the connection is back, instead of being lost.
+> - New "Sync server" setting for a self-hosted or local server (leave it empty to use Thino Web). A custom server must use `https://` (`http://` only for localhost) and needs its own sign-in.
+>
+> ## Fixes
+>
+> - A thino created and then deleted right away no longer comes back after the next sync.
+>
+> ## Security
+>
+> - Sign-in details are kept separately for each sync server and are never sent to a different server.
+
+> [!tips]+ 中文
+>
+> ## 新功能
+>
+> - 全新的 Thino Web 同步：只下载有变化的内容，上传按批发送且重试不会重复；Obsidian 在前台时，Thino Web 上的修改约 1 秒内同步过来。服务器支持后自动启用，在此之前继续使用原来的同步方式。
+> - 离线时的修改会保留下来，恢复网络后按顺序上传，不再丢失。
+> - 新增「同步服务器」设置，用于自建或本地服务器（留空即使用 Thino Web）。自定义服务器必须使用 `https://`（仅本机可用 `http://`），并且需要单独登录。
+>
+> ## 修复
+>
+> - 新建后立刻删除的 Thino 不会在下次同步后重新出现。
+>
+> ## 安全
+>
+> - 登录信息按同步服务器分开保存，不会发送给其他服务器。
+
 # 3.1.2
 
 > [!note]- English
