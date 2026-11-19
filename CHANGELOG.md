@@ -1,3 +1,57 @@
+# 3.3.0
+
+> [!note]- English
+>
+> ## New
+>
+> - Share image: new "Image export scale" setting (1×, 1.5×, 2×, 3×). 2× keeps the previous output; a lower scale renders faster.
+> - Multi-file: new "File name format" for new thino files, e.g. `YYYYMMDDHHmmss`. `{id}` inserts the thino id and `/` creates sub folders.
+>
+> ## Fixes
+>
+> - Editing a multi-line thino no longer leaves a copy of its old text behind, and deleting several thinos of the same note at once no longer removes the wrong one.
+> - "Copy link" on a multi-line thino puts the block id where Obsidian finds it, so the link and the embed work.
+> - With "Insert after" set to a heading, a new thino goes to the end of that section instead of into the table of an earlier thino.
+> - Daily notes kept in year folders (format such as `YYYY/MM-DD`) keep their year instead of showing the current one.
+> - Multi-file: only notes in the configured folder and its sub folders are read, notes with an empty body show with their title, and editing a thino never changes its properties.
+> - Tags in the properties of a multi-file note show in the tag list and filter correctly (with or without `#`); such notes no longer count as "No tags".
+> - Share image on phones: the generated image no longer overlaps or gets cut off, the dialog stays clear of the status bar, and framed cards fit the screen.
+> - Long math formulas scroll inside the card on narrow screens.
+> - The "Top" button no longer covers the end-of-list text.
+> - Focus layout on phones: the compose bar and toolbar stay clear of Obsidian's navigation bar, and Save always saves.
+> - Random review starts at the first card after a refresh.
+> - Ticking a sub-task keeps the list where it is.
+> - Mobile: the bottom editor folds back into its button when the list scrolls.
+> - Vim mode: Esc first leaves insert mode instead of closing the fullscreen editor.
+> - The daily notes folder warning shows at most once per session and no longer appears for unrelated multi-file folders.
+> - `obsidian thino add` turns `\n` and `\t` into line breaks and tabs.
+
+> [!tips]+ 中文
+>
+> ## 新功能
+>
+> - 分享图片：新增「图片导出倍率」设置（1×、1.5×、2×、3×）。2× 与之前输出相同，调低生成更快。
+> - 多文件：新增「文件名格式」，用于新建的 Thino 文件，例如 `YYYYMMDDHHmmss`。`{id}` 代表 Thino id，`/` 可创建子文件夹。
+>
+> ## 修复
+>
+> - 编辑多行 Thino 后不再残留一份旧内容；同一篇笔记里批量删除多条 Thino 时不再误删相邻的条目。
+> - 对多行 Thino「复制链接」时，块 ID 写在 Obsidian 能识别的位置，链接和嵌入都能正常使用。
+> - 「插入到…之后」设为标题时，新 Thino 追加到该小节末尾，不再插进前一条 Thino 的表格中间。
+> - 日记按年份分文件夹（如格式 `YYYY/MM-DD`）时保留原来的年份，不再全部显示为今年。
+> - 多文件：只读取设置的文件夹及其子文件夹；正文为空的笔记会显示其标题；编辑 Thino 不会改动属性。
+> - 多文件笔记属性中的标签会出现在标签列表中并能正确筛选（带不带 `#` 都可以），这类笔记也不再被算作「无标签」。
+> - 手机端分享图片：生成的图片不再错位或被裁切，对话框避让状态栏，带外框的卡片也能完整显示在屏幕内。
+> - 窄屏上过长的数学公式可在卡片内横向滚动。
+> - 「Top」按钮不再遮挡列表底部的提示文字。
+> - 手机端 Focus 布局：输入条和工具栏不再被 Obsidian 导航栏遮挡，点击「保存」一定会保存。
+> - 随机回顾刷新后从第一张卡片开始显示。
+> - 勾选子任务后列表停留在原位置。
+> - 移动端：滚动列表时底部编辑器会收回为浮动按钮。
+> - Vim 模式：按 Esc 先退出插入模式，不再直接关闭全屏编辑器。
+> - 日记文件夹的提示每次启动最多出现一次，与日记无关的多文件文件夹也不再触发提示。
+> - `obsidian thino add` 会把 `\n`、`\t` 转成换行和制表符。
+
 # 3.2.2
 
 > [!note]- English
