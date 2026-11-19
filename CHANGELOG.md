@@ -1,3 +1,27 @@
+# 3.3.1
+
+> [!note]- English
+>
+> ## Fixes
+>
+> - Share image: math formulas are laid out properly (fractions, sub- and superscripts, `cases` braces) instead of showing as plain text.
+> - Bulk tag edit: every tag of the selected thinos can be removed (only the first tag of each thino was listed), removing `#tag` no longer touches `#tag/child` or `#tagged`, and a tag a thino already has is not added again.
+> - With "Auto-reveal current file" on, switching to Thino no longer makes the file explorer jump to an unrelated note.
+> - "Append date when task done" now also applies when you tick the checkbox of a task thino itself (in the list and in the calendar), and the date is removed when you untick it.
+> - An empty gallery shows the "Return to home page" button again.
+> - Marking several thinos in a row puts each MARK link on its own line.
+
+> [!tips]+ 中文
+>
+> ## 修复
+>
+> - 分享图片：数学公式正常排版（分式、上下标、分段函数大括号），不再显示成纯文字。
+> - 批量编辑标签：所选 Thino 的所有标签都能删除（之前每条只列出第一个标签）；删除 `#标签` 不会再误删 `#标签/子标签` 或 `#标签xx`；已有的标签不会重复添加。
+> - 开启「自动定位当前文件」时，切换到 Thino 不会再让文件树跳到无关的笔记。
+> - 「任务完成时添加完成日期」现在对 Thino 本身的任务勾选框同样生效（列表和日历中都是），取消勾选时会去掉日期。
+> - 画廊为空时也会显示「返回首页」按钮。
+> - 连续「引用」多条 Thino 时，每条引用链接单独占一行。
+
 # 3.3.0
 
 > [!note]- English
